@@ -80,6 +80,19 @@ task :start_nodes do
   end
 end
 
+desc 'Restart crypti nodes.'
+task :restart_nodes do
+  on kit.servers, in: :sequence, wait: 5 do
+    as kit.deploy_user do
+      within kit.install_path do
+        info 'Restarting crypti node...'
+        execute 'forever', 'restart', 'app.js', '||', ':'
+        info 'Done.'
+      end
+    end
+  end
+end
+
 desc 'Stop crypti nodes.'
 task :stop_nodes do
   on kit.servers, in: :sequence, wait: 5 do
