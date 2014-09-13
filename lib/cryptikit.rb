@@ -10,6 +10,10 @@ class CryptiKit
     @config['deploy_user']
   end
 
+  def deploy_key
+    '~/.ssh/id_rsa.pub'
+  end
+
   def deploy_path
     @config['deploy_path']
   end

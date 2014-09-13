@@ -13,9 +13,15 @@ desc 'Add your public ssh key.'
 task :add_key do
   kit.servers.each do |server|
     run_locally do
-      if test 'which', 'ssh-copy-id' then
+      unless test 'cat', kit.deploy_key then
+        run_locally do
+          info 'Could not find ssh key. Creating a new one...'
+          system 'ssh-keygen -t rsa'
+        end
+      end
+      if test 'cat', kit.deploy_key and test 'which', 'ssh-copy-id' then
         info 'Adding public ssh key to: ' + server + '...'
-        execute 'ssh-copy-id', '-i', '~/.ssh/id_rsa.pub', "#{kit.deploy_user}@#{server}"
+        execute 'ssh-copy-id', '-i', kit.deploy_key, "#{kit.deploy_user}@#{server}"
       end
     end
   end
