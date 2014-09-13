@@ -44,25 +44,25 @@ servers:
 
 ### Usage
 
-1. Preparing servers:
+* Prepare servers:
 
 ```
 rake install_deps
 ```
 
-2. Installing crypti on each node:
+* Install crypti on each server:
 
 ```
 rake install_nodes
 ```
 
-3. Starting nodes:
+* Start nodes:
 
 ```
 rake start_nodes
 ```
 
-4. Check loading status:
+* Check loading status:
 
 ```
 rake get_loading
