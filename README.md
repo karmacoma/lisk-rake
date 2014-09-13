@@ -78,10 +78,10 @@ rake stop_nodes       # Stop crypti nodes
 rake uninstall_nodes  # Uninstall crypti nodes
 ```
 
-### Compatibility
+### Bugs
 
-I have tested these tasks on Digital Ocean and GetClouder using Ubuntu 14.04 droplets / containers.
-Please let me know if you encounter any issues.
+I have tested these tasks on both Digital Ocean and GetClouder using Ubuntu 14.04 droplets / containers.
+Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### TODO List
 
