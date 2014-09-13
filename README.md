@@ -83,7 +83,7 @@ rake uninstall_nodes  # Uninstall crypti nodes
 I have tested these tasks on both Digital Ocean and GetClouder using Ubuntu 14.04 droplets / containers.
 Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
-### TODO List
+### Todo
 
 * Add add_keys task to upload ssh keys to each server
 * Add setup_forging task to enable forging on each server
