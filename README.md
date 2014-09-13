@@ -76,14 +76,39 @@ rake get_loading      # Get loading status
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
 rake start_nodes      # Start crypti nodes
+rake restart_nodes    # Restart crypti nodes
 rake stop_nodes       # Stop crypti nodes
 rake uninstall_nodes  # Uninstall crypti nodes
 ```
 
+#### Targeting Individual Servers
+
+By default the tasks will execute on all servers defined in your config.
+You can target specific servers with any of the commands like so.
+
+```
+rake get_loading servers=0,1,7
+```
+
+Which will execute the get_loading task only on servers 0, 1 and 7 as defined in your config.
+
 ### Bugs
 
-I have tested these tasks on both Digital Ocean and GetClouder using Ubuntu 14.04 LTS droplets / containers.
+I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 14.04 LTS droplets / containers.
 Please let me know if you encounter any issues: karmacrypto@gmail.com.
+
+### Changelog
+
+2014-09-13
+
+* Added automated install script to ease installation of CryptiKit
+* Added ability to target individual servers with each command
+* Added add_key task to upload public ssh key to each server
+* Added restart_nodes task
+
+2014-09-12
+
+* Initial release
 
 ### Todo
 
