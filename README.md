@@ -113,3 +113,8 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 ### Todo
 
 * Add setup_forging task to enable forging on each server
+
+
+### Donations
+
+Welcome at the following address: 18246983367770087687C.
