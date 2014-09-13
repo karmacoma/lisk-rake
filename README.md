@@ -112,8 +112,8 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
+* Add rebuild_nodes task to rebuild node using new blockchain only
 * Add setup_forging task to enable forging on each server
-
 
 ### Donations
 
