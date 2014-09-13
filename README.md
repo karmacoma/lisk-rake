@@ -4,7 +4,7 @@ Simple &amp; easy Crypti node deployment and management for Linux / OSX operatin
 
 ### Prerequisites
 
-One or more Ubuntu based droplets on Digital Ocean / GetClouder with your public SSH keys added.
+One or more Ubuntu based droplets on Digital Ocean / GetClouder with your public SSH key added.
 
 ### Installation
 
