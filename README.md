@@ -42,6 +42,8 @@ servers:
   2: '130.211.63.63'  # Server 3
 ```
 
+### Usage
+
 1. Preparing servers:
 
 ```
@@ -66,7 +68,7 @@ rake start_nodes
 rake get_loading
 ```
 
-### Available commands
+### Commands
 
 ```
 rake get_loading      # Get loading status
