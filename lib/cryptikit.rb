@@ -69,8 +69,8 @@ class CryptiKit
     if selected.nil? or selected.size <= 0 then
       return servers
     else
-      _selected = selected.gsub(/\s/, '').split(',')
-      _selected.collect { |s| servers[s.to_i] }
+      _selected = selected.gsub(/[^0-9,]+/, '').split(',')
+      _selected.collect { |s| servers[s.to_i] }.compact
     end
   end
 end
