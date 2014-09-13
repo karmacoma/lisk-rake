@@ -4,31 +4,18 @@ Simple &amp; easy Crypti node deployment and management for Linux / OSX operatin
 
 ### Prerequisites
 
-One or more Ubuntu based droplets on Digital Ocean / GetClouder with your public SSH key added.
+One or more freshly installed Ubuntu based cloud servers on Digital Ocean or GetClouder.
 
 ### Installation
-
-* Install homebrew (OSX only).
-
-```
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-* Install rvm.
-```
-\curl -sSL https://get.rvm.io | bash -s stable --ruby
-```
-
-Make sure rvm is loaded, or just open a new terminal. See: https://rvm.io/.
 
 * Clone repo.
 ```
 git clone https://github.com/karmacoma/cryptikit.git
 ```
 
-* Install gems.
+* Run automated install script. Tested on OSX 10.9.3 and Ubuntu 14.04 LTS.
 ```
-cd cryptikit;bundle install
+cd cryptikit;sh install.sh
 ```
 
 ### Configuration
@@ -44,25 +31,31 @@ servers:
 
 ### Usage
 
-* Prepare servers:
+* Add your public ssh key to each server:
+
+```
+rake add_key
+```
+
+* Prepare servers for installation of crypti node:
 
 ```
 rake install_deps
 ```
 
-* Install crypti on each server:
+* Install crypti node on each server:
 
 ```
 rake install_nodes
 ```
 
-* Start nodes:
+* Start crypti nodes:
 
 ```
 rake start_nodes
 ```
 
-* Check loading status:
+* Check loading status of crypti nodes:
 
 ```
 rake get_loading
@@ -71,6 +64,7 @@ rake get_loading
 ### Commands
 
 ```
+rake add_key          # Add your public ssh key
 rake get_loading      # Get loading status
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
@@ -81,10 +75,9 @@ rake uninstall_nodes  # Uninstall crypti nodes
 
 ### Bugs
 
-I have tested these tasks on both Digital Ocean and GetClouder using Ubuntu 14.04 droplets / containers.
+I have tested these tasks on both Digital Ocean and GetClouder using Ubuntu 14.04 LTS droplets / containers.
 Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
-* Add add_keys task to upload ssh keys to each server
 * Add setup_forging task to enable forging on each server
