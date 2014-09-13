@@ -9,11 +9,13 @@ One or more freshly installed Ubuntu based cloud servers on Digital Ocean or Get
 ### Installation
 
 * Clone repo.
+
 ```
 git clone https://github.com/karmacoma/cryptikit.git
 ```
 
 * Run automated install script. Tested on OSX 10.9.3 and Ubuntu 14.04 LTS.
+
 ```
 cd cryptikit;sh install.sh
 ```
