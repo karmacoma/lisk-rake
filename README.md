@@ -17,7 +17,8 @@ git clone https://github.com/karmacoma/cryptikit.git
 * Run automated install script. Tested on OSX 10.9.3 and Ubuntu 14.04 LTS.
 
 ```
-cd cryptikit;sh install.sh
+cd cryptikit
+./install.sh
 ```
 
 ### Configuration
