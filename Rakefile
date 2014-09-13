@@ -9,6 +9,18 @@ require 'lib/cryptikit'
 
 kit = CryptiKit.new(YAML.load_file('config.yml'))
 
+desc 'Add public ssh key to each server.'
+task :add_key do
+  kit.servers.each do |server|
+    run_locally do
+      if test 'which', 'ssh-copy-id' then
+        info 'Adding public ssh key to: ' + server + '...'
+        execute 'ssh-copy-id', '-i', '~/.ssh/id_rsa.pub', "#{kit.deploy_user}@#{server}"
+      end
+    end
+  end
+end
+
 desc 'Install dependencies.'
 task :install_deps do
   on kit.servers, in: :sequence, wait: 5 do
