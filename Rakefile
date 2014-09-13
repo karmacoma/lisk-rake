@@ -11,7 +11,7 @@ kit = CryptiKit.new(YAML.load_file('config.yml'))
 
 desc 'Add your public ssh key.'
 task :add_key do
-  kit.servers.each do |server|
+  kit.servers(ENV['servers']).each do |server|
     run_locally do
       unless test 'cat', kit.deploy_key then
         run_locally do
@@ -29,7 +29,7 @@ end
 
 desc 'Install dependencies.'
 task :install_deps do
-  on kit.servers, in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     as kit.deploy_user do
       info 'Adding repository...'
       execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
@@ -44,7 +44,7 @@ end
 
 desc 'Install crypti nodes.'
 task :install_nodes do
-  on kit.servers, in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     as kit.deploy_user do
@@ -74,7 +74,7 @@ end
 
 desc 'Uninstall crypti nodes.'
 task :uninstall_nodes do
-  on kit.servers, in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     as kit.deploy_user do
@@ -87,7 +87,7 @@ end
 
 desc 'Start crypti nodes.'
 task :start_nodes do
-  on kit.servers, in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     as kit.deploy_user do
       within kit.install_path do
         info 'Starting crypti node...'
@@ -100,7 +100,7 @@ end
 
 desc 'Restart crypti nodes.'
 task :restart_nodes do
-  on kit.servers, in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     as kit.deploy_user do
       within kit.install_path do
         info 'Restarting crypti node...'
@@ -113,7 +113,7 @@ end
 
 desc 'Stop crypti nodes.'
 task :stop_nodes do
-  on kit.servers, in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     as kit.deploy_user do
       within kit.install_path do
         info 'Stopping crypti node...'
@@ -127,7 +127,7 @@ end
 desc 'Get loading status.'
 task :get_loading do
   puts 'Getting loading status...'
-  kit.servers.each do |server|
+  kit.servers(ENV['servers']).each do |server|
     begin
       body = open("http://#{server}:6040/api/getLoading").read
       puts "Node: #{server}: #{JSON.parse(body)}"

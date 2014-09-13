@@ -30,9 +30,12 @@ class CryptiKit
     @config['blockchain_url']
   end
 
-  def servers
-    servers = @config['servers']
-    servers.is_a?(Hash) ? servers.values : []
+  def servers(selected = nil)
+    if @config['servers'].is_a?(Hash) then
+      select_servers(@config['servers'].values, selected)
+    else
+      []
+    end
   end
 
   def zip_file
@@ -59,6 +62,15 @@ class CryptiKit
         user: self.deploy_user,
         auth_methods: ['publickey']
       }
+    end
+  end
+
+  def select_servers(servers, selected)
+    if selected.nil? or selected.size <= 0 then
+      return servers
+    else
+      _selected = selected.gsub(/\s/, '').split(',')
+      _selected.collect { |s| servers[s.to_i] }
     end
   end
 end
