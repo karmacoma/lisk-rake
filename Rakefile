@@ -9,7 +9,7 @@ require 'lib/cryptikit'
 
 kit = CryptiKit.new(YAML.load_file('config.yml'))
 
-desc 'Add public ssh key to each server.'
+desc 'Add your public ssh key.'
 task :add_key do
   kit.servers.each do |server|
     run_locally do
