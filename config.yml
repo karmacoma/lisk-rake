@@ -1,0 +1,18 @@
+deploy_path: '/var/crypti'
+deploy_user: 'root'
+app_url: 'http://downloads.crypti.me/crypti-node/0.1.x/crypti-linux-0.1.6c.zip'
+app_version: '0.1.6c'
+blockchain_url: 'https://www.dropbox.com/s/xer6cz5kr0mgcs7/blockchain.db?dl=1'
+servers:
+ #0: '0.0.0.0' # Server 1
+ #1: '0.0.0.1' # Server 2
+ #2: '0.0.0.2' # Server 3
+ #3: '0.0.0.3' # Server 4
+ #4: '0.0.0.4' # Server 5
+ #5: '0.0.0.5' # Server 6
+ #6: '0.0.0.6' # Server 7
+ #7: '0.0.0.7' # Server 8
+ #8: '0.0.0.8' # Server 9
+ #9: '0.0.0.9' # Server 10
+ #10: '0.0.0.10' # Server 11
+ #11: '0.0.0.11' # Server 12
