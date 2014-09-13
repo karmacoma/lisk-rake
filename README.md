@@ -40,6 +40,10 @@ servers:
 rake add_key
 ```
 
+> NOTE:
+> If you do not have a key, then CryptiKit will prompt you to generate one.
+> At which point CryptiKit will proceed with adding the key to each server.
+
 * Prepare servers for installation of crypti node:
 
 ```
