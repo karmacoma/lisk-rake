@@ -8,7 +8,6 @@ One or more Ubuntu based droplets on Digital Ocean / GetClouder with your public
 
 ### Installation
 
-
 * Install homebrew (OSX only).
 
 ```
