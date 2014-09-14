@@ -70,6 +70,8 @@ rake get_loading
 
 ### Commands
 
+Type ```rake -T``` to get a complete list of commands.
+
 ```
 rake add_key          # Add your public ssh key
 rake get_loading      # Get loading status
@@ -112,8 +114,9 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
-* Add rebuild_nodes task to rebuild node using new blockchain only
-* Add setup_forging task to enable forging on each server
+* Add "rebuild_nodes" task to rebuild node using new blockchain only
+* Add "add_server / remove_server" tasks for managing server list
+* Add "setup_forging" task to enable forging on each server
 
 ### Donations
 
