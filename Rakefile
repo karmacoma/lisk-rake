@@ -112,7 +112,7 @@ task :restart_nodes do
   end
 end
 
-desc 'Rebuild crypti nodes.'
+desc 'Rebuild crypti nodes (using new blockchain only).'
 task :rebuild_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     info 'Stopping all processes...'
