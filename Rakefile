@@ -187,8 +187,8 @@ task :get_loading do
     begin
       body = capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040/api/getLoading'
       info "Node: #{server}: #{JSON.parse(body)}"
-    rescue => exception
-      info "Node: #{server}: #{exception}"
+    rescue
+      info "Node: #{server}: API query failed. Check crypti node is running and blockchain is fully loaded."
     end
   end
 end
@@ -200,8 +200,8 @@ task :get_forging do
     begin
       body = capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040/forgingApi/getForgingInfo'
       info "Node: #{server}: #{JSON.parse(body)}"
-    rescue => exception
-      info "Node: #{server}: #{exception}"
+    rescue
+      info "Node: #{server}: API query failed. Check crypti node is running and blockchain is fully loaded."
     end
   end
 end
