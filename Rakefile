@@ -55,8 +55,6 @@ task :install_nodes do
       within kit.deploy_path do
         info 'Downloading crypti...'
         execute 'wget', kit.app_url
-        info 'Downloading blockchain...'
-        execute 'wget', kit.blockchain_url
         info 'Installing crypti...'
         execute 'unzip', kit.zip_file
         info 'Cleaning up...'
@@ -65,8 +63,10 @@ task :install_nodes do
       within kit.install_path do
         info 'Installing node modules...'
         execute 'npm', 'install'
+        info 'Downloading blockchain...'
+        execute 'wget', kit.blockchain_url
         info 'Installing blockchain...'
-        execute 'mv', '../blockchain.db?dl=1', 'blockchain.db'
+        execute 'mv', 'blockchain.db?dl=1', 'blockchain.db'
         info 'Done.'
       end
     end
@@ -106,6 +106,27 @@ task :restart_nodes do
       within kit.install_path do
         info 'Restarting crypti node...'
         execute 'forever', 'restart', 'app.js', '||', ':'
+        info 'Done.'
+      end
+    end
+  end
+end
+
+desc 'Rebuild crypti nodes.'
+task :rebuild_nodes do
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
+    info 'Stopping all processes...'
+    execute 'forever', 'stopall', '||', ':'
+    as kit.deploy_user do
+      within kit.install_path do
+        info 'Downloading blockchain...'
+        execute 'wget', kit.blockchain_url
+        info 'Installing blockchain...'
+        execute 'mv', 'blockchain.db?dl=1', 'blockchain.db'
+        info 'Removing old log file...'
+        execute 'rm', '-f', 'logs.log'
+        info 'Starting crypti node...'
+        execute 'forever', 'start', 'app.js', '||', ':'
         info 'Done.'
       end
     end
