@@ -84,6 +84,7 @@ rake get_forging      # Get forging status
 rake get_loading      # Get loading status
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
+rake rebuild_nodes    # Rebuild crypti nodes (using new blockchain only)
 rake restart_nodes    # Restart crypti nodes
 rake start_forging    # Start forging on crypti nodes
 rake start_nodes      # Start crypti nodes
@@ -119,6 +120,7 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 2014-09-15
 
+* Added "rebuild_nodes" task to rebuild nodes using new blockchain only
 * Added "start_forging" / "stop_forging" tasks to enable and disable forging
 * Added "get_forging" task to verify forging status of each node
 
@@ -135,8 +137,8 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
-* Add "rebuild_nodes" task to rebuild node using new blockchain only
 * Add "add_server / remove_server" tasks for managing server list
+* Add automated update script to get the latest CryptiKit release
 
 ### Donations
 
