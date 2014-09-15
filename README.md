@@ -74,11 +74,14 @@ Type ```rake -T``` to get a complete list of commands.
 
 ```
 rake add_key          # Add your public ssh key
+rake get_forging      # Get forging status
 rake get_loading      # Get loading status
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
-rake start_nodes      # Start crypti nodes
 rake restart_nodes    # Restart crypti nodes
+rake start_forging    # Start forging on crypti nodes
+rake start_nodes      # Start crypti nodes
+rake stop_forging     # Stop forging on crypti nodes
 rake stop_nodes       # Stop crypti nodes
 rake uninstall_nodes  # Uninstall crypti nodes
 ```
