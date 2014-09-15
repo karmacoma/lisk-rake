@@ -1,4 +1,5 @@
 require 'yaml'
+require 'json'
 
 class CryptiKit
   def initialize(config)
@@ -52,6 +53,14 @@ class CryptiKit
 
   def npm_dependencies
     ['forever']
+  end
+
+  def get_passphrase(server)
+    print "Node: #{server}: Please enter your secret passphrase:\s"
+    passphrase = STDIN.noecho(&:gets)
+    passphrase = { :secret => passphrase.chomp }
+    print "\n"
+    passphrase.to_json
   end
 
   private

@@ -2,11 +2,10 @@ require 'rubygems'
 require 'io/console'
 require 'sshkit'
 require 'sshkit/dsl'
-require 'open-uri'
-require 'json'
 
 $:.unshift File.dirname(__FILE__)
 require 'lib/cryptikit'
+require 'lib/cryptiapi'
 
 kit = CryptiKit.new(YAML.load_file('config.yml'))
 
@@ -150,16 +149,11 @@ desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
   kit.servers(ENV['servers']).each do |server|
-    print "Node: #{server}: Please enter your secret passphrase:\s"
-    passphrase = STDIN.noecho(&:gets)
-    passphrase = { :secret => passphrase.chomp }.to_json
-    print "\n"
     on server do
-      SSHKit.config.output_verbosity = Logger::WARN
-      execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{passphrase}'", 'http://127.0.0.1:6040/forgingApi/startForging'
+      api = CryptiApi.new(self)
+      api.silent_post '/forgingApi/startForging', kit.get_passphrase(server)
     end
   end
-  SSHKit.config.output_verbosity = Logger::INFO
   Rake::Task['get_forging'].invoke
 end
 
@@ -167,16 +161,11 @@ desc 'Stop forging on crypti nodes'
 task :stop_forging do
   puts 'Stopping forging...'
   kit.servers(ENV['servers']).each do |server|
-    print "Node: #{server}: Please enter your secret passphrase:\s"
-    passphrase = STDIN.noecho(&:gets)
-    passphrase = { :secret => passphrase.chomp }.to_json
-    print "\n"
     on server do
-      SSHKit.config.output_verbosity = Logger::WARN
-      execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{passphrase}'", 'http://127.0.0.1:6040/forgingApi/stopForging'
+      api = CryptiApi.new(self)
+      api.silent_post '/forgingApi/stopForging', kit.get_passphrase(server)
     end
   end
-  SSHKit.config.output_verbosity = Logger::INFO
   Rake::Task['get_forging'].invoke
 end
 
@@ -184,12 +173,9 @@ desc 'Get loading status'
 task :get_loading do
   puts 'Getting loading status...'
   on kit.servers(ENV['servers']).each do |server|
-    begin
-      body = capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040/api/getLoading'
-      info "Node: #{server}: #{JSON.parse(body)}"
-    rescue
-      info "Node: #{server}: API query failed. Check crypti node is running and blockchain is fully loaded."
-    end
+    api  = CryptiApi.new(self)
+    body = api.get '/api/getLoading'
+    info "Node: #{server}: " + body.to_s
   end
 end
 
@@ -197,11 +183,8 @@ desc 'Get forging status'
 task :get_forging do
   puts 'Getting forging status...'
   on kit.servers(ENV['servers']).each do |server|
-    begin
-      body = capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040/forgingApi/getForgingInfo'
-      info "Node: #{server}: #{JSON.parse(body)}"
-    rescue
-      info "Node: #{server}: API query failed. Check crypti node is running and blockchain is fully loaded."
-    end
+    api  = CryptiApi.new(self)
+    body = api.get '/forgingApi/getForgingInfo'
+    info "Node: #{server}: " + body.to_s
   end
 end
