@@ -101,6 +101,11 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
 
+2014-09-15
+
+* Added "start_forging" / "stop_forging" tasks to enable and disable forging
+* Added "get_forging" task to verify forging status of each node
+
 2014-09-13
 
 * Added automated install script to ease installation of CryptiKit
@@ -116,7 +121,6 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 * Add "rebuild_nodes" task to rebuild node using new blockchain only
 * Add "add_server / remove_server" tasks for managing server list
-* Add "setup_forging" task to enable forging on each server
 
 ### Donations
 
