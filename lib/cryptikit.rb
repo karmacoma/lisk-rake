@@ -47,7 +47,7 @@ class CryptiKit
   end
 
   def apt_dependencies
-    ['wget', 'unzip', 'nodejs']
+    ['build-essential', 'wget', 'unzip', 'nodejs']
   end
 
   def npm_dependencies
