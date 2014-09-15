@@ -64,8 +64,6 @@ task :install_nodes do
         execute 'npm', 'install'
         info 'Downloading blockchain...'
         execute 'wget', kit.blockchain_url
-        info 'Installing blockchain...'
-        execute 'mv', 'blockchain.db?dl=1', 'blockchain.db'
         info 'Done.'
       end
     end
@@ -120,8 +118,6 @@ task :rebuild_nodes do
         execute 'forever', 'stopall', '||', ':'
         info 'Downloading blockchain...'
         execute 'wget', kit.blockchain_url
-        info 'Installing blockchain...'
-        execute 'mv', 'blockchain.db?dl=1', 'blockchain.db'
         info 'Removing old log file...'
         execute 'rm', '-f', 'logs.log'
         info 'Starting crypti node...'
