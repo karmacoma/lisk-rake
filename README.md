@@ -103,6 +103,13 @@ rake get_loading servers=0,1,7
 
 Which will execute the get_loading task only on servers 0, 1 and 7 as defined in your config.
 
+#### Forging
+
+Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, CryptiKit will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the crypti node using curl.
+
+> NOTE:
+> You will need >= 1000 XCR in the specified account to start forging.
+
 ### Bugs
 
 I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 14.04 LTS droplets / containers.
