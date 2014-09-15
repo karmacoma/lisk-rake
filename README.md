@@ -68,6 +68,12 @@ rake start_nodes
 rake get_loading
 ```
 
+* Start forging:
+
+```
+rake start_forging
+```
+
 ### Commands
 
 Type ```rake -T``` to get a complete list of commands.
