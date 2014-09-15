@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'io/console'
 require 'sshkit'
 require 'sshkit/dsl'
 require 'open-uri'
@@ -120,6 +121,36 @@ task :stop_nodes do
         execute 'forever', 'stop', 'app.js', '||', ':'
         info 'Done.'
       end
+    end
+  end
+end
+
+desc 'Start forging on crypti nodes.'
+task :start_forging do
+  puts 'Starting forging...'
+  kit.servers(ENV['servers']).each do |server|
+    print "Node: #{server}: Please enter your secret passphrase:\s"
+    passphrase = STDIN.noecho(&:gets)
+    passphrase = { :secret => passphrase.chomp }.to_json
+    print "\n"
+    on server do
+      SSHKit.config.output_verbosity = Logger::WARN
+      execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{passphrase}'", 'http://127.0.0.1:6040/forgingApi/startForging'
+    end
+  end
+end
+
+desc 'Stop forging on crypti nodes.'
+task :stop_forging do
+  puts 'Stopping forging...'
+  kit.servers(ENV['servers']).each do |server|
+    print "Node: #{server}: Please enter your secret passphrase:\s"
+    passphrase = STDIN.noecho(&:gets)
+    passphrase = { :secret => passphrase.chomp }.to_json
+    print "\n"
+    on server do
+      SSHKit.config.output_verbosity = Logger::WARN
+      execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{passphrase}'", 'http://127.0.0.1:6040/forgingApi/stopForging'
     end
   end
 end
