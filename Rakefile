@@ -148,11 +148,9 @@ end
 desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
-  kit.servers(ENV['servers']).each do |server|
-    on server do
-      api = CryptiApi.new(self)
-      api.silent_post '/forgingApi/startForging', kit.get_passphrase(server)
-    end
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do |server|
+    api = CryptiApi.new(self)
+    api.silent_post '/forgingApi/startForging', kit.get_passphrase(server)
   end
   Rake::Task['get_forging'].invoke
 end
@@ -160,11 +158,9 @@ end
 desc 'Stop forging on crypti nodes'
 task :stop_forging do
   puts 'Stopping forging...'
-  kit.servers(ENV['servers']).each do |server|
-    on server do
-      api = CryptiApi.new(self)
-      api.silent_post '/forgingApi/stopForging', kit.get_passphrase(server)
-    end
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    api = CryptiApi.new(self)
+    api.silent_post '/forgingApi/stopForging', kit.get_passphrase(server)
   end
   Rake::Task['get_forging'].invoke
 end
@@ -172,7 +168,7 @@ end
 desc 'Get loading status'
 task :get_loading do
   puts 'Getting loading status...'
-  on kit.servers(ENV['servers']).each do |server|
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do |server|
     api  = CryptiApi.new(self)
     body = api.get '/api/getLoading'
     info "Node: #{server}: " + body.to_s
@@ -182,7 +178,7 @@ end
 desc 'Get forging status'
 task :get_forging do
   puts 'Getting forging status...'
-  on kit.servers(ENV['servers']).each do |server|
+  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do |server|
     api  = CryptiApi.new(self)
     body = api.get '/forgingApi/getForgingInfo'
     info "Node: #{server}: " + body.to_s
