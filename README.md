@@ -74,6 +74,9 @@ rake get_loading
 rake start_forging
 ```
 
+> NOTE:
+> Please wait for blockchain to be fully loaded before executing forging commands.
+
 ### Commands
 
 Type ```rake -T``` to get a complete list of commands.
