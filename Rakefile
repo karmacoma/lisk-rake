@@ -138,6 +138,7 @@ task :start_forging do
       execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{passphrase}'", 'http://127.0.0.1:6040/forgingApi/startForging'
     end
   end
+  Rake::Task['get_forging'].invoke
 end
 
 desc 'Stop forging on crypti nodes.'
@@ -153,6 +154,7 @@ task :stop_forging do
       execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{passphrase}'", 'http://127.0.0.1:6040/forgingApi/stopForging'
     end
   end
+  Rake::Task['get_forging'].invoke
 end
 
 desc 'Get loading status.'
@@ -161,6 +163,19 @@ task :get_loading do
   kit.servers(ENV['servers']).each do |server|
     begin
       body = open("http://#{server}:6040/api/getLoading").read
+      puts "Node: #{server}: #{JSON.parse(body)}"
+    rescue => exception
+      puts "Node: #{server}: #{exception}"
+    end
+  end
+end
+
+desc 'Get forging status.'
+task :get_forging do
+  puts 'Getting forging status...'
+  kit.servers(ENV['servers']).each do |server|
+    begin
+      body = open("http://#{server}:6040/forgingApi/getForgingInfo").read
       puts "Node: #{server}: #{JSON.parse(body)}"
     rescue => exception
       puts "Node: #{server}: #{exception}"
