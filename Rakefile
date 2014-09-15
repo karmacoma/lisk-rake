@@ -10,7 +10,7 @@ require 'lib/cryptikit'
 
 kit = CryptiKit.new(YAML.load_file('config.yml'))
 
-desc 'Add your public ssh key.'
+desc 'Add your public ssh key'
 task :add_key do
   kit.servers(ENV['servers']).each do |server|
     run_locally do
@@ -28,7 +28,7 @@ task :add_key do
   end
 end
 
-desc 'Install dependencies.'
+desc 'Install dependencies'
 task :install_deps do
   on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     as kit.deploy_user do
@@ -43,7 +43,7 @@ task :install_deps do
   end
 end
 
-desc 'Install crypti nodes.'
+desc 'Install crypti nodes'
 task :install_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     info 'Stopping all processes...'
@@ -73,7 +73,7 @@ task :install_nodes do
   end
 end
 
-desc 'Uninstall crypti nodes.'
+desc 'Uninstall crypti nodes'
 task :uninstall_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     info 'Stopping all processes...'
@@ -86,7 +86,7 @@ task :uninstall_nodes do
   end
 end
 
-desc 'Start crypti nodes.'
+desc 'Start crypti nodes'
 task :start_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     as kit.deploy_user do
@@ -99,7 +99,7 @@ task :start_nodes do
   end
 end
 
-desc 'Restart crypti nodes.'
+desc 'Restart crypti nodes'
 task :restart_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     as kit.deploy_user do
@@ -112,7 +112,7 @@ task :restart_nodes do
   end
 end
 
-desc 'Rebuild crypti nodes (using new blockchain only).'
+desc 'Rebuild crypti nodes (using new blockchain only)'
 task :rebuild_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     info 'Stopping all processes...'
@@ -133,7 +133,7 @@ task :rebuild_nodes do
   end
 end
 
-desc 'Stop crypti nodes.'
+desc 'Stop crypti nodes'
 task :stop_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
     as kit.deploy_user do
@@ -146,7 +146,7 @@ task :stop_nodes do
   end
 end
 
-desc 'Start forging on crypti nodes.'
+desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
   kit.servers(ENV['servers']).each do |server|
@@ -162,7 +162,7 @@ task :start_forging do
   Rake::Task['get_forging'].invoke
 end
 
-desc 'Stop forging on crypti nodes.'
+desc 'Stop forging on crypti nodes'
 task :stop_forging do
   puts 'Stopping forging...'
   kit.servers(ENV['servers']).each do |server|
@@ -178,7 +178,7 @@ task :stop_forging do
   Rake::Task['get_forging'].invoke
 end
 
-desc 'Get loading status.'
+desc 'Get loading status'
 task :get_loading do
   puts 'Getting loading status...'
   kit.servers(ENV['servers']).each do |server|
@@ -191,7 +191,7 @@ task :get_loading do
   end
 end
 
-desc 'Get forging status.'
+desc 'Get forging status'
 task :get_forging do
   puts 'Getting forging status...'
   kit.servers(ENV['servers']).each do |server|
