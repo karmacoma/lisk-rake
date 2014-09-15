@@ -159,6 +159,7 @@ task :start_forging do
       execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{passphrase}'", 'http://127.0.0.1:6040/forgingApi/startForging'
     end
   end
+  SSHKit.config.output_verbosity = Logger::INFO
   Rake::Task['get_forging'].invoke
 end
 
@@ -175,6 +176,7 @@ task :stop_forging do
       execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{passphrase}'", 'http://127.0.0.1:6040/forgingApi/stopForging'
     end
   end
+  SSHKit.config.output_verbosity = Logger::INFO
   Rake::Task['get_forging'].invoke
 end
 
