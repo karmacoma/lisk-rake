@@ -64,6 +64,8 @@ task :install_nodes do
         execute 'npm', 'install'
         info 'Downloading blockchain...'
         execute 'wget', kit.blockchain_url
+        info 'Starting crypti node...'
+        execute 'forever', 'start', 'app.js', '||', ':'
         info 'Done.'
       end
     end
