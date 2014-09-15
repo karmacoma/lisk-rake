@@ -31,6 +31,10 @@ class CryptiKit
     @config['blockchain_url']
   end
 
+  def server_delay
+    1
+  end
+
   def servers(selected = nil)
     if @config['servers'].is_a?(Hash) then
       select_servers(@config['servers'].values, selected)

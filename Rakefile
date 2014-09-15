@@ -29,7 +29,7 @@ end
 
 desc 'Install dependencies'
 task :install_deps do
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
     as kit.deploy_user do
       info 'Adding repository...'
       execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
@@ -44,7 +44,7 @@ end
 
 desc 'Install crypti nodes'
 task :install_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     as kit.deploy_user do
@@ -74,7 +74,7 @@ end
 
 desc 'Uninstall crypti nodes'
 task :uninstall_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     as kit.deploy_user do
@@ -87,7 +87,7 @@ end
 
 desc 'Start crypti nodes'
 task :start_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
     as kit.deploy_user do
       within kit.install_path do
         info 'Starting crypti node...'
@@ -100,7 +100,7 @@ end
 
 desc 'Restart crypti nodes'
 task :restart_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
     as kit.deploy_user do
       within kit.install_path do
         info 'Restarting crypti node...'
@@ -113,7 +113,7 @@ end
 
 desc 'Rebuild crypti nodes (using new blockchain only)'
 task :rebuild_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     as kit.deploy_user do
@@ -134,7 +134,7 @@ end
 
 desc 'Stop crypti nodes'
 task :stop_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
     as kit.deploy_user do
       within kit.install_path do
         info 'Stopping crypti node...'
@@ -148,7 +148,7 @@ end
 desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do |server|
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api = CryptiApi.new(self)
     api.silent_post '/forgingApi/startForging', kit.get_passphrase(server)
   end
@@ -168,7 +168,7 @@ end
 desc 'Get loading status'
 task :get_loading do
   puts 'Getting loading status...'
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do |server|
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api  = CryptiApi.new(self)
     body = api.get '/api/getLoading'
     info "Node: #{server}: " + body.to_s
@@ -178,7 +178,7 @@ end
 desc 'Get forging status'
 task :get_forging do
   puts 'Getting forging status...'
-  on kit.servers(ENV['servers']), in: :sequence, wait: 5 do |server|
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api  = CryptiApi.new(self)
     body = api.get '/forgingApi/getForgingInfo'
     info "Node: #{server}: " + body.to_s
