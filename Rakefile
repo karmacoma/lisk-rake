@@ -181,12 +181,12 @@ end
 desc 'Get loading status'
 task :get_loading do
   puts 'Getting loading status...'
-  kit.servers(ENV['servers']).each do |server|
+  on kit.servers(ENV['servers']).each do |server|
     begin
-      body = open("http://#{server}:6040/api/getLoading").read
-      puts "Node: #{server}: #{JSON.parse(body)}"
+      body = capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040/api/getLoading'
+      info "Node: #{server}: #{JSON.parse(body)}"
     rescue => exception
-      puts "Node: #{server}: #{exception}"
+      info "Node: #{server}: #{exception}"
     end
   end
 end
@@ -194,12 +194,12 @@ end
 desc 'Get forging status'
 task :get_forging do
   puts 'Getting forging status...'
-  kit.servers(ENV['servers']).each do |server|
+  on kit.servers(ENV['servers']).each do |server|
     begin
-      body = open("http://#{server}:6040/forgingApi/getForgingInfo").read
-      puts "Node: #{server}: #{JSON.parse(body)}"
+      body = capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040/forgingApi/getForgingInfo'
+      info "Node: #{server}: #{JSON.parse(body)}"
     rescue => exception
-      puts "Node: #{server}: #{exception}"
+      info "Node: #{server}: #{exception}"
     end
   end
 end
