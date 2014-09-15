@@ -45,9 +45,9 @@ end
 desc 'Install crypti nodes'
 task :install_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
-    info 'Stopping all processes...'
-    execute 'forever', 'stopall', '||', ':'
     as kit.deploy_user do
+      info 'Stopping all processes...'
+      execute 'forever', 'stopall', '||', ':'
       info 'Setting up...'
       execute 'rm', '-rf', kit.deploy_path
       execute 'mkdir', '-p', kit.deploy_path
@@ -75,9 +75,9 @@ end
 desc 'Uninstall crypti nodes'
 task :uninstall_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
-    info 'Stopping all processes...'
-    execute 'forever', 'stopall', '||', ':'
     as kit.deploy_user do
+      info 'Stopping all processes...'
+      execute 'forever', 'stopall', '||', ':'
       info 'Removing crypti...'
       execute 'rm', '-rf', kit.deploy_path
       info 'Done.'
@@ -114,10 +114,10 @@ end
 desc 'Rebuild crypti nodes (using new blockchain only)'
 task :rebuild_nodes do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
-    info 'Stopping all processes...'
-    execute 'forever', 'stopall', '||', ':'
     as kit.deploy_user do
       within kit.install_path do
+        info 'Stopping all processes...'
+        execute 'forever', 'stopall', '||', ':'
         info 'Downloading blockchain...'
         execute 'wget', kit.blockchain_url
         info 'Installing blockchain...'
