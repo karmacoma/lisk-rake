@@ -142,7 +142,6 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 * Add "add_server / remove_server" tasks for easily managing server list
 * Add automated update script to get the latest CryptiKit release
-* Disallow forging tasks until blockchain is fully loaded
 
 ### Donations
 
