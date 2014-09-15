@@ -137,7 +137,7 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
-* Add "add_server / remove_server" tasks for managing server list
+* Add "add_server / remove_server" tasks for easily managing server list
 * Add automated update script to get the latest CryptiKit release
 
 ### Donations
