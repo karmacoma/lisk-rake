@@ -41,7 +41,7 @@ rake add_key
 ```
 
 > NOTE:
-> On Digital Ocean, when logging in for the first time you will be prompted to change your password. This needs to be done before proceeding with the ```add_key``` command.
+> On Digital Ocean, when logging in for the first time you will be prompted to change your password. This needs to be done before proceeding with the ```rake add_key``` command.
 
 > NOTE:
 > If you do not have a key, then CryptiKit will prompt you to generate one. At which point CryptiKit will proceed with adding the key to each server.
