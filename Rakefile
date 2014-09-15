@@ -35,7 +35,7 @@ task :install_deps do
       info 'Adding repository...'
       execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
       info 'Installing apt dependencies...'
-      execute 'apt-get', 'install', '-f', kit.apt_dependencies
+      execute 'apt-get', 'install', '-f', '--yes', kit.apt_dependencies
       info 'Installing npm dependencies...'
       execute 'npm', 'install', '-g', kit.npm_dependencies
       info 'Done.'
