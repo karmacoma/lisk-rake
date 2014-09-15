@@ -73,7 +73,7 @@ class CryptiKit
     SSHKit::Backend::Netssh.configure do |ssh|
       ssh.ssh_options = {
         user: self.deploy_user,
-        auth_methods: ['publickey']
+        auth_methods: %w(publickey password)
       }
     end
   end
