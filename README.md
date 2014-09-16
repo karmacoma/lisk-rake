@@ -46,13 +46,13 @@ rake add_servers servers=130.211.63.634,130.211.93.171,130.211.63.63
 * To remove a server:
 
 ```
-rake remove_servers servers=0 # 1st node
+rake remove_servers servers=0 # 1st server
 ```
 
 * To remove multiple servers at the same time:
 
 ```
-rake remove_servers servers=0,1,7 # 1st, 2nd and 7th nodes
+rake remove_servers servers=0,1,7 # 1st, 2nd and 7th server
 ```
 
 Which will remove servers 0, 1 and 7 as defined in your config.
@@ -129,7 +129,7 @@ By default the tasks will execute on all servers defined in your config.
 You can target specific servers with any of the commands like so.
 
 ```
-rake get_loading servers=0,1,7 # 1st, 2nd and 7th nodes
+rake get_loading servers=0,1,7 # 1st, 2nd and 7th server
 ```
 
 Which will execute the get_loading task only on servers 0, 1 and 7 as defined in your config.
