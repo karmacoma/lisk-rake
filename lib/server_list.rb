@@ -38,9 +38,16 @@ class ServerList
 
   def save
     File.open('config.yml', 'w') do |f|
-      @config['servers'] = @servers
+      @config['servers'] = reindex
       f.write @config.to_yaml
     end
+  end
+
+  def reindex
+    key      = -1
+    _servers = {}
+    @servers.values.each { |server| _servers[(key += 1)] = server }
+    _servers
   end
 
   #
