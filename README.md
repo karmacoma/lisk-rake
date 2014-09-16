@@ -66,7 +66,7 @@ rake add_key
 ```
 
 > NOTE:
-> On Digital Ocean, when logging in for the first time you will be prompted to change your password. This needs to be done before proceeding with the ```rake add_key``` command.
+> On Digital Ocean, when logging in for the first time you may be prompted to change your password.
 
 > NOTE:
 > If you do not have a key, then CryptiKit will prompt you to generate one. At which point CryptiKit will proceed with adding the key to each server.
@@ -147,6 +147,11 @@ I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 1
 Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
+
+2014-09-16 (v1.1.1)
+
+* Gracefully handling required password change on Digital Ocean droplets
+* Reindexing server list after deleting servers to maintain sane key order
 
 2014-09-16 (v1.1.0)
 
