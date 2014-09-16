@@ -52,7 +52,7 @@ rake remove_servers servers=0 # 1st node
 * To remove multiple servers at the same time:
 
 ```
-rake add_servers servers=0,1,7 # 1st, 2nd and 7th nodes
+rake remove_servers servers=0,1,7 # 1st, 2nd and 7th nodes
 ```
 
 Which will remove servers 0, 1 and 7 as defined in your config.
