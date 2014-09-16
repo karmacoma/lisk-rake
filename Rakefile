@@ -14,10 +14,8 @@ task :add_key do
   kit.servers(ENV['servers']).each do |server|
     run_locally do
       unless test 'cat', kit.deploy_key then
-        run_locally do
-          info 'Could not find ssh key. Creating a new one...'
-          system 'ssh-keygen -t rsa'
-        end
+        info 'Could not find ssh key. Creating a new one...'
+        system 'ssh-keygen -t rsa'
       end
       if test 'cat', kit.deploy_key and test 'which', 'ssh-copy-id' then
         info 'Adding public ssh key to: ' + server + '...'
