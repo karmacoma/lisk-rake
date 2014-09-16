@@ -55,6 +55,8 @@ rake remove_servers servers=1
 rake add_servers servers=0,1,7
 ```
 
+Which will remove servers 0, 1 and 7 as defined in your config.
+
 ### Typical Usage
 
 * Add your public ssh key to each server:
