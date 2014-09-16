@@ -17,6 +17,12 @@ One or more freshly installed Ubuntu based cloud servers on Digital Ocean or Get
 ./install.sh
 ```
 
+* To update an existing installation to the latest stable release:
+
+```
+./update.sh
+```
+
 ### Configuration
 
 Open config.yml and add server IP addresses like so:
@@ -119,6 +125,10 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
 
+2014-09-16
+
+* Added automated update script to get the latest CryptiKit release
+
 2014-09-15
 
 * Added "rebuild_nodes" task to rebuild nodes using new blockchain only
@@ -139,7 +149,6 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 ### Todo
 
 * Add "add_server / remove_server" tasks for easily managing server list
-* Add automated update script to get the latest CryptiKit release
 
 ### Donations
 
