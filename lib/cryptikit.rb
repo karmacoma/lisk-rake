@@ -41,6 +41,14 @@ class CryptiKit
     "Node[#{server_key(server)}]: #{server}"
   end
 
+  def get_passphrase(server)
+    print server_info(server) + ": Please enter your secret passphrase:\s"
+    passphrase = STDIN.noecho(&:gets)
+    passphrase = { :secret => passphrase.chomp }
+    print "\n"
+    passphrase.to_json
+  end
+
   def servers(selected = nil)
     if selected.nil? or selected.size <= 0 then
       return @config['servers'].values
@@ -64,13 +72,5 @@ class CryptiKit
 
   def npm_dependencies
     ['forever']
-  end
-
-  def get_passphrase(server)
-    print server_info(server) + ": Please enter your secret passphrase:\s"
-    passphrase = STDIN.noecho(&:gets)
-    passphrase = { :secret => passphrase.chomp }
-    print "\n"
-    passphrase.to_json
   end
 end
