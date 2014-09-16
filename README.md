@@ -23,18 +23,45 @@ One or more freshly installed Ubuntu based cloud servers on Digital Ocean or Get
 ./update.sh
 ```
 
-### Configuration
+### Managing Server List
 
-Open config.yml and add server IP addresses like so:
+* To list available servers:
 
 ```
-servers:
-  0: '130.211.63.634' # Server 1
-  1: '130.211.93.171' # Server 2
-  2: '130.211.63.63'  # Server 3
+rake list_servers
 ```
 
-### Usage
+* To add multiple servers at the same time:
+
+```
+rake add_servers servers=130.211.63.634,130.211.93.171,130.211.63.63
+```
+
+* To add a server:
+
+```
+rake add_servers servers=130.211.63.634
+```
+
+* To add multiple servers at the same time:
+
+```
+rake add_servers servers=130.211.63.634,130.211.93.171,130.211.63.63
+```
+
+* To remove a server:
+
+```
+rake remove_servers servers=130.211.63.634
+```
+
+* To remove multiple servers at the same time:
+
+```
+rake add_servers servers=130.211.63.634,130.211.93.171,130.211.63.63
+```
+
+### Typical Usage
 
 * Add your public ssh key to each server:
 
@@ -60,11 +87,8 @@ rake install_deps
 rake install_nodes
 ```
 
-* Start crypti nodes:
-
-```
-rake start_nodes
-```
+> NOTE:
+> Node will be automatically started upon installation.
 
 * Check loading status of crypti nodes:
 
@@ -125,11 +149,13 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
 
-2014-09-16
+2014-09-16 (v1.1.0)
 
+* Added "list_servers" task
+* Added "add_servers" / "remove_servers" tasks
 * Added automated update script to get the latest CryptiKit release
 
-2014-09-15
+2014-09-15 (v1.0.0)
 
 * Added "rebuild_nodes" task to rebuild nodes using new blockchain only
 * Added "start_forging" / "stop_forging" tasks to enable and disable forging
@@ -148,7 +174,7 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
-* Add "add_server / remove_server" tasks for easily managing server list
+* Write test suite, fix bugs
 
 ### Donations
 
