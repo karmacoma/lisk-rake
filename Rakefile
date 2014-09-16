@@ -13,6 +13,17 @@ require 'lib/cryptiapi'
 
 kit = CryptiKit.new('config.yml')
 
+desc 'List available servers'
+task :list_servers do
+  run_locally do
+    info 'Listing available server(s)...'
+    kit.config['servers'].values.each do |server|
+      info kit.server_info(server)
+    end
+    info 'Done.'
+  end
+end
+
 desc 'Add servers to config'
 task :add_servers do
   run_locally do
@@ -23,6 +34,7 @@ task :add_servers do
     list.save
     info 'Done.'
   end
+  Rake::Task['list_servers'].invoke
 end
 
 desc 'Remove servers from config'
@@ -35,6 +47,7 @@ task :remove_servers do
     list.save
     info 'Done.'
   end
+  Rake::Task['list_servers'].invoke
 end
 
 desc 'Add your public ssh key'
