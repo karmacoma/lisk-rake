@@ -3,7 +3,7 @@ require 'json'
 
 class CryptiKit
   def initialize(config)
-    @config = config
+    @config = YAML.load_file(config)
     @netssh = CryptiNetssh.new(@config['deploy_user'])
   end
 

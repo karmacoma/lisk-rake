@@ -8,7 +8,7 @@ require 'lib/cryptinetssh'
 require 'lib/cryptikit'
 require 'lib/cryptiapi'
 
-kit = CryptiKit.new(YAML.load_file('config.yml'))
+kit = CryptiKit.new('config.yml')
 
 desc 'Add your public ssh key'
 task :add_key do
