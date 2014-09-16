@@ -33,6 +33,10 @@ class CryptiKit
     1
   end
 
+  def server_key(server)
+    @config['servers'].key(server.to_s)
+  end
+
   def servers(selected = nil)
     if selected.nil? or selected.size <= 0 then
       return @config['servers'].values
