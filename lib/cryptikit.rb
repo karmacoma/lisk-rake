@@ -11,6 +11,10 @@ class CryptiKit
     @config['deploy_user']
   end
 
+  def deploy_user_at_host(host)
+    "#{deploy_user}@#{host}"
+  end
+
   def deploy_key
     '~/.ssh/id_rsa.pub'
   end
@@ -41,6 +45,26 @@ class CryptiKit
 
   def server_info(server)
     "Node[#{server_key(server)}]: #{server}"
+  end
+
+  def gen_key(task)
+    task.info 'Could not find ssh key. Creating a new one...'
+    system 'ssh-keygen -t rsa'
+  end
+
+  def add_key(task, server)
+    task.info "Adding public ssh key to: #{server}..."
+    task.execute 'ssh-copy-id', '-i', deploy_key, "#{deploy_user_at_host(server)}"
+  rescue Exception => exception
+    case exception.to_s
+    when /Your password has expired/ then
+      task.info 'Password change required. Please login and change password...'
+      system "ssh -t #{deploy_user_at_host(server)} exit"
+      task.info 'Trying to add public ssh key again...'
+      retry
+    else
+      raise exception
+    end
   end
 
   def get_passphrase(server)
