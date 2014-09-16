@@ -1,6 +1,7 @@
 class CryptiKit
   def initialize(config)
     @config = YAML.load_file(config)
+    @config['servers'] ||= {}
     @netssh = CryptiNetssh.new(@config['deploy_user'])
   end
 
@@ -33,10 +34,11 @@ class CryptiKit
   end
 
   def servers(selected = nil)
-    if @config['servers'].is_a?(Hash) then
-      select_servers(@config['servers'].values, selected)
+    if selected.nil? or selected.size <= 0 then
+      return @config['servers'].values
     else
-      []
+      _selected = selected.gsub(/[^0-9,]+/, '').split(',')
+      _selected.collect { |s| @config['servers'].values[s.to_i] }.compact
     end
   end
 
@@ -62,16 +64,5 @@ class CryptiKit
     passphrase = { :secret => passphrase.chomp }
     print "\n"
     passphrase.to_json
-  end
-
-  private
-
-  def select_servers(servers, selected)
-    if selected.nil? or selected.size <= 0 then
-      return servers
-    else
-      _selected = selected.gsub(/[^0-9,]+/, '').split(',')
-      _selected.collect { |s| servers[s.to_i] }.compact
-    end
   end
 end
