@@ -5,6 +5,10 @@ require 'sshkit/dsl'
 require 'json'
 require 'yaml'
 
+if ENV['debug'] == 'true' then
+  require 'byebug'
+end
+
 $:.unshift File.dirname(__FILE__)
 require 'lib/cryptinetssh'
 require 'lib/server_list'
