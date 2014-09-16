@@ -4,7 +4,7 @@ require 'json'
 class CryptiKit
   def initialize(config)
     @config = config
-    configure_sshkit
+    @netssh = CryptiNetssh.new(@config['deploy_user'])
   end
 
   def deploy_user
@@ -68,15 +68,6 @@ class CryptiKit
   end
 
   private
-
-  def configure_sshkit
-    SSHKit::Backend::Netssh.configure do |ssh|
-      ssh.ssh_options = {
-        user: self.deploy_user,
-        auth_methods: %w(publickey password)
-      }
-    end
-  end
 
   def select_servers(servers, selected)
     if selected.nil? or selected.size <= 0 then

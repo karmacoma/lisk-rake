@@ -4,6 +4,7 @@ require 'sshkit'
 require 'sshkit/dsl'
 
 $:.unshift File.dirname(__FILE__)
+require 'lib/cryptinetssh'
 require 'lib/cryptikit'
 require 'lib/cryptiapi'
 
