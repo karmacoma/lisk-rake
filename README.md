@@ -46,13 +46,13 @@ rake add_servers servers=130.211.63.634,130.211.93.171,130.211.63.63
 * To remove a server:
 
 ```
-rake remove_servers servers=130.211.63.634
+rake remove_servers servers=1
 ```
 
 * To remove multiple servers at the same time:
 
 ```
-rake add_servers servers=130.211.63.634,130.211.93.171,130.211.63.63
+rake add_servers servers=0,1,7
 ```
 
 ### Typical Usage
