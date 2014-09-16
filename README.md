@@ -129,7 +129,7 @@ By default the tasks will execute on all servers defined in your config.
 You can target specific servers with any of the commands like so.
 
 ```
-rake get_loading servers=0,1,7
+rake get_loading servers=0,1,7 # 1st, 2nd and 7th nodes
 ```
 
 Which will execute the get_loading task only on servers 0, 1 and 7 as defined in your config.
