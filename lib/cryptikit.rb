@@ -1,4 +1,6 @@
 class CryptiKit
+  attr_reader :config
+
   def initialize(config)
     @config = YAML.load_file(config)
     @config['servers'] ||= {}
@@ -53,7 +55,7 @@ class CryptiKit
     if selected.nil? or selected.size <= 0 then
       return @config['servers'].values
     else
-      _selected = selected.gsub(/[^0-9,]+/, '').split(',')
+      _selected = ServerList.parse_keys(selected)
       _selected.collect { |s| @config['servers'].values[s.to_i] }.compact
     end
   end

@@ -7,10 +7,35 @@ require 'yaml'
 
 $:.unshift File.dirname(__FILE__)
 require 'lib/cryptinetssh'
+require 'lib/server_list'
 require 'lib/cryptikit'
 require 'lib/cryptiapi'
 
 kit = CryptiKit.new('config.yml')
+
+desc 'Add servers to config'
+task :add_servers do
+  run_locally do
+    info 'Adding server(s)...'
+    list = ServerList.new(kit.config)
+    list.add_all(ENV['servers'])
+    info 'Updating configuration...'
+    list.save
+    info 'Done.'
+  end
+end
+
+desc 'Remove servers from config'
+task :remove_servers do
+  run_locally do
+    info 'Removing server(s)...'
+    list = ServerList.new(kit.config)
+    list.remove_all(ENV['servers'])
+    info 'Updating configuration...'
+    list.save
+    info 'Done.'
+  end
+end
 
 desc 'Add your public ssh key'
 task :add_key do
