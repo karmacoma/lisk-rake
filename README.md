@@ -31,12 +31,6 @@ One or more freshly installed Ubuntu based cloud servers on Digital Ocean or Get
 rake list_servers
 ```
 
-* To add multiple servers at the same time:
-
-```
-rake add_servers servers=130.211.63.634,130.211.93.171,130.211.63.63
-```
-
 * To add a server:
 
 ```
@@ -88,7 +82,7 @@ rake install_nodes
 ```
 
 > NOTE:
-> Node will be automatically started upon installation.
+> Crypti node will be automatically started after installation.
 
 * Check loading status of crypti nodes:
 
