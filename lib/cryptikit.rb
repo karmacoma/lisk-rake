@@ -37,6 +37,10 @@ class CryptiKit
     @config['servers'].key(server.to_s)
   end
 
+  def server_info(server)
+    "Node[#{server_key(server)}]: #{server}"
+  end
+
   def servers(selected = nil)
     if selected.nil? or selected.size <= 0 then
       return @config['servers'].values
@@ -63,7 +67,7 @@ class CryptiKit
   end
 
   def get_passphrase(server)
-    print "Node: #{server}: Please enter your secret passphrase:\s"
+    print server_info(server) + ": Please enter your secret passphrase:\s"
     passphrase = STDIN.noecho(&:gets)
     passphrase = { :secret => passphrase.chomp }
     print "\n"

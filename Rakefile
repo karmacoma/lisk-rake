@@ -170,7 +170,7 @@ task :get_loading do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api  = CryptiApi.new(self)
     body = api.get '/api/getLoading'
-    info "Node[#{server_key(server)}]: #{server}: " + body.to_s
+    info kit.server_info(server) + ": #{body}"
   end
 end
 
@@ -180,6 +180,6 @@ task :get_forging do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api  = CryptiApi.new(self)
     body = api.get '/forgingApi/getForgingInfo'
-    info "Node[#{server_key(server)}]: #{server}: " + body.to_s
+    info kit.server_info(server) + ": #{body}"
   end
 end
