@@ -17,6 +17,7 @@ class ServerList
   end
 
   def add(server)
+    return if @servers.values.include?(server.to_s)
     key = (@servers.size > 0) ? @servers.keys.last + 1 : 0
     @servers[key] = server.to_s
   end
