@@ -1,6 +1,3 @@
-require 'yaml'
-require 'json'
-
 class CryptiKit
   def initialize(config)
     @config = YAML.load_file(config)

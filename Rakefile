@@ -2,6 +2,8 @@ require 'rubygems'
 require 'io/console'
 require 'sshkit'
 require 'sshkit/dsl'
+require 'json'
+require 'yaml'
 
 $:.unshift File.dirname(__FILE__)
 require 'lib/cryptinetssh'
