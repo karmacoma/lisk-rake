@@ -111,11 +111,14 @@ Type ```rake -T``` to get a complete list of commands.
 
 ```
 rake add_key          # Add your public ssh key
+rake add_servers      # Add servers to config
 rake get_forging      # Get forging status
 rake get_loading      # Get loading status
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
+rake list_servers     # List available servers
 rake rebuild_nodes    # Rebuild crypti nodes (using new blockchain only)
+rake remove_servers   # Remove servers from config
 rake restart_nodes    # Restart crypti nodes
 rake start_forging    # Start forging on crypti nodes
 rake start_nodes      # Start crypti nodes
