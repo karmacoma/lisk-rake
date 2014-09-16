@@ -32,7 +32,7 @@ class CryptiKit
   end
 
   def server_delay
-    1
+    0
   end
 
   def server_key(server)
