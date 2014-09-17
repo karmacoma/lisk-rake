@@ -10,11 +10,11 @@ if ENV['debug'] == 'true' then
 end
 
 $:.unshift File.dirname(__FILE__)
-require 'lib/cryptinetssh'
+require 'lib/crypti_netssh'
 require 'lib/server_list'
 require 'lib/task_kit'
-require 'lib/cryptikit'
-require 'lib/cryptiapi'
+require 'lib/crypti_kit'
+require 'lib/crypti_api'
 
 kit = CryptiKit.new('config.yml')
 
