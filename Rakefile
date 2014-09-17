@@ -172,10 +172,12 @@ task :rebuild_nodes do
       within kit.install_path do
         info 'Stopping all processes...'
         execute 'forever', 'stopall', '||', ':'
-        info 'Downloading blockchain...'
-        execute 'wget', kit.blockchain_url
+        info 'Removing old blockchain...'
+        execute 'rm', '-f', 'blockchain.db*'
         info 'Removing old log file...'
         execute 'rm', '-f', 'logs.log'
+        info 'Downloading blockchain...'
+        execute 'wget', kit.blockchain_url
         info 'Starting crypti node...'
         execute 'forever', 'start', 'app.js', '||', ':'
         info 'Done.'
