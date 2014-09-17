@@ -11,10 +11,10 @@ end
 
 $:.unshift File.dirname(__FILE__)
 require 'lib/crypti_netssh'
-require 'lib/server_list'
-require 'lib/task_kit'
 require 'lib/crypti_kit'
 require 'lib/crypti_api'
+require 'lib/server_list'
+require 'lib/task_kit'
 
 kit = CryptiKit.new('config.yml')
 
