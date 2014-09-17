@@ -16,7 +16,7 @@ echo "Updating cryptikit..."
 echo "-------------------------------------------------------------------------------"
 printf "\n"
 
-git fetch origin
+git fetch --tags
 git checkout `git describe --abbrev=0 --tags` -B stable
 
 printf "\n"
