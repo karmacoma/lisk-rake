@@ -70,6 +70,17 @@ task :add_key do
   end
 end
 
+desc 'Log into servers'
+task :log_into do
+  kit.servers(ENV['servers']).each do |server|
+    run_locally do
+      info "Logging into #{server}..."
+      system("ssh #{kit.deploy_user_at_host(server)}")
+      info 'Done.'
+    end
+  end
+end
+
 desc 'Install dependencies'
 task :install_deps do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
