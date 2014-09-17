@@ -4,7 +4,7 @@ Simple &amp; easy Crypti node deployment and management for Linux / OSX operatin
 
 ### Prerequisites
 
-One or more freshly installed Ubuntu based cloud servers on Digital Ocean or GetClouder.
+One or more freshly created Ubuntu based cloud servers on Digital Ocean or GetClouder.
 
 ### Installation
 
@@ -17,11 +17,17 @@ One or more freshly installed Ubuntu based cloud servers on Digital Ocean or Get
 ./install.sh
 ```
 
+> NOTE:
+> This will install homebrew (on OSX), ruby (rvm) plus a few application dependencies.
+
 * To update an existing installation to the latest stable release:
 
 ```
 ./update.sh
 ```
+
+> NOTE:
+> The existing configuration file will be copied to: config.bak.
 
 ### Managing Server List
 
@@ -71,7 +77,7 @@ rake add_key
 > NOTE:
 > If you do not have a key, then CryptiKit will prompt you to generate one. At which point CryptiKit will proceed with adding the key to each server.
 
-* Prepare each server for installation of crypti node:
+* Install application dependencies on each server:
 
 ```
 rake install_deps
@@ -113,6 +119,7 @@ rake get_loading      # Get loading status
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
 rake list_servers     # List available servers
+rake log_into         # Log into servers directly
 rake rebuild_nodes    # Rebuild crypti nodes (using new blockchain only)
 rake remove_servers   # Remove servers from config
 rake restart_nodes    # Restart crypti nodes
@@ -169,8 +176,8 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 * Added automated install script to ease installation of CryptiKit
 * Added ability to target individual servers with each command
-* Added add_key task to upload public ssh key to each server
-* Added restart_nodes task
+* Added "add_key" task to upload public ssh key to each server
+* Added "restart_nodes" task
 
 2014-09-12
 
@@ -178,7 +185,7 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
-* Add "get_balances" task to check balance of each node
+* Add "get_balances" task to check the balance of each node
 * Write test suite, fix bugs
 
 ### Donations
