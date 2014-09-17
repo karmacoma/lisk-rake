@@ -178,6 +178,7 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
+* Add "get_balances" task to check balance of each node
 * Write test suite, fix bugs
 
 ### Donations
