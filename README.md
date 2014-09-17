@@ -155,6 +155,12 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
 
+2014-09-17 (v1.1.2)
+
+* Added "log_into" task for logging into servers directly
+* Fixed "rebuild_nodes" task: old blockchain is now deleted properly
+* Fixed automated update script: now checks out the latest release tag
+
 2014-09-16 (v1.1.1)
 
 * Gracefully handling required password change on Digital Ocean droplets
