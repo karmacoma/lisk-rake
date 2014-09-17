@@ -70,7 +70,7 @@ task :add_key do
   end
 end
 
-desc 'Log into servers'
+desc 'Log into servers directly'
 task :log_into do
   kit.servers(ENV['servers']).each do |server|
     run_locally do
