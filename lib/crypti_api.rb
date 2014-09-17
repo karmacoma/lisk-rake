@@ -6,7 +6,7 @@ class CryptiApi
   def get(url)
     body = @task.capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040' + url
     JSON.parse(body)
-  rescue
+  rescue Exception => exception
     @task.info error_message
     {}.to_json
   end
