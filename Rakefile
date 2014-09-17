@@ -12,6 +12,7 @@ end
 $:.unshift File.dirname(__FILE__)
 require 'lib/cryptinetssh'
 require 'lib/server_list'
+require 'lib/task_kit'
 require 'lib/cryptikit'
 require 'lib/cryptiapi'
 
@@ -58,11 +59,12 @@ desc 'Add your public ssh key'
 task :add_key do
   kit.servers(ENV['servers']).each do |server|
     run_locally do
+      task_kit = TaskKit.new(self, kit)
       unless test 'cat', kit.deploy_key then
-        kit.gen_key(self)
+        task_kit.gen_key
       end
       if test 'cat', kit.deploy_key and test 'which', 'ssh-copy-id' then
-        kit.add_key(self, server)
+        task_kit.add_key(server)
       end
     end
   end

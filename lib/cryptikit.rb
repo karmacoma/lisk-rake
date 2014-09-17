@@ -47,23 +47,12 @@ class CryptiKit
     "Node[#{server_key(server)}]: #{server}"
   end
 
-  def gen_key(task)
-    task.info 'Could not find ssh key. Creating a new one...'
-    system 'ssh-keygen -t rsa'
-  end
-
-  def add_key(task, server)
-    task.info "Adding public ssh key to: #{server}..."
-    task.execute 'ssh-copy-id', '-i', deploy_key, "#{deploy_user_at_host(server)}"
-  rescue Exception => exception
-    case exception.to_s
-    when /Your password has expired/ then
-      task.info 'Password change required. Please login and change password...'
-      system "ssh -t #{deploy_user_at_host(server)} exit"
-      task.info 'Trying to add public ssh key again...'
-      retry
+  def servers(selected = nil)
+    if selected.nil? or selected.size <= 0 then
+      return @config['servers'].values
     else
-      raise exception
+      _selected = ServerList.parse_keys(selected)
+      _selected.collect { |s| @config['servers'].values[s.to_i] }.compact
     end
   end
 
@@ -73,15 +62,6 @@ class CryptiKit
     passphrase = { :secret => passphrase.chomp }
     print "\n"
     passphrase.to_json
-  end
-
-  def servers(selected = nil)
-    if selected.nil? or selected.size <= 0 then
-      return @config['servers'].values
-    else
-      _selected = ServerList.parse_keys(selected)
-      _selected.collect { |s| @config['servers'].values[s.to_i] }.compact
-    end
   end
 
   def zip_file
