@@ -13,11 +13,13 @@ $:.unshift File.dirname(__FILE__)
 require 'lib/crypti_netssh'
 require 'lib/crypti_kit'
 require 'lib/crypti_api'
-require 'lib/task_kit'
 
 require 'lib/list'
 require 'lib/server_list'
 require 'lib/account_list'
+
+require 'lib/key_manager'
+require 'lib/account_manager'
 
 kit = CryptiKit.new('config.yml')
 
@@ -62,12 +64,12 @@ desc 'Add your public ssh key'
 task :add_key do
   kit.servers(ENV['servers']).each do |server|
     run_locally do
-      task_kit = TaskKit.new(self, kit)
+      manager = KeyManager.new(self, kit)
       unless test 'cat', kit.deploy_key then
-        task_kit.gen_key
+        manager.gen_key
       end
       if test 'cat', kit.deploy_key and test 'which', 'ssh-copy-id' then
-        task_kit.add_key(server)
+        manager.add_key(server)
       end
     end
   end
@@ -210,8 +212,8 @@ task :start_forging do
     kit.get_passphrase(server) do |passphrase|
       api.post '/forgingApi/startForging', passphrase
       api.post '/api/unlock', passphrase do |json|
-        task_kit = TaskKit.new(self, kit)
-        task_kit.add_account(json, server)
+        manager = AccountManager.new(self, kit)
+        manager.add_account(json, server)
       end
     end
   end
@@ -225,8 +227,8 @@ task :stop_forging do
     api = CryptiApi.new(self)
     kit.get_passphrase(server) do |passphrase|
       api.post '/forgingApi/stopForging', passphrase do |json|
-        task_kit = TaskKit.new(self, kit)
-        task_kit.remove_account(json, server)
+        manager = AccountManager.new(self, kit)
+        manager.remove_account(json, server)
       end
     end
   end
