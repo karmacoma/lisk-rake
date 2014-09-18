@@ -209,9 +209,9 @@ task :start_forging do
     api  = CryptiApi.new(self)
     kit.get_passphrase(server) do |passphrase|
       api.silent_post '/forgingApi/startForging', passphrase
-      api.silent_post '/api/unlock', passphrase do |body|
+      api.silent_post '/api/unlock', passphrase do |json|
         task_kit = TaskKit.new(self, kit)
-        task_kit.add_account(body, server)
+        task_kit.add_account(json, server)
       end
     end
   end
@@ -224,9 +224,9 @@ task :stop_forging do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api = CryptiApi.new(self)
     kit.get_passphrase(server) do |passphrase|
-      api.silent_post '/forgingApi/stopForging', passphrase do |body|
+      api.silent_post '/forgingApi/stopForging', passphrase do |json|
         task_kit = TaskKit.new(self, kit)
-        task_kit.remove_account(body, server)
+        task_kit.remove_account(json, server)
       end
     end
   end
@@ -238,8 +238,8 @@ task :get_loading do
   puts 'Getting loading status...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api  = CryptiApi.new(self)
-    body = api.get '/api/getLoading'
-    info kit.server_info(server) + ": #{body}"
+    json = api.get '/api/getLoading'
+    info kit.server_info(server) + ": #{json}"
   end
 end
 
@@ -248,7 +248,7 @@ task :get_forging do
   puts 'Getting forging status...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api  = CryptiApi.new(self)
-    body = api.get '/forgingApi/getForgingInfo'
-    info kit.server_info(server) + ": #{body}"
+    json = api.get '/forgingApi/getForgingInfo'
+    info kit.server_info(server) + ": #{json}"
   end
 end

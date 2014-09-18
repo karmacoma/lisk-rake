@@ -24,20 +24,20 @@ class TaskKit
     end
   end
 
-  def add_account(body, server)
-    if body.is_a?(Hash) and body['forging'] then
-      @task.info "Adding account: #{body['address']}..."
+  def add_account(json, server)
+    if json.is_a?(Hash) and json['forging'] then
+      @task.info "Adding account: #{json['address']}..."
       key  = @kit.server_key(server)
       list = AccountList.new(@kit.config)
-      list[key] = body['address']
+      list[key] = json['address']
       list.save
       @task.info 'Done.'
     end
   end
 
-  def remove_account(body, server)
-    if body.is_a?(Hash) and !body['forgingEnabled'] then
-      @task.info "Removing account: #{body['address']}..."
+  def remove_account(json, server)
+    if json.is_a?(Hash) and !json['forgingEnabled'] then
+      @task.info "Removing account: #{json['address']}..."
       key  = @kit.server_key(server)
       list = AccountList.new(@kit.config)
       list.remove(key)
