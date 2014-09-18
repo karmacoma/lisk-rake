@@ -3,7 +3,7 @@ class AccountManager
     @task = task
     @kit  = kit
   end
-  
+
   def account(json)
     json['address'] || json['account'] || json['error']
   end
