@@ -10,6 +10,7 @@ if ENV['debug'] == 'true' then
 end
 
 $:.unshift File.dirname(__FILE__)
+
 require 'lib/crypti_netssh'
 require 'lib/crypti_kit'
 require 'lib/crypti_api'
@@ -20,6 +21,7 @@ require 'lib/account_list'
 
 require 'lib/key_manager'
 require 'lib/account_manager'
+
 require 'lib/loading_status'
 require 'lib/forging_status'
 require 'lib/account_balance'
