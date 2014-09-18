@@ -38,15 +38,19 @@ class List
 
   def save
     File.open('config.yml', 'w') do |f|
-      @config[self.class.key] = self.class.reindex ? reindexed : @items
+      @config[self.class.key] = self.class.reindex ? reindexed : sorted
       f.write @config.to_yaml
     end
+  end
+
+  def sorted
+    @items.sort_by { |k,v| k }.to_h
   end
 
   def reindexed
     key    = -1
     _items = {}
-    @items.values.each { |item| _items[(key += 1)] = item }
+    sorted.values.each { |item| _items[(key += 1)] = item }
     _items
   end
 
