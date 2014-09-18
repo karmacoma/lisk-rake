@@ -107,6 +107,15 @@ rake start_forging
 > NOTE:
 > Please wait for blockchain to be fully loaded before executing forging commands.
 
+* Get account balances:
+
+```
+rake get_balances
+```
+
+> NOTE:
+> In order for CryptiKit to know which crypti account you are forging with. You need to run the ```rake start_forging``` command before running this command.
+
 ### Commands
 
 Type ```rake -T``` to get a complete list of commands.
@@ -114,6 +123,7 @@ Type ```rake -T``` to get a complete list of commands.
 ```
 rake add_key          # Add your public ssh key
 rake add_servers      # Add servers to config
+rake get_balances     # Get account balances
 rake get_forging      # Get forging status
 rake get_loading      # Get loading status
 rake install_deps     # Install dependencies
@@ -155,6 +165,11 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
 
+2014-09-18 (v1.2.3)
+
+* Added "get_balances" task
+* Prettified output of get_loading, get_forging and get_balances
+
 2014-09-17 (v1.1.2)
 
 * Added "log_into" task for logging into servers directly
@@ -191,7 +206,6 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Todo
 
-* Add "get_balances" task to check the balance of each node
 * Write test suite, fix bugs
 
 ### Donations
