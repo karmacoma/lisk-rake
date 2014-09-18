@@ -30,11 +30,4 @@ class CryptiApi
   def error_message
     'API query failed. Check crypti node is running and blockchain is fully loaded.'
   end
-
-  def silent_post(url, data, &block)
-    SSHKit.config.output_verbosity = Logger::WARN
-    post(url, data, &block)
-  ensure
-    SSHKit.config.output_verbosity = Logger::INFO
-  end
 end
