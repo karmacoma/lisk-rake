@@ -17,7 +17,7 @@ class CryptiApi
 
   def post(url, data, &block)
     begin
-      body = @task.capture 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{data}'", 'http://127.0.0.1:6040' + url
+      body = @task.capture 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{data.to_json}'", 'http://127.0.0.1:6040' + url
       json = JSON.parse(body)
     rescue Exception => exception
       @task.info error_message

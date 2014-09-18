@@ -62,9 +62,9 @@ class CryptiKit
     passphrase = { :secret => passphrase.chomp }
     print "\n"
     if block_given? then
-      block.call(passphrase.to_json)
+      block.call(passphrase)
     else
-      passphrase.to_json
+      passphrase
     end
   end
 
