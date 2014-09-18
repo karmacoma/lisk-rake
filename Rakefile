@@ -20,6 +20,9 @@ require 'lib/account_list'
 
 require 'lib/key_manager'
 require 'lib/account_manager'
+require 'lib/loading_status'
+require 'lib/forging_status'
+require 'lib/account_balance'
 
 kit = CryptiKit.new('config.yml')
 
@@ -241,7 +244,8 @@ task :get_loading do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api  = CryptiApi.new(self)
     json = api.get '/api/getLoading'
-    info kit.server_info(server) + ": #{json}"
+    info kit.server_info(server)
+    puts LoadingStatus.new(json)
   end
 end
 
@@ -251,7 +255,7 @@ task :get_forging do
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api  = CryptiApi.new(self)
     json = api.get '/forgingApi/getForgingInfo'
-    info kit.server_info(server) + ": #{json}"
+    info kit.server_info(server) + ForgingStatus.new(json).to_s
   end
 end
 
@@ -264,7 +268,8 @@ task :get_balances do
     if address = list[key] then
       api  = CryptiApi.new(self)
       json = api.get '/api/getBalance', { address: address }
-      info kit.server_info(server) + ": #{json}"
+      info kit.server_info(server) + ": #{address}"
+      puts AccountBalance.new(json)
     end
   end
 end
