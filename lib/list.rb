@@ -38,12 +38,12 @@ class List
 
   def save
     File.open('config.yml', 'w') do |f|
-      @config[self.class.key] = reindex
+      @config[self.class.key] = self.class.reindex ? reindexed : @items
       f.write @config.to_yaml
     end
   end
 
-  def reindex
+  def reindexed
     key    = -1
     _items = {}
     @items.values.each { |item| _items[(key += 1)] = item }
@@ -55,12 +55,13 @@ class List
   #
 
   class << self
-    attr_reader :key, :key_regexp, :value_regexp
+    attr_reader :key, :key_regexp, :value_regexp, :reindex
   end
 
   @key          = 'items'
   @key_regexp   = /^0-9,/
   @value_regexp = /[^,]+/
+  @reindex      = true
 
   def self.parse_keys(keys)
     keys.gsub(key_regexp, '').split(',')
