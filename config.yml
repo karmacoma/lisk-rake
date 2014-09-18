@@ -5,3 +5,4 @@ app_url: http://downloads.crypti.me/crypti-node/0.1.x/crypti-linux-0.1.6c.zip
 app_version: 0.1.6c
 blockchain_url: http://downloads.crypti.me/crypti-node/blockchains/blockchain.db
 servers: {}
+accounts: {}
