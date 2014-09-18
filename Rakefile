@@ -254,3 +254,17 @@ task :get_forging do
     info kit.server_info(server) + ": #{json}"
   end
 end
+
+desc 'Get account balances'
+task :get_balances do
+  puts 'Getting account balances...'
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    list = AccountList.new(kit.config)
+    key  = kit.server_key(server)
+    if address = list[key] then
+      api  = CryptiApi.new(self)
+      json = api.get '/api/getBalance', { address: address }
+      info kit.server_info(server) + ": #{json}"
+    end
+  end
+end
