@@ -56,12 +56,16 @@ class CryptiKit
     end
   end
 
-  def get_passphrase(server)
+  def get_passphrase(server, &block)
     print server_info(server) + ": Please enter your secret passphrase:\s"
     passphrase = STDIN.noecho(&:gets)
     passphrase = { :secret => passphrase.chomp }
     print "\n"
-    passphrase.to_json
+    if block_given? then
+      block.call(passphrase.to_json)
+    else
+      passphrase.to_json
+    end
   end
 
   def zip_file

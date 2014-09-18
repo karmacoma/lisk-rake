@@ -23,4 +23,26 @@ class TaskKit
       raise exception
     end
   end
+
+  def add_account(body, server)
+    if body.is_a?(Hash) and body['forging'] then
+      @task.info "Adding account: #{body['address']}..."
+      key  = @kit.server_key(server)
+      list = AccountList.new(@kit.config)
+      list[key] = body['address']
+      list.save
+      @task.info 'Done.'
+    end
+  end
+
+  def remove_account(body, server)
+    if body.is_a?(Hash) and !body['forgingEnabled'] then
+      @task.info "Removing account: #{body['address']}..."
+      key  = @kit.server_key(server)
+      list = AccountList.new(@kit.config)
+      list.remove(key)
+      list.save
+      @task.info 'Done.'
+    end
+  end
 end

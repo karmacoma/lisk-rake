@@ -17,6 +17,7 @@ require 'lib/task_kit'
 
 require 'lib/list'
 require 'lib/server_list'
+require 'lib/account_list'
 
 kit = CryptiKit.new('config.yml')
 
@@ -205,8 +206,14 @@ desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
-    api = CryptiApi.new(self)
-    api.silent_post '/forgingApi/startForging', kit.get_passphrase(server)
+    api  = CryptiApi.new(self)
+    kit.get_passphrase(server) do |passphrase|
+      api.silent_post '/forgingApi/startForging', passphrase
+      api.silent_post '/api/unlock', passphrase do |body|
+        task_kit = TaskKit.new(self, kit)
+        task_kit.add_account(body, server)
+      end
+    end
   end
   Rake::Task['get_forging'].invoke
 end
@@ -216,7 +223,12 @@ task :stop_forging do
   puts 'Stopping forging...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
     api = CryptiApi.new(self)
-    api.silent_post '/forgingApi/stopForging', kit.get_passphrase(server)
+    kit.get_passphrase(server) do |passphrase|
+      api.silent_post '/forgingApi/stopForging', passphrase do |body|
+        task_kit = TaskKit.new(self, kit)
+        task_kit.remove_account(body, server)
+      end
+    end
   end
   Rake::Task['get_forging'].invoke
 end

@@ -3,27 +3,37 @@ class CryptiApi
     @task = task
   end
 
-  def get(url)
-    body = @task.capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040' + url
-    JSON.parse(body)
-  rescue Exception => exception
-    @task.info error_message
-    {}.to_json
+  def get(url, &block)
+    begin
+      body = @task.capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', 'http://127.0.0.1:6040' + url
+      json = JSON.parse(body)
+    rescue Exception => exception
+      @task.info error_message
+      json = {}
+    end
+    block.call json if block_given?
+    return json
   end
 
-  def post(url, data)
-    @task.execute 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{data}'", 'http://127.0.0.1:6040' + url
-  rescue
-    @task.info error_message
+  def post(url, data, &block)
+    begin
+      body = @task.capture 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{data}'", 'http://127.0.0.1:6040' + url
+      json = JSON.parse(body)
+    rescue Exception => exception
+      @task.info error_message
+      json = {}
+    end
+    block.call json if block_given?
+    return json
   end
 
   def error_message
     'API query failed. Check crypti node is running and blockchain is fully loaded.'
   end
 
-  def silent_post(url, data)
+  def silent_post(url, data, &block)
     SSHKit.config.output_verbosity = Logger::WARN
-    post(url, data)
+    post(url, data, &block)
   ensure
     SSHKit.config.output_verbosity = Logger::INFO
   end
