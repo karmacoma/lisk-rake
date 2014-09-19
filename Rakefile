@@ -35,7 +35,8 @@ task :list_servers do
   run_locally do
     info 'Listing available server(s)...'
     kit.config['servers'].values.each do |server|
-      info kit.server_info(server)
+      node = CryptiNode.new(kit.config, server)
+      info node.info
     end
     info 'Done.'
   end
