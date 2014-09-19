@@ -3,7 +3,8 @@ class CryptiKit
 
   def initialize(config)
     @config = YAML.load_file(config)
-    @config['servers'] ||= {}
+    @config['servers']  ||= {}
+    @config['accounts'] ||= {}
     @netssh = CryptiNetssh.new(@config['deploy_user'])
   end
 
