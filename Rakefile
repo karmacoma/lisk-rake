@@ -100,7 +100,7 @@ end
 
 desc 'Install dependencies'
 task :install_deps do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'apt-get', 'curl')
 
@@ -118,7 +118,7 @@ end
 
 desc 'Install crypti nodes'
 task :install_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'forever', 'npm', 'wget', 'unzip')
 
@@ -151,7 +151,7 @@ end
 
 desc 'Uninstall crypti nodes'
 task :uninstall_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'forever')
 
@@ -167,7 +167,7 @@ end
 
 desc 'Start crypti nodes'
 task :start_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'forever')
 
@@ -183,7 +183,7 @@ end
 
 desc 'Restart crypti nodes'
 task :restart_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'forever')
 
@@ -199,7 +199,7 @@ end
 
 desc 'Rebuild crypti nodes (using new blockchain only)'
 task :rebuild_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'forever', 'wget')
 
@@ -223,7 +223,7 @@ end
 
 desc 'Stop crypti nodes'
 task :stop_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'forever')
 
@@ -240,7 +240,7 @@ end
 desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'curl')
 
@@ -259,7 +259,7 @@ end
 desc 'Stop forging on crypti nodes'
 task :stop_forging do
   puts 'Stopping forging...'
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'curl')
 
@@ -277,7 +277,7 @@ end
 desc 'Get loading status'
 task :get_loading do
   puts 'Getting loading status...'
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'curl')
 
@@ -291,7 +291,7 @@ end
 desc 'Get forging status'
 task :get_forging do
   puts 'Getting forging status...'
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'curl')
 
@@ -304,7 +304,7 @@ end
 desc 'Get account balances'
 task :get_balances do
   puts 'Getting account balances...'
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+  on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     dep = DependencyManager.new(self, kit)
     next unless dep.check_remote(server, 'curl')
 

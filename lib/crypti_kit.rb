@@ -35,10 +35,6 @@ class CryptiKit
     @config['blockchain_url']
   end
 
-  def server_delay
-    0
-  end
-
   def server_key(server)
     @config['servers'].key(server.to_s)
   end
@@ -54,6 +50,10 @@ class CryptiKit
       _selected = ServerList.parse_keys(selected)
       _selected.collect { |s| @config['servers'].values[s.to_i] }.compact
     end
+  end
+
+  def sequenced_exec
+    { :in => :sequence, :wait => 0 }
   end
 
   def get_passphrase(server, &block)
