@@ -17,7 +17,7 @@ class CryptiApi
     return json
   end
 
-  def post(url, data, &block)
+  def post(url, data = {}, &block)
     begin
       body = @task.capture 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{data.to_json}'", encode_url(url)
       json = JSON.parse(body)
