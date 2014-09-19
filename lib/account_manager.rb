@@ -5,7 +5,7 @@ class AccountManager
   end
 
   def key(server)
-    servers = kit.config['servers']
+    servers = @kit.config['servers']
     servers.key(server.to_s)
   end
 
