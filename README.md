@@ -31,7 +31,7 @@ One or more freshly created Ubuntu based cloud servers on Digital Ocean or GetCl
 
 ### Managing Server List
 
-* To list available servers:
+* To list configured servers:
 
 ```
 rake list_servers
@@ -92,12 +92,6 @@ rake install_nodes
 > NOTE:
 > Crypti node will be automatically started after installation.
 
-* Check loading status of crypti nodes:
-
-```
-rake get_loading
-```
-
 * Start forging:
 
 ```
@@ -105,16 +99,29 @@ rake start_forging
 ```
 
 > NOTE:
-> Please wait for blockchain to be fully loaded before executing forging commands.
+> You will be prompted to enter an individual secret passphrase for each crypti node.
 
-* Get account balances:
+* Check status of each crypti node:
 
 ```
-rake get_balances
+rake check_nodes
 ```
 
-> NOTE:
-> In order for CryptiKit to know which crypti account you are forging with. You need to run the ```rake start_forging``` command before running this command.
+This task outputs the blockchain/forging status and account balance(s) of each crypti node.
+
+```
+Checking nodes...
+--------------------------------------------------------------------------------
+Node[0]: 111.11.11.111 (9473799116182005461C)
+--------------------------------------------------------------------------------
+Loaded:      true
+Height:      31242
+Blocks:      28594
+Forging:     true
+Balance:     1002.92826902
+Unconfirmed: 1002.92826902
+Effective:   1002.92826902
+```
 
 ### Commands
 
@@ -123,12 +130,10 @@ Type ```rake -T``` to get a complete list of commands.
 ```
 rake add_key          # Add your public ssh key
 rake add_servers      # Add servers to config
-rake get_balances     # Get account balances
-rake get_forging      # Get forging status
-rake get_loading      # Get loading status
+rake check_nodes      # Check status of crypti nodes
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
-rake list_servers     # List available servers
+rake list_servers     # List configured servers
 rake log_into         # Log into servers directly
 rake rebuild_nodes    # Rebuild crypti nodes (using new blockchain only)
 rake remove_servers   # Remove servers from config
@@ -146,10 +151,10 @@ By default the tasks will execute on all servers defined in your config.
 You can target specific servers with any of the commands like so.
 
 ```
-rake get_loading servers=0,1,7 # 1st, 2nd and 7th server
+rake check_nodes servers=0,1,7 # 1st, 2nd and 7th server
 ```
 
-Which will execute the get_loading task only on servers 0, 1 and 7 as defined in your config.
+Which will execute the check_nodes task only on servers 0, 1 and 7 as defined in your config.
 
 #### Forging
 
@@ -160,15 +165,19 @@ Forging is controlled using the commands: ```rake start_forging``` and ```rake s
 
 ### Bugs
 
-I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 14.04 LTS droplets / containers.
-Please let me know if you encounter any issues: karmacrypto@gmail.com.
+I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 14.04 LTS droplets / containers. Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
+
+2014-09-19 (v1.2.0)
+
+* Replaced "get_loading", "get_forging" and "get_balances with single task "check_nodes"
+* Implemented dependency checks on local/remote machines before executing tasks
 
 2014-09-18 (v1.1.3)
 
 * Added "get_balances" task
-* Prettified output of get_loading, get_forging and get_balances
+* Prettified output of "get_loading", "get_forging" and "get_balances" tasks
 
 2014-09-17 (v1.1.2)
 
