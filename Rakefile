@@ -30,7 +30,7 @@ require 'lib/account_balance'
 
 kit = CryptiKit.new('config.yml')
 
-desc 'List available servers'
+desc 'List configured servers'
 task :list_servers do
   run_locally do
     info 'Listing available server(s)...'
@@ -285,7 +285,7 @@ task :stop_forging do
   Rake::Task['check_nodes'].invoke
 end
 
-desc 'Check nodes'
+desc 'Check status of crypti nodes'
 task :check_nodes do
   puts 'Checking nodes...'
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
@@ -295,6 +295,7 @@ task :check_nodes do
 
     puts node.divider
     puts node.info
+    puts node.divider
 
     api = CryptiApi.new(self)
     api.get '/api/getLoading' do |json|
