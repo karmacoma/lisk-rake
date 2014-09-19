@@ -165,7 +165,7 @@ Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
 
-2014-09-18 (v1.2.3)
+2014-09-18 (v1.1.3)
 
 * Added "get_balances" task
 * Prettified output of get_loading, get_forging and get_balances
