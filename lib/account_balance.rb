@@ -20,6 +20,6 @@ class AccountBalance
   end
 
   def to_s
-    [balance, "\n", unconfirmed_balance, "\n", effective_balance, "\n", "-" * 80].join.to_s
+    [balance, "\n", unconfirmed_balance, "\n", effective_balance, "\n"].join.to_s
   end
 end

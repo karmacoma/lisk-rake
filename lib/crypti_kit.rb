@@ -36,14 +36,6 @@ class CryptiKit
     @config['blockchain_url']
   end
 
-  def server_key(server)
-    @config['servers'].key(server.to_s)
-  end
-
-  def server_info(server)
-    "Node[#{server_key(server)}]: #{server}"
-  end
-
   def servers(selected = nil)
     if selected.nil? or selected.size <= 0 then
       return @config['servers'].values
@@ -55,18 +47,6 @@ class CryptiKit
 
   def sequenced_exec
     { :in => :sequence, :wait => 0 }
-  end
-
-  def get_passphrase(server, &block)
-    print server_info(server) + ": Please enter your secret passphrase:\s"
-    passphrase = STDIN.noecho(&:gets)
-    passphrase = { :secret => passphrase.chomp }
-    print "\n"
-    if block_given? then
-      block.call(passphrase)
-    else
-      passphrase
-    end
   end
 
   def zip_file

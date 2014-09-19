@@ -16,6 +16,6 @@ class LoadingStatus
   end
 
   def to_s
-    [loaded, "\n", height, "\n", blocks_count, "\n", "-" * 80].join.to_s
+    [loaded, "\n", height, "\n", blocks_count, "\n"].join.to_s
   end
 end
