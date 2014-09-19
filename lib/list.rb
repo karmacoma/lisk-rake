@@ -54,10 +54,6 @@ class List
     _items
   end
 
-  #
-  # Class Methods
-  #
-
   class << self
     attr_reader :key, :key_regexp, :value_regexp, :reindex
   end
