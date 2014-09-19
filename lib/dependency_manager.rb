@@ -4,7 +4,7 @@ class DependencyManager
     @kit  = kit
   end
 
-  def check_local(deps)
+  def check_local(*deps)
     check_dependencies(deps)
   end
 
