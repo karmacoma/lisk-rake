@@ -21,6 +21,7 @@ require 'lib/account_list'
 
 require 'lib/key_manager'
 require 'lib/account_manager'
+require 'lib/dependency_manager'
 
 require 'lib/loading_status'
 require 'lib/forging_status'
@@ -69,11 +70,14 @@ desc 'Add your public ssh key'
 task :add_key do
   kit.servers(ENV['servers']).each do |server|
     run_locally do
+      dep = DependencyManager.new(self, kit)
+      next unless dep.check_local('ssh', 'ssh-copy-id', 'ssh-keygen')
+
       manager = KeyManager.new(self, kit)
       unless test 'cat', kit.deploy_key then
         manager.gen_key
       end
-      if test 'cat', kit.deploy_key and test 'which', 'ssh-copy-id' then
+      if test 'cat', kit.deploy_key then
         manager.add_key(server)
       end
     end
@@ -84,6 +88,9 @@ desc 'Log into servers directly'
 task :log_into do
   kit.servers(ENV['servers']).each do |server|
     run_locally do
+      dep =  DependencyManager.new(self, kit)
+      next unless dep.check_local('ssh')
+
       info "Logging into #{server}..."
       system("ssh #{kit.deploy_user_at_host(server)}")
       info 'Done.'
@@ -93,7 +100,10 @@ end
 
 desc 'Install dependencies'
 task :install_deps do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'apt-get', 'curl')
+
     as kit.deploy_user do
       info 'Adding repository...'
       execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
@@ -108,7 +118,10 @@ end
 
 desc 'Install crypti nodes'
 task :install_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'forever', 'npm', 'wget', 'unzip')
+
     as kit.deploy_user do
       info 'Stopping all processes...'
       execute 'forever', 'stopall', '||', ':'
@@ -138,7 +151,10 @@ end
 
 desc 'Uninstall crypti nodes'
 task :uninstall_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'forever')
+
     as kit.deploy_user do
       info 'Stopping all processes...'
       execute 'forever', 'stopall', '||', ':'
@@ -151,7 +167,10 @@ end
 
 desc 'Start crypti nodes'
 task :start_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'forever')
+
     as kit.deploy_user do
       within kit.install_path do
         info 'Starting crypti node...'
@@ -164,7 +183,10 @@ end
 
 desc 'Restart crypti nodes'
 task :restart_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'forever')
+
     as kit.deploy_user do
       within kit.install_path do
         info 'Restarting crypti node...'
@@ -177,7 +199,10 @@ end
 
 desc 'Rebuild crypti nodes (using new blockchain only)'
 task :rebuild_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'forever', 'wget')
+
     as kit.deploy_user do
       within kit.install_path do
         info 'Stopping all processes...'
@@ -198,7 +223,10 @@ end
 
 desc 'Stop crypti nodes'
 task :stop_nodes do
-  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do
+  on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'forever')
+
     as kit.deploy_user do
       within kit.install_path do
         info 'Stopping crypti node...'
@@ -213,7 +241,10 @@ desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
-    api  = CryptiApi.new(self)
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'curl')
+
+    api = CryptiApi.new(self)
     kit.get_passphrase(server) do |passphrase|
       api.post '/forgingApi/startForging', passphrase
       api.post '/api/unlock', passphrase do |json|
@@ -229,6 +260,9 @@ desc 'Stop forging on crypti nodes'
 task :stop_forging do
   puts 'Stopping forging...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'curl')
+
     api = CryptiApi.new(self)
     kit.get_passphrase(server) do |passphrase|
       api.post '/forgingApi/stopForging', passphrase do |json|
@@ -244,6 +278,9 @@ desc 'Get loading status'
 task :get_loading do
   puts 'Getting loading status...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'curl')
+
     api  = CryptiApi.new(self)
     json = api.get '/api/getLoading'
     info kit.server_info(server)
@@ -255,6 +292,9 @@ desc 'Get forging status'
 task :get_forging do
   puts 'Getting forging status...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'curl')
+
     api  = CryptiApi.new(self)
     json = api.get '/forgingApi/getForgingInfo'
     info kit.server_info(server) + ForgingStatus.new(json).to_s
@@ -265,6 +305,9 @@ desc 'Get account balances'
 task :get_balances do
   puts 'Getting account balances...'
   on kit.servers(ENV['servers']), in: :sequence, wait: kit.server_delay do |server|
+    dep = DependencyManager.new(self, kit)
+    next unless dep.check_remote(server, 'curl')
+
     list = AccountList.new(kit.config)
     key  = kit.server_key(server)
     if address = list[key] then
