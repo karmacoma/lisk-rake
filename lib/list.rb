@@ -28,7 +28,7 @@ class List
   end
 
   def remove(key)
-    @items.delete(key)
+    @items.delete(key.to_i)
   end
 
   def remove_all(items)
