@@ -36,7 +36,10 @@ class List
     _items.each { |item| remove(item) }
   end
 
+  def before_save; end
+
   def save
+    before_save
     File.open('config.yml', 'w') do |f|
       @config[self.class.key] = self.class.reindex ? reindexed : sorted
       f.write @config.to_yaml
