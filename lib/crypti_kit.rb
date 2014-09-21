@@ -41,7 +41,7 @@ class CryptiKit
       return @config['servers'].values
     else
       _selected = ServerList.parse_keys(selected)
-      _selected.collect { |s| @config['servers'].values[s.to_i] }.compact
+      _selected.collect { |s| @config['servers'][s.to_i] }.compact
     end
   end
 
