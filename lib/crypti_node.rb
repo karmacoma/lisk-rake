@@ -16,10 +16,6 @@ class CryptiNode
     "Node[#{key}]: #{@server} (#{account || 'No Account'})"
   end
 
-  def divider
-    "-" * 80
-  end
-
   def get_passphrase(&block)
     print info + ": Please enter your secret passphrase:\s"
     passphrase = STDIN.noecho(&:gets)

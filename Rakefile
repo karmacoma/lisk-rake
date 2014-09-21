@@ -12,6 +12,7 @@ end
 $:.unshift File.dirname(__FILE__)
 
 require 'lib/crypti_netssh'
+require 'lib/crypti_report'
 require 'lib/crypti_node'
 require 'lib/crypti_kit'
 require 'lib/crypti_api'
@@ -23,10 +24,7 @@ require 'lib/account_list'
 require 'lib/key_manager'
 require 'lib/account_manager'
 require 'lib/dependency_manager'
-
-require 'lib/loading_status'
-require 'lib/forging_status'
-require 'lib/account_balance'
+require 'lib/node_status'
 
 kit = CryptiKit.new('config.yml')
 
@@ -288,24 +286,14 @@ end
 desc 'Check status of crypti nodes'
 task :check_nodes do
   puts 'Checking nodes...'
+  report = CryptiReport.new
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
     next unless deps.check_remote(node, 'curl')
 
-    puts node.divider
-    puts node.info
-    puts node.divider
-
     api = CryptiApi.new(self)
-    api.get '/api/getLoading' do |json|
-      puts LoadingStatus.new(json)
-    end
-    api.get '/forgingApi/getForgingInfo' do |json|
-      puts ForgingStatus.new(json)
-    end
-    api.get '/api/getBalance', { address: node.account } do |json|
-      puts AccountBalance.new(json)
-    end if node.account
+    api.node_status(node) { |json| report[node.key] = json }
   end
+  puts report.to_s
 end
