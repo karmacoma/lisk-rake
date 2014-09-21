@@ -54,7 +54,7 @@ class CryptiKit
   end
 
   def install_path
-    [self.deploy_path, '/', self.app_version].join
+    [deploy_path, '/', app_version].join
   end
 
   def apt_dependencies
