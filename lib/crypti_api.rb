@@ -10,7 +10,7 @@ class CryptiApi
       body = @task.capture 'curl', '-X', 'GET', '-H', '"Content-Type: application/json"', encode_url(url, data)
       json = JSON.parse(body)
     rescue Exception => exception
-      @task.info error_message
+      error_message(exception)
       json = {}
     end
     if block_given? and json['success'] then
@@ -24,7 +24,7 @@ class CryptiApi
       body = @task.capture 'curl', '-X', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{data.to_json}'", encode_url(url)
       json = JSON.parse(body)
     rescue Exception => exception
-      @task.info error_message
+      error_message(exception)
       json = {}
     end
     if block_given? and json['success'] then
@@ -39,8 +39,9 @@ class CryptiApi
     encoded
   end
 
-  def error_message
-    'API query failed. Check crypti node is running and blockchain is fully loaded.'
+  def error_message(exception)
+    @task.info 'API query failed. Check crypti node is running and blockchain is fully loaded.'
+    @task.info 'Error: ' + exception.to_s
   end
 
   def loading_status
