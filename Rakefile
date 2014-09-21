@@ -286,7 +286,7 @@ end
 desc 'Check status of crypti nodes'
 task :check_nodes do
   puts 'Checking nodes...'
-  report = CryptiReport.new
+  report = CryptiReport.new(kit.config)
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
