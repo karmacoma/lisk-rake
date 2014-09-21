@@ -171,7 +171,7 @@ I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 1
 
 2014-09-19 (v1.2.0)
 
-* Replaced "get_loading", "get_forging" and "get_balances with single task "check_nodes"
+* Replaced "get_loading", "get_forging" and "get_balances" with single task "check_nodes"
 * Implemented dependency checks on local/remote machines before executing tasks
 * Removing orphan accounts when saving server list
 
