@@ -4,15 +4,15 @@ class AccountBalance
   end
 
   def balance
-    [sprintf("%-13s", 'Balance:'), to_f(@json['balance'])]
+    [sprintf("%-13s", 'Balance:'), to_f(@json['balance']), "\n"]
   end
 
   def unconfirmed_balance
-    [sprintf("%-13s", 'Unconfirmed:'), to_f(@json['unconfirmedBalance'])]
+    [sprintf("%-13s", 'Unconfirmed:'), to_f(@json['unconfirmedBalance']), "\n"]
   end
 
   def effective_balance
-    [sprintf("%-13s", 'Effective:'), to_f(@json['effectiveBalance'])]
+    [sprintf("%-13s", 'Effective:'), to_f(@json['effectiveBalance']), "\n"]
   end
 
   def to_f(balance)
@@ -20,6 +20,6 @@ class AccountBalance
   end
 
   def to_s
-    [balance, "\n", unconfirmed_balance, "\n", effective_balance, "\n"].join.to_s
+    [balance, unconfirmed_balance, effective_balance].join.to_s
   end
 end
