@@ -78,8 +78,10 @@ class CryptiReport
 
   def to_s
     report = String.new
-    @nodes.values.each { |r| report << NodeStatus.new(r).to_s if r.any? }
-    report << ReportSummary.new(self).to_s
+    if @nodes.any? then
+      @nodes.values.each { |r| report << NodeStatus.new(r).to_s if r.any? }
+      report << ReportSummary.new(self).to_s
+    end
     report
   end
 end
