@@ -195,7 +195,7 @@ I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 1
 
 2014-09-22 (v1.3.0)
 
-* Adding detailed report summary to "check_nodes" task
+* Added detailed report summary to "check_nodes" task
 * Node "keys" now start at 1 instead of 0 for easier referencing
 * Improved handling of empty / invalid JSON responses
 * Improved error handling of failed API calls
