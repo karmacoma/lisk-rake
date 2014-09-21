@@ -20,15 +20,21 @@ class ReportSummary
   end
 
   def total_balance
-    [sprintf("%-19s", 'Total Balance:'), balance(@report.total_balance), "\n"]
+    if @report.total_balance > 0.0 then
+      [sprintf("%-19s", 'Total Balance:'), balance(@report.total_balance), "\n"]
+    end
   end
 
   def total_unconfirmed
-    [sprintf("%-19s", 'Total Unconfirmed:'), balance(@report.total_unconfirmed), "\n"]
+    if @report.total_unconfirmed > 0.0 then
+      [sprintf("%-19s", 'Total Unconfirmed:'), balance(@report.total_unconfirmed), "\n"]
+    end
   end
 
   def total_effective
-    [sprintf("%-19s", 'Total Effective:'), balance(@report.total_effective), "\n"]
+    if @report.total_effective > 0.0 then
+      [sprintf("%-19s", 'Total Effective:'), balance(@report.total_effective), "\n"]
+    end
   end
 
   def not_loaded
