@@ -72,6 +72,9 @@ class CryptiApi
   def node_status(node, &block)
     @task.info node.info
     json = { 'info' => node.info, 'loading_status' => loading_status, 'forging_status' => forging_status, 'account_balance' => account_balance(node.account) }
+    ['loading_status', 'forging_status', 'account_balance'].each do |j|
+      json[j].merge!('key' => node.key)
+    end
     block.call(json) if block_given?
     json
   end
