@@ -52,13 +52,15 @@ class ReportSummary
   end
 
   def lowest_effective
-    node = @report.lowest_effective
-    [sprintf("%-19s", 'Lowest Balance:'), balance(node['effectiveBalance']), node_key(node), "\n"]
+    if node = @report.lowest_effective then
+      [sprintf("%-19s", 'Lowest Balance:'), balance(node['effectiveBalance']), node_key(node), "\n"]
+    end
   end
 
   def highest_effective
-    node = @report.highest_effective
-    [sprintf("%-19s", 'Highest Balance:'), balance(node['effectiveBalance']), node_key(node), "\n"]
+    if node = @report.highest_effective then
+      [sprintf("%-19s", 'Highest Balance:'), balance(node['effectiveBalance']), node_key(node), "\n"]
+    end
   end
 
   def to_s
