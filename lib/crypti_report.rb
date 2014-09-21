@@ -77,11 +77,11 @@ class CryptiReport
   end
 
   def to_s
-    result = String.new
+    report = String.new
     @nodes.values.each do |r|
-      result << NodeStatus.new(r).to_s if r.any?
+      report << NodeStatus.new(r).to_s if r.any?
     end
-    result << ReportSummary.new(self).to_s
-    result
+    report << ReportSummary.new(self).to_s
+    report
   end
 end
