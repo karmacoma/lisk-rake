@@ -13,7 +13,9 @@ class CryptiApi
       @task.info error_message
       json = {}
     end
-    block.call json if block_given?
+    if block_given? and json['success'] then
+      block.call json
+    end
     return json
   end
 
@@ -25,7 +27,9 @@ class CryptiApi
       @task.info error_message
       json = {}
     end
-    block.call json if block_given?
+    if block_given? and json['success'] then
+      block.call json
+    end
     return json
   end
 
