@@ -3,6 +3,10 @@ class AccountBalance
     @json = json
   end
 
+  def to_f(balance)
+    (balance.to_f / 10**8).to_f
+  end
+
   def balance
     [sprintf("%-13s", 'Balance:'), to_f(@json['balance']), "\n"]
   end
@@ -13,10 +17,6 @@ class AccountBalance
 
   def effective_balance
     [sprintf("%-13s", 'Effective:'), to_f(@json['effectiveBalance']), "\n"]
-  end
-
-  def to_f(balance)
-    (balance.to_f / 10**8).to_f
   end
 
   def to_s
