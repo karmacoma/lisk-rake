@@ -16,18 +16,26 @@ class NodeStatus
   end
 
   def loading_status
-    LoadingStatus.new(@json['loading_status']).to_s
+    if @json['loading_status'].size > 1 then
+      LoadingStatus.new(@json['loading_status']).to_s
+    end
   end
 
   def forging_status
-    ForgingStatus.new(@json['forging_status']).to_s
+    if @json['forging_status'].size > 1 then
+      ForgingStatus.new(@json['forging_status']).to_s
+    end
   end
 
   def account_balance
-    AccountBalance.new(@json['account_balance']).to_s
+    if @json['account_balance'].size > 1 then
+      AccountBalance.new(@json['account_balance']).to_s
+    end
   end
 
   def to_s
-    [divider, info, divider, loading_status, forging_status, account_balance].join.to_s
+    status = [divider, info, divider, loading_status, forging_status, account_balance]
+    return "" if status.compact.size <= 3
+    status.join.to_s
   end
 end
