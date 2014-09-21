@@ -111,6 +111,9 @@ This task outputs the blockchain/forging status and account balance(s) of each c
 
 ```
 Checking nodes...
+INFO Node[1]: 111.11.11.111 (9473799116182005461C)
+INFO Getting loading status...
+INFO Done.
 --------------------------------------------------------------------------------
 Node[1]: 111.11.11.111 (9473799116182005461C)
 --------------------------------------------------------------------------------
@@ -121,6 +124,27 @@ Forging:     true
 Balance:     1002.92826902
 Unconfirmed: 1002.92826902
 Effective:   1002.92826902
+```
+
+When CryptiKit has finished gathering data from your nodes, it produces a detailed summary containing the total nodes checked, total balances, lowest / highest balances and a breakdown of any nodes which are either not loaded properly or not currently forging. Please see the below example:
+
+```
+================================================================================
+Report Summary
+================================================================================
+Nodes Checked:     24 / 24 Configured
+Total Balance:     26915.88691914
+Total Unconfirmed: 26915.88691914
+Total Effective:   26915.88691914
+Lowest Balance:    1000.00168904 -> Node[15]
+Highest Balance:   2421.74114445 -> Node[9]
+--------------------------------------------------------------------------------
+* 1 / 24 nodes are not loaded properly.
+> Affected Nodes: 4
+--------------------------------------------------------------------------------
+* 2 / 24 nodes are not currently forging.
+> Affected Nodes: 1,4
+--------------------------------------------------------------------------------
 ```
 
 ### Commands
@@ -168,6 +192,13 @@ Forging is controlled using the commands: ```rake start_forging``` and ```rake s
 I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 14.04 LTS droplets / containers. Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
+
+2014-09-22 (v1.3.0)
+
+* Adding detailed report summary to "check_nodes" task
+* Node "keys" now start at 1 instead of 0 for easier referencing
+* Improved handling of empty / invalid JSON responses
+* Improved error handling of failed API calls
 
 2014-09-19 (v1.2.0)
 
