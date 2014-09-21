@@ -18,7 +18,7 @@ class List
 
   def add(item)
     return if @items.values.include?(item.to_s)
-    key = (@items.size > 0) ? @items.keys.last + 1 : 0
+    key = (@items.size > 0) ? @items.keys.last + 1 : 1
     @items[key] = item.to_s
   end
 
@@ -51,7 +51,7 @@ class List
   end
 
   def reindexed
-    key    = -1
+    key    = 0
     _items = {}
     sorted.values.each { |item| _items[(key += 1)] = item }
     _items
