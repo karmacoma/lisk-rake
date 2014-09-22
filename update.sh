@@ -21,6 +21,10 @@ if ! command -v git >/dev/null 2>&1 ; then
    exit
 fi
 
+git fetch origin master
+git checkout master
+git reset --hard origin/master
+
 git fetch --tags
 git checkout `git describe --abbrev=0 --tags` -B stable
 
