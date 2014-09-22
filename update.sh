@@ -26,7 +26,7 @@ git checkout master
 git reset --hard origin/master
 
 git fetch --tags
-git checkout `git describe --abbrev=0 --tags` -B stable
+git checkout `git describe --abbrev=0 --tags` -B release
 
 echo "Done."
 echo "-------------------------------------------------------------------------------"
