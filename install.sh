@@ -12,13 +12,18 @@ fi
 echo "Installing rvm..."
 echo "-------------------------------------------------------------------------------"
 
-\curl -sSL https://get.rvm.io | bash -s stable --ruby --auto-dotfiles
+\curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
 
 echo "Configuring environment..."
 echo "-------------------------------------------------------------------------------"
 
 export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+echo "Installing ruby..."
+echo "-------------------------------------------------------------------------------"
+
+rvm install ruby-2.1.2
 
 echo "Installing gems..."
 echo "-------------------------------------------------------------------------------"
