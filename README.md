@@ -193,6 +193,12 @@ I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 1
 
 ### Changelog
 
+2014-09-22 (v1.3.1)
+
+* Fixed installation issue when installing rvm as root
+* Fixed issue with updating of git tree to latest release tag
+* Locked ruby installation to version: 2.1.2 (for now)
+
 2014-09-22 (v1.3.0)
 
 * Added detailed report summary to "check_nodes" task
