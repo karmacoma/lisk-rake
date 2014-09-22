@@ -196,6 +196,7 @@ I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 1
 2014-09-22 (v1.3.0)
 
 * Added detailed report summary to "check_nodes" task
+* Decompressing new blockchain.db.zip file after download
 * Node "keys" now start at 1 instead of 0 for easier referencing
 * Improved handling of empty / invalid JSON responses
 * Improved error handling of failed API calls
