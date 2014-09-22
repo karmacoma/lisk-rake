@@ -13,6 +13,14 @@ fi
 echo "Updating cryptikit..."
 echo "-------------------------------------------------------------------------------"
 
+if ! command -v git >/dev/null 2>&1 ; then
+   echo "Update requires installation of 'git'. Please install 'git' and try again."
+   echo ""
+   echo "You can always download the latest release of CryptiKit from:"
+   echo "-> https://github.com/karmacoma/cryptikit/releases/latest"
+   exit
+fi
+
 git fetch --tags
 git checkout `git describe --abbrev=0 --tags` -B stable
 
