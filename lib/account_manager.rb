@@ -36,6 +36,6 @@ class AccountManager
   private
 
   def extract_account(json)
-    { 'address' => json['address'], 'publickey' => json['publickey'] }
+    { 'address' => json['address'], 'public_key' => json['publickey'] }
   end
 end

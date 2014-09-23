@@ -19,7 +19,7 @@ class CryptiNode
   end
 
   def public_key
-    value('publickey')
+    value('public_key')
   end
 
   def info
