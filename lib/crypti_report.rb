@@ -44,9 +44,13 @@ class CryptiReport
     "#{total_nodes} / #{total_configured} Configured"
   end
 
-  def total_balance(type = 'balance')
+  def total_forged
+    total_balance('totalForged', 'mining_info')
+  end
+
+  def total_balance(type = 'balance', parent = 'account_balance')
     balance = 0.0
-    @nodes.collect { |k,v| v['account_balance'] }.collect do |n|
+    @nodes.collect { |k,v| v[parent.to_s] }.collect do |n|
       balance += n[type.to_s].to_f
     end
     balance

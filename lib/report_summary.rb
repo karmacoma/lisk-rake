@@ -15,6 +15,12 @@ class ReportSummary
     balance.to_f / 10**8
   end
 
+  def total_forged
+    if @report.total_forged > 0.0 then
+      [sprintf("%-19s", 'Total Forged:'), balance(@report.total_forged), "\n"]
+    end
+  end
+
   def total_checked
     [sprintf("%-19s", 'Nodes Checked:'), @report.total_checked, "\n"]
   end
@@ -75,6 +81,7 @@ class ReportSummary
       title,
       divider('='),
       total_checked,
+      total_forged,
       total_balance,
       total_unconfirmed,
       total_effective,
