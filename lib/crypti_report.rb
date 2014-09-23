@@ -23,8 +23,8 @@ class CryptiReport
   end
 
   def not_forging
-    @nodes.collect { |k,v| v['forging_status'] }.find_all do |n|
-      !n['forgingEnabled']
+    @nodes.collect { |k,v| v['mining_info'] }.find_all do |n|
+      !n['forging']
     end
   end
 
