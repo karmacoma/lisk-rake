@@ -58,6 +58,17 @@ class CryptiApi
     end
   end
 
+  def mining_info(public_key)
+    @task.info 'Getting mining info...'
+    if public_key then
+      get '/api/getMiningInfo', { publicKey: public_key, descOrder: true } do |json|
+        @task.info 'Done.'
+      end
+    else
+      {}
+    end
+  end
+
   def account_balance(account)
     @task.info 'Getting account balance...'
     if account then
@@ -71,8 +82,8 @@ class CryptiApi
 
   def node_status(node, &block)
     @task.info node.info
-    json = { 'info' => node.info, 'loading_status' => loading_status, 'forging_status' => forging_status, 'account_balance' => account_balance(node.account) }
-    ['loading_status', 'forging_status', 'account_balance'].each do |j|
+    json = { 'info' => node.info, 'loading_status' => loading_status, 'forging_status' => forging_status, 'mining_info' => mining_info(node.public_key), 'account_balance' => account_balance(node.account) }
+    ['loading_status', 'forging_status', 'mining_info', 'account_balance'].each do |j|
       json[j].merge!('key' => node.key)
     end
     block.call(json) if block_given?
