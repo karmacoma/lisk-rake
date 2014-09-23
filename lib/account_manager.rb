@@ -17,7 +17,7 @@ class AccountManager
     if json.is_a?(Hash) and json['forging'] then
       @task.info "Adding account: #{account(json)}..."
       list = AccountList.new(@kit.config)
-      list[key(server)] = json['address']
+      list[key(server)] = extract_account(json)
       list.save
       @task.info 'Done.'
     end
@@ -31,5 +31,11 @@ class AccountManager
       list.save
       @task.info 'Done.'
     end
+  end
+
+  private
+
+  def extract_account(json)
+    { 'address' => json['address'], 'publickey' => json['publickey'] }
   end
 end

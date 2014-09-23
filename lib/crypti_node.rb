@@ -8,8 +8,18 @@ class CryptiNode
     @config['servers'].key(@server.to_s)
   end
 
+  def value(k)
+    val = @config['accounts'][key]
+    val = val.is_a?(Hash) ? val[k.to_s] : nil
+    val
+  end
+
   def account
-    @config['accounts'][key]
+    value('address')
+  end
+
+  def public_key
+    value('publickey')
   end
 
   def info
