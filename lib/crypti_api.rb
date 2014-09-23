@@ -51,13 +51,6 @@ class CryptiApi
     end
   end
 
-  def forging_status
-    @task.info 'Getting forging status...'
-    get '/forgingApi/getForgingInfo' do |json|
-      @task.info 'Done.'
-    end
-  end
-
   def mining_info(public_key)
     @task.info 'Getting mining info...'
     if public_key then
@@ -82,8 +75,8 @@ class CryptiApi
 
   def node_status(node, &block)
     @task.info node.info
-    json = { 'info' => node.info, 'loading_status' => loading_status, 'forging_status' => forging_status, 'mining_info' => mining_info(node.public_key), 'account_balance' => account_balance(node.account) }
-    ['loading_status', 'forging_status', 'mining_info', 'account_balance'].each do |j|
+    json = { 'info' => node.info, 'loading_status' => loading_status, 'mining_info' => mining_info(node.public_key), 'account_balance' => account_balance(node.account) }
+    ['loading_status', 'mining_info', 'account_balance'].each do |j|
       json[j].merge!('key' => node.key)
     end
     block.call(json) if block_given?
