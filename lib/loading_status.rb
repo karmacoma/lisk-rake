@@ -4,15 +4,15 @@ class LoadingStatus
   end
 
   def loaded
-    [sprintf("%-13s", 'Loaded:'), @json['loaded'], "\n"]
+    [sprintf("%-19s", 'Loaded:'), @json['loaded'], "\n"]
   end
 
   def height
-    [sprintf("%-13s", 'Height:'), @json['height'], "\n"]
+    [sprintf("%-19s", 'Height:'), @json['height'], "\n"]
   end
 
   def blocks_count
-    [sprintf("%-13s", 'Blocks:'), @json['blocksCount'], "\n"]
+    [sprintf("%-19s", 'Blocks:'), @json['blocksCount'], "\n"]
   end
 
   def to_s

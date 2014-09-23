@@ -8,15 +8,15 @@ class MiningInfo
   end
 
   def forging
-    [sprintf("%-13s", 'Forging:'), @json['forging'], "\n"]
+    [sprintf("%-19s", 'Forging:'), @json['forging'], "\n"]
   end
 
   def forged
-    [sprintf("%-13s", 'Forged:'), to_f(@json['totalForged']), "\n"]
+    [sprintf("%-19s", 'Forged:'), to_f(@json['totalForged']), "\n"]
   end
 
   def last_forged
-    array = [sprintf("%-13s", 'Last Forged:')]
+    array = [sprintf("%-19s", 'Last Forged:')]
     if @json['blocks'] and last = @json['blocks'].first then
       array.concat(['Block -> ', last['id'], ' Amount -> ', to_f(@json['totalFee']), "\n"])
     else
