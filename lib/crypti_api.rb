@@ -36,7 +36,7 @@ class CryptiApi
   def encode_url(url, data = nil)
     encoded = 'http://127.0.0.1:6040' + url
     encoded << '?' + URI.encode_www_form(data) if data
-    encoded
+    encoded = "'#{encoded}'"
   end
 
   def error_message(exception)
