@@ -57,6 +57,10 @@ class CryptiKit
     [deploy_path, '/', app_version].join
   end
 
+  def apt_conflicts
+    ['nodejs', 'nodejs-legacy', 'npm']
+  end
+
   def apt_dependencies
     ['build-essential', 'wget', 'unzip', 'nodejs']
   end

@@ -108,6 +108,10 @@ task :install_deps do
     as kit.deploy_user do
       info 'Adding repository...'
       execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
+      info 'Purging conflicting packages...'
+      execute 'apt-get', 'purge', '-f', '--yes', kit.apt_conflicts
+      info 'Purging packages no longer required...'
+      execute 'apt-get', 'autoremove', '--purge', '--yes'
       info 'Installing apt dependencies...'
       execute 'apt-get', 'install', '-f', '--yes', kit.apt_dependencies
       info 'Installing npm dependencies...'
