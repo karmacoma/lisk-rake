@@ -76,7 +76,6 @@ class CryptiApi
   end
 
   def node_status(node, &block)
-    @task.info node.info
     json = { 'info' => node.info, 'loading_status' => loading_status, 'mining_info' => mining_info(node.public_key), 'account_balance' => account_balance(node.account) }
     ['loading_status', 'mining_info', 'account_balance'].each do |j|
       json[j].merge!('key' => node.key)

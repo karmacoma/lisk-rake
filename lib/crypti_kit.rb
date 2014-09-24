@@ -49,6 +49,26 @@ class CryptiKit
     { :in => :sequence, :wait => 0 }
   end
 
+  def on_each_server(&block)
+    kit = self
+    on(servers(ENV['servers']), sequenced_exec) do |server|
+      node = CryptiNode.new(kit.config, server)
+      info node.info
+      deps = DependencyManager.new(self, kit)
+      instance_exec(server, node, deps, &block)
+    end
+  end
+
+  def each_server(&block)
+    kit = self
+    servers(ENV['servers']).each do |server|
+      run_locally do
+        deps = DependencyManager.new(self, kit)
+        instance_exec(server, deps, &block)
+      end
+    end
+  end
+
   def zip_file
     "crypti-linux-#{self.app_version}.zip"
   end
