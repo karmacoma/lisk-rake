@@ -19,7 +19,6 @@ class DependencyManager
     @task.info "Checking #{location} dependencies..."
     deps.delete_if { |d| d == 'crypti' }.each do |dep|
       if !@task.test('which', dep) then
-        @task.info @kit.server_info(server) if server
         @task.error '=> Can not continue with task...'
         @task.error "=> Missing dependency: '#{dep}' on #{location} system."
         return false
