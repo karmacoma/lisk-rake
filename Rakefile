@@ -36,7 +36,7 @@ task :list_servers do
       node = CryptiNode.new(kit.config, server)
       info node.info
     end
-    info 'Done.'
+    info '=> Done.'
   end
 end
 
@@ -48,7 +48,7 @@ task :add_servers do
     list.add_all(ENV['servers'])
     info 'Updating configuration...'
     list.save
-    info 'Done.'
+    info '=> Done.'
   end
   Rake::Task['list_servers'].invoke
 end
@@ -61,7 +61,7 @@ task :remove_servers do
     list.remove_all(ENV['servers'])
     info 'Updating configuration...'
     list.save
-    info 'Done.'
+    info '=> Done.'
   end
   Rake::Task['list_servers'].invoke
 end
@@ -93,7 +93,7 @@ task :log_into do
 
       info "Logging into #{server}..."
       system("ssh #{kit.deploy_user_at_host(server)}")
-      info 'Done.'
+      info '=> Done.'
     end
   end
 end
@@ -116,7 +116,7 @@ task :install_deps do
       execute 'apt-get', 'install', '-f', '--yes', kit.apt_dependencies
       info 'Installing npm dependencies...'
       execute 'npm', 'install', '-g', kit.npm_dependencies
-      info 'Done.'
+      info '=> Done.'
     end
   end
 end
@@ -151,7 +151,7 @@ task :install_nodes do
         execute 'unzip', 'blockchain.db.zip'
         info 'Starting crypti node...'
         execute 'forever', 'start', 'app.js', '||', ':'
-        info 'Done.'
+        info '=> Done.'
       end
     end
   end
@@ -169,7 +169,7 @@ task :uninstall_nodes do
       execute 'forever', 'stopall', '||', ':'
       info 'Removing crypti...'
       execute 'rm', '-rf', kit.deploy_path
-      info 'Done.'
+      info '=> Done.'
     end
   end
 end
@@ -187,7 +187,7 @@ task :start_nodes do
         execute 'forever', 'stopall', '||', ':'
         info 'Starting crypti node...'
         execute 'forever', 'start', 'app.js', '||', ':'
-        info 'Done.'
+        info '=> Done.'
       end
     end
   end
@@ -204,7 +204,7 @@ task :restart_nodes do
       within kit.install_path do
         info 'Restarting crypti node...'
         execute 'forever', 'restart', 'app.js', '||', ':'
-        info 'Done.'
+        info '=> Done.'
       end
     end
   end
@@ -231,7 +231,7 @@ task :rebuild_nodes do
         execute 'unzip', 'blockchain.db.zip'
         info 'Starting crypti node...'
         execute 'forever', 'start', 'app.js', '||', ':'
-        info 'Done.'
+        info '=> Done.'
       end
     end
   end
@@ -248,7 +248,7 @@ task :stop_nodes do
       within kit.install_path do
         info 'Stopping crypti node...'
         execute 'forever', 'stop', 'app.js', '||', ':'
-        info 'Done.'
+        info '=> Done.'
       end
     end
   end

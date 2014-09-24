@@ -20,11 +20,11 @@ class DependencyManager
     deps.delete_if { |d| d == 'crypti' }.each do |dep|
       if !@task.test('which', dep) then
         @task.info @kit.server_info(server) if server
-        @task.info 'Can not continue with task...'
-        @task.info "Missing dependency: '#{dep}' on #{location} system."
+        @task.info '=> Can not continue with task...'
+        @task.info "=> Missing dependency: '#{dep}' on #{location} system."
         return false
       else
-        @task.info 'Done.'
+        @task.info '=> Done.'
         return true
       end
     end
@@ -34,11 +34,11 @@ class DependencyManager
     return true unless deps.include?('crypti')
     @task.info 'Looking for crypti node...'
     if @task.test "[ -f #{@kit.install_path + '/app.js'} ];" then
-      @task.info 'Found.'
+      @task.info '=> Found.'
       return true
     else
-      @task.info 'Not Found.'
-      @task.info "Please run command: 'rake install_nodes servers=#{server.key}' to install."
+      @task.info '=> Not Found.'
+      @task.info "=> Please run command: 'rake install_nodes servers=#{server.key}' to install."
       return false
     end
   end

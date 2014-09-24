@@ -113,7 +113,7 @@ This task outputs the blockchain/forging status and account balance(s) of each c
 Checking nodes...
 INFO Node[1]: 111.11.11.111 (9473799116182005461C)
 INFO Getting loading status...
-INFO Done.
+INFO => Done.
 --------------------------------------------------------------------------------
 Node[1]: 111.11.11.111 (9473799116182005461C)
 --------------------------------------------------------------------------------

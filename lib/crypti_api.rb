@@ -40,14 +40,14 @@ class CryptiApi
   end
 
   def error_message(exception)
-    @task.info 'API query failed. Check crypti node is running and blockchain is fully loaded.'
-    @task.info 'Error: ' + exception.to_s
+    @task.info '=> API query failed. Check crypti node is running and blockchain is fully loaded.'
+    @task.info '=> Error: ' + exception.to_s
   end
 
   def loading_status
     @task.info 'Getting loading status...'
     get '/api/getLoading' do |json|
-      @task.info 'Done.'
+      @task.info '=> Done.'
     end
   end
 
@@ -55,7 +55,7 @@ class CryptiApi
     if public_key then
       @task.info 'Getting mining info...'
       get '/api/getMiningInfo', { publicKey: public_key, descOrder: true } do |json|
-        @task.info 'Done.'
+        @task.info '=> Done.'
       end
     else
       @task.info 'Mining info not available...'
@@ -67,7 +67,7 @@ class CryptiApi
     if account then
       @task.info 'Getting account balance...'
       get '/api/getBalance', { address: account } do |json|
-        @task.info 'Done.'
+        @task.info '=> Done.'
       end
     else
       @task.info 'Account balance not available...'

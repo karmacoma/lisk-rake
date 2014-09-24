@@ -19,7 +19,7 @@ class AccountManager
       list = AccountList.new(@kit.config)
       list[key(server)] = extract_account(json)
       list.save
-      @task.info 'Done.'
+      @task.info '=> Done.'
     end
   end
 
@@ -29,7 +29,7 @@ class AccountManager
       list = AccountList.new(@kit.config)
       list.remove(key(server))
       list.save
-      @task.info 'Done.'
+      @task.info '=> Done.'
     end
   end
 
