@@ -12,6 +12,7 @@ class KeyManager
   def add_key(server)
     @task.info "Adding public ssh key to: #{server}..."
     @task.execute 'ssh-copy-id', '-i', @kit.deploy_key, "#{@kit.deploy_user_at_host(server)}"
+    @task.info '=> Done.'
   rescue Exception => exception
     case exception.to_s
     when /Your password has expired/ then
