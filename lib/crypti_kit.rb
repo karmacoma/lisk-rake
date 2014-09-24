@@ -2,7 +2,6 @@ require 'lib/connection_error'
 
 class CryptiKit
   attr_reader :config
-  attr_accessor :errors
   
   def initialize(config)
     @config = YAML.load_file(config)

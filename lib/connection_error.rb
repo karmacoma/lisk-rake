@@ -7,39 +7,41 @@ class ConnectionError
   def detect_error
     case @exception.to_s
     when /Authentication failed/ then
-      authentication_failure
+      message = authentication_failure
     when /Connection closed/i then
-      connection_closed
+      message = connection_closed
     when /Connection timed out/ then
-      connection_timeout
+      message = connection_timeout
     when /Connection refused/ then
-      connection_refused
+      message = connection_refused
     else
-      unknown_error
+      message = unknown_error
     end
+    @task.error message
+    return message
   end
 
   def authentication_failure
-    @task.error '=> Authentication failed.'
+    '=> Authentication failed.'
   end
 
   def connection_closed
-    @task.error '=> Connection closed by remote host.'
+    '=> Connection closed by remote host.'
   end
 
   def connection_timeout
-    @task.error '=> Connection timed out.'
+    '=> Connection timed out.'
   end
 
   def connection_refused
-    @task.error '=> Connection refused.'
+    '=> Connection refused.'
   end
 
   def unknown_error
     if ENV['debug'] == 'true' then
       raise @exception
     else
-      @task.error (@exception.to_s.size > 0) ? '=> ' + @exception.to_s : '=> Unknown error.'
+      (@exception.to_s.size > 0) ? '=> ' + @exception.to_s : '=> Unknown error.'
     end
   end
 end
