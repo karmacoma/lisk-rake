@@ -183,6 +183,8 @@ task :start_nodes do
 
     as kit.deploy_user do
       within kit.install_path do
+        info 'Stopping all processes...'
+        execute 'forever', 'stopall', '||', ':'
         info 'Starting crypti node...'
         execute 'forever', 'start', 'app.js', '||', ':'
         info 'Done.'
