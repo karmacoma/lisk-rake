@@ -70,19 +70,19 @@ class ReportSummary
     end
   end
 
-  def node_key(node)
+  def node_pointer(node)
     " -> Node[#{node['key']}]"
   end
 
   def lowest_effective
     if node = @report.lowest_effective then
-      [sprintf("%-19s", 'Lowest Balance:'), balance(node['effectiveBalance']), node_key(node), "\n"]
+      [sprintf("%-19s", 'Lowest Balance:'), balance(node['effectiveBalance']), node_pointer(node), "\n"]
     end
   end
 
   def highest_effective
     if node = @report.highest_effective then
-      [sprintf("%-19s", 'Highest Balance:'), balance(node['effectiveBalance']), node_key(node), "\n"]
+      [sprintf("%-19s", 'Highest Balance:'), balance(node['effectiveBalance']), node_pointer(node), "\n"]
     end
   end
 
