@@ -151,7 +151,7 @@ Any connection / authentication errors encountered while running the ```check_no
 
 ```
 --------------------------------------------------------------------------------
-* 1 nodes encountered errors and were not checked.
+* 3 nodes encountered errors and were not checked.
 
 Error Messages:
 * Node[13] => Connection closed by remote host.
