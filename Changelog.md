@@ -4,14 +4,14 @@
 
 > NOTE: Config file update required. Please run the ```start_forging``` task on all of your nodes after downloading this release. This is due to an API key that needs to be added to the config, before forging statistics can be successfully retrieved.
 
-Bug Fixes
+#### Bug Fixes
 
 - Resolved issue when installing on servers where nodejs already installed
 - Ensuring all existing processes are stopped before starting a node
 - Checking crypti node is installed before executing certain tasks
 - Removing blockchain.db.zip after decompressing it during tasks
 
-Features / Improvements
+#### Features / Improvements
 
 - Added forging information to "check_nodes" task including:
   - Forged coins by each individual node
