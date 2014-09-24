@@ -40,8 +40,8 @@ class CryptiApi
   end
 
   def error_message(exception)
-    @task.info '=> API query failed. Check crypti node is running and blockchain is fully loaded.'
-    @task.info '=> Error: ' + exception.to_s
+    @task.error '=> API query failed. Check crypti node is running and blockchain is fully loaded.'
+    @task.error '=> Error: ' + exception.to_s
   end
 
   def loading_status
@@ -58,7 +58,7 @@ class CryptiApi
         @task.info '=> Done.'
       end
     else
-      @task.info 'Mining info not available...'
+      @task.warn '=> Mining info not available.'
       {}
     end
   end
@@ -70,7 +70,7 @@ class CryptiApi
         @task.info '=> Done.'
       end
     else
-      @task.info 'Account balance not available...'
+      @task.warn '=> Account balance not available.'
       {}
     end
   end

@@ -5,7 +5,7 @@ class KeyManager
   end
 
   def gen_key
-    @task.info 'Could not find ssh key. Creating a new one...'
+    @task.warn 'Could not find ssh key. Creating a new one...'
     system 'ssh-keygen -t rsa'
   end
 
@@ -15,7 +15,7 @@ class KeyManager
   rescue Exception => exception
     case exception.to_s
     when /Your password has expired/ then
-      @task.info 'Password change required. Please login and change password...'
+      @task.warn 'Password change required. Please login and change password...'
       system "ssh -t #{@kit.deploy_user_at_host(server)} exit"
       @task.info 'Trying to add public ssh key again...'
       retry
