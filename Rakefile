@@ -147,6 +147,8 @@ task :install_nodes do
         execute 'wget', kit.blockchain_url
         info 'Decompressing blockchain...'
         execute 'unzip', 'blockchain.db.zip'
+        info 'Cleaning up...'
+        execute 'rm', 'blockchain.db.zip'
         info 'Starting crypti node...'
         execute 'forever', 'start', 'app.js', '||', ':'
         info '=> Done.'
@@ -227,6 +229,8 @@ task :rebuild_nodes do
         execute 'wget', kit.blockchain_url
         info 'Decompressing blockchain...'
         execute 'unzip', 'blockchain.db.zip'
+        info 'Cleaning up...'
+        execute 'rm', 'blockchain.db.zip'
         info 'Starting crypti node...'
         execute 'forever', 'start', 'app.js', '||', ':'
         info '=> Done.'
