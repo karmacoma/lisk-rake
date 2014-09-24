@@ -26,6 +26,9 @@ require 'lib/account_manager'
 require 'lib/dependency_manager'
 require 'lib/node_status'
 
+require 'lib/colorize'
+include Colorize
+
 kit = CryptiKit.new('config.yml')
 
 desc 'List configured servers'

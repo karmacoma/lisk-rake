@@ -8,7 +8,7 @@ class ReportSummary
   end
 
   def title
-    "Report Summary\n"
+    blue("Report Summary\n")
   end
 
   def balance(balance)
@@ -62,9 +62,9 @@ class ReportSummary
   def baddies
     nodes = @report.baddies
     if nodes.any? then
-      baddies =  "* #{nodes.size} nodes encountered errors and were not checked.\n\n"
-      baddies << "Error Messages:\n"
-      nodes.each { |node| baddies << "* Node[#{node['key']}] #{node['error']}\n" }
+      baddies =  red("* #{nodes.size} nodes encountered errors and were not checked.\n\n")
+      baddies << red("Error Messages:\n")
+      nodes.each { |node| baddies << red("* Node[#{node['key']}] #{node['error']}\n") }
       baddies << divider
       baddies
     end

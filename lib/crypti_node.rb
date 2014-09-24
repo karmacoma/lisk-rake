@@ -23,7 +23,7 @@ class CryptiNode
   end
 
   def info
-    "Node[#{key}]: #{@server} (#{account || 'No Account'})".colorize(:green)
+    green "Node[#{key}]: #{@server} (#{account || 'No Account'})"
   end
 
   def get_passphrase(&block)
