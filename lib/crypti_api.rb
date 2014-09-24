@@ -52,23 +52,25 @@ class CryptiApi
   end
 
   def mining_info(public_key)
-    @task.info 'Getting mining info...'
     if public_key then
+      @task.info 'Getting mining info...'
       get '/api/getMiningInfo', { publicKey: public_key, descOrder: true } do |json|
         @task.info 'Done.'
       end
     else
+      @task.info 'Mining info not available...'
       {}
     end
   end
 
   def account_balance(account)
-    @task.info 'Getting account balance...'
     if account then
+      @task.info 'Getting account balance...'
       get '/api/getBalance', { address: account } do |json|
         @task.info 'Done.'
       end
     else
+      @task.info 'Account balance not available...'
       {}
     end
   end
