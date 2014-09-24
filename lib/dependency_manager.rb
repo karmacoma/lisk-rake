@@ -38,7 +38,7 @@ class DependencyManager
       return true
     else
       @task.error '=> Not Found.'
-      @task.error "=> Please run command: 'rake install_nodes servers=#{server.key}' to install."
+      @task.error "=> Please run the command: 'rake install_nodes servers=#{server.key}' and try again."
       return false
     end
   end
