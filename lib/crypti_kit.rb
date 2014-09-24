@@ -6,8 +6,6 @@ class CryptiKit
   def initialize(config)
     @config = YAML.load_file(config)
     @netssh = CryptiNetssh.new(@config['deploy_user'])
-    @config['servers']  ||= {}
-    @config['accounts'] ||= {}
   end
 
   def deploy_user
@@ -38,12 +36,20 @@ class CryptiKit
     @config['blockchain_url']
   end
 
+  def configured_servers
+    @config['servers'] ||= {}
+  end
+
+  def configured_accounts
+    @config['accounts'] ||= {}
+  end
+
   def servers(selected = nil)
     if selected.nil? or selected.size <= 0 then
-      return @config['servers'].values
+      return configured_servers.values
     else
       _selected = ServerList.parse_keys(selected)
-      _selected.collect { |s| @config['servers'][s.to_i] }.compact
+      _selected.collect { |s| configured_servers[s.to_i] }.compact
     end
   end
 
