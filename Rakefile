@@ -162,7 +162,7 @@ task :uninstall_nodes do
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
-    next unless deps.check_remote(node, 'forever')
+    next unless deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
       info 'Stopping all processes...'
@@ -179,7 +179,7 @@ task :start_nodes do
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
-    next unless deps.check_remote(node, 'forever')
+    next unless deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
       within kit.install_path do
@@ -198,7 +198,7 @@ task :restart_nodes do
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
-    next unless deps.check_remote(node, 'forever')
+    next unless deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
       within kit.install_path do
@@ -215,7 +215,7 @@ task :rebuild_nodes do
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
-    next unless deps.check_remote(node, 'forever', 'wget')
+    next unless deps.check_remote(node, 'forever', 'wget', 'crypti')
 
     as kit.deploy_user do
       within kit.install_path do
@@ -242,7 +242,7 @@ task :stop_nodes do
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
-    next unless deps.check_remote(node, 'forever')
+    next unless deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
       within kit.install_path do
@@ -260,7 +260,7 @@ task :start_forging do
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
-    next unless deps.check_remote(node, 'curl')
+    next unless deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
       api = CryptiApi.new(self)
@@ -280,7 +280,7 @@ task :stop_forging do
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
-    next unless deps.check_remote(node, 'curl')
+    next unless deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
       api = CryptiApi.new(self)
@@ -300,7 +300,7 @@ task :check_nodes do
   on kit.servers(ENV['servers']), kit.sequenced_exec do |server|
     node = CryptiNode.new(kit.config, server)
     deps = DependencyManager.new(self, kit)
-    next unless deps.check_remote(node, 'curl')
+    next unless deps.check_remote(node, 'curl', 'crypti')
 
     api = CryptiApi.new(self)
     api.node_status(node) { |json| report[node.key] = json }

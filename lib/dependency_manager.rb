@@ -9,22 +9,35 @@ class DependencyManager
   end
 
   def check_remote(server, *deps)
-    check_dependencies(deps.to_a, server)
+    check_crypti_node(deps, server) and check_dependencies(deps, server)
   end
 
   private
 
   def check_dependencies(deps, server = nil)
-    deps.each do |dep|
+    deps.delete_if { |d| d == 'crypti' }.each do |dep|
       if !@task.test('which', dep) then
         location = server ? :remote : :local
         @task.info @kit.server_info(server) if server
-        @task.info "Can not continue with task..."
+        @task.info 'Can not continue with task...'
         @task.info "Missing dependency: '#{dep}' on #{location} system."
         return false
       else
         return true
       end
+    end
+  end
+
+  def check_crypti_node(deps, server)
+    return true unless deps.include?('crypti')
+    @task.info 'Looking for crypti node...'
+    if @task.test "[ -f #{@kit.install_path + '/app.js'} ];" then
+      @task.info 'Found.'
+      return true
+    else
+      @task.info 'Not Found.'
+      @task.info "Please run command: 'rake install_nodes servers=#{server.key}' to install."
+      return false
     end
   end
 end
