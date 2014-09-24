@@ -1,6 +1,9 @@
+require 'lib/connection_error'
+
 class CryptiKit
   attr_reader :config
-
+  attr_accessor :errors
+  
   def initialize(config)
     @config = YAML.load_file(config)
     @netssh = CryptiNetssh.new(@config['deploy_user'])
@@ -52,10 +55,16 @@ class CryptiKit
   def on_each_server(&block)
     kit = self
     on(servers(ENV['servers']), sequenced_exec) do |server|
-      node = CryptiNode.new(kit.config, server)
-      info node.info
-      deps = DependencyManager.new(self, kit)
-      instance_exec(server, node, deps, &block)
+      begin
+        node = CryptiNode.new(kit.config, server)
+        info node.info
+        deps = DependencyManager.new(self, kit)
+        instance_exec(server, node, deps, &block)
+      rescue Exception => exception
+        error = ConnectionError.new(self, exception)
+        error.detect_error
+        next
+      end
     end
   end
 
