@@ -1,5 +1,26 @@
 ### CryptiKit Changelog
 
+2014-09-24 (1.4.0)
+
+> NOTE: Config file update required. Please run the ```start_forging``` task on all of your nodes after downloading this release. This is due to an API key that needs to be added to the config, before forging statistics can be successfully retrieved.
+
+Bug Fixes
+
+- Resolved issue when installing on servers where nodejs already installed
+- Ensuring all existing processes are stopped before starting a node
+- Checking crypti node is installed before executing certain tasks
+- Removing blockchain.db.zip after decompressing it during tasks
+
+Features / Improvements
+
+- Added forging information to "check_nodes" task including:
+  - Forged coins by each individual node
+  - Last forged block by each individual node
+  - Total forged for all selected nodes
+  - Graceful handling of common ssh connection errors
+- Listing 'bad' nodes at end of "check_nodes" report summary
+- More consistent, easier to read, colorized log messages
+
 2014-09-22 (v1.3.1)
 
 * Fixed installation issue when installing rvm as root
