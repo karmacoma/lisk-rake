@@ -51,6 +51,10 @@ class CryptiKit
     { :in => :sequence, :wait => 0 }
   end
 
+  def baddies
+    @baddies ||= []
+  end
+
   def on_each_server(&block)
     kit = self
     on(servers(ENV['servers']), sequenced_exec) do |server|
@@ -61,7 +65,7 @@ class CryptiKit
         instance_exec(server, node, deps, &block)
       rescue Exception => exception
         error = ConnectionError.new(self, exception)
-        error.detect_error
+        kit.baddies << { 'key' => node.key, 'error' => error.detect_error }
         next
       end
     end

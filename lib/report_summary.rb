@@ -59,6 +59,17 @@ class ReportSummary
     end
   end
 
+  def baddies
+    nodes = @report.baddies
+    if nodes.any? then
+      baddies =  "* #{nodes.size} nodes encountered errors and were not checked.\n\n"
+      baddies << "Error Messages:\n"
+      nodes.each { |node| baddies << "* Node[#{node['key']}] #{node['error']}\n" }
+      baddies << divider
+      baddies
+    end
+  end
+
   def node_key(node)
     " -> Node[#{node['key']}]"
   end
@@ -89,7 +100,8 @@ class ReportSummary
       highest_effective,
       divider,
       not_loaded,
-      not_forging
+      not_forging,
+      baddies
     ].join.to_s
   end
 end

@@ -16,6 +16,14 @@ class CryptiReport
     end
   end
 
+  def baddies=(baddies)
+    @baddies = baddies
+  end
+
+  def baddies
+    @baddies ||= []
+  end
+
   def not_loaded
     @nodes.collect { |k,v| v['loading_status'] }.find_all do |n|
       !n['loaded']
@@ -82,7 +90,7 @@ class CryptiReport
 
   def to_s
     report = String.new
-    if @nodes.any? then
+    if @baddies.any? or @nodes.any? then
       @nodes.values.each { |r| report << NodeStatus.new(r).to_s if r.any? }
       report << ReportSummary.new(self).to_s
     end
