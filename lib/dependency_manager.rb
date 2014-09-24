@@ -15,14 +15,16 @@ class DependencyManager
   private
 
   def check_dependencies(deps, server = nil)
+    location = server ? :remote : :local
+    @task.info "Checking #{location} dependencies..."
     deps.delete_if { |d| d == 'crypti' }.each do |dep|
       if !@task.test('which', dep) then
-        location = server ? :remote : :local
         @task.info @kit.server_info(server) if server
         @task.info 'Can not continue with task...'
         @task.info "Missing dependency: '#{dep}' on #{location} system."
         return false
       else
+        @task.info 'Done.'
         return true
       end
     end
