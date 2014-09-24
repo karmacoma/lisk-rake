@@ -111,28 +111,28 @@ This task outputs the blockchain/forging status and account balance(s) of each c
 
 ```
 Checking nodes...
-INFO Node[1]: 111.11.11.111 (9473799116182005461C)
-INFO Getting loading status...
-INFO => Done.
---------------------------------------------------------------------------------
+================================================================================
 Node[1]: 111.11.11.111 (9473799116182005461C)
---------------------------------------------------------------------------------
-Loaded:      true
-Height:      31242
-Blocks:      28594
-Forging:     true
-Balance:     1002.92826902
-Unconfirmed: 1002.92826902
-Effective:   1002.92826902
+================================================================================
+Loaded:            true
+Height:            33950
+Blocks:            33829
+Forging:           true
+Last Forged:       Block -> 12886241379965779851 Amount -> 0.0
+Forged:            2.92869137
+Balance:           1002.92869137
+Unconfirmed:       1002.92869137
+Effective:         1002.92869137
 ```
 
-When running the ```check_nodes``` task. CryptiKit now produces a detailed summary containing the total nodes checked, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either not loaded properly, or not currently forging. Please see the below example:
+When running the ```check_nodes``` task. CryptiKit now produces a detailed summary containing the total nodes checked, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either not loaded properly, or not currently forging. Please see the below example:
 
 ```
 ================================================================================
 Report Summary
 ================================================================================
 Nodes Checked:     24 / 24 Configured
+Total Forged:      1915.88691914
 Total Balance:     26915.88691914
 Total Unconfirmed: 26915.88691914
 Total Effective:   26915.88691914
@@ -144,6 +144,19 @@ Highest Balance:   2421.74114445 -> Node[9]
 --------------------------------------------------------------------------------
 * 2 / 24 nodes are not currently forging.
 > Affected Nodes: 1,4
+--------------------------------------------------------------------------------
+```
+
+Any connection / authentication errors encountered while running the ```check_nodes``` task, are automatically recorded by CryptiKit and subsequently reported back to you at the end of the Report Summary.
+
+```
+--------------------------------------------------------------------------------
+* 1 nodes encountered errors and were not checked.
+
+Error Messages:
+* Node[13] => Connection closed by remote host.
+* Node[14] => Connection refused.
+* Node[15] => Authentication failed.
 --------------------------------------------------------------------------------
 ```
 
