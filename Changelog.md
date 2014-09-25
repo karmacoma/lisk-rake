@@ -17,7 +17,7 @@
   - Forged coins by each individual node
   - Last forged block by each individual node
   - Total forged for all selected nodes
-  - Graceful handling of common ssh connection errors
+- Graceful handling of common ssh connection errors
 - Listing 'bad' nodes at end of "check_nodes" report summary
 - More consistent, easier to read, colorized log messages
 
