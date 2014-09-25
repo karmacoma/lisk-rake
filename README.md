@@ -71,11 +71,11 @@ Which will remove servers 1, 2 and 7 as defined in your config.
 rake add_key
 ```
 
-> NOTE:
-> On Digital Ocean, when logging in for the first time you may be prompted to change your password.
-
-> NOTE:
-> If you do not have a key, then CryptiKit will prompt you to generate one. At which point CryptiKit will proceed with adding the key to each server.
+> NOTES:
+>
+> 1. You can skip this step, if you have already added your public ssh key to the server via your provider's control panel, or at the time of creation.
+> 2. If you do not have a key, then CryptiKit will prompt you to generate one. At which point CryptiKit will proceed with adding the key to each server.
+> 3. On Digital Ocean, when logging in for the first time you may be prompted to change your password.
 
 * Install application dependencies on each server:
 
