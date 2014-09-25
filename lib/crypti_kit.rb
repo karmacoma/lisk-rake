@@ -6,6 +6,8 @@ class CryptiKit
   def initialize(config)
     @config = YAML.load_file(config)
     @netssh = CryptiNetssh.new(@config['deploy_user'])
+    configured_servers
+    configured_accounts
   end
 
   def deploy_user
