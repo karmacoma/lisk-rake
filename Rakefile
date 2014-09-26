@@ -14,11 +14,13 @@ $:.unshift File.dirname(__FILE__)
 require 'lib/crypti_netssh'
 require 'lib/crypti_report'
 require 'lib/crypti_node'
+require 'lib/crypti_dsl'
 require 'lib/crypti_kit'
 require 'lib/crypti_api'
 
 require 'lib/list'
 require 'lib/server_list'
+require 'lib/server_error'
 require 'lib/account_list'
 
 require 'lib/key_manager'
@@ -71,7 +73,7 @@ end
 
 desc 'Add your public ssh key'
 task :add_key do
-  kit.each_server do |server, node, deps|
+  each_server(kit) do |server, node, deps|
     deps.check_local('ssh', 'ssh-copy-id', 'ssh-keygen')
 
     run_locally do
@@ -88,7 +90,7 @@ end
 
 desc 'Log into servers directly'
 task :log_into do
-  kit.each_server do |server, node, deps|
+  each_server(kit) do |server, node, deps|
     deps.check_local('ssh')
 
     run_locally do
@@ -103,7 +105,7 @@ desc 'Install dependencies'
 task :install_deps do
   puts 'Installing dependencies...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'apt-get', 'curl')
 
     as kit.deploy_user do
@@ -126,7 +128,7 @@ desc 'Install crypti nodes'
 task :install_nodes do
   puts 'Installing crypti nodes...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'forever', 'npm', 'wget', 'unzip')
 
     as kit.deploy_user do
@@ -164,7 +166,7 @@ desc 'Uninstall crypti nodes'
 task :uninstall_nodes do
   puts 'Uninstalling crypti nodes...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
@@ -181,7 +183,7 @@ desc 'Start crypti nodes'
 task :start_nodes do
   puts 'Starting crypti nodes...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
@@ -200,7 +202,7 @@ desc 'Restart crypti nodes'
 task :restart_nodes do
   puts 'Restarting crypti nodes...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
@@ -217,7 +219,7 @@ desc 'Rebuild crypti nodes (using new blockchain only)'
 task :rebuild_nodes do
   puts 'Rebuilding crypti nodes...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'forever', 'wget', 'crypti')
 
     as kit.deploy_user do
@@ -246,7 +248,7 @@ desc 'Stop crypti nodes'
 task :stop_nodes do
   puts 'Stopping crypti nodes...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
@@ -263,7 +265,7 @@ desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
@@ -283,7 +285,7 @@ desc 'Stop forging on crypti nodes'
 task :stop_forging do
   puts 'Stopping forging...'
 
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
@@ -303,7 +305,7 @@ task :check_nodes do
   puts 'Checking nodes...'
 
   report = CryptiReport.new(kit.config)
-  kit.on_each_server do |server, node, deps|
+  on_each_server(kit) do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
     api = CryptiApi.new(self)
