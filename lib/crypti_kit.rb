@@ -1,4 +1,4 @@
-require 'lib/connection_error'
+require 'lib/server_error'
 
 class CryptiKit
   attr_reader :config
@@ -72,8 +72,8 @@ class CryptiKit
         deps = DependencyManager.new(self, kit)
         instance_exec(server, node, deps, &block)
       rescue Exception => exception
-        error = ConnectionError.new(self, exception)
-        kit.baddies << { 'key' => node.key, 'error' => error.detect_error }
+        error = ServerError.new(self, exception)
+        kit.baddies << error.collect(node, error)
         next
       end
     end
@@ -83,8 +83,16 @@ class CryptiKit
     kit = self
     servers(ENV['servers']).each do |server|
       run_locally do
-        deps = DependencyManager.new(self, kit)
-        instance_exec(server, deps, &block)
+        begin
+          node = CryptiNode.new(kit.config, server)
+          info node.info
+          deps = DependencyManager.new(self, kit)
+          instance_exec(server, node, deps, &block)
+        rescue Exception => exception
+          error = ServerError.new(self, exception)
+          kit.baddies << error.collect(node, error)
+          next
+        end
       end
     end
   end

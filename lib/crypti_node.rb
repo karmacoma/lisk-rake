@@ -1,4 +1,6 @@
 class CryptiNode
+  attr_reader :server
+
   def initialize(config, server)
     @config = config
     @server = server

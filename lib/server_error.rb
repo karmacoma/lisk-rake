@@ -1,10 +1,14 @@
-class ConnectionError
+class ServerError
   def initialize(task, exception)
     @task      = task
     @exception = exception
   end
 
-  def detect_error
+  def collect(node, error)
+    { 'key' => node.key, 'error' => error.detect }
+  end
+
+  def detect
     case @exception.to_s
     when /Authentication failed/ then
       message = authentication_failure

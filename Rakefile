@@ -71,8 +71,8 @@ end
 
 desc 'Add your public ssh key'
 task :add_key do
-  kit.each_server do |server, deps|
-    next unless deps.check_local('ssh', 'ssh-copy-id', 'ssh-keygen')
+  kit.each_server do |server, node, deps|
+    deps.check_local('ssh', 'ssh-copy-id', 'ssh-keygen')
 
     run_locally do
       manager = KeyManager.new(self, kit)
@@ -88,8 +88,8 @@ end
 
 desc 'Log into servers directly'
 task :log_into do
-  kit.each_server do |server, deps|
-    next unless deps.check_local('ssh')
+  kit.each_server do |server, node, deps|
+    deps.check_local('ssh')
 
     run_locally do
       info "Logging into #{server}..."
@@ -104,7 +104,7 @@ task :install_deps do
   puts 'Installing dependencies...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'apt-get', 'curl')
+    deps.check_remote(node, 'apt-get', 'curl')
 
     as kit.deploy_user do
       info 'Adding repository...'
@@ -127,7 +127,7 @@ task :install_nodes do
   puts 'Installing crypti nodes...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'forever', 'npm', 'wget', 'unzip')
+    deps.check_remote(node, 'forever', 'npm', 'wget', 'unzip')
 
     as kit.deploy_user do
       info 'Stopping all processes...'
@@ -165,7 +165,7 @@ task :uninstall_nodes do
   puts 'Uninstalling crypti nodes...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
       info 'Stopping all processes...'
@@ -182,7 +182,7 @@ task :start_nodes do
   puts 'Starting crypti nodes...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
       within kit.install_path do
@@ -201,7 +201,7 @@ task :restart_nodes do
   puts 'Restarting crypti nodes...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
       within kit.install_path do
@@ -218,7 +218,7 @@ task :rebuild_nodes do
   puts 'Rebuilding crypti nodes...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'forever', 'wget', 'crypti')
+    deps.check_remote(node, 'forever', 'wget', 'crypti')
 
     as kit.deploy_user do
       within kit.install_path do
@@ -247,7 +247,7 @@ task :stop_nodes do
   puts 'Stopping crypti nodes...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'forever', 'crypti')
 
     as kit.deploy_user do
       within kit.install_path do
@@ -264,7 +264,7 @@ task :start_forging do
   puts 'Starting forging...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'curl', 'crypti')
+    deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
       api = CryptiApi.new(self)
@@ -283,7 +283,7 @@ task :stop_forging do
   puts 'Stopping forging...'
 
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'curl', 'crypti')
+    deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
       api = CryptiApi.new(self)
@@ -302,7 +302,7 @@ task :check_nodes do
 
   report = CryptiReport.new(kit.config)
   kit.on_each_server do |server, node, deps|
-    next unless deps.check_remote(node, 'curl', 'crypti')
+    deps.check_remote(node, 'curl', 'crypti')
 
     api = CryptiApi.new(self)
     api.node_status(node) { |json| report[node.key] = json }
