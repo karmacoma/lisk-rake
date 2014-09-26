@@ -11,3 +11,5 @@ module Colorize
     string.colorize(:blue)
   end
 end
+
+include Colorize
