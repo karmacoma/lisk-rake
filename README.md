@@ -125,7 +125,7 @@ Unconfirmed:       1002.92869137
 Effective:         1002.92869137
 ```
 
-When running the ```check_nodes``` task. CryptiKit now produces a detailed summary containing the total nodes checked, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either not loaded properly, or not currently forging. Please see the below example:
+When running the ```check_nodes``` task. CryptiKit produces a detailed summary containing the total nodes checked, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either not loaded properly, or not currently forging. Please see the below example:
 
 ```
 ================================================================================
