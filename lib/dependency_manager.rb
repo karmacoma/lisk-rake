@@ -26,6 +26,7 @@ class DependencyManager
 
   def check_dependencies(deps, node = nil)
     @task.info "Checking #{location(node)[:type]} dependencies..."
+
     deps.delete_if { |d| d == 'crypti' }.each do |dep|
       if !@task.test('which', dep) then
         raise "Missing dependency: '#{dep}' #{location(node)[:name]}."
@@ -38,6 +39,7 @@ class DependencyManager
   def check_crypti_node(deps, node)
     return unless deps.include?('crypti')
     @task.info 'Looking for crypti node...'
+
     if @task.test "[ -f #{@kit.install_path + '/app.js'} ];" then
       @task.info '=> Found.'
     else

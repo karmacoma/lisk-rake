@@ -275,6 +275,7 @@ task :start_forging do
       end
     end
   end
+
   Rake::Task['check_nodes'].invoke
 end
 
@@ -293,6 +294,7 @@ task :stop_forging do
       end
     end
   end
+
   Rake::Task['check_nodes'].invoke
 end
 
@@ -307,6 +309,7 @@ task :check_nodes do
     api = CryptiApi.new(self)
     api.node_status(node) { |json| report[node.key] = json }
   end
+
   report.baddies = kit.baddies
   puts report.to_s
 end
