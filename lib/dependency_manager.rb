@@ -31,7 +31,7 @@ class DependencyManager
       if !@task.test('which', dep) then
         raise "Missing dependency: '#{dep}' #{location(node)[:name]}."
       else
-        @task.info '=> Done.'
+        @task.info "=> Found: #{dep}."
       end
     end
   end
