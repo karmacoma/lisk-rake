@@ -28,5 +28,10 @@ git reset --hard origin/master
 git fetch --tags
 git checkout `git describe --abbrev=0 --tags` -B release
 
+echo "Cleaning up..."
+echo "-------------------------------------------------------------------------------"
+
+rm -vf .tasks
+
 echo "Done."
 echo "-------------------------------------------------------------------------------"
