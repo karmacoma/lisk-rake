@@ -14,7 +14,8 @@ One or more freshly created Ubuntu based cloud servers on Digital Ocean or GetCl
 * Run the automated install script. Tested on OSX 10.9.3 and Ubuntu 14.04 LTS.
 
 ```
-./install.sh
+cd cryptikit
+. install.sh
 ```
 
 > NOTE:
@@ -23,7 +24,8 @@ One or more freshly created Ubuntu based cloud servers on Digital Ocean or GetCl
 * To update an existing installation to the latest stable release:
 
 ```
-./update.sh
+cd cryptikit
+. update.sh
 ```
 
 > NOTE:
