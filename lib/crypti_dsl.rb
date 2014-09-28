@@ -14,13 +14,15 @@ module CryptiDSL
   end
 
   def on_each_server(kit, &block)
-    on(kit.servers(ENV['servers']), kit.sequenced_exec) do |server|
+    chooser = ServerChooser.new(kit)
+    on(chooser.choose, kit.sequenced_exec) do |server|
       next unless on_node(kit, server, &block)
     end
   end
 
   def each_server(kit, &block)
-    kit.servers(ENV['servers']).each do |server|
+    chooser = ServerChooser.new(kit)
+    chooser.choose.each do |server|
       run_locally { next unless on_node(kit, server, &block) }
     end
   end

@@ -10,6 +10,10 @@ module Colorize
   def blue(string)
     string.colorize(:blue)
   end
+
+  def yellow(string)
+    string.colorize(:yellow)
+  end
 end
 
 include Colorize

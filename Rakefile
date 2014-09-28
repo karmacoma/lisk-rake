@@ -21,6 +21,7 @@ require 'lib/crypti_api'
 require 'lib/list'
 require 'lib/server_list'
 require 'lib/server_error'
+require 'lib/server_chooser'
 require 'lib/account_list'
 
 require 'lib/key_manager'

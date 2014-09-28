@@ -44,15 +44,6 @@ class CryptiKit
     @config['accounts'] ||= {}
   end
 
-  def servers(selected = nil)
-    if selected.nil? or selected.size <= 0 then
-      return configured_servers.values
-    else
-      _selected = ServerList.parse_keys(selected)
-      _selected.collect { |s| configured_servers[s.to_i] }.compact
-    end
-  end
-
   def sequenced_exec
     { :in => :sequence, :wait => 0 }
   end
