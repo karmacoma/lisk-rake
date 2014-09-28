@@ -161,6 +161,12 @@ task :install_nodes do
   end
 end
 
+desc 'Install dependencies and crypti nodes'
+task :install_all do
+  Rake::Task['install_deps'].invoke
+  Rake::Task['install_nodes'].invoke
+end
+
 desc 'Uninstall crypti nodes'
 task :uninstall_nodes do
   puts 'Uninstalling crypti nodes...'
