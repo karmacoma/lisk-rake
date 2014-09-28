@@ -1,5 +1,18 @@
 ### CryptiKit Changelog
 
+2014-09-29 (1.5.0)
+
+- Implemented optional bash auto-completion of tasks
+- Added more options for targeting servers:
+  - All servers via: rake command servers=all
+  - Range of servers via: rake command servers=5..10
+  - Selection of servers via: rake command servers=1,3,7 (as before)
+  - When no servers are provided. Prompting user for y/n answer to run task on all servers
+- Added "install_all" task to install both dependencies & crypti nodes using one command
+- Dependency errors are now handled like connection errors and are included in the report summary
+- Dependencies are now stated as they are found on local/remote system
+- Stopped install.sh script forking a new shell on installation
+
 2014-09-24 (1.4.0)
 
 > NOTE: Config file update required. Please run the ```start_forging``` task on all of your nodes after downloading this release. This is due to an API key that needs to be added to the config, before forging statistics can be successfully retrieved.
