@@ -79,16 +79,10 @@ rake add_key
 > 2. If you do not have a key, then CryptiKit will prompt you to generate one. At which point CryptiKit will proceed with adding the key to each server.
 > 3. On Digital Ocean, when logging in for the first time you may be prompted to change your password.
 
-* Install application dependencies on each server:
+* Install dependencies and crypti node on each server:
 
 ```
-rake install_deps
-```
-
-* Install crypti node on each server:
-
-```
-rake install_nodes
+rake install_all
 ```
 
 > NOTE:
@@ -149,7 +143,7 @@ Highest Balance:   2421.74114445 -> Node[9]
 --------------------------------------------------------------------------------
 ```
 
-Any connection / authentication errors encountered while running the ```check_nodes``` task, are automatically recorded by CryptiKit and subsequently reported back to you at the end of the Report Summary.
+Any connection / authentication / dependency errors encountered while running the ```check_nodes``` task, are automatically recorded by CryptiKit and subsequently reported back to you at the end of the Report Summary.
 
 ```
 --------------------------------------------------------------------------------
@@ -170,6 +164,7 @@ Type ```rake -T``` to get a complete list of commands.
 rake add_key          # Add your public ssh key
 rake add_servers      # Add servers to config
 rake check_nodes      # Check status of crypti nodes
+rake install_all      # Install dependencies and crypti nodes
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
 rake list_servers     # List configured servers
@@ -184,16 +179,36 @@ rake stop_nodes       # Stop crypti nodes
 rake uninstall_nodes  # Uninstall crypti nodes
 ```
 
-#### Targeting Individual Servers
+#### Targeting Servers
 
-By default the tasks will execute on all servers defined in your config.
-You can target specific servers with any of the commands like so.
+* When no servers are specified, CryptiKit will prompt you to run the task on all servers.
+Answering y(es) will run the command on all servers. Answering n(o) will exit the current task.
+
+```
+rake check_nodes
+
+Choosing servers...
+No servers chosen. Do you want to run this task on all servers? y
+=> Accepting all servers.
+```
+
+* To run a command on a selection of servers:
 
 ```
 rake check_nodes servers=1,2,7 # 1st, 2nd and 7th server
 ```
 
-Which will execute the check_nodes task only on servers 1, 2 and 7 as defined in your config.
+* To run a command on a range of servers:
+
+```
+rake check_nodes servers=1..7 # All servers from 1st to 7th
+```
+
+* To run a command on all servers without being prompted:
+
+```
+rake check_nodes servers=all
+```
 
 #### Forging
 
