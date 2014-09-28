@@ -55,11 +55,11 @@ if promptyn "Do you wish to enable bash auto-completion?"; then
   source "$HOME/.bash_profile"
 
   echo ""
-  echo "* Bash auto completion was enabled."
+  echo "* Bash auto-completion was enabled."
   echo ""
 else
   echo ""
-  echo "* Bash auto completion was not enabled."
+  echo "* Bash auto-completion was not enabled."
   echo ""
 fi
 
