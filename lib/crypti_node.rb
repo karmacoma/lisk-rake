@@ -32,7 +32,6 @@ class CryptiNode
     print info + yellow(": Please enter your secret passphrase:\s")
     passphrase = STDIN.noecho(&:gets)
     passphrase = { :secret => passphrase.chomp }
-    print "\n"
     if block_given? then
       block.call(passphrase)
     else
