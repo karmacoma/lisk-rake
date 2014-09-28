@@ -25,11 +25,11 @@ class CryptiNode
   end
 
   def info
-    green "Node[#{key}]: #{@server} (#{account || 'No Account'})"
+    green("Node[#{key}]: #{@server} (#{account || 'No Account'})")
   end
 
   def get_passphrase(&block)
-    print info + ": Please enter your secret passphrase:\s"
+    print info + yellow(": Please enter your secret passphrase:\s")
     passphrase = STDIN.noecho(&:gets)
     passphrase = { :secret => passphrase.chomp }
     print "\n"
