@@ -12,7 +12,7 @@ fi
 echo "Installing rvm..."
 echo "-------------------------------------------------------------------------------"
 
-\curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
 
 echo "Configuring environment..."
 echo "-------------------------------------------------------------------------------"
