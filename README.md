@@ -179,6 +179,23 @@ rake stop_nodes       # Stop crypti nodes
 rake uninstall_nodes  # Uninstall crypti nodes
 ```
 
+#### Bash Auto-completion
+
+Bash auto-completion of commands is enabled on new installations, should you elect to do so.
+Existing installations can be enabled via the following command:
+
+```
+ruby lib/completer.rb --enable
+```
+
+When enabled this gives much quicker access to commands via the tab key. For example:
+
+```
+rake che<tab> -> will expand to rake check_nodes
+rake lis<tab> -> will expand to rake list_nodes
+rake reb<tab> -> will expand to rake rebuild_nodes
+```
+
 #### Targeting Servers
 
 * When no servers are specified, CryptiKit will prompt you to run the task on all servers.
