@@ -47,7 +47,7 @@ class ReportSummary
     nodes = @report.not_loaded
     if nodes.any? then
       "* #{nodes.size} / #{@report.total_nodes} nodes are not loaded properly.\n" +
-      "> Affected Nodes: " + @report.affected_nodes(nodes).join(',') + "\n" + divider
+      "> Affected Nodes: " + affected_nodes(nodes) + "\n" + divider
     end
   end
 
@@ -55,7 +55,7 @@ class ReportSummary
     nodes = @report.not_forging
     if nodes.any? then
       "* #{nodes.size} / #{@report.total_nodes} nodes are not currently forging.\n" +
-      "> Affected Nodes: " + @report.affected_nodes(nodes).join(',') + "\n" + divider
+      "> Affected Nodes: " + affected_nodes(nodes) + "\n" + divider
     end
   end
 
@@ -103,5 +103,11 @@ class ReportSummary
       not_forging,
       baddies
     ].join.to_s
+  end
+
+  private
+
+  def affected_nodes(nodes)
+    nodes.collect { |n| n['key'] }.join(',')
   end
 end

@@ -36,10 +36,6 @@ class CryptiReport
     end
   end
 
-  def affected_nodes(nodes)
-    nodes.collect { |n| n['key'] }
-  end
-
   def total_nodes
     @nodes.size
   end
