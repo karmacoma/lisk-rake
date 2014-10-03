@@ -9,6 +9,13 @@ if ENV['debug'] == 'true' then
   require 'byebug'
 end
 
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+  # Ignore LoadError
+end
+
 $:.unshift File.dirname(__FILE__)
 
 require 'lib/crypti_netssh'
