@@ -28,6 +28,12 @@ git reset --hard origin/master
 git fetch --tags
 git checkout `git describe --abbrev=0 --tags` -B release
 
+echo "Updating ruby..."
+echo "-------------------------------------------------------------------------------"
+
+rvm alias create cryptikit-ruby ruby-2.1.2
+rvm cryptikit-ruby do rvm gemset create cryptikit
+
 echo "Updating gems..."
 echo "-------------------------------------------------------------------------------"
 
