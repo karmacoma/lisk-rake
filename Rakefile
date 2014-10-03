@@ -1,6 +1,4 @@
 require 'rubygems'
-require 'sshkit'
-require 'sshkit/dsl'
 
 begin
   require 'byebug' if ENV['debug'] == 'true'
@@ -10,10 +8,17 @@ rescue LoadError
   # Ignore LoadError
 end
 
-$:.unshift File.dirname(__FILE__)
-$:.unshift File.dirname(__FILE__) + '/lib'
+begin
+  require 'sshkit'
+  require 'sshkit/dsl'
+  $:.unshift File.dirname(__FILE__)
+  $:.unshift File.dirname(__FILE__) + '/lib'
+  Dir['lib/**/*.rb'].each { |file| require file }
+rescue LoadError => exception
+  puts "Error: #{exception}"
+  exit 1
+end
 
-Dir['lib/**/*.rb'].each { |file| require file }
 kit = CryptiKit.new('config.yml')
 
 desc 'List configured servers'
