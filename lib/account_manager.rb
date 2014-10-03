@@ -1,11 +1,10 @@
 class AccountManager
-  def initialize(task, kit)
+  def initialize(task)
     @task = task
-    @kit  = kit
   end
 
   def key(server)
-    servers = @kit.config['servers']
+    servers = CryptiKit.config['servers']
     servers.key(server.to_s)
   end
 
@@ -16,7 +15,7 @@ class AccountManager
   def add_account(json, server)
     if json.is_a?(Hash) and json['forging'] then
       @task.info "Adding account: #{account(json)}..."
-      list = AccountList.new(@kit.config)
+      list = AccountList.new
       list[key(server)] = extract_account(json)
       list.save
       @task.info '=> Done.'
@@ -26,7 +25,7 @@ class AccountManager
   def remove_account(json, server)
     if json.is_a?(Hash) and !json['forgingEnabled'] then
       @task.info "Removing account: #{account(json)}..."
-      list = AccountList.new(@kit.config)
+      list = AccountList.new
       list.remove(key(server))
       list.save
       @task.info '=> Done.'

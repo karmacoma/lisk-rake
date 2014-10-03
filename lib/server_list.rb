@@ -7,8 +7,8 @@ class ServerList < List
   @reindex      = true
 
   def before_save
-    @config['accounts'].keys.each do |key|
-      @config['accounts'].delete(key) if !@items[key]
+    CryptiKit.config['accounts'].keys.each do |key|
+      CryptiKit.config['accounts'].delete(key) if !@items[key]
     end
   end
 end

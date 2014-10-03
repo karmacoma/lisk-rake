@@ -1,17 +1,16 @@
 class CryptiNode
   attr_reader :server
 
-  def initialize(config, server)
-    @config = config
+  def initialize(server)
     @server = server
   end
 
   def key
-    @config['servers'].key(@server.to_s)
+    CryptiKit.config['servers'].key(@server.to_s)
   end
 
   def value(k)
-    val = @config['accounts'][key]
+    val = CryptiKit.config['accounts'][key]
     val = val.is_a?(Hash) ? val[k.to_s] : nil
     val
   end

@@ -1,7 +1,6 @@
 class KeyManager
-  def initialize(task, kit)
+  def initialize(task)
     @task = task
-    @kit  = kit
   end
 
   def gen_key
@@ -11,13 +10,13 @@ class KeyManager
 
   def add_key(server)
     @task.info "Adding public ssh key to: #{server}..."
-    @task.execute 'ssh-copy-id', '-i', @kit.deploy_key, "#{@kit.deploy_user_at_host(server)}"
+    @task.execute 'ssh-copy-id', '-i', CryptiKit.deploy_key, "#{CryptiKit.deploy_user_at_host(server)}"
     @task.info '=> Done.'
   rescue Exception => exception
     case exception.to_s
     when /Your password has expired/ then
       @task.warn 'Password change required. Please login and change password...'
-      system "ssh -t #{@kit.deploy_user_at_host(server)} exit"
+      system "ssh -t #{CryptiKit.deploy_user_at_host(server)} exit"
       @task.info 'Trying to add public ssh key again...'
       retry
     else

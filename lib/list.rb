@@ -1,9 +1,8 @@
 require 'yaml'
 
 class List
-  def initialize(config)
-    @config = config                 || {}
-    @items  = config[self.class.key] || {}
+  def initialize
+    @items = CryptiKit.config[self.class.key] || {}
   end
 
   def all
@@ -43,8 +42,8 @@ class List
   def save
     before_save
     File.open('config.yml', 'w') do |f|
-      @config[self.class.key] = self.class.reindex ? reindexed : sorted
-      f.write @config.to_yaml
+      CryptiKit.config[self.class.key] = self.class.reindex ? reindexed : sorted
+      f.write CryptiKit.config.to_yaml
     end
   end
 

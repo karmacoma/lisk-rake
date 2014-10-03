@@ -1,7 +1,6 @@
 class DependencyManager
-  def initialize(task, kit)
+  def initialize(task)
     @task = task
-    @kit  = kit
   end
 
   def check_local(*deps)
@@ -40,7 +39,7 @@ class DependencyManager
     return unless deps.include?('crypti')
     @task.info 'Looking for crypti node...'
 
-    if @task.test "[ -f #{@kit.install_path + '/app.js'} ];" then
+    if @task.test "[ -f #{CryptiKit.install_path + '/app.js'} ];" then
       @task.info '=> Found.'
     else
       raise "Crypti node is not installed #{location(node)[:name]}."

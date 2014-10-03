@@ -1,9 +1,8 @@
 require 'report_summary'
 
 class CryptiReport
-  def initialize(config)
-    @config = config
-    @nodes  = {}
+  def initialize
+    @nodes = {}
   end
 
   def [](key)
@@ -41,7 +40,7 @@ class CryptiReport
   end
 
   def total_configured
-    @config['servers'].size
+    CryptiKit.config['servers'].size
   end
 
   def total_checked

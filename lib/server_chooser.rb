@@ -1,10 +1,6 @@
 class ServerChooser
-  def initialize(kit)
-    @kit = kit
-  end
-
   def choices
-    @kit.configured_servers
+    CryptiKit.configured_servers
   end
 
   def chosen
