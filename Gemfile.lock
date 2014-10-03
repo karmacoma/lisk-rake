@@ -1,10 +1,30 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    byebug (3.5.1)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     colorize (0.7.3)
+    columnize (0.8.9)
+    debugger-linecache (1.2.0)
+    diff-lcs (1.2.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
+    rspec (3.1.0)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+    rspec-core (3.1.5)
+      rspec-support (~> 3.1.0)
+    rspec-expectations (3.1.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.1.0)
+    rspec-mocks (3.1.2)
+      rspec-support (~> 3.1.0)
+    rspec-support (3.1.1)
+    slop (3.6.0)
     sshkit (1.5.1)
       colorize
       net-scp (>= 1.1.2)
@@ -14,4 +34,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug (= 3.5.1)
+  rspec (= 3.1.0)
   sshkit (= 1.5.1)

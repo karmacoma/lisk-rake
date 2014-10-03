@@ -35,7 +35,7 @@ echo "Installing gems..."
 echo "-------------------------------------------------------------------------------"
 
 rvm cryptikit-ruby do rvm gemset create cryptikit
-rvm cryptikit-ruby@cryptikit do bundle install
+rvm cryptikit-ruby@cryptikit do bundle install --without development
 
 echo "Enabling bash auto-completion..."
 echo "-------------------------------------------------------------------------------"
