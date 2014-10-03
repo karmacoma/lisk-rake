@@ -13,7 +13,7 @@ end
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/lib'
 
-Dir['lib/*.rb'].each { |file| require file }
+Dir['lib/**/*.rb'].each { |file| require file }
 kit = CryptiKit.new('config.yml')
 
 desc 'List configured servers'
