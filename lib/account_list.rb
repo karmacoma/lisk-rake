@@ -1,3 +1,5 @@
+require 'list'
+
 class AccountList < List
   @key          = 'accounts'
   @key_regexp   = List.key_regexp

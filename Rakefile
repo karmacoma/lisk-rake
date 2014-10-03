@@ -1,9 +1,6 @@
 require 'rubygems'
-require 'io/console'
 require 'sshkit'
 require 'sshkit/dsl'
-require 'json'
-require 'yaml'
 
 begin
   require 'byebug' if ENV['debug'] == 'true'
@@ -14,26 +11,9 @@ rescue LoadError
 end
 
 $:.unshift File.dirname(__FILE__)
+$:.unshift File.dirname(__FILE__) + '/lib'
 
-require 'lib/crypti_netssh'
-require 'lib/crypti_report'
-require 'lib/crypti_node'
-require 'lib/crypti_dsl'
-require 'lib/crypti_kit'
-require 'lib/crypti_api'
-
-require 'lib/list'
-require 'lib/server_list'
-require 'lib/server_error'
-require 'lib/server_chooser'
-require 'lib/account_list'
-
-require 'lib/key_manager'
-require 'lib/account_manager'
-require 'lib/dependency_manager'
-require 'lib/node_status'
-require 'lib/colorize'
-
+Dir['lib/*.rb'].each { |file| require file }
 kit = CryptiKit.new('config.yml')
 
 desc 'List configured servers'

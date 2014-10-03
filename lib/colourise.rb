@@ -1,4 +1,4 @@
-module Colorize
+module Colourise
   def red(string)
     string.colorize(:red)
   end
@@ -16,4 +16,4 @@ module Colorize
   end
 end
 
-include Colorize
+include Colourise

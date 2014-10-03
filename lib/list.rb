@@ -1,3 +1,5 @@
+require 'yaml'
+
 class List
   def initialize(config)
     @config = config                 || {}

@@ -1,6 +1,6 @@
-require 'lib/loading_status'
-require 'lib/account_balance'
-require 'lib/mining_info'
+require 'loading_status'
+require 'account_balance'
+require 'mining_info'
 
 class NodeStatus
   def initialize(json)

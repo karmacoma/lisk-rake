@@ -1,4 +1,4 @@
-require 'lib/report_summary'
+require 'report_summary'
 
 class CryptiReport
   def initialize(config)

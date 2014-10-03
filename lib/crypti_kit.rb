@@ -1,3 +1,5 @@
+require 'yaml'
+
 class CryptiKit
   attr_reader :config
   

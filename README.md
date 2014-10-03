@@ -185,7 +185,7 @@ Bash auto-completion of commands is enabled on new installations, should you ele
 Existing installations can be enabled via the following command:
 
 ```
-ruby lib/completer.rb --enable
+ruby bin/completer.rb --enable
 ```
 
 When enabled this gives much quicker access to commands via the tab key. For example:

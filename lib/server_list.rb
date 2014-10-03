@@ -1,3 +1,5 @@
+require 'list'
+
 class ServerList < List
   @key          = 'servers'
   @key_regexp   = List.key_regexp

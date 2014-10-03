@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'singleton'
 require 'fileutils'
 
