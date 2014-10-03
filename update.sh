@@ -43,7 +43,7 @@ rvm cryptikit-ruby@cryptikit do bundle clean --force
 echo "Cleaning up..."
 echo "-------------------------------------------------------------------------------"
 
-rm -vf .tasks
+rm -f .tasks
 
 echo "Done."
 echo "-------------------------------------------------------------------------------"
