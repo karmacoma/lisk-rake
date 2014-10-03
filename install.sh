@@ -29,12 +29,13 @@ echo "Installing ruby..."
 echo "-------------------------------------------------------------------------------"
 
 rvm install ruby-2.1.2
+rvm alias create cryptikit-ruby ruby-2.1.2
 
 echo "Installing gems..."
 echo "-------------------------------------------------------------------------------"
 
-rvm ruby-2.1.2 do rvm gemset create cryptikit
-rvm ruby-2.1.2@cryptikit do bundle install
+rvm cryptikit-ruby do rvm gemset create cryptikit
+rvm cryptikit-ruby@cryptikit do bundle install
 
 echo "Enabling bash auto-completion..."
 echo "-------------------------------------------------------------------------------"
@@ -51,7 +52,7 @@ promptyn() {
 }
 
 if promptyn "Do you wish to enable bash auto-completion?"; then
-  rvm ruby-2.1.2@cryptikit do ruby "lib/completer.rb" --enable
+  rvm cryptikit-ruby@cryptikit do ruby "lib/completer.rb" --enable
   source "$HOME/.bash_profile"
 
   echo ""
