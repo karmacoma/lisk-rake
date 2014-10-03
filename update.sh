@@ -28,6 +28,12 @@ git reset --hard origin/master
 git fetch --tags
 git checkout `git describe --abbrev=0 --tags` -B release
 
+echo "Updating gems..."
+echo "-------------------------------------------------------------------------------"
+
+rvm cryptikit-ruby@cryptikit do bundle install --without development
+rvm cryptikit-ruby@cryptikit do bundle clean --force
+
 echo "Cleaning up..."
 echo "-------------------------------------------------------------------------------"
 
