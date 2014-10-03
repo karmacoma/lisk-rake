@@ -5,11 +5,8 @@ require 'sshkit/dsl'
 require 'json'
 require 'yaml'
 
-if ENV['debug'] == 'true' then
-  require 'byebug'
-end
-
 begin
+  require 'byebug' if ENV['debug'] == 'true'
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)
 rescue LoadError
