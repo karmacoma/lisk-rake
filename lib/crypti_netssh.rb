@@ -1,4 +1,4 @@
- class CryptiNetssh
+class CryptiNetssh
   attr_accessor :config
 
   def initialize(deploy_user)
