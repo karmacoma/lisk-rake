@@ -31,6 +31,11 @@ git checkout `git describe --abbrev=0 --tags` -B release
 echo "Updating ruby..."
 echo "-------------------------------------------------------------------------------"
 
+if ! command -v rvm >/dev/null 2>&1 ; then
+  echo "Update requires installation of 'rvm'. Please install 'rvm' and try again."
+  exit
+fi
+
 rvm alias create cryptikit-ruby ruby-2.1.2
 rvm cryptikit-ruby do rvm gemset create cryptikit
 
