@@ -44,6 +44,8 @@ end
 class Installer
   include Singleton
 
+  @@command_line = /^.*\/completer.rb' -o default rake\n$/
+
   def self.config
     @config ||= ENV['HOME'] + '/.bash_profile'
   end
@@ -63,7 +65,10 @@ class Installer
   end
 
   def self.disable
-    tmp = File.read(config).gsub(command + "\n", '')
+    tmp = File.read(config)
+    while tmp.match(@@command_line) do
+      tmp.gsub!(@@command_line, '')
+    end
     File.open(config, 'w') { |f| f.puts tmp }
   end
 end
