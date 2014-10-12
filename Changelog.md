@@ -1,5 +1,33 @@
 ### CryptiKit Changelog
 
+2014-10-12 (1.5.1)
+
+This release coincides with the release of Crypti Node 0.1.7. It contains some important bug fixes, improvements to the installation process and a general refactoring of the code base.
+
+#### Updates
+
+- Updated crypti node to latest version: 0.1.7
+- Updated blockchain download url
+
+#### Bug Fixes
+
+- Fixed targeting of servers when a range is provided
+- Fixed checking of remote dependencies when crypti node has not been installed yet
+- When running the automated update script:
+  - Latest stable release of rvm is installed
+  - Gems are updated and old versions removed
+  - CrypiKit gemset is recreated if missing
+
+#### Auto-completion
+
+- Moved bash auto-completion script to bin/completer.rb
+
+On existing installations, please run the following command to re-enable bash auto-completion:
+
+```
+ruby bin/completer.rb --re-enable
+```
+
 2014-09-29 (1.5.0)
 
 - Implemented optional bash auto-completion of tasks
