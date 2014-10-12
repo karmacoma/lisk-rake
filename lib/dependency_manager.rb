@@ -8,7 +8,8 @@ class DependencyManager
   end
 
   def check_remote(node, *deps)
-    check_crypti_node(deps, node) and check_dependencies(deps, node)
+    check_dependencies(deps, node)
+    check_crypti_node(deps, node)
   end
 
   def location(node)
