@@ -36,6 +36,7 @@ if ! command -v rvm >/dev/null 2>&1 ; then
   exit
 fi
 
+rvm get stable
 rvm alias create cryptikit-ruby ruby-2.1.2
 rvm cryptikit-ruby do rvm gemset create cryptikit
 
