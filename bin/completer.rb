@@ -78,6 +78,9 @@ when '--enable' then
   Installer.enable
 when '--disable' then
   Installer.disable
+when '--re-enable' then
+  Installer.disable
+  Installer.enable
 else
   puts Completer.complete
 end
