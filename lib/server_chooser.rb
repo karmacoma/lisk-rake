@@ -12,10 +12,10 @@ class ServerChooser
     case chosen
     when /all/ then
       accept_all
-    when /[0-9,]+/ then
-      accept_selection
     when /[0-9]+\.\.[0-9]+/ then
       accept_range
+    when /[0-9,]+/ then
+      accept_selection
     else
       if accept_all? then
         ENV['servers'] = 'all'
