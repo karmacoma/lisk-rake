@@ -1,5 +1,14 @@
 ### CryptiKit Changelog
 
+2014-10-18 (1.6.0)
+
+- Added withdraw_surplus task
+
+The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated crypti account.
+
+Instructions for this new task are available here:
+- https://github.com/karmacoma/cryptikit/blob/master/README.md#surplus-withdrawals
+
 2014-10-12 (1.5.1)
 
 This release coincides with the release of Crypti Node 0.1.7. It contains some important bug fixes, improvements to the installation process and a general refactoring of the code base.
