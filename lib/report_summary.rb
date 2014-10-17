@@ -11,13 +11,9 @@ class ReportSummary
     blue("Report Summary\n")
   end
 
-  def balance(balance)
-    balance.to_f / 10**8
-  end
-
   def total_forged
     if @report.total_forged > 0.0 then
-      [sprintf("%-19s", 'Total Forged:'), balance(@report.total_forged), "\n"]
+      [sprintf("%-19s", 'Total Forged:'), AccountBalance.to_f(@report.total_forged), "\n"]
     end
   end
 
@@ -27,19 +23,19 @@ class ReportSummary
 
   def total_balance
     if @report.total_balance > 0.0 then
-      [sprintf("%-19s", 'Total Balance:'), balance(@report.total_balance), "\n"]
+      [sprintf("%-19s", 'Total Balance:'), AccountBalance.to_f(@report.total_balance), "\n"]
     end
   end
 
   def total_unconfirmed
     if @report.total_unconfirmed > 0.0 then
-      [sprintf("%-19s", 'Total Unconfirmed:'), balance(@report.total_unconfirmed), "\n"]
+      [sprintf("%-19s", 'Total Unconfirmed:'), AccountBalance.to_f(@report.total_unconfirmed), "\n"]
     end
   end
 
   def total_effective
     if @report.total_effective > 0.0 then
-      [sprintf("%-19s", 'Total Effective:'), balance(@report.total_effective), "\n"]
+      [sprintf("%-19s", 'Total Effective:'), AccountBalance.to_f(@report.total_effective), "\n"]
     end
   end
 
@@ -76,13 +72,13 @@ class ReportSummary
 
   def lowest_effective
     if node = @report.lowest_effective then
-      [sprintf("%-19s", 'Lowest Balance:'), balance(node['effectiveBalance']), node_pointer(node), "\n"]
+      [sprintf("%-19s", 'Lowest Balance:'), AccountBalance.to_f(node['effectiveBalance']), node_pointer(node), "\n"]
     end
   end
 
   def highest_effective
     if node = @report.highest_effective then
-      [sprintf("%-19s", 'Highest Balance:'), balance(node['effectiveBalance']), node_pointer(node), "\n"]
+      [sprintf("%-19s", 'Highest Balance:'), AccountBalance.to_f(node['effectiveBalance']), node_pointer(node), "\n"]
     end
   end
 
