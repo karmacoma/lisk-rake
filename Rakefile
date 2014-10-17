@@ -308,3 +308,21 @@ task :check_nodes do
   report.baddies = CryptiKit.baddies
   puts report.to_s
 end
+
+desc 'Withdraw surplus coinage from crypti nodes'
+task :withdraw_surplus do
+  puts 'Withdrawing surplus coinage...'
+
+  account = CryptiAccount.new
+  exit unless account.get_address
+
+  on_each_server do |server, node, deps|
+    deps.check_remote(node, 'curl', 'crypti')
+
+    CryptiWithdrawal.new(self) do |withdrawal|
+      withdrawal.node    = node
+      withdrawal.account = account
+      withdrawal.withdraw
+    end
+  end
+end
