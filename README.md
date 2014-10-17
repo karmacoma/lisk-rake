@@ -175,6 +175,7 @@ rake start_nodes      # Start crypti nodes
 rake stop_forging     # Stop forging on crypti nodes
 rake stop_nodes       # Stop crypti nodes
 rake uninstall_nodes  # Uninstall crypti nodes
+rake withdraw_surplus # Withdraw surplus coinage from crypti nodes
 ```
 
 #### Bash Auto-completion
@@ -231,6 +232,91 @@ Forging is controlled using the commands: ```rake start_forging``` and ```rake s
 
 > NOTE:
 > You will need >= 1000 XCR in the specified account to start forging.
+
+#### Surplus Withdrawals
+
+The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated crypti account.
+
+For example the command:
+
+```
+rake withdraw_surplus servers=1..3 # Servers 1 to 3
+```
+
+Will check nodes 1, 2 and 3 for surplus balances and withdraw them to a designated deposit address.
+
+##### Deposit Address
+
+Upon executing the ```withdraw_surplus``` task. CryptiKit will first prompt you to enter the deposit address where you want to the funds to be sent to. If an invalid address is provided you will be prompted by CryptiKit to try again.
+
+For example: With a valid address:
+
+```
+Withdrawing surplus coinage...
+Please enter your crypti address: 18246983367770087687C
+```
+
+For example: With an invalid address:
+
+```
+Withdrawing surplus coinage...
+Please enter your crypti address: --------------*
+Invalid crypti address. Please try again...
+```
+
+##### Surplus Balances
+
+The ```withdraw_surplus``` task will only process nodes with a surplus balance above the minimum 1000 XCR required to start forging.
+
+> NOTE: Minimum withdrawal is 0.01 XCR. Anything less than that will be ignored.
+
+For example: When a node has a balance greater than 1000 XCR:
+
+```
+INFO Checking for surplus coinage...
+INFO => Available: 4.99396644 crypti.
+```
+
+For example: When a node has a balance less than or equal to 1000 XCR:
+
+```
+INFO Checking for surplus coinage...
+WARN => None available.
+```
+
+##### Passphrases
+
+Before sending any funds, CryptiKit will prompt you to enter your primary passphrase. If a secondary passphrase is also assigned to an account, CryptiKit will prompt you for that as well.
+
+For example: An account with two passphrases:
+
+```
+INFO Checking for surplus coinage...
+INFO => Available: 4.99396644 crypti.
+Node[2]: 111.11.11.111 (10727915785791958732C): Please enter your primary passphrase: ********
+Node[2]: 111.11.11.111 (10727915785791958732C): Please enter your secondary passphrase: ********
+```
+
+##### Successful Transactions
+
+For each successful transaction, CryptiKit will output the fee, transaction id and total amount sent.
+
+```
+INFO Sending 4.99396644 crypti to: 18246983367770087687C...
+INFO ~> Fee: 0.00210831
+INFO ~> Transaction id: 13428947504026228865
+INFO ~> Total sent: 4.99607475
+```
+
+##### Error Handling
+
+If any errors are encountered during a transaction. For example an invalid passphrase, CryptiKit will handle the error and move onto the next selected server.
+
+```
+INFO Sending 4.99396644 crypti to: 18246983367770087687C...
+ERROR => Transaction failed.
+ERROR => Error: Provide secretPhrase.
+```
 
 ### Bugs
 
