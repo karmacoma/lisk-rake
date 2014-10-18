@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class CryptiWithdrawal
   attr_reader :node, :account
 
@@ -39,7 +41,7 @@ class CryptiWithdrawal
   def get_network_fee
     json = @api.get '/api/getFee'
     if json['success'] then
-      json['fee'].to_f
+      json['fee'].to_bd
     else
       raise 'Failed to get network fee.'
     end
@@ -56,11 +58,11 @@ class CryptiWithdrawal
       json = @api.get '/api/getBalance', { address: @node.account }
       @second_passphrase = json['secondPassphrase']
 
-      @surplus = (AccountBalance.to_f(json['unconfirmedBalance']) - 1000)
-      @surplus = (@surplus - network_fee) > 0.01 ? @surplus.round(8) : 0.0
+      @surplus = json['unconfirmedBalance'].to_bd - 1000
+      @surplus = (@surplus - network_fee) > 0.01 ? @surplus : 0.0
 
       if @surplus > 0 then
-        @task.info "=> Available: #{@surplus} crypti."
+        @task.info "=> Available: #{@surplus.to_xcr} crypti."
       else
         @task.warn '=> None available.'
       end
@@ -85,7 +87,7 @@ class CryptiWithdrawal
 
   def params(passphrases)
     if passphrases.is_a?(Hash) then
-      passphrases.merge(amount: amount.round(8), recipient: @account.address, accountAddress: @node.account)
+      passphrases.merge(amount: amount.to_xcr, recipient: @account.address, accountAddress: @node.account)
     else
       {}
     end
@@ -94,14 +96,14 @@ class CryptiWithdrawal
   def withdraw
     return if surplus <= 0.0
     @node.get_passphrases(passphrases?) do |passphrases|
-      @task.info "Sending #{surplus} crypti to: #{@account.address}..."
+      @task.info "Sending #{surplus.to_xcr} crypti to: #{@account.address}..."
       json = @api.post '/api/sendFunds', params(passphrases)
       if json['success'] then
-        fee  = AccountBalance.to_f(json['fee'])
-        sent = (surplus + fee).round(8)
-        @task.info green("~> Fee: #{fee}")
+        fee  = json['fee'].to_bd
+        sent = (surplus + fee)
+        @task.info green("~> Fee: #{fee.to_xcr}")
         @task.info green("~> Transaction id: #{json['transactionId']}")
-        @task.info green("~> Total sent: #{sent}")
+        @task.info green("~> Total sent: #{sent.to_xcr}")
       else
         @task.error "=> Transaction failed."
         @task.error "=> Error: #{json['error']}."

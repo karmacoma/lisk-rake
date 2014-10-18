@@ -56,7 +56,7 @@ class CryptiReport
     @nodes.collect { |k,v| v[parent.to_s] }.collect do |n|
       balance += n[type.to_s].to_f
     end
-    balance
+    balance.to_xcr
   end
 
   def total_unconfirmed
