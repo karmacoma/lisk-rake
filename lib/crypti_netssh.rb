@@ -1,3 +1,6 @@
+require 'sshkit'
+require 'sshkit/dsl'
+
 class CryptiNetssh
   attr_accessor :config
 
