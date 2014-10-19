@@ -48,7 +48,9 @@ class CryptiWithdrawal
   end
 
   def network_fee
-    @network_fee ||= (surplus * get_network_fee) / 100
+    @network_fee ||= (
+      (surplus * get_network_fee) / 100 * 10**8
+    ).round(8)
   end
 
   def get_surplus
