@@ -249,19 +249,25 @@ Will check nodes 1, 2 and 3 for surplus balances and withdraw them to a designat
 
 Upon executing the ```withdraw_surplus``` task. CryptiKit will first prompt you to enter the deposit address where you want to the funds to be sent to. If an invalid address is provided you will be prompted by CryptiKit to try again.
 
-For example: With a valid address:
+For example:
 
 ```
 Withdrawing surplus coinage...
 Please enter your crypti address: 18246983367770087687C
 ```
 
-For example: With an invalid address:
+When given an invalid address. CryptiKit will prompt you to try again:
 
 ```
 Withdrawing surplus coinage...
 Please enter your crypti address: --------------*
 Invalid crypti address. Please try again...
+```
+
+The deposit address can also be specified from the command line:
+
+```
+rake withdraw_surplus servers=1..3 address=18246983367770087687C # Servers 1 to 3
 ```
 
 ##### Surplus Balances
