@@ -1,5 +1,16 @@
 ### CryptiKit Changelog
 
+2014-10-20 (1.6.1)
+
+- Fixed network fee calculation:  
+  Surplus withdrawals should now consistently leave a minimum of 1000 XCR plus some dust
+- Allowing withdrawal / deposit address to be specified from the command line  
+  For example:
+  ```
+  rake withdraw_surplus address=18246983367770087687C
+  ```
+- Re-factored number handling for better accuracy
+
 2014-10-18 (1.6.0)
 
 - Added withdraw_surplus task
