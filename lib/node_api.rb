@@ -7,13 +7,34 @@ class NodeApi
   def loading_status
     @task.info 'Getting loading status...'
     @api.get '/api/getLoading' do |json|
-      @task.info '=> Done.'
+      if (@loaded = json['loaded']) then
+        @task.info '=> Done.'
+      else
+        @task.warn '=> Loading in progress.'
+      end
     end
+  end
+
+  attr_reader :loaded
+
+  def sync_status
+    @task.info 'Getting sync status...'
+    @api.get '/api/isSync' do |json|
+      if (@synced = !json['sync']) then
+        @task.info '=> Done.'
+      else
+        @task.warn '=> Synchronisation in progress.'
+      end
+    end
+  end
+
+  def synced
+    @loaded and @synced
   end
 
   def mining_info(public_key)
     @task.info 'Getting mining info...'
-    if public_key then
+    if synced and public_key then
       @api.get '/api/getMiningInfo', { publicKey: public_key, descOrder: true } do |json|
         @task.info '=> Done.'
       end
@@ -25,7 +46,7 @@ class NodeApi
 
   def account_balance(account)
     @task.info 'Getting account balance...'
-    if account then
+    if synced and account then
       @api.get '/api/getBalance', { address: account } do |json|
         @task.info '=> Done.'
       end
@@ -36,8 +57,12 @@ class NodeApi
   end
 
   def node_status(node, &block)
-    json = { 'info' => node.info, 'loading_status' => loading_status, 'mining_info' => mining_info(node.public_key), 'account_balance' => account_balance(node.account) }
-    ['loading_status', 'mining_info', 'account_balance'].each do |j|
+    json                    = { 'info' => node.info }
+    json['loading_status']  = loading_status
+    json['sync_status']     = sync_status if loaded
+    json['mining_info']     = mining_info(node.public_key)
+    json['account_balance'] = account_balance(node.account)
+    json.keys.reject! { |k| k == 'info' }.each do |j|
       json[j].merge!('key' => node.key)
     end
     block.call(json) if block_given?
