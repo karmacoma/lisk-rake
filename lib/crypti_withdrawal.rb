@@ -10,7 +10,7 @@ class CryptiWithdrawal
   end
 
   def node=(node)
-    if node.is_a?(CryptiNode) then
+    if node.is_a?(Node) then
       @node = node
     end
   end

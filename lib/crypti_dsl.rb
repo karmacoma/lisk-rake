@@ -1,7 +1,7 @@
 module CryptiDSL
   def on_node(server, &block)
     begin
-      node = CryptiNode.new(server)
+      node = Node.new(server)
       deps = DependencyManager.new(self)
       info node.info
       instance_exec(server, node, deps, &block)

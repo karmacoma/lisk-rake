@@ -1,4 +1,4 @@
-class CryptiNode
+class Node
   attr_reader :server
 
   def initialize(server)
