@@ -301,7 +301,7 @@ task :check_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
-    api = CryptiApi.new(self)
+    api = NodeApi.new(self)
     api.node_status(node) { |json| report[node.key] = json }
   end
 
