@@ -1,6 +1,6 @@
 require 'bigdecimal'
 
-class CryptiWithdrawal
+class Withdrawal
   attr_reader :node, :account
 
   def initialize(task, &block)

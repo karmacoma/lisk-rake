@@ -319,7 +319,7 @@ task :withdraw_surplus do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
-    CryptiWithdrawal.new(self) do |withdrawal|
+    Withdrawal.new(self) do |withdrawal|
       withdrawal.node    = node
       withdrawal.account = account
       withdrawal.withdraw
