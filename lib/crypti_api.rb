@@ -40,6 +40,6 @@ class CryptiApi
 
   def error_message(exception)
     @task.error '=> API query failed. Check crypti node is running and blockchain is fully loaded.'
-    @task.error '=> Error: ' + exception.to_s
+    @task.error '=> Error: ' + (exception.to_s || 'Unknown error.')
   end
 end
