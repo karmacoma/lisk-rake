@@ -313,7 +313,7 @@ desc 'Withdraw surplus coinage from crypti nodes'
 task :withdraw_surplus do
   puts 'Withdrawing surplus coinage...'
 
-  account = CryptiAccount.new
+  account = Account.new
   exit unless account.get_address
 
   on_each_server do |server, node, deps|

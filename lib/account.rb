@@ -1,4 +1,4 @@
-class CryptiAccount
+class Account
   attr_reader :address
 
   def address=(address)

@@ -16,7 +16,7 @@ class CryptiWithdrawal
   end
 
   def account=(account)
-    if account.is_a?(CryptiAccount) then
+    if account.is_a?(Account) then
       @account = account
     end
   end
