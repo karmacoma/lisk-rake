@@ -1,6 +1,6 @@
 require 'report_summary'
 
-class CryptiReport
+class Report
   def initialize
     @nodes = {}
   end

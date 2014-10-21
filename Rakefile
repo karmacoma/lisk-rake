@@ -297,7 +297,7 @@ desc 'Check status of crypti nodes'
 task :check_nodes do
   puts 'Checking nodes...'
 
-  report = CryptiReport.new
+  report = Report.new
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
