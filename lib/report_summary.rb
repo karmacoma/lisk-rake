@@ -47,6 +47,14 @@ class ReportSummary
     end
   end
 
+  def syncing
+    nodes = @report.syncing
+    if nodes.any? then
+      "* #{nodes.size} / #{@report.total_nodes} nodes are being synchronised.\n" +
+      "> Affected Nodes: " + affected_nodes(nodes) + "\n" + divider
+    end
+  end
+
   def not_forging
     nodes = @report.not_forging
     if nodes.any? then
@@ -96,6 +104,7 @@ class ReportSummary
       highest_effective,
       divider,
       not_loaded,
+      syncing,
       not_forging,
       baddies
     ].join.to_s

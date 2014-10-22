@@ -29,6 +29,12 @@ class Report
     end
   end
 
+  def syncing
+    @nodes.collect { |k,v| v['sync_status'] }.find_all do |n|
+      n['sync']
+    end
+  end
+
   def not_forging
     @nodes.collect { |k,v| v['mining_info'] }.find_all do |n|
       !n['forging']

@@ -59,7 +59,7 @@ class NodeApi
   def node_status(node, &block)
     json                    = { 'info' => node.info }
     json['loading_status']  = loading_status
-    json['sync_status']     = sync_status if loaded
+    json['sync_status']     = loaded ? sync_status : {}
     json['mining_info']     = mining_info(node.public_key)
     json['account_balance'] = account_balance(node.account)
     json.keys.reject! { |k| k == 'info' }.each do |j|
