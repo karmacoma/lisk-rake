@@ -25,7 +25,7 @@ task :list_servers do
   run_locally do
     info 'Listing available server(s)...'
     CryptiKit.config['servers'].values.each do |server|
-      node = CryptiNode.new(server)
+      node = Node.new(server)
       info node.info
     end
     info '=> Done.'
