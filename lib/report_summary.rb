@@ -42,7 +42,7 @@ class ReportSummary
   def not_loaded
     nodes = @report.not_loaded
     if nodes.any? then
-      "* #{nodes.size} / #{@report.total_nodes} nodes are not loaded properly.\n" +
+      "* #{nodes.size} / #{@report.total_nodes} nodes are not loaded.\n" +
       "> Affected Nodes: " + affected_nodes(nodes) + "\n" + divider
     end
   end
