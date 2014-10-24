@@ -1,16 +1,18 @@
 class AccountManager
   def initialize(task, server)
-    @task   = task
-    @server = server
-    @list   = AccountList.new
+    @task    = task
+    @server  = server
+    @list    = AccountList.new
+    @manager = PassphraseManager.new(task)
   end
 
-  def add_account(json)
+  def add_account(json, passphrase)
     if json.is_a?(Hash) and json['forging'] then
       @task.info "Adding account: #{account(json)}..."
       @list[key] = extract_account(json)
       @list.save
       @task.info '=> Done.'
+      @manager.add_passphrase(passphrase)
     end
   end
 
@@ -20,6 +22,7 @@ class AccountManager
       @list.remove(key)
       @list.save
       @task.info '=> Done.'
+      @manager.remove_passphrase
     end
   end
 

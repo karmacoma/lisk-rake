@@ -266,7 +266,7 @@ task :start_forging do
       api.post '/forgingApi/startForging', passphrase
       api.post '/api/unlock', passphrase do |json|
         manager = AccountManager.new(self, server)
-        manager.add_account(json)
+        manager.add_account(json, passphrase)
       end
     end
   end
