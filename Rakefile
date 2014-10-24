@@ -265,8 +265,8 @@ task :start_forging do
       api = CryptiApi.new(self)
       api.post '/forgingApi/startForging', passphrase
       api.post '/api/unlock', passphrase do |json|
-        manager = AccountManager.new(self)
-        manager.add_account(json, server)
+        manager = AccountManager.new(self, server)
+        manager.add_account(json)
       end
     end
   end
@@ -284,8 +284,8 @@ task :stop_forging do
     node.get_passphrase do |passphrase|
       api = CryptiApi.new(self)
       api.post '/forgingApi/stopForging', passphrase do |json|
-        manager = AccountManager.new(self)
-        manager.remove_account(json, server)
+        manager = AccountManager.new(self, server)
+        manager.remove_account(json)
       end
     end
   end
