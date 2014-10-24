@@ -7,22 +7,26 @@ class AccountManager
   end
 
   def add_account(json, passphrase)
+    @task.info 'Adding account...'
     if json.is_a?(Hash) and json['forging'] then
-      @task.info "Adding account: #{account(json)}..."
       @list[key] = extract_account(json)
       @list.save
-      @task.info '=> Done.'
+      @task.info "=> Added: #{account(json)}."
       @manager.add_passphrase(passphrase)
+    else
+      @task.error '=> Failed. Check passphrase.'
     end
   end
 
   def remove_account(json)
+    @task.info 'Removing account...'
     if json.is_a?(Hash) and !json['forgingEnabled'] then
-      @task.info "Removing account: #{account(json)}..."
       @list.remove(key)
       @list.save
-      @task.info '=> Done.'
+      @task.info "=> Removed: #{account(json)}."
       @manager.remove_passphrase
+    else
+      @task.error '=> Failed. Check passphrase.'
     end
   end
 
