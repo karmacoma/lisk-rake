@@ -9,7 +9,7 @@ class AccountManager
   def add_account(json, passphrase)
     @task.info 'Adding account...'
     if json.is_a?(Hash) and json['forging'] then
-      @list[key] = extract_account(json)
+      @list[key] = json
       @list.save
       @task.info "=> Added: #{account(json)}."
       @manager.add_passphrase(passphrase)
@@ -38,9 +38,5 @@ class AccountManager
 
   def account(json)
     json['address'] || json['account'] || json['error']
-  end
-
-  def extract_account(json)
-    { 'address' => json['address'], 'public_key' => json['publickey'] }
   end
 end
