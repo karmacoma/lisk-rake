@@ -58,7 +58,7 @@ class ReportSummary
   def not_forging
     nodes = @report.not_forging
     if nodes.any? then
-      "* #{nodes.size} / #{@report.total_nodes} nodes are not currently forging.\n" +
+      "* #{nodes.size} / #{@report.total_nodes} nodes are not forging.\n" +
       "> Affected Nodes: " + affected_nodes(nodes) + "\n" + divider
     end
   end

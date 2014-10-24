@@ -153,7 +153,7 @@ Highest Balance:   2421.74114445 -> Node[9]
 * 1 / 24 nodes are being synchronised.
 > Affected Nodes: 4
 --------------------------------------------------------------------------------
-* 2 / 24 nodes are not currently forging.
+* 2 / 24 nodes are not forging.
 > Affected Nodes: 1,4
 --------------------------------------------------------------------------------
 ```
