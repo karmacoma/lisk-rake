@@ -1,5 +1,21 @@
 ### CryptiKit Changelog
 
+2014-10-24 (1.6.3)
+
+- Reporting when nodes are being synchronised
+- Optionally adding passphrase to remote server when starting to forge
+- Stating more clearly when forging has been successfully enabled or disabled
+
+For more information see:
+https://github.com/karmacoma/cryptikit/blob/v1.6.3/README.md#typical-usage
+
+2014-10-21 (1.6.2)
+
+Fixed some issues I encountered when running the check_nodes task.
+
+- Node's sync status is now checked before querying mining info or account balances
+- Added warning message when a node's blockchain is still being loaded
+
 2014-10-20 (1.6.1)
 
 - Fixed network fee calculation:  
