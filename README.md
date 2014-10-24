@@ -95,6 +95,19 @@ rake start_forging
 > NOTE:
 > You will be prompted to enter an individual secret passphrase for each crypti node.
 
+Once forging has been started, you will be provided with the option to add the passphrase to the remote config.
+
+```
+INFO Adding account...
+INFO => Added: 9473799116182005461C.
+INFO Adding passphrase to remote config...
+Add passphrase to remote config? yes
+INFO => Done.
+```
+
+> NOTE:
+> Adding your passphrases to the config file is less secure. Only do so if you wish to avoid having to start forging again after a node has been restarted.
+
 * Check status of each crypti node:
 
 ```
@@ -111,6 +124,7 @@ Node[1]: 111.11.11.111 (9473799116182005461C)
 Loaded:            true
 Height:            33950
 Blocks:            33829
+Syncing:           false
 Forging:           true
 Last Forged:       Block -> 12886241379965779851 Amount -> 0.0
 Forged:            2.92869137
@@ -119,7 +133,7 @@ Unconfirmed:       1002.92869137
 Effective:         1002.92869137
 ```
 
-When running the ```check_nodes``` task. CryptiKit produces a detailed summary containing the total nodes checked, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either not loaded properly, or not currently forging. Please see the below example:
+When running the ```check_nodes``` task. CryptiKit produces a detailed summary containing the total nodes checked, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either currently loading, syncing or not forging. Please see the below example:
 
 ```
 ================================================================================
@@ -133,7 +147,10 @@ Total Effective:   26915.88691914
 Lowest Balance:    1000.00168904 -> Node[15]
 Highest Balance:   2421.74114445 -> Node[9]
 --------------------------------------------------------------------------------
-* 1 / 24 nodes are not loaded properly.
+* 1 / 24 nodes are not loaded.
+> Affected Nodes: 1
+--------------------------------------------------------------------------------
+* 1 / 24 nodes are being synchronised.
 > Affected Nodes: 4
 --------------------------------------------------------------------------------
 * 2 / 24 nodes are not currently forging.
@@ -202,9 +219,11 @@ Answering y(es) will run the command on all servers. Answering n(o) will exit th
 
 ```
 rake check_nodes
+```
 
+```
 Choosing servers...
-No servers chosen. Do you want to run this task on all servers? y
+No servers chosen. Run this task on all servers? y
 => Accepting all servers.
 ```
 
