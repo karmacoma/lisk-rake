@@ -6,8 +6,8 @@ echo "--------------------------------------------------------------------------
 if [ -f "config.bak" ]; then
    echo "-> Backup already exists. Leaving config.bak intact."
 else
-   echo "-> Moving existing config.yml to config.bak."
-   mv -v config.yml config.bak
+   echo "-> Copying existing config.yml to config.bak."
+   cp -v config.yml config.bak
 fi
 
 echo "Updating cryptikit..."
