@@ -19,7 +19,7 @@ class ServerError
     when /Connection refused/ then
       message = connection_refused
     else
-      message = unknown_error
+      message = (@exception.class == Interrupt) ? connection_interrupted : unknown_error
     end
     @task.error message
     return message
@@ -41,11 +41,15 @@ class ServerError
     '=> Connection refused.'
   end
 
+  def connection_interrupted
+    '=> Connection interrupted.'
+  end
+
   def unknown_error
-    if ENV['debug'] == 'true' then
-      raise @exception
-    else
+    if ENV['debug'] != 'true' then
       (@exception.to_s.size > 0) ? '=> ' + @exception.to_s : '=> Unknown error.'
+    else
+      raise @exception
     end
   end
 end
