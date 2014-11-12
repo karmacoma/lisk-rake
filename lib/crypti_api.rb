@@ -8,7 +8,9 @@ class CryptiApi
 
   DEFAULT_ARGS = [
     '--silent',
-    '--header', '"Content-Type: application/json"'
+    '--header', '"Content-Type: application/json"',
+    '--connect-timeout', '30',
+    '--max-time', '60'
   ]
 
   def get(url, data = nil, &block)
