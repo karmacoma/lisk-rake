@@ -6,9 +6,14 @@ class CryptiApi
     @task = task
   end
 
+  DEFAULT_ARGS = [
+    '--silent',
+    '--header', '"Content-Type: application/json"'
+  ]
+
   def get(url, data = nil, &block)
     begin
-      body = @task.capture 'curl', '-sX', 'GET', '-H', '"Content-Type: application/json"', encode_url(url, data)
+      body = @task.capture *curl('-X', 'GET', encode_url(url, data))
       json = JSON.parse(body)
     rescue Exception => exception
       error_message(exception)
@@ -22,7 +27,7 @@ class CryptiApi
 
   def post(url, data = {}, &block)
     begin
-      body = @task.capture 'curl', '-sX', 'POST', '-H', '"Content-Type: application/json"', '-d', "'#{data.to_json}'", encode_url(url)
+      body = @task.capture *curl('-X', 'POST', '-d', "'#{data.to_json}'", encode_url(url))
       json = JSON.parse(body)
     rescue Exception => exception
       error_message(exception)
@@ -41,5 +46,11 @@ class CryptiApi
   def error_message(exception)
     @task.error '=> API query failed. Check crypti node is running and blockchain is loaded.'
     @task.error '=> Error: ' + (exception.to_s || 'Unknown error.')
+  end
+
+  private
+
+  def curl(*args)
+    ['curl', DEFAULT_ARGS, args].flatten!
   end
 end
