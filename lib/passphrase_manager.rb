@@ -24,14 +24,14 @@ class PassphraseManager
     STDIN.gets.chomp.match(/y|yes/i)
   end
 
-  def prepared_passphrase
+  def escaped_passphrase
     if @passphrase.is_a?(Hash) then
-      @passphrase[:secret].to_s.gsub(/"/, '\"').strip
+      Passphrase.escaped(@passphrase[:secret])
     end
   end
 
   def sed_expression
-    %Q{'s/\\("secretPhrase":\\)\\(.*\\)/\\1 "#{prepared_passphrase}"/i'}
+    %Q{'s/\\("secretPhrase":\\)\\(.*\\)/\\1 "#{escaped_passphrase}"/i'}
   end
 
   def config
