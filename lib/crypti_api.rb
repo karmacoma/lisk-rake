@@ -18,7 +18,8 @@ class CryptiApi
       body = @task.capture *curl('-X', 'GET', encode_url(url, data))
       json = JSON.parse(body)
     rescue Exception => exception
-      error_message(exception)
+      error = CurlError.new(@task, exception)
+      error.detect
       json = {}
     end
     if block_given? and json['success'] then
@@ -32,7 +33,8 @@ class CryptiApi
       body = @task.capture *curl('-X', 'POST', '-d', "'#{data.to_json}'", encode_url(url))
       json = JSON.parse(body)
     rescue Exception => exception
-      error_message(exception)
+      error = CurlError.new(@task, exception)
+      error.detect
       json = {}
     end
     if block_given? and json['success'] then
@@ -43,11 +45,6 @@ class CryptiApi
 
   def encode_url(url, data = nil)
     '\'http://127.0.0.1:6040' + url << (data ? "?#{URI.encode_www_form(data)}" : '') + '\''
-  end
-
-  def error_message(exception)
-    @task.error '=> API query failed. Check crypti node is running and blockchain is loaded.'
-    @task.error '=> Error: ' + (exception.to_s || 'Unknown error.')
   end
 
   private
