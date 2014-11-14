@@ -1,5 +1,8 @@
 require 'number'
 
+RSpec.describe NilClass do
+end
+
 RSpec.describe Integer do
 end
 
