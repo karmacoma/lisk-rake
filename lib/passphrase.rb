@@ -17,7 +17,8 @@ class Passphrase
 
   def escaped
     @escaped = @passphrase.dup
-    [[/"/, Proc.new { %q{\\\"} }]].each { |a| @escaped.gsub!(a[0], &a[1]) }
+    [[/"/, Proc.new { %q{\\\"} }],
+     [/\//, Proc.new { %q{\\/} }]].each { |a| @escaped.gsub!(a[0], &a[1]) }
     @escaped
   end
 end
