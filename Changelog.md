@@ -1,5 +1,14 @@
 ### CryptiKit Changelog
 
+2014-11-25 (1.6.4)
+
+- Copying rather than moving config.yml when updating CryptiKit
+- Escaping forward slash character when saving passphrase to config.json
+- Adding connection and operation timeouts to curl requests
+  - 30 seconds until connection to crypti node times out
+  - 60 seconds until crypti API query times out
+- Gracefully handling (CTRL+C) user interrupts
+
 2014-10-24 (1.6.3)
 
 - Reporting when nodes are being synchronised
