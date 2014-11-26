@@ -36,8 +36,16 @@ class CryptiKit
     config['app_url']
   end
 
+  def self.app_file
+    "crypti-linux-#{self.app_version}.zip"
+  end
+
   def self.blockchain_url
     config['blockchain_url']
+  end
+
+  def self.blockchain_file
+    'blockchain.db.zip'
   end
 
   def self.configured_servers
@@ -54,10 +62,6 @@ class CryptiKit
 
   def self.baddies
     @baddies ||= []
-  end
-
-  def self.zip_file
-    "crypti-linux-#{self.app_version}.zip"
   end
 
   def self.install_path

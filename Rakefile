@@ -127,21 +127,21 @@ task :install_nodes do
     execute 'mkdir', '-p', CryptiKit.deploy_path
     within CryptiKit.deploy_path do
       info 'Downloading crypti...'
-      execute 'wget', CryptiKit.app_url
+      execute 'wget', CryptiKit.app_url, '-O', CryptiKit.app_file
       info 'Installing crypti...'
-      execute 'unzip', CryptiKit.zip_file
+      execute 'unzip', CryptiKit.app_file
       info 'Cleaning up...'
-      execute 'rm', CryptiKit.zip_file
+      execute 'rm', CryptiKit.app_file
     end
     within CryptiKit.install_path do
       info 'Installing node modules...'
       execute 'npm', 'install'
       info 'Downloading blockchain...'
-      execute 'wget', CryptiKit.blockchain_url
+      execute 'wget', CryptiKit.blockchain_url, '-O', CryptiKit.blockchain_file
       info 'Decompressing blockchain...'
-      execute 'unzip', 'blockchain.db.zip'
+      execute 'unzip', CryptiKit.blockchain_file
       info 'Cleaning up...'
-      execute 'rm', 'blockchain.db.zip'
+      execute 'rm', CryptiKit.blockchain_file
       info 'Starting crypti node...'
       execute 'forever', 'start', 'app.js', '||', ':'
       info '=> Done.'
@@ -217,11 +217,11 @@ task :rebuild_nodes do
       info 'Removing old log file...'
       execute 'rm', '-f', 'logs.log'
       info 'Downloading blockchain...'
-      execute 'wget', CryptiKit.blockchain_url
+      execute 'wget', CryptiKit.blockchain_url, '-O', CryptiKit.blockchain_file
       info 'Decompressing blockchain...'
-      execute 'unzip', 'blockchain.db.zip'
+      execute 'unzip', CryptiKit.blockchain_file
       info 'Cleaning up...'
-      execute 'rm', 'blockchain.db.zip'
+      execute 'rm', CryptiKit.blockchain_file
       info 'Starting crypti node...'
       execute 'forever', 'start', 'app.js', '||', ':'
       info '=> Done.'
