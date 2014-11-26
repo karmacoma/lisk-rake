@@ -1,5 +1,14 @@
 ### CryptiKit Changelog
 
+2014-11-26 (1.6.5)
+
+- Officially supporting additional hosts: Vultr and Wable
+  - Tested on: Debian 7.0 x64 and Ubuntu 14.04 x64 operating systems
+- Downloading GPG public key before installing or updating rvm
+
+For more information regarding supported hosts see:
+https://github.com/karmacoma/cryptikit/blob/v1.6.5/README.md#supported-hosts
+
 2014-11-25 (1.6.4)
 
 - Copying rather than moving config.yml when updating CryptiKit
@@ -43,7 +52,7 @@ Fixed some issues I encountered when running the check_nodes task.
 The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated crypti account.
 
 Instructions for this new task are available here:
-- https://github.com/karmacoma/cryptikit/blob/master/README.md#surplus-withdrawals
+- https://github.com/karmacoma/cryptikit/blob/v1.6.0/README.md#surplus-withdrawals
 
 2014-10-12 (1.5.1)
 
