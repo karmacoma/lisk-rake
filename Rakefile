@@ -95,23 +95,21 @@ task :install_deps do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'apt-get')
 
-    as CryptiKit.deploy_user do
-      info 'Updating package lists...'
-      execute 'apt-get', 'update'
-      info 'Installing packages...'
-      execute 'apt-get', 'install', '-f', '--yes', CryptiKit.apt_dependencies
-      info 'Adding nodejs repository...'
-      execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
-      info 'Purging conflicting packages...'
-      execute 'apt-get', 'purge', '-f', '--yes', CryptiKit.apt_conflicts
-      info 'Purging packages no longer required...'
-      execute 'apt-get', 'autoremove', '--purge', '--yes'
-      info 'Installing nodejs...'
-      execute 'apt-get', 'install', '-f', '--yes', 'nodejs'
-      info 'Installing forever...'
-      execute 'npm', 'install', '-g', 'forever'
-      info '=> Done.'
-    end
+    info 'Updating package lists...'
+    execute 'apt-get', 'update'
+    info 'Installing packages...'
+    execute 'apt-get', 'install', '-f', '--yes', CryptiKit.apt_dependencies
+    info 'Adding nodejs repository...'
+    execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
+    info 'Purging conflicting packages...'
+    execute 'apt-get', 'purge', '-f', '--yes', CryptiKit.apt_conflicts
+    info 'Purging packages no longer required...'
+    execute 'apt-get', 'autoremove', '--purge', '--yes'
+    info 'Installing nodejs...'
+    execute 'apt-get', 'install', '-f', '--yes', 'nodejs'
+    info 'Installing forever...'
+    execute 'npm', 'install', '-g', 'forever'
+    info '=> Done.'
   end
 end
 
@@ -122,33 +120,31 @@ task :install_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'npm', 'wget', 'unzip')
 
-    as CryptiKit.deploy_user do
-      info 'Stopping all processes...'
-      execute 'forever', 'stopall', '||', ':'
-      info 'Setting up...'
-      execute 'rm', '-rf', CryptiKit.deploy_path
-      execute 'mkdir', '-p', CryptiKit.deploy_path
-      within CryptiKit.deploy_path do
-        info 'Downloading crypti...'
-        execute 'wget', CryptiKit.app_url
-        info 'Installing crypti...'
-        execute 'unzip', CryptiKit.zip_file
-        info 'Cleaning up...'
-        execute 'rm', CryptiKit.zip_file
-      end
-      within CryptiKit.install_path do
-        info 'Installing node modules...'
-        execute 'npm', 'install'
-        info 'Downloading blockchain...'
-        execute 'wget', CryptiKit.blockchain_url
-        info 'Decompressing blockchain...'
-        execute 'unzip', 'blockchain.db.zip'
-        info 'Cleaning up...'
-        execute 'rm', 'blockchain.db.zip'
-        info 'Starting crypti node...'
-        execute 'forever', 'start', 'app.js', '||', ':'
-        info '=> Done.'
-      end
+    info 'Stopping all processes...'
+    execute 'forever', 'stopall', '||', ':'
+    info 'Setting up...'
+    execute 'rm', '-rf', CryptiKit.deploy_path
+    execute 'mkdir', '-p', CryptiKit.deploy_path
+    within CryptiKit.deploy_path do
+      info 'Downloading crypti...'
+      execute 'wget', CryptiKit.app_url
+      info 'Installing crypti...'
+      execute 'unzip', CryptiKit.zip_file
+      info 'Cleaning up...'
+      execute 'rm', CryptiKit.zip_file
+    end
+    within CryptiKit.install_path do
+      info 'Installing node modules...'
+      execute 'npm', 'install'
+      info 'Downloading blockchain...'
+      execute 'wget', CryptiKit.blockchain_url
+      info 'Decompressing blockchain...'
+      execute 'unzip', 'blockchain.db.zip'
+      info 'Cleaning up...'
+      execute 'rm', 'blockchain.db.zip'
+      info 'Starting crypti node...'
+      execute 'forever', 'start', 'app.js', '||', ':'
+      info '=> Done.'
     end
   end
 end
@@ -166,13 +162,11 @@ task :uninstall_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    as CryptiKit.deploy_user do
-      info 'Stopping all processes...'
-      execute 'forever', 'stopall', '||', ':'
-      info 'Removing crypti...'
-      execute 'rm', '-rf', CryptiKit.deploy_path
-      info '=> Done.'
-    end
+    info 'Stopping all processes...'
+    execute 'forever', 'stopall', '||', ':'
+    info 'Removing crypti...'
+    execute 'rm', '-rf', CryptiKit.deploy_path
+    info '=> Done.'
   end
 end
 
@@ -183,14 +177,12 @@ task :start_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    as CryptiKit.deploy_user do
-      within CryptiKit.install_path do
-        info 'Stopping all processes...'
-        execute 'forever', 'stopall', '||', ':'
-        info 'Starting crypti node...'
-        execute 'forever', 'start', 'app.js', '||', ':'
-        info '=> Done.'
-      end
+    within CryptiKit.install_path do
+      info 'Stopping all processes...'
+      execute 'forever', 'stopall', '||', ':'
+      info 'Starting crypti node...'
+      execute 'forever', 'start', 'app.js', '||', ':'
+      info '=> Done.'
     end
   end
 end
@@ -202,12 +194,10 @@ task :restart_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    as CryptiKit.deploy_user do
-      within CryptiKit.install_path do
-        info 'Restarting crypti node...'
-        execute 'forever', 'restart', 'app.js', '||', ':'
-        info '=> Done.'
-      end
+    within CryptiKit.install_path do
+      info 'Restarting crypti node...'
+      execute 'forever', 'restart', 'app.js', '||', ':'
+      info '=> Done.'
     end
   end
 end
@@ -219,24 +209,22 @@ task :rebuild_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'wget', 'crypti')
 
-    as CryptiKit.deploy_user do
-      within CryptiKit.install_path do
-        info 'Stopping all processes...'
-        execute 'forever', 'stopall', '||', ':'
-        info 'Removing old blockchain...'
-        execute 'rm', '-f', 'blockchain.db*'
-        info 'Removing old log file...'
-        execute 'rm', '-f', 'logs.log'
-        info 'Downloading blockchain...'
-        execute 'wget', CryptiKit.blockchain_url
-        info 'Decompressing blockchain...'
-        execute 'unzip', 'blockchain.db.zip'
-        info 'Cleaning up...'
-        execute 'rm', 'blockchain.db.zip'
-        info 'Starting crypti node...'
-        execute 'forever', 'start', 'app.js', '||', ':'
-        info '=> Done.'
-      end
+    within CryptiKit.install_path do
+      info 'Stopping all processes...'
+      execute 'forever', 'stopall', '||', ':'
+      info 'Removing old blockchain...'
+      execute 'rm', '-f', 'blockchain.db*'
+      info 'Removing old log file...'
+      execute 'rm', '-f', 'logs.log'
+      info 'Downloading blockchain...'
+      execute 'wget', CryptiKit.blockchain_url
+      info 'Decompressing blockchain...'
+      execute 'unzip', 'blockchain.db.zip'
+      info 'Cleaning up...'
+      execute 'rm', 'blockchain.db.zip'
+      info 'Starting crypti node...'
+      execute 'forever', 'start', 'app.js', '||', ':'
+      info '=> Done.'
     end
   end
 end
@@ -248,12 +236,10 @@ task :stop_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    as CryptiKit.deploy_user do
-      within CryptiKit.install_path do
-        info 'Stopping crypti node...'
-        execute 'forever', 'stop', 'app.js', '||', ':'
-        info '=> Done.'
-      end
+    within CryptiKit.install_path do
+      info 'Stopping crypti node...'
+      execute 'forever', 'stop', 'app.js', '||', ':'
+      info '=> Done.'
     end
   end
 end
