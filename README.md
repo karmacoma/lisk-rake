@@ -2,9 +2,40 @@
 
 Simple &amp; easy Crypti node deployment and management for Linux / OSX operating systems.
 
-### Prerequisites
+### Supported Hosts
 
-One or more freshly created Ubuntu based cloud servers on Digital Ocean or GetClouder.
+#### DigitalOcean
+
+Supported operating systems:
+- Debian (7.0 x64)
+- Ubuntu (14.04 x64)
+
+> Link: https://www.digitalocean.com/?refcode=c637b271d39f
+
+#### GetClouder
+
+Supported operating systems:
+- Debian (7.0 x64)
+- Ubuntu (14.04 x64)
+
+> Link: https://www.getclouder.com/
+
+#### Vultr
+
+Supported operating systems:
+- Debian (7.0 x64)
+- Ubuntu (14.04 x64)
+
+> Link: http://www.vultr.com/?ref=6814545
+
+#### Wable
+
+Supported operating systems:
+- debian-7.0-x86_64
+- ubuntu-13.10-x86_64
+- ubuntu-14.04-x86_64-minimal
+
+> Link: http://www.wable.com/
 
 ### Installation
 
@@ -20,6 +51,8 @@ cd cryptikit
 
 > NOTE:
 > This will install homebrew (on OSX), ruby (rvm) plus a few application dependencies.
+
+#### Updating CryptiKit
 
 * To update an existing installation to the latest stable release:
 
@@ -345,7 +378,7 @@ ERROR => Error: Provide secretPhrase.
 
 ### Bugs
 
-I have tested these commands on both Digital Ocean and GetClouder using Ubuntu 14.04 LTS droplets / containers. Please let me know if you encounter any issues: karmacrypto@gmail.com.
+I have tested these commands on: Digital Ocean, GetClouder, Vultr and Wable using various Debian/Ubuntu based containers. Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
 
