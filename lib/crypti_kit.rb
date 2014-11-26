@@ -41,7 +41,7 @@ class CryptiKit
   end
 
   def self.app_file
-    "crypti-linux-#{self.app_version}.zip"
+    "crypti-linux-#{app_version}.zip"
   end
 
   def self.blockchain_url
