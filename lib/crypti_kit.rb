@@ -28,6 +28,10 @@ class CryptiKit
     config['deploy_path']
   end
 
+  def self.install_path
+    [deploy_path, '/', app_version].join
+  end
+
   def self.app_version
     config['app_version']
   end
@@ -62,10 +66,6 @@ class CryptiKit
 
   def self.baddies
     @baddies ||= []
-  end
-
-  def self.install_path
-    [deploy_path, '/', app_version].join
   end
 
   def self.apt_conflicts
