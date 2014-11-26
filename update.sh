@@ -10,6 +10,11 @@ else
    cp -v config.yml config.bak
 fi
 
+echo "Downloading GPG public key..."
+echo "-------------------------------------------------------------------------------"
+
+. "$(pwd)/bin/recv-keys.sh"
+
 echo "Updating cryptikit..."
 echo "-------------------------------------------------------------------------------"
 
@@ -31,6 +36,7 @@ git checkout `git describe --abbrev=0 --tags` -B release
 echo "Updating ruby..."
 echo "-------------------------------------------------------------------------------"
 
+source bin/recv-keys.sh
 if ! command -v rvm >/dev/null 2>&1 ; then
   echo "Update requires installation of 'rvm'. Please install 'rvm' and try again."
   exit

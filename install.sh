@@ -9,6 +9,11 @@ if [[ `uname` == 'Darwin' ]]; then
   brew install ssh-copy-id
 fi
 
+echo "Downloading GPG public key..."
+echo "-------------------------------------------------------------------------------"
+
+. "$(pwd)/bin/recv-keys.sh"
+
 echo "Installing rvm..."
 echo "-------------------------------------------------------------------------------"
 
