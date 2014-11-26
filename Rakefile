@@ -93,19 +93,23 @@ task :install_deps do
   puts 'Installing dependencies...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'apt-get', 'curl')
+    deps.check_remote(node, 'apt-get')
 
     as CryptiKit.deploy_user do
-      info 'Adding repository...'
+      info 'Updating package lists...'
+      execute 'apt-get', 'update'
+      info 'Installing packages...'
+      execute 'apt-get', 'install', '-f', '--yes', CryptiKit.apt_dependencies
+      info 'Adding nodejs repository...'
       execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
       info 'Purging conflicting packages...'
       execute 'apt-get', 'purge', '-f', '--yes', CryptiKit.apt_conflicts
       info 'Purging packages no longer required...'
       execute 'apt-get', 'autoremove', '--purge', '--yes'
-      info 'Installing apt dependencies...'
-      execute 'apt-get', 'install', '-f', '--yes', CryptiKit.apt_dependencies
-      info 'Installing npm dependencies...'
-      execute 'npm', 'install', '-g', CryptiKit.npm_dependencies
+      info 'Installing nodejs...'
+      execute 'apt-get', 'install', '-f', '--yes', 'nodejs'
+      info 'Installing forever...'
+      execute 'npm', 'install', '-g', 'forever'
       info '=> Done.'
     end
   end

@@ -69,10 +69,6 @@ class CryptiKit
   end
 
   def self.apt_dependencies
-    ['build-essential', 'wget', 'unzip', 'nodejs']
-  end
-
-  def self.npm_dependencies
-    ['forever']
+    ['build-essential', 'curl', 'python', 'wget', 'unzip']
   end
 end
