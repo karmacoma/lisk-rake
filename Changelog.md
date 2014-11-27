@@ -1,5 +1,31 @@
 ### CryptiKit Changelog
 
+2014-11-27 (1.7.0)
+
+- Adding support for deployment to CentOS and Fedora operating systems
+
+For usage instructions please see:
+https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#typical-usage
+
+For available operating systems for each supported host please see:
+https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#supported-hosts
+
+- Implementing workaround for slow check_nodes task
+
+Forging status is now checked separately from mining info; Allowing slow /api/getMiningInfo requests to be optionally avoided. Mining info can therefore be disabled permanently through config.yml or optionally at runtime from the command line.
+
+For more information please see:
+https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#mining-info
+
+- Downloading zip files to static file names; Allowing app and blockchain urls to be more easily customised without breaking CryptiKit
+
+Example config.yml with customised URLs hosted on Dropbox:
+
+```
+app_url: https://www.dropbox.com/s/ygjs6wwukj3h3ho/crypti-linux-0.1.7.zip?dl=0
+blockchain_url: https://www.dropbox.com/s/rbkx0rtvhp4xxbe/blockchain.db.zip?dl=0
+```
+
 2014-11-26 (1.6.5)
 
 - Officially supporting additional hosts: Vultr and Wable
