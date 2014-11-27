@@ -27,6 +27,12 @@ class NodeStatus
     end
   end
 
+  def forging_status
+    if @json['forging_status'].size > 1 then
+      ForgingStatus.new(@json['forging_status']).to_s
+    end
+  end
+
   def mining_info
     if @json['mining_info'].size > 1 then
       MiningInfo.new(@json['mining_info']).to_s
@@ -40,7 +46,7 @@ class NodeStatus
   end
 
   def to_s
-    status = [divider, info, divider, loading_status, sync_status, mining_info, account_balance]
+    status = [divider, info, divider, loading_status, sync_status, forging_status, mining_info, account_balance]
     return "" if status.compact.size <= 3
     status.join.to_s
   end

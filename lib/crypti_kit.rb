@@ -60,6 +60,10 @@ class CryptiKit
     config['accounts'] ||= {}
   end
 
+  def self.mining_info
+    config['mining_info']
+  end
+
   def self.sequenced_exec
     { :in => :sequence, :wait => 0 }
   end

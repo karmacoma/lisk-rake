@@ -32,15 +32,33 @@ class NodeApi
     @loaded and @synced
   end
 
+  def forging_status
+    @task.info 'Getting forging status...'
+    if loaded then
+      @api.get '/forgingApi/getForgingInfo' do |json|
+        @task.info '=> Done.'
+      end
+    else
+      @task.warn '=> Forging status not available.'
+      {}
+    end
+  end
+
   def mining_info(public_key)
     @task.info 'Getting mining info...'
-    if synced and public_key then
+    if synced and public_key and mining_info_enabled? then
       @api.get '/api/getMiningInfo', { publicKey: public_key, descOrder: true } do |json|
         @task.info '=> Done.'
       end
     else
       @task.warn '=> Mining info not available.'
       {}
+    end
+  end
+
+  def mining_info_enabled?
+    [CryptiKit.mining_info, ENV['mining_info']].any? do |v|
+      v == 'true' or v == 'enabled'
     end
   end
 
@@ -60,6 +78,7 @@ class NodeApi
     json                    = { 'info' => node.info }
     json['loading_status']  = loading_status
     json['sync_status']     = loaded ? sync_status : {}
+    json['forging_status']  = forging_status
     json['mining_info']     = mining_info(node.public_key)
     json['account_balance'] = account_balance(node.account)
     json.keys.reject! { |k| k == 'info' }.each do |j|

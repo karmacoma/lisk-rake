@@ -3,10 +3,6 @@ class MiningInfo
     @json = json
   end
 
-  def forging
-    [sprintf("%-19s", 'Forging:'), @json['forging'], "\n"]
-  end
-
   def last_forged
     array = [sprintf("%-19s", 'Last Forged:')]
     if @json['blocks'] and last = @json['blocks'].first then
@@ -22,6 +18,6 @@ class MiningInfo
   end
 
   def to_s
-    [forging, last_forged, forged].join.to_s
+    [last_forged, forged].join.to_s
   end
 end
