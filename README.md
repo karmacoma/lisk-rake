@@ -7,7 +7,9 @@ Simple &amp; easy Crypti node deployment and management for Linux / OSX operatin
 #### DigitalOcean
 
 Supported operating systems:
+- CentOS (7.0 x64)
 - Debian (7.0 x64)
+- Fedora (20 x64)
 - Ubuntu (14.04 x64)
 
 > Link: https://www.digitalocean.com/?refcode=c637b271d39f
@@ -15,6 +17,7 @@ Supported operating systems:
 #### GetClouder
 
 Supported operating systems:
+- CentOS (7.0 x64)
 - Debian (7.0 x64)
 - Ubuntu (14.04 x64)
 
@@ -23,6 +26,7 @@ Supported operating systems:
 #### Vultr
 
 Supported operating systems:
+- CentOS (7.0 x64)
 - Debian (7.0 x64)
 - Ubuntu (14.04 x64)
 
@@ -32,6 +36,7 @@ Supported operating systems:
 
 Supported operating systems:
 - debian-7.0-x86_64
+- fedora-20-x86_64
 - ubuntu-13.10-x86_64
 - ubuntu-14.04-x86_64-minimal
 
@@ -113,8 +118,10 @@ rake add_key
 * Install dependencies and crypti node on each server:
 
 ```
-rake install_all
+rake install_all os=debian
 ```
+
+Please be sure to specify one of the following supported target operating systems: debian, ubuntu, centos or fedora.
 
 > NOTE:
 > Crypti node will be automatically started after installation.
