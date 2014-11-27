@@ -15,32 +15,36 @@ class NodeStatus
     @json['info'] + "\n"
   end
 
+  def has_section?(key)
+    @json[key.to_s].size > 1
+  end
+
   def loading_status
-    if @json['loading_status'].size > 1 then
+    if has_section?('loading_status') then
       LoadingStatus.new(@json['loading_status']).to_s
     end
   end
 
   def sync_status
-    if @json['sync_status'].size > 1 then
+    if has_section?('sync_status') then
       SyncStatus.new(@json['sync_status']).to_s
     end
   end
 
   def forging_status
-    if @json['forging_status'].size > 1 then
+    if has_section?('forging_status') then
       ForgingStatus.new(@json['forging_status']).to_s
     end
   end
 
   def mining_info
-    if @json['mining_info'].size > 1 then
+    if has_section?('mining_info') then
       MiningInfo.new(@json['mining_info']).to_s
     end
   end
 
   def account_balance
-    if @json['account_balance'].size > 1 then
+    if has_section?('account_balance') then
       AccountBalance.new(@json['account_balance']).to_s
     end
   end
