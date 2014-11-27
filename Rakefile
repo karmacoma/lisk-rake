@@ -93,23 +93,14 @@ task :install_deps do
   puts 'Installing dependencies...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'apt-get')
-
-    info 'Updating package lists...'
-    execute 'apt-get', 'update'
-    info 'Installing packages...'
-    execute 'apt-get', 'install', '-f', '--yes', CryptiKit.apt_dependencies
-    info 'Adding nodejs repository...'
-    execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
-    info 'Purging conflicting packages...'
-    execute 'apt-get', 'purge', '-f', '--yes', CryptiKit.apt_conflicts
-    info 'Purging packages no longer required...'
-    execute 'apt-get', 'autoremove', '--purge', '--yes'
-    info 'Installing nodejs...'
-    execute 'apt-get', 'install', '-f', '--yes', 'nodejs'
-    info 'Installing forever...'
-    execute 'npm', 'install', '-g', 'forever'
-    info '=> Done.'
+    case CryptiKit.os
+    when :debian then
+      deps.check_remote(node, 'apt-get')
+      DebianDeps.call(self)
+    when :redhat then
+      deps.check_remote(node, 'yum')
+      RedhatDeps.call(self)
+    end
   end
 end
 
