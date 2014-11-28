@@ -9,6 +9,14 @@ class List
     @items
   end
 
+  def keys
+    @items.keys
+  end
+
+  def values
+    @items.values
+  end
+
   def [](key)
     @items[key]
   end

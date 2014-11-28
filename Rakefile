@@ -23,24 +23,16 @@ end
 desc 'List configured servers'
 task :list_servers do
   run_locally do
-    info 'Listing available server(s)...'
-    CryptiKit.config['servers'].values.each do |server|
-      node = Node.new(server)
-      info node.info
-    end
-    info '=> Done.'
+    manager = ServerManager.new(self)
+    manager.list
   end
 end
 
 desc 'Add servers to config'
 task :add_servers do
   run_locally do
-    info 'Adding server(s)...'
-    list = ServerList.new
-    list.add_all(ENV['servers'])
-    info 'Updating configuration...'
-    list.save
-    info '=> Done.'
+    manager = ServerManager.new(self)
+    manager.add
   end
   Rake::Task['list_servers'].invoke
 end
@@ -48,12 +40,8 @@ end
 desc 'Remove servers from config'
 task :remove_servers do
   run_locally do
-    info 'Removing server(s)...'
-    list = ServerList.new
-    list.remove_all(ENV['servers'])
-    info 'Updating configuration...'
-    list.save
-    info '=> Done.'
+    manager = ServerManager.new(self)
+    manager.remove
   end
   Rake::Task['list_servers'].invoke
 end
