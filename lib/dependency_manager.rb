@@ -28,10 +28,10 @@ class DependencyManager
     @task.info "Checking #{location(node)[:type]} dependencies..."
 
     deps.delete_if { |d| d == 'crypti' }.each do |dep|
-      if !@task.test('which', dep) then
-        raise "Missing dependency: '#{dep}' #{location(node)[:name]}."
-      else
+      if @task.test('which', dep) then
         @task.info "=> Found: #{dep}."
+      else
+        raise "Missing dependency: '#{dep}' #{location(node)[:name]}."
       end
     end
   end
