@@ -11,4 +11,9 @@ class ServerList < List
       CryptiKit.config['accounts'].delete(key) if !@items[key]
     end
   end
+
+  def forget_all(items)
+    known_hosts = KnownHosts.new(self)
+    known_hosts.update(items)
+  end
 end

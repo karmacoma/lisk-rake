@@ -26,6 +26,8 @@ class ServerManager
     @list.remove_all(ENV['servers'])
     @task.info 'Updating configuration...'
     @list.save
+    @task.info 'Forgetting server(s)...'
+    @list.forget_all(ENV['servers'])
     @task.info '=> Done.'
   end
 end
