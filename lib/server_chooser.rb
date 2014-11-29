@@ -4,7 +4,7 @@ class ServerChooser
   end
 
   def chosen
-    @chosen ||= ENV['servers'].to_s.chomp
+    @chosen ||= ENV['servers'].to_s.strip
   end
 
   def choose
