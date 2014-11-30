@@ -1,5 +1,19 @@
 ### CryptiKit Changelog
 
+2014-11-30 (1.7.1)
+
+- Adding automatic detection of remote server architecture and operating system to the ```install_deps``` task
+
+Instead of specifying your target operating system globally like so:  ```rake install_deps os=ubuntu```. You can now simply execute: ```rake install_deps```. After automatically detecting whether a server has a supported architecture and operating system, CryptiKit will then proceed to install the relevant dependencies for the given operating system.
+
+> NOTE: The above changes also apply to the ```rake install_all``` command, which merely executes the ```install_deps``` and ```install_nodes``` commands sequentially using one convenient command.
+
+Unsupported architectures and operating systems will raise an error. For a list of supported hosts and operating systems please see:
+
+https://github.com/karmacoma/cryptikit/blob/v1.7.1/README.md#supported-hosts
+
+- Adding automatic removal of ssh fingerprints from the ~/.ssh/known_hosts file after deleting a server using the ```remove_servers``` task
+
 2014-11-27 (1.7.0)
 
 - Adding support for deployment to CentOS and Fedora operating systems
