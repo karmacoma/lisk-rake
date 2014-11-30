@@ -72,17 +72,6 @@ class CryptiKit
     @baddies ||= []
   end
 
-  def self.os
-    case ENV['os'].to_s
-    when /centos|fedora/i then
-      :redhat
-    when /debian|ubuntu/i then
-      :debian
-    else
-      raise ArgumentError, 'Target operating system was not specified.'
-    end
-  end
-
   def self.apt_conflicts
     ['nodejs', 'nodejs-legacy', 'npm']
   end

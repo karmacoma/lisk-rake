@@ -81,7 +81,9 @@ task :install_deps do
   puts 'Installing dependencies...'
 
   on_each_server do |server, node, deps|
-    case CryptiKit.os
+    insp = ServerInspector.new(self)
+    insp.detect
+    case insp.base
     when :debian then
       deps.check_remote(node, 'apt-get')
       DebianDeps.call(self)
