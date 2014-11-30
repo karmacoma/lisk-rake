@@ -64,23 +64,7 @@ class CryptiKit
     config['mining_info']
   end
 
-  def self.sequenced_exec
-    { :in => :sequence, :wait => 0 }
-  end
-
   def self.baddies
     @baddies ||= []
-  end
-
-  def self.apt_conflicts
-    ['nodejs', 'nodejs-legacy', 'npm']
-  end
-
-  def self.apt_dependencies
-    ['build-essential', 'curl', 'python', 'wget', 'unzip']
-  end
-
-  def self.rpm_dependencies
-    ['gcc-c++', 'make', 'curl', 'python', 'wget', 'unzip']
   end
 end

@@ -2,11 +2,11 @@ DebianDeps = Proc.new do |task|
   task.info 'Updating package lists...'
   task.execute 'apt-get', 'update'
   task.info 'Installing packages...'
-  task.execute 'apt-get', 'install', '-f', '--yes', CryptiKit.apt_dependencies
+  task.execute 'apt-get', 'install', '-f', '--yes', 'build-essential', 'curl', 'python', 'wget', 'unzip'
   task.info 'Adding nodejs repository...'
   task.execute 'curl', '-sL', 'https://deb.nodesource.com/setup', '|', 'bash', '-'
   task.info 'Purging conflicting packages...'
-  task.execute 'apt-get', 'purge', '-f', '--yes', CryptiKit.apt_conflicts
+  task.execute 'apt-get', 'purge', '-f', '--yes', 'nodejs', 'nodejs-legacy', 'npm'
   task.info 'Purging packages no longer required...'
   task.execute 'apt-get', 'autoremove', '--purge', '--yes'
   task.info 'Installing nodejs...'
@@ -20,7 +20,7 @@ RedhatDeps = Proc.new do |task|
   task.info 'Updating package lists...'
   task.execute 'yum', 'clean', 'expire-cache'
   task.info 'Installing packages...'
-  task.execute 'yum', 'install', '-y', CryptiKit.rpm_dependencies
+  task.execute 'yum', 'install', '-y', 'gcc-c++', 'make', 'curl', 'python', 'wget', 'unzip'
   task.info 'Adding nodejs repository...'
   task.execute 'curl', '-sL', 'https://rpm.nodesource.com/setup', '|', 'bash', '-'
   task.info 'Installing nodejs...'

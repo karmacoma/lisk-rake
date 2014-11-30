@@ -16,7 +16,7 @@ module CryptiDSL
   def on_each_server(&block)
     CryptiKit.baddies.clear
     chooser = ServerChooser.new
-    on(chooser.choose, CryptiKit.sequenced_exec) do |server|
+    on(chooser.choose, { :in => :sequence, :wait => 0 }) do |server|
       next unless on_node(server, &block)
     end
   end
