@@ -118,10 +118,8 @@ rake add_key
 * Install dependencies and crypti node on each server:
 
 ```
-rake install_all os=debian
+rake install_all
 ```
-
-Please be sure to specify one of the following supported target operating systems: debian, ubuntu, centos or fedora.
 
 > NOTE:
 > Crypti node will be automatically started after installation.
