@@ -76,10 +76,10 @@ class List
   @reindex      = true
 
   def self.parse_keys(keys)
-    keys.gsub(key_regexp, '').split(',')
+    keys.to_s.gsub(key_regexp, '').split(',')
   end
 
   def self.parse_values(values)
-    values.gsub(value_regexp, '').split(',')
+    values.to_s.gsub(value_regexp, '').split(',')
   end
 end
