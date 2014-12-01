@@ -32,7 +32,7 @@ class List
   end
 
   def add_all(items)
-    _items = self.class.parse_values(items)
+    _items = items.is_a?(Array) ? items : self.class.parse_values(items)
     _items.each { |item| add(item) }
   end
 
@@ -41,7 +41,7 @@ class List
   end
 
   def remove_all(items)
-    _items = self.class.parse_keys(items)
+    _items = items.is_a?(Array) ? items : self.class.parse_keys(items)
     _items.each { |item| remove(item) }
   end
 

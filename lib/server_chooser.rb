@@ -1,15 +1,19 @@
 class ServerChooser
+  def initialize(mode)
+    @mode = mode
+  end
+
   def choices
     CryptiKit.configured_servers
   end
 
-  def chosen
-    @chosen ||= ENV['servers'].to_s.strip
+  def args
+    @args ||= ENV['servers'].to_s.strip
   end
 
   def choose
     puts 'Choosing servers...'
-    case chosen
+    case args
     when /all/ then
       accept_all
     when /[0-9]+\.\.[0-9]+/ then
@@ -30,23 +34,32 @@ class ServerChooser
 
   def accept_all
     puts '=> Accepting all servers.'
-    choices.values
+    @mode == :keys ? choices.keys : choices.values
   end
 
   def accept_all?
-    print yellow("No servers chosen. Run task on all servers?\s")
+    print yellow("No servers args. Run task on all servers?\s")
     STDIN.gets.chomp.match(/y|yes/i)
+  end
+
+  def select_servers(servers)
+    if @mode == :keys then
+      servers.collect! { |s| s.to_i if choices.has_key?(s.to_i) }
+    else
+      servers.collect! { |s| choices[s.to_i] }
+    end
+    servers.compact
   end
 
   def accept_range
     puts '=> Accepting range of servers.'
-    servers = Range.new(*chosen.split('..').map(&:to_i)).to_a
-    servers.collect { |s| choices[s.to_i] }.compact
+    servers = Range.new(*args.split('..').map(&:to_i)).to_a
+    select_servers(servers)
   end
 
   def accept_selection
     puts '=> Accepting selection of servers.'
-    servers = ServerList.parse_keys(chosen)
-    servers.collect { |s| choices[s.to_i] }.compact
+    servers = ServerList.parse_keys(args)
+    select_servers(servers)
   end
 end
