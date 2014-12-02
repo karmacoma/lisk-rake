@@ -95,12 +95,22 @@ class ReportSummary
     end
   end
 
+  def generated_at
+    [sprintf("%-19s", 'Generated:'), @report.generated_at, "\n"]
+  end
+
+  def last_generated_at
+    [sprintf("%-19s", 'Last Generated:'), @cache.generated_at, "\n"]
+  end
+
   def to_s
     [
       divider('='),
       title,
       divider('='),
       total_checked,
+      generated_at,
+      last_generated_at,
       total_forged,
       total_balance,
       total_unconfirmed,

@@ -53,6 +53,12 @@ class Report
     "#{total_nodes} / #{total_configured} Configured"
   end
 
+  def generated_at
+    @generated_at ||= Time.now.to_s
+  end
+
+  attr_writer :generated_at
+
   def total_forged
     total_balance('totalForged', 'mining_info')
   end
@@ -108,20 +114,25 @@ class Report
 
   def import(array)
     if array.is_a?(Array) then
-      @baddies = array[0] if array[0].is_a?(Array)
-      @nodes   = array[1] if array[1].is_a?(Hash)
+      @baddies      = array[0] if array[0].is_a?(Array)
+      @nodes        = array[1] if array[1].is_a?(Hash)
+      @generated_at = array[2] if array[2].is_a?(String)
     end
   end
 
   def load
     @cache = self.class.new
-    @cache.import(JSON.parse(File.read(CACHE_FILE))) if File.exists?(CACHE_FILE)
+    if File.exists?(CACHE_FILE) then
+      @cache.import(JSON.parse(File.read(CACHE_FILE)))
+    else
+      @cache.generated_at = 'Never'
+    end
     @cache
   end
 
   def save
     File.open(CACHE_FILE, 'w') do |f|
-      f.puts [@baddies, @nodes].to_json
+      f.puts [@baddies, @nodes, @generated_at].to_json
     end
   end
 end
