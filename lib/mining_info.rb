@@ -1,6 +1,7 @@
 class MiningInfo
-  def initialize(json)
-    @json = json
+  def initialize(json, cache)
+    @json  = json
+    @cache = cache || {}
   end
 
   def last_forged
@@ -14,7 +15,8 @@ class MiningInfo
   end
 
   def forged
-    [sprintf("%-19s", 'Forged:'), @json['totalForged'].to_xcr, "\n"]
+    change = BalanceChange.new(@json['totalForged'], @cache['totalForged'])
+    [sprintf("%-19s", 'Forged:'), @json['totalForged'].to_xcr, change.to_s, "\n"]
   end
 
   def to_s

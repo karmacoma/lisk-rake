@@ -1,6 +1,7 @@
 class ReportSummary
-  def initialize(report)
+  def initialize(report, cache)
     @report = report
+    @cache  = cache
   end
 
   def divider(char = '-')
@@ -13,7 +14,8 @@ class ReportSummary
 
   def total_forged
     if @report.total_forged > 0.0 then
-      [sprintf("%-19s", 'Total Forged:'), @report.total_forged, "\n"]
+      change = BalanceChange.new(@report.total_forged, @cache.total_forged)
+      [sprintf("%-19s", 'Total Forged:'), @report.total_forged, change.to_s, "\n"]
     end
   end
 
@@ -23,19 +25,22 @@ class ReportSummary
 
   def total_balance
     if @report.total_balance > 0.0 then
-      [sprintf("%-19s", 'Total Balance:'), @report.total_balance, "\n"]
+      change = BalanceChange.new(@report.total_balance, @cache.total_balance)
+      [sprintf("%-19s", 'Total Balance:'), @report.total_balance, change.to_s, "\n"]
     end
   end
 
   def total_unconfirmed
     if @report.total_unconfirmed > 0.0 then
-      [sprintf("%-19s", 'Total Unconfirmed:'), @report.total_unconfirmed, "\n"]
+      change = BalanceChange.new(@report.total_unconfirmed, @cache.total_unconfirmed)
+      [sprintf("%-19s", 'Total Unconfirmed:'), @report.total_unconfirmed, change.to_s, "\n"]
     end
   end
 
   def total_effective
     if @report.total_effective > 0.0 then
-      [sprintf("%-19s", 'Total Effective:'), @report.total_effective, "\n"]
+      change = BalanceChange.new(@report.total_effective, @cache.total_effective)
+      [sprintf("%-19s", 'Total Effective:'), @report.total_effective, change.to_s, "\n"]
     end
   end
 

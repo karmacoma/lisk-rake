@@ -3,8 +3,9 @@ require 'account_balance'
 require 'mining_info'
 
 class NodeStatus
-  def initialize(json)
-    @json = json
+  def initialize(json, cache)
+    @json  = json
+    @cache = cache || {}
   end
 
   def divider
@@ -39,13 +40,13 @@ class NodeStatus
 
   def mining_info
     if has_section?('mining_info') then
-      MiningInfo.new(@json['mining_info']).to_s
+      MiningInfo.new(@json['mining_info'], @cache['mining_info']).to_s
     end
   end
 
   def account_balance
     if has_section?('account_balance') then
-      AccountBalance.new(@json['account_balance']).to_s
+      AccountBalance.new(@json['account_balance'], @cache['account_balance']).to_s
     end
   end
 

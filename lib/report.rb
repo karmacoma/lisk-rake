@@ -92,8 +92,10 @@ class Report
   def to_s
     report = String.new
     if @baddies.any? or @nodes.any? then
-      @nodes.values.each { |r| report << NodeStatus.new(r).to_s if r.any? }
-      report << ReportSummary.new(self).to_s
+      @nodes.each_pair do |k,v|
+        report << NodeStatus.new(v, cache[k.to_s]).to_s if v.any?
+      end
+      report << ReportSummary.new(self, cache).to_s
     end
     report
   end
