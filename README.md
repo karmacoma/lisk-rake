@@ -423,7 +423,7 @@ ERROR => Error: Provide secretPhrase.
 
 ### Bugs
 
-I have tested these commands on: Digital Ocean, GetClouder, Vultr and Wable using various Debian/Ubuntu based containers. Please let me know if you encounter any issues: karmacrypto@gmail.com.
+I have tested these commands on: Digital Ocean, GetClouder, Vultr and Wable using various CentOS/Debian/Fedora/Ubuntu based containers. Please let me know if you encounter any issues: karmacrypto@gmail.com.
 
 ### Changelog
 
