@@ -278,6 +278,7 @@ task :check_nodes do
 
   report.baddies = CryptiKit.baddies
   puts report.to_s
+  report.save
 end
 
 desc 'Withdraw surplus coinage from crypti nodes'

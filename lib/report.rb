@@ -97,4 +97,29 @@ class Report
     end
     report
   end
+
+  CACHE_FILE = 'cache.json'
+
+  def cache
+    (@cache) ? @cache : load
+  end
+
+  def import(array)
+    if array.is_a?(Array) then
+      @baddies = array[0] if array[0].is_a?(Array)
+      @nodes   = array[1] if array[1].is_a?(Hash)
+    end
+  end
+
+  def load
+    @cache = self.class.new
+    @cache.import(JSON.parse(File.read(CACHE_FILE))) if File.exists?(CACHE_FILE)
+    @cache
+  end
+
+  def save
+    File.open(CACHE_FILE, 'w') do |f|
+      f.puts [@baddies, @nodes].to_json
+    end
+  end
 end
