@@ -4,7 +4,7 @@ class ForgingStatus
   end
 
   def forging
-    [sprintf("%-19s", 'Forging:'), @json['forgingEnabled'], "\n"]
+    [sprintf("%-19s", 'Forging:'), @json['forgingEnabled'] == true, "\n"]
   end
 
   def to_s

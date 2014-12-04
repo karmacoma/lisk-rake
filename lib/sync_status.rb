@@ -4,7 +4,7 @@ class SyncStatus
   end
 
   def syncing
-    [sprintf("%-19s", 'Syncing:'), @json['sync'], "\n"]
+    [sprintf("%-19s", 'Syncing:'), @json['sync'] == true, "\n"]
   end
 
   def to_s
