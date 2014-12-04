@@ -17,7 +17,8 @@ class NodeStatus
   end
 
   def has_section?(key)
-    @json[key.to_s].size > 1
+    val = @json[key.to_s]
+    val.is_a?(Hash) and val['success']
   end
 
   def loading_status
