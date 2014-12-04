@@ -15,10 +15,23 @@ class Passphrase
     @passphrase
   end
 
+  ESCAPED_CHARS = {
+    /"/  => %q{\\\"},
+    /'/  => %q{\x27},
+    /\^/ => %q{\^},
+    /\$/ => %q{\$},
+    /\./ => %q{\.},
+    /\*/ => %q{\*},
+    /\// => %q{\/},
+    /\\/ => %q{\\},
+    /\[/ => %q{\[},
+    /\]/ => %q{\]},
+    /\&/ => %q{\&},
+  }
+
   def escaped
     @escaped = @passphrase.dup
-    [[/"/, Proc.new { %q{\\\"} }],
-     [/\//, Proc.new { %q{\\/} }]].each { |a| @escaped.gsub!(a[0], &a[1]) }
+    ESCAPED_CHARS.each_pair { |k,v| @escaped.gsub!(/#{k}/, &Proc.new { v }) }
     @escaped
   end
 end
