@@ -1,5 +1,5 @@
 ---
-deploy_path: "/var/crypti"
+deploy_path: /var/crypti
 deploy_user: root
 app_url: http://downloads.crypti.me/crypti-node/0.1.x/crypti-linux-0.1.7.zip
 app_version: 0.1.7
