@@ -40,6 +40,10 @@ class CryptiKit
     config['app_url']
   end
 
+  def self.app_port
+    config['environment'].to_s == 'test' ? 7040 : 6040
+  end
+
   def self.app_file
     "crypti-linux-#{app_version}.zip"
   end

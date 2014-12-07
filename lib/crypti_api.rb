@@ -44,7 +44,10 @@ class CryptiApi
   end
 
   def encode_url(url, data = nil)
-    '\'http://127.0.0.1:6040' + url << (data ? "?#{URI.encode_www_form(data)}" : '') + '\''
+    url  = "'http://127.0.0.1:#{CryptiKit.app_port}#{url}"
+    url << "?#{URI.encode_www_form(data)}" if data
+    url << "'"
+    url
   end
 
   private

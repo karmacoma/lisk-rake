@@ -5,5 +5,6 @@ app_url: http://downloads.crypti.me/crypti-node/0.1.x/crypti-linux-0.1.7.zip
 app_version: 0.1.7
 blockchain_url: http://downloads.crypti.me/blockchains/blockchain.db.zip
 mining_info: enabled
+environment: live
 servers: {}
 accounts: {}
