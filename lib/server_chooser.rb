@@ -38,7 +38,7 @@ class ServerChooser
   end
 
   def accept_all?
-    print yellow("No servers args. Run task on all servers?\s")
+    print yellow("No servers selected. Run task on all servers?\s")
     STDIN.gets.chomp.match(/y|yes/i)
   end
 
