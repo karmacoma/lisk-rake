@@ -14,6 +14,6 @@ class ServerList < List
 
   def forget_all(items)
     known_hosts = KnownHosts.new(self)
-    known_hosts.update(items)
+    known_hosts.forget(items)
   end
 end

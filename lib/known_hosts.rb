@@ -15,7 +15,7 @@ class KnownHosts
     end
   end
 
-  def update(servers)
+  def forget(servers)
     return unless file
     File.open(path, 'w') do |f|
       @list.class.parse_values(servers).each do |key|
