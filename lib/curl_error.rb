@@ -1,9 +1,6 @@
-class CurlError
-  def initialize(task, exception)
-    @task      = task
-    @exception = exception
-  end
+require 'basic_error'
 
+class CurlError < BasicError
   def detect
     case @exception.to_s
     when /curl exit status: 7/ then
@@ -28,9 +25,5 @@ class CurlError
 
   def query_interrupted
     '=> Query interrupted.'
-  end
-
-  def unknown_error
-    (@exception.to_s.size > 0) ? '=> Error: ' + @exception.to_s : '=> Unknown error.'
   end
 end

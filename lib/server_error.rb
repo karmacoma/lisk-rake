@@ -1,9 +1,6 @@
-class ServerError
-  def initialize(task, exception)
-    @task      = task
-    @exception = exception
-  end
+require 'basic_error'
 
+class ServerError < BasicError
   def collect(node, error)
     { 'key' => node.key, 'error' => error.detect }
   end
@@ -43,13 +40,5 @@ class ServerError
 
   def connection_interrupted
     '=> Connection interrupted.'
-  end
-
-  def unknown_error
-    if ENV['debug'] != 'true' then
-      (@exception.to_s.size > 0) ? '=> ' + @exception.to_s : '=> Unknown error.'
-    else
-      raise @exception
-    end
   end
 end

@@ -13,21 +13,8 @@ class KeyManager
     @task.execute 'ssh-copy-id', '-i', CryptiKit.deploy_key, "#{CryptiKit.deploy_user_at_host(server)}"
     @task.info '=> Done.'
   rescue Exception => exception
-    case exception.to_s
-    when /Your password has expired/ then
-      @task.warn 'Password change required. Please login and change password...'
-      system "ssh -t #{CryptiKit.deploy_user_at_host(server)} exit"
-      @task.info 'Trying to add public ssh key again...'
-      retry
-    when /Host key verification failed/ then
-      @task.warn 'Host key verification failed. Removing server from known hosts...'
-      @task.execute 'ssh-keygen', '-R', server
-      @task.info 'Trying to add public ssh key again...'
-      retry
-    when /Permission denied, please try again/ then
-      @task.error 'Permission denied. Check password.'
-    else
-      raise exception
-    end
+    error = KeyError.new(@task, exception)
+    error.detect(server)
+    retry if error.try_again?
   end
 end
