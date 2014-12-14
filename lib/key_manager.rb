@@ -19,6 +19,11 @@ class KeyManager
       system "ssh -t #{CryptiKit.deploy_user_at_host(server)} exit"
       @task.info 'Trying to add public ssh key again...'
       retry
+    when /Host key verification failed/ then
+      @task.warn 'Host key verification failed. Removing server from known hosts...'
+      @task.execute 'ssh-keygen', '-R', server
+      @task.info 'Trying to add public ssh key again...'
+      retry
     else
       raise exception
     end
