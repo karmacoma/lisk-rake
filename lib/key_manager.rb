@@ -24,6 +24,8 @@ class KeyManager
       @task.execute 'ssh-keygen', '-R', server
       @task.info 'Trying to add public ssh key again...'
       retry
+    when /Permission denied, please try again/ then
+      @task.error 'Permission denied. Check password.'
     else
       raise exception
     end
