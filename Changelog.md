@@ -1,5 +1,25 @@
 ### CryptiKit Changelog
 
+2014-12-15 (1.7.3)
+
+This update coincides with the release of Crypti 0.1.8. The latest version of Crypti adds some welcome stability, quicker load times and more responsive node queries; which all contribute to making node deployment using CryptiKit a more pleasant experience.
+
+#### Updates
+
+- Updated crypti node to latest version: 0.1.8
+- Adding environment option to config.yml
+  - 'live' will deploy nodes onto the live blockchain using port 6040
+  - 'test' will deploy nodes onto the test blockchain using port 7040
+
+#### Bug Fixes
+
+- Improved error handling when adding public ssh key to servers
+  - Gracefully handling host key verification failures
+  - Gracefully handling authentication failures
+- Escaping all known reserved characters when saving passphrase to config
+- Ensuring json responses are successful rather than merely populated
+- Translating nil values encountered when node has just been started
+
 2014-12-02 (1.7.2)
 
 - Improved remove_servers command syntax
@@ -149,7 +169,7 @@ Instructions for this new task are available here:
 
 2014-10-12 (1.5.1)
 
-This release coincides with the release of Crypti Node 0.1.7. It contains some important bug fixes, improvements to the installation process and a general refactoring of the code base.
+This update coincides with the release of Crypti 0.1.7. It contains some important bug fixes, improvements to the installation process and a general refactoring of the code base.
 
 #### Updates
 
