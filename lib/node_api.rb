@@ -4,6 +4,17 @@ class NodeApi
     @api  = CryptiApi.new(@task)
   end
 
+  def forever_status
+    @task.info 'Getting forever status...'
+    @forever = ForeverInspector.new(@task)
+    if @forever.success? then
+      @task.info '=> Done.'
+    else
+      @task.warn '=> Forever status not available.'
+    end
+    @forever.to_h
+  end
+
   def loading_status
     @task.info 'Getting loading status...'
     @api.get '/api/getLoading' do |json|
@@ -76,6 +87,7 @@ class NodeApi
 
   def node_status(node, &block)
     json                    = { 'info' => node.info }
+    json['forever_status']  = forever_status
     json['loading_status']  = loading_status
     json['sync_status']     = loaded ? sync_status : {}
     json['forging_status']  = forging_status

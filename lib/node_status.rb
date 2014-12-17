@@ -1,5 +1,8 @@
+require 'forever_status'
 require 'loading_status'
 require 'account_balance'
+require 'sync_status'
+require 'forging_status'
 require 'mining_info'
 
 class NodeStatus
@@ -19,6 +22,12 @@ class NodeStatus
   def has_section?(key)
     val = @json[key.to_s]
     val.is_a?(Hash) and val['success']
+  end
+
+  def forever_status
+    if has_section?('forever_status') then
+      ForeverStatus.new(@json['forever_status']).to_s
+    end
   end
 
   def loading_status
@@ -52,7 +61,7 @@ class NodeStatus
   end
 
   def to_s
-    status = [divider, info, divider, loading_status, sync_status, forging_status, mining_info, account_balance]
+    status = [divider, info, divider, forever_status, loading_status, sync_status, forging_status, mining_info, account_balance]
     return "" if status.compact.size <= 3
     status.join.to_s
   end
