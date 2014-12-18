@@ -48,6 +48,10 @@ class CryptiKit
     "crypti-linux-#{app_version}.zip"
   end
 
+  def self.log_file
+    install_path + '/logs.log'
+  end
+
   def self.blockchain_url
     config['blockchain_url']
   end

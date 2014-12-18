@@ -151,6 +151,57 @@ task :uninstall_nodes do
   end
 end
 
+desc 'Clean logs on each server'
+task :clean_logs do
+  puts 'Cleaning logs...'
+
+  on_each_server do |server, node, deps|
+    deps.check_remote(node, 'forever', 'truncate', 'crypti')
+
+    within CryptiKit.install_path do
+      info 'Truncating existing crypti log...'
+      execute 'truncate', 'logs.log', '--size', '0'
+      info 'Removing old crypti log(s)...'
+      execute 'rm', '-f', 'logs.old.*'
+    end
+    info 'Removing old forever log(s)...'
+    execute 'forever', 'cleanlogs'
+    info '=> Done.'
+  end
+end
+
+desc 'Download logs from each server'
+task :download_logs do
+  puts 'Deleting previous download...'
+  run_locally do
+    execute 'mkdir', '-p', 'logs'
+    within 'logs' do
+      execute 'rm', '-f', '*.log'
+    end
+  end
+
+  puts 'Downloading logs...'
+  on_each_server do |server, node, deps|
+    deps.check_remote(node, 'forever', 'crypti')
+
+    info 'Downloading forever log...'
+    forever = ForeverInspector.new(self)
+    if test 'ls', forever.log_file then
+      download! forever.log_file, "logs/#{node.key}.forever.log"
+    else
+      warn '=> Not found.'
+    end
+
+    info 'Downloading crypti log...'
+    if test 'ls', CryptiKit.log_file then
+      download! CryptiKit.log_file, "logs/#{node.key}.crypti.log"
+    else
+      warn '=> Not found.'
+    end
+    info '=> Done.'
+  end
+end
+
 desc 'Start crypti nodes'
 task :start_nodes do
   puts 'Starting crypti nodes...'
@@ -195,8 +246,6 @@ task :rebuild_nodes do
       execute 'forever', 'stopall', '||', ':'
       info 'Removing old blockchain...'
       execute 'rm', '-f', 'blockchain.db*'
-      info 'Removing old log file...'
-      execute 'rm', '-f', 'logs.log'
       info 'Downloading blockchain...'
       execute 'wget', CryptiKit.blockchain_url, '-O', CryptiKit.blockchain_file
       info 'Decompressing blockchain...'
