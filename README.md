@@ -259,6 +259,8 @@ Type ```rake -T``` to get a complete list of commands.
 rake add_key          # Add your public ssh key
 rake add_servers      # Add servers to config
 rake check_nodes      # Check status of crypti nodes
+rake clean_logs       # Clean logs on each server
+rake download_logs    # Download logs from each server
 rake install_all      # Install dependencies and crypti nodes
 rake install_deps     # Install dependencies
 rake install_nodes    # Install crypti nodes
