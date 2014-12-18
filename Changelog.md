@@ -1,5 +1,51 @@
 ### CryptiKit Changelog
 
+2014-12-18 (1.7.4)
+
+- Adding uptime, cpu & memory usage to the ```check_nodes``` task
+
+  #### Example
+
+  ```rake check_nodes servers=1```
+
+  Which outputs the following for each server:
+
+  ```
+  ================================================================================
+  Node[1]: 111.11.11.111 (9473799116182005461C)
+  ================================================================================
+  Usage:             CPU: 27.1% | Memory: 61.7%
+  Uptime:            0:1:32:35.744
+  ```
+
+- Adding ```download_logs``` task
+
+  #### Example
+
+  ```rake download_logs servers=1```
+
+  Downloads the current forever and crypti log from each server to the local machine.
+  Log files are saved into the relative ```logs/``` directory for further analysis, like so:
+
+  ```
+  1.forever.log
+  1.crypti.log
+  ```
+
+  > NOTE: Previous downloads are deleted before each subsequent download.
+
+- Adding ```clean_logs``` task
+
+  #### Example
+
+  ```rake clean_logs servers=1```
+
+  Which does the following on each server:
+
+  - Existing crypti log file is truncated to zero
+  - Old crypti log file(s) are removed
+  - Old forever log file(s) are removed
+
 2014-12-15 (1.7.3)
 
 This update coincides with the release of Crypti 0.1.8. The latest version of Crypti adds some welcome stability, quicker load times and more responsive node queries; which all contribute to making node deployment using CryptiKit a more pleasant experience.
