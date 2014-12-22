@@ -45,7 +45,7 @@ module CryptiKit
     end
 
     def encode_url(url, data = nil)
-      url  = "'http://127.0.0.1:#{CryptiKit.app_port}#{url}"
+      url  = "'http://127.0.0.1:#{Core.app_port}#{url}"
       url << "?#{URI.encode_www_form(data)}" if data
       url << "'"
       url

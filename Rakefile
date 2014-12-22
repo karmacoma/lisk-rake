@@ -53,10 +53,10 @@ task :add_key do
 
     run_locally do
       manager = CryptiKit::KeyManager.new(self)
-      unless test 'cat', CryptiKit::CryptiKit.deploy_key then
+      unless test 'cat', CryptiKit::Core.deploy_key then
         manager.gen_key
       end
-      if test 'cat', CryptiKit::CryptiKit.deploy_key then
+      if test 'cat', CryptiKit::Core.deploy_key then
         manager.add_key(server)
       end
     end
@@ -70,7 +70,7 @@ task :log_into do
 
     run_locally do
       info "Logging into #{server}..."
-      system("ssh #{CryptiKit::CryptiKit.deploy_user_at_host(server)}")
+      system("ssh #{CryptiKit::Core.deploy_user_at_host(server)}")
       info '=> Done.'
     end
   end
@@ -104,25 +104,25 @@ task :install_nodes do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     info 'Setting up...'
-    execute 'rm', '-rf', CryptiKit::CryptiKit.deploy_path
-    execute 'mkdir', '-p', CryptiKit::CryptiKit.deploy_path
-    within CryptiKit::CryptiKit.deploy_path do
+    execute 'rm', '-rf', CryptiKit::Core.deploy_path
+    execute 'mkdir', '-p', CryptiKit::Core.deploy_path
+    within CryptiKit::Core.deploy_path do
       info 'Downloading crypti...'
-      execute 'wget', CryptiKit::CryptiKit.app_url, '-O', CryptiKit::CryptiKit.app_file
+      execute 'wget', CryptiKit::Core.app_url, '-O', CryptiKit::Core.app_file
       info 'Installing crypti...'
-      execute 'unzip', CryptiKit::CryptiKit.app_file
+      execute 'unzip', CryptiKit::Core.app_file
       info 'Cleaning up...'
-      execute 'rm', CryptiKit.app_file
+      execute 'rm', CryptiKit::Core.app_file
     end
-    within CryptiKit::CryptiKit.install_path do
+    within CryptiKit::Core.install_path do
       info 'Installing node modules...'
       execute 'npm', 'install'
       info 'Downloading blockchain...'
-      execute 'wget', CryptiKit::CryptiKit.blockchain_url, '-O', CryptiKit::CryptiKit.blockchain_file
+      execute 'wget', CryptiKit::Core.blockchain_url, '-O', CryptiKit::Core.blockchain_file
       info 'Decompressing blockchain...'
-      execute 'unzip', CryptiKit::CryptiKit.blockchain_file
+      execute 'unzip', CryptiKit::Core.blockchain_file
       info 'Cleaning up...'
-      execute 'rm', CryptiKit::CryptiKit.blockchain_file
+      execute 'rm', CryptiKit::Core.blockchain_file
       info 'Starting crypti node...'
       execute 'forever', 'start', 'app.js', '||', ':'
       info '=> Done.'
@@ -146,7 +146,7 @@ task :uninstall_nodes do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     info 'Removing crypti...'
-    execute 'rm', '-rf', CryptiKit::CryptiKit.deploy_path
+    execute 'rm', '-rf', CryptiKit::Core.deploy_path
     info '=> Done.'
   end
 end
@@ -158,7 +158,7 @@ task :clean_logs do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'truncate', 'crypti')
 
-    within CryptiKit::CryptiKit.install_path do
+    within CryptiKit::Core.install_path do
       info 'Truncating existing crypti log...'
       execute 'truncate', 'logs.log', '--size', '0'
       info 'Removing old crypti log(s)...'
@@ -193,8 +193,8 @@ task :download_logs do
     end
 
     info 'Downloading crypti log...'
-    if test 'ls', CryptiKit::CryptiKit.log_file then
-      download! CryptiKit::CryptiKit.log_file, "logs/#{node.key}.crypti.log"
+    if test 'ls', CryptiKit::Core.log_file then
+      download! CryptiKit::Core.log_file, "logs/#{node.key}.crypti.log"
     else
       warn '=> Not found.'
     end
@@ -209,7 +209,7 @@ task :start_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit::CryptiKit.install_path do
+    within CryptiKit::Core.install_path do
       info 'Stopping all processes...'
       execute 'forever', 'stopall', '||', ':'
       info 'Starting crypti node...'
@@ -226,7 +226,7 @@ task :restart_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit::CryptiKit.install_path do
+    within CryptiKit::Core.install_path do
       info 'Restarting crypti node...'
       execute 'forever', 'restart', 'app.js', '||', ':'
       info '=> Done.'
@@ -241,17 +241,17 @@ task :rebuild_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'wget', 'crypti')
 
-    within CryptiKit::CryptiKit.install_path do
+    within CryptiKit::Core.install_path do
       info 'Stopping all processes...'
       execute 'forever', 'stopall', '||', ':'
       info 'Removing old blockchain...'
       execute 'rm', '-f', 'blockchain.db*'
       info 'Downloading blockchain...'
-      execute 'wget', CryptiKit::CryptiKit.blockchain_url, '-O', CryptiKit::CryptiKit.blockchain_file
+      execute 'wget', CryptiKit::Core.blockchain_url, '-O', CryptiKit::Core.blockchain_file
       info 'Decompressing blockchain...'
-      execute 'unzip', CryptiKit::CryptiKit.blockchain_file
+      execute 'unzip', CryptiKit::Core.blockchain_file
       info 'Cleaning up...'
-      execute 'rm', CryptiKit::CryptiKit.blockchain_file
+      execute 'rm', CryptiKit::Core.blockchain_file
       info 'Starting crypti node...'
       execute 'forever', 'start', 'app.js', '||', ':'
       info '=> Done.'
@@ -266,7 +266,7 @@ task :stop_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit::CryptiKit.install_path do
+    within CryptiKit::Core.install_path do
       info 'Stopping crypti node...'
       execute 'forever', 'stop', 'app.js', '||', ':'
       info '=> Done.'
@@ -325,7 +325,7 @@ task :check_nodes do
     api.node_status(node) { |json| report[node.key] = json }
   end
 
-  report.baddies = CryptiKit::CryptiKit.baddies
+  report.baddies = CryptiKit::Core.baddies
   puts report.to_s
   report.save
 end

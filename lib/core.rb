@@ -3,7 +3,7 @@ require 'singleton'
 require 'yaml'
 
 module CryptiKit
-  class CryptiKit
+  class Core
     include Singleton
 
     class << self

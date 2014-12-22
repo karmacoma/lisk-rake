@@ -3,7 +3,7 @@ require 'yaml'
 module CryptiKit
   class List
     def initialize
-      @items = CryptiKit.config[self.class.key] || {}
+      @items = Core.config[self.class.key] || {}
     end
 
     def all
@@ -51,8 +51,8 @@ module CryptiKit
     def save
       before_save
       File.open('config.yml', 'w') do |f|
-        CryptiKit.config[self.class.key] = self.class.reindex ? reindexed : sorted
-        f.write CryptiKit.config.to_yaml
+        Core.config[self.class.key] = self.class.reindex ? reindexed : sorted
+        f.write Core.config.to_yaml
       end
     end
 

@@ -36,7 +36,7 @@ module CryptiKit
     end
 
     def config
-      @config ||= CryptiKit.install_path + '/config.json'
+      @config ||= Core.install_path + '/config.json'
     end
 
     def tmp_config

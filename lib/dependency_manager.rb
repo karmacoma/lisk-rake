@@ -41,7 +41,7 @@ module CryptiKit
       return unless deps.include?('crypti')
       @task.info 'Looking for crypti node...'
 
-      if @task.test "[ -f #{CryptiKit.install_path + '/app.js'} ];" then
+      if @task.test "[ -f #{Core.install_path + '/app.js'} ];" then
         @task.info '=> Found.'
       else
         raise "Crypti node is not installed #{location(node)[:name]}."

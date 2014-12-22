@@ -45,7 +45,7 @@ module CryptiKit
     end
 
     def total_configured
-      CryptiKit.config['servers'].size
+      Core.config['servers'].size
     end
 
     def total_checked

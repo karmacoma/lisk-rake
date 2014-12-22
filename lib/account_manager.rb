@@ -34,7 +34,7 @@ module CryptiKit
     private
 
     def key
-      CryptiKit.config['servers'].key(@server.to_s)
+      Core.config['servers'].key(@server.to_s)
     end
 
     def account(json)

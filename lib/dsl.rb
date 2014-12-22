@@ -9,13 +9,13 @@ module CryptiKit
         return true
       rescue Exception => exception
         error = ServerError.new(self, exception)
-        CryptiKit.baddies << error.collect(node, error)
+        Core.baddies << error.collect(node, error)
         return false
       end
     end
 
     def on_each_server(&block)
-      CryptiKit.baddies.clear
+      Core.baddies.clear
       chooser = ServerChooser.new(:values)
       on(chooser.choose, { :in => :sequence, :wait => 0 }) do |server|
         next unless on_node(server, &block)
@@ -23,7 +23,7 @@ module CryptiKit
     end
 
     def each_server(&block)
-      CryptiKit.baddies.clear
+      Core.baddies.clear
       chooser = ServerChooser.new(:values)
       chooser.choose.each do |server|
         run_locally { next unless on_node(server, &block) }

@@ -69,7 +69,7 @@ module CryptiKit
     end
 
     def mining_info_enabled?
-      [CryptiKit.mining_info, ENV['mining_info']].any? do |v|
+      [Core.mining_info, ENV['mining_info']].any? do |v|
         v == 'true' or v == 'enabled'
       end
     end
