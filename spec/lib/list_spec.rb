@@ -1,4 +1,4 @@
 require 'list'
 
-RSpec.describe List do
+RSpec.describe CryptiKit::List do
 end

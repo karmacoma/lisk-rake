@@ -23,7 +23,7 @@ end
 desc 'List configured servers'
 task :list_servers do
   run_locally do
-    manager = ServerManager.new(self)
+    manager = CryptiKit::ServerManager.new(self)
     manager.list
   end
 end
@@ -31,7 +31,7 @@ end
 desc 'Add servers to config'
 task :add_servers do
   run_locally do
-    manager = ServerManager.new(self)
+    manager = CryptiKit::ServerManager.new(self)
     manager.add
   end
   Rake::Task['list_servers'].invoke
@@ -40,7 +40,7 @@ end
 desc 'Remove servers from config'
 task :remove_servers do
   run_locally do
-    manager = ServerManager.new(self)
+    manager = CryptiKit::ServerManager.new(self)
     manager.remove
   end
   Rake::Task['list_servers'].invoke
@@ -52,11 +52,11 @@ task :add_key do
     deps.check_local('ssh', 'ssh-copy-id', 'ssh-keygen')
 
     run_locally do
-      manager = KeyManager.new(self)
-      unless test 'cat', CryptiKit.deploy_key then
+      manager = CryptiKit::KeyManager.new(self)
+      unless test 'cat', CryptiKit::CryptiKit.deploy_key then
         manager.gen_key
       end
-      if test 'cat', CryptiKit.deploy_key then
+      if test 'cat', CryptiKit::CryptiKit.deploy_key then
         manager.add_key(server)
       end
     end
@@ -70,7 +70,7 @@ task :log_into do
 
     run_locally do
       info "Logging into #{server}..."
-      system("ssh #{CryptiKit.deploy_user_at_host(server)}")
+      system("ssh #{CryptiKit::CryptiKit.deploy_user_at_host(server)}")
       info '=> Done.'
     end
   end
@@ -81,15 +81,15 @@ task :install_deps do
   puts 'Installing dependencies...'
 
   on_each_server do |server, node, deps|
-    insp = ServerInspector.new(self)
+    insp = CryptiKit::ServerInspector.new(self)
     insp.detect
     case insp.base
     when :debian then
       deps.check_remote(node, 'apt-get')
-      DebianDeps.call(self)
+      CryptiKit::DebianDeps.call(self)
     when :redhat then
       deps.check_remote(node, 'yum')
-      RedhatDeps.call(self)
+      CryptiKit::RedhatDeps.call(self)
     end
   end
 end
@@ -104,25 +104,25 @@ task :install_nodes do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     info 'Setting up...'
-    execute 'rm', '-rf', CryptiKit.deploy_path
-    execute 'mkdir', '-p', CryptiKit.deploy_path
-    within CryptiKit.deploy_path do
+    execute 'rm', '-rf', CryptiKit::CryptiKit.deploy_path
+    execute 'mkdir', '-p', CryptiKit::CryptiKit.deploy_path
+    within CryptiKit::CryptiKit.deploy_path do
       info 'Downloading crypti...'
-      execute 'wget', CryptiKit.app_url, '-O', CryptiKit.app_file
+      execute 'wget', CryptiKit::CryptiKit.app_url, '-O', CryptiKit::CryptiKit.app_file
       info 'Installing crypti...'
-      execute 'unzip', CryptiKit.app_file
+      execute 'unzip', CryptiKit::CryptiKit.app_file
       info 'Cleaning up...'
       execute 'rm', CryptiKit.app_file
     end
-    within CryptiKit.install_path do
+    within CryptiKit::CryptiKit.install_path do
       info 'Installing node modules...'
       execute 'npm', 'install'
       info 'Downloading blockchain...'
-      execute 'wget', CryptiKit.blockchain_url, '-O', CryptiKit.blockchain_file
+      execute 'wget', CryptiKit::CryptiKit.blockchain_url, '-O', CryptiKit::CryptiKit.blockchain_file
       info 'Decompressing blockchain...'
-      execute 'unzip', CryptiKit.blockchain_file
+      execute 'unzip', CryptiKit::CryptiKit.blockchain_file
       info 'Cleaning up...'
-      execute 'rm', CryptiKit.blockchain_file
+      execute 'rm', CryptiKit::CryptiKit.blockchain_file
       info 'Starting crypti node...'
       execute 'forever', 'start', 'app.js', '||', ':'
       info '=> Done.'
@@ -146,7 +146,7 @@ task :uninstall_nodes do
     info 'Stopping all processes...'
     execute 'forever', 'stopall', '||', ':'
     info 'Removing crypti...'
-    execute 'rm', '-rf', CryptiKit.deploy_path
+    execute 'rm', '-rf', CryptiKit::CryptiKit.deploy_path
     info '=> Done.'
   end
 end
@@ -158,7 +158,7 @@ task :clean_logs do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'truncate', 'crypti')
 
-    within CryptiKit.install_path do
+    within CryptiKit::CryptiKit.install_path do
       info 'Truncating existing crypti log...'
       execute 'truncate', 'logs.log', '--size', '0'
       info 'Removing old crypti log(s)...'
@@ -185,7 +185,7 @@ task :download_logs do
     deps.check_remote(node, 'forever', 'crypti')
 
     info 'Downloading forever log...'
-    forever = ForeverInspector.new(self)
+    forever = CryptiKit::ForeverInspector.new(self)
     if test 'ls', forever.log_file then
       download! forever.log_file, "logs/#{node.key}.forever.log"
     else
@@ -193,8 +193,8 @@ task :download_logs do
     end
 
     info 'Downloading crypti log...'
-    if test 'ls', CryptiKit.log_file then
-      download! CryptiKit.log_file, "logs/#{node.key}.crypti.log"
+    if test 'ls', CryptiKit::CryptiKit.log_file then
+      download! CryptiKit::CryptiKit.log_file, "logs/#{node.key}.crypti.log"
     else
       warn '=> Not found.'
     end
@@ -209,7 +209,7 @@ task :start_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit.install_path do
+    within CryptiKit::CryptiKit.install_path do
       info 'Stopping all processes...'
       execute 'forever', 'stopall', '||', ':'
       info 'Starting crypti node...'
@@ -226,7 +226,7 @@ task :restart_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit.install_path do
+    within CryptiKit::CryptiKit.install_path do
       info 'Restarting crypti node...'
       execute 'forever', 'restart', 'app.js', '||', ':'
       info '=> Done.'
@@ -241,17 +241,17 @@ task :rebuild_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'wget', 'crypti')
 
-    within CryptiKit.install_path do
+    within CryptiKit::CryptiKit.install_path do
       info 'Stopping all processes...'
       execute 'forever', 'stopall', '||', ':'
       info 'Removing old blockchain...'
       execute 'rm', '-f', 'blockchain.db*'
       info 'Downloading blockchain...'
-      execute 'wget', CryptiKit.blockchain_url, '-O', CryptiKit.blockchain_file
+      execute 'wget', CryptiKit::CryptiKit.blockchain_url, '-O', CryptiKit::CryptiKit.blockchain_file
       info 'Decompressing blockchain...'
-      execute 'unzip', CryptiKit.blockchain_file
+      execute 'unzip', CryptiKit::CryptiKit.blockchain_file
       info 'Cleaning up...'
-      execute 'rm', CryptiKit.blockchain_file
+      execute 'rm', CryptiKit::CryptiKit.blockchain_file
       info 'Starting crypti node...'
       execute 'forever', 'start', 'app.js', '||', ':'
       info '=> Done.'
@@ -266,7 +266,7 @@ task :stop_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit.install_path do
+    within CryptiKit::CryptiKit.install_path do
       info 'Stopping crypti node...'
       execute 'forever', 'stop', 'app.js', '||', ':'
       info '=> Done.'
@@ -282,10 +282,10 @@ task :start_forging do
     deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
-      api = CryptiApi.new(self)
+      api = CryptiKit::CryptiApi.new(self)
       api.post '/forgingApi/startForging', passphrase
       api.post '/api/unlock', passphrase do |json|
-        manager = AccountManager.new(self, server)
+        manager = CryptiKit::AccountManager.new(self, server)
         manager.add_account(json, passphrase)
       end
     end
@@ -302,9 +302,9 @@ task :stop_forging do
     deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
-      api = CryptiApi.new(self)
+      api = CryptiKit::CryptiApi.new(self)
       api.post '/forgingApi/stopForging', passphrase do |json|
-        manager = AccountManager.new(self, server)
+        manager = CryptiKit::AccountManager.new(self, server)
         manager.remove_account(json)
       end
     end
@@ -317,15 +317,15 @@ desc 'Check status of crypti nodes'
 task :check_nodes do
   puts 'Checking nodes...'
 
-  report = Report.new
+  report = CryptiKit::Report.new
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'forever', 'ps', 'crypti')
 
-    api = NodeApi.new(self)
+    api = CryptiKit::NodeApi.new(self)
     api.node_status(node) { |json| report[node.key] = json }
   end
 
-  report.baddies = CryptiKit.baddies
+  report.baddies = CryptiKit::CryptiKit.baddies
   puts report.to_s
   report.save
 end
@@ -334,13 +334,13 @@ desc 'Withdraw surplus coinage from crypti nodes'
 task :withdraw_surplus do
   puts 'Withdrawing surplus coinage...'
 
-  account = Account.new
+  account = CryptiKit::Account.new
   exit unless account.get_address
 
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
-    Withdrawal.new(self) do |withdrawal|
+    CryptiKit::Withdrawal.new(self) do |withdrawal|
       withdrawal.node    = node
       withdrawal.account = account
       withdrawal.withdraw

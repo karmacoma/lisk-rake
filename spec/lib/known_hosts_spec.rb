@@ -1,4 +1,4 @@
 require 'known_hosts'
 
-RSpec.describe KnownHosts do
+RSpec.describe CryptiKit::KnownHosts do
 end

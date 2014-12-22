@@ -1,4 +1,4 @@
 require 'node_api'
 
-RSpec.describe NodeApi do
+RSpec.describe CryptiKit::NodeApi do
 end

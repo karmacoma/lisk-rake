@@ -1,4 +1,4 @@
 require 'colourise'
 
-RSpec.describe Colourise do
+RSpec.describe CryptiKit::Colourise do
 end

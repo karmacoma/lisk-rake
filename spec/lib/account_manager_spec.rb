@@ -1,4 +1,4 @@
 require 'account_manager'
 
-RSpec.describe AccountManager do
+RSpec.describe CryptiKit::AccountManager do
 end

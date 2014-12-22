@@ -1,4 +1,4 @@
 require 'forever_status'
 
-RSpec.describe ForeverStatus do
+RSpec.describe CryptiKit::ForeverStatus do
 end

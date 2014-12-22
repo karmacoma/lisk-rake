@@ -1,4 +1,4 @@
 require 'passphrase'
 
-RSpec.describe Passphrase do
+RSpec.describe CryptiKit::Passphrase do
 end

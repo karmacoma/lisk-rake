@@ -1,4 +1,4 @@
 require 'crypti_api'
 
-RSpec.describe CryptiApi do
+RSpec.describe CryptiKit::CryptiApi do
 end

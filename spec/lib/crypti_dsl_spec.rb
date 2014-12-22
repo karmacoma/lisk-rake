@@ -1,4 +1,4 @@
 require 'crypti_dsl'
 
-RSpec.describe CryptiDSL do
+RSpec.describe CryptiKit::CryptiDSL do
 end

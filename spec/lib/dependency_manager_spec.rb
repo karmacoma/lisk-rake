@@ -1,4 +1,4 @@
 require 'dependency_manager'
 
-RSpec.describe DependencyManager do
+RSpec.describe CryptiKit::DependencyManager do
 end

@@ -1,4 +1,4 @@
-DebianDeps = Proc.new do |task|
+CryptiKit::DebianDeps = Proc.new do |task|
   task.info 'Updating package lists...'
   task.execute 'apt-get', 'update'
   task.info 'Installing packages...'
@@ -16,7 +16,7 @@ DebianDeps = Proc.new do |task|
   task.info '=> Done.'
 end
 
-RedhatDeps = Proc.new do |task|
+CryptiKit::RedhatDeps = Proc.new do |task|
   task.info 'Updating package lists...'
   task.execute 'yum', 'clean', 'expire-cache'
   task.info 'Installing packages...'

@@ -1,4 +1,4 @@
 require 'server_error'
 
-RSpec.describe ServerError do
+RSpec.describe CryptiKit::ServerError do
 end

@@ -1,4 +1,4 @@
 require 'account'
 
-RSpec.describe Account do
+RSpec.describe CryptiKit::Account do
 end

@@ -1,7 +1,7 @@
 require 'dependency_procs'
 
-RSpec.describe DebianDeps do
+RSpec.describe CryptiKit::DebianDeps do
 end
 
-RSpec.describe RedhatDeps do
+RSpec.describe CryptiKit::RedhatDeps do
 end

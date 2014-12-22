@@ -1,4 +1,4 @@
 require 'forever_inspector'
 
-RSpec.describe ForeverInspector do
+RSpec.describe CryptiKit::ForeverInspector do
 end

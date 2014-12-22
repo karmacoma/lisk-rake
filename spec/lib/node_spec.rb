@@ -1,4 +1,4 @@
 require 'node'
 
-RSpec.describe Node do
+RSpec.describe CryptiKit::Node do
 end

@@ -1,4 +1,4 @@
 require 'crypti_netssh'
 
-RSpec.describe CryptiNetssh do
+RSpec.describe CryptiKit::CryptiNetssh do
 end

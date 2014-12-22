@@ -1,19 +1,21 @@
-module Colourise
-  def red(string)
-    string.colorize(:red)
-  end
+module CryptiKit
+  module Colourise
+    def red(string)
+      string.colorize(:red)
+    end
 
-  def green(string)
-    string.colorize(:green)
-  end
+    def green(string)
+      string.colorize(:green)
+    end
 
-  def blue(string)
-    string.colorize(:blue)
-  end
+    def blue(string)
+      string.colorize(:blue)
+    end
 
-  def yellow(string)
-    string.colorize(:yellow)
+    def yellow(string)
+      string.colorize(:yellow)
+    end
   end
 end
 
-include Colourise
+include CryptiKit::Colourise

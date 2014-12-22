@@ -1,4 +1,4 @@
 require 'passphrase_manager'
 
-RSpec.describe PassphraseManager do
+RSpec.describe CryptiKit::PassphraseManager do
 end

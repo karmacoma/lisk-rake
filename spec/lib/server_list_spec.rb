@@ -1,4 +1,4 @@
 require 'server_list'
 
-RSpec.describe ServerList do
+RSpec.describe CryptiKit::ServerList do
 end

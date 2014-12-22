@@ -1,4 +1,4 @@
 require 'report_summary'
 
-RSpec.describe ReportSummary do
+RSpec.describe CryptiKit::ReportSummary do
 end

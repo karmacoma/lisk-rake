@@ -1,4 +1,4 @@
 require 'withdrawal'
 
-RSpec.describe Withdrawal do
+RSpec.describe CryptiKit::Withdrawal do
 end

@@ -1,4 +1,4 @@
 require 'server_manager'
 
-RSpec.describe ServerManager do
+RSpec.describe CryptiKit::ServerManager do
 end

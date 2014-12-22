@@ -1,4 +1,4 @@
 require 'mining_info'
 
-RSpec.describe MiningInfo do
+RSpec.describe CryptiKit::MiningInfo do
 end

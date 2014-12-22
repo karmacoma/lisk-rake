@@ -1,4 +1,4 @@
 require 'curl_error'
 
-RSpec.describe CurlError do
+RSpec.describe CryptiKit::CurlError do
 end

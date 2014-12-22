@@ -1,4 +1,4 @@
 require 'balance_change'
 
-RSpec.describe BalanceChange do
+RSpec.describe CryptiKit::BalanceChange do
 end

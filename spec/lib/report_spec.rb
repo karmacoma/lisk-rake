@@ -1,4 +1,4 @@
 require 'report'
 
-RSpec.describe Report do
+RSpec.describe CryptiKit::Report do
 end

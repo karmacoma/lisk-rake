@@ -1,4 +1,4 @@
 require 'key_error'
 
-RSpec.describe KeyError do
+RSpec.describe CryptiKit::KeyError do
 end

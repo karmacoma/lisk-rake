@@ -1,4 +1,4 @@
 require 'crypti_kit'
 
-RSpec.describe CryptiKit do
+RSpec.describe CryptiKit::CryptiKit do
 end

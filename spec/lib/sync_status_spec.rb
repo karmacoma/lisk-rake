@@ -1,4 +1,4 @@
 require 'sync_status'
 
-RSpec.describe SyncStatus do
+RSpec.describe CryptiKit::SyncStatus do
 end

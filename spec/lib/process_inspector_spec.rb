@@ -1,4 +1,4 @@
 require 'process_inspector'
 
-RSpec.describe ProcessInspector do
+RSpec.describe CryptiKit::ProcessInspector do
 end

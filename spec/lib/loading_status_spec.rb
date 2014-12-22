@@ -1,4 +1,4 @@
 require 'loading_status'
 
-RSpec.describe LoadingStatus do
+RSpec.describe CryptiKit::LoadingStatus do
 end

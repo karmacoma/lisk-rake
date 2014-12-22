@@ -1,4 +1,4 @@
 require 'node_status'
 
-RSpec.describe NodeStatus do
+RSpec.describe CryptiKit::NodeStatus do
 end

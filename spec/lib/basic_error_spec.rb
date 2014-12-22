@@ -1,4 +1,4 @@
 require 'basic_error'
 
-RSpec.describe BasicError do
+RSpec.describe CryptiKit::BasicError do
 end
