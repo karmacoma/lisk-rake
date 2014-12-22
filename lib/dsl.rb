@@ -1,5 +1,5 @@
 module CryptiKit
-  module CryptiDSL
+  module DSL
     def on_node(server, &block)
       begin
         node = Node.new(server)
@@ -32,4 +32,4 @@ module CryptiKit
   end
 end
 
-include CryptiKit::CryptiDSL
+include CryptiKit::DSL
