@@ -6,7 +6,7 @@ module CryptiKit
 
     def initialize(task, &block)
       @task = task
-      @api  = CryptiApi.new(@task)
+      @api  = Curl.new(@task)
       yield self
     end
 

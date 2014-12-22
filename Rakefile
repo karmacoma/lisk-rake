@@ -282,7 +282,7 @@ task :start_forging do
     deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
-      api = CryptiKit::CryptiApi.new(self)
+      api = CryptiKit::Curl.new(self)
       api.post '/forgingApi/startForging', passphrase
       api.post '/api/unlock', passphrase do |json|
         manager = CryptiKit::AccountManager.new(self, server)
@@ -302,7 +302,7 @@ task :stop_forging do
     deps.check_remote(node, 'curl', 'crypti')
 
     node.get_passphrase do |passphrase|
-      api = CryptiKit::CryptiApi.new(self)
+      api = CryptiKit::Curl.new(self)
       api.post '/forgingApi/stopForging', passphrase do |json|
         manager = CryptiKit::AccountManager.new(self, server)
         manager.remove_account(json)

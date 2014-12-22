@@ -2,7 +2,7 @@ module CryptiKit
   class NodeApi
     def initialize(task)
       @task = task
-      @api  = CryptiApi.new(@task)
+      @api  = Curl.new(@task)
     end
 
     def forever_status

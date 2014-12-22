@@ -2,7 +2,7 @@ require 'json'
 require 'uri'
 
 module CryptiKit
-  class CryptiApi
+  class Curl
     def initialize(task)
       @task = task
     end
