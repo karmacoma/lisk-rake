@@ -1,4 +1,4 @@
-require 'crypti_netssh'
+require 'netssh'
 require 'singleton'
 require 'yaml'
 
@@ -11,7 +11,7 @@ module CryptiKit
     end
 
     @config = YAML.load_file('config.yml')
-    @netssh = CryptiNetssh.new(@config['deploy_user'])
+    @netssh = Netssh.new(@config['deploy_user'])
 
     def self.deploy_user
       config['deploy_user']

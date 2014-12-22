@@ -2,7 +2,7 @@ require 'sshkit'
 require 'sshkit/dsl'
 
 module CryptiKit
-  class CryptiNetssh
+  class Netssh
     attr_accessor :config
 
     def initialize(deploy_user)
