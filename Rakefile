@@ -115,7 +115,7 @@ task :clean_logs do
   puts 'Cleaning logs...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever', 'truncate', 'crypti')
+    deps.check_remote(node, 'forever', 'crypti')
 
     manager = CryptiKit::LogManager.new(self)
     manager.clean
