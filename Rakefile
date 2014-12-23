@@ -69,9 +69,8 @@ task :log_into do
     deps.check_local('ssh')
 
     run_locally do
-      info "Logging into #{server}..."
-      system("ssh #{CryptiKit::Core.deploy_user_at_host(server)}")
-      info '=> Done.'
+      manager = CryptiKit::ServerManager.new(self)
+      manager.log_into(server)
     end
   end
 end

@@ -33,5 +33,11 @@ module CryptiKit
       @list.forget_all(@chooser.choose)
       @task.info '=> Done.'
     end
+
+    def log_into(server)
+      @task.info "Logging into #{server}..."
+      system "ssh #{Core.deploy_user_at_host(server)}"
+      @task.info '=> Done.'
+    end
   end
 end
