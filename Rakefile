@@ -194,14 +194,8 @@ task :start_forging do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
-    node.get_passphrase do |passphrase|
-      api = CryptiKit::Curl.new(self)
-      api.post '/forgingApi/startForging', passphrase
-      api.post '/api/unlock', passphrase do |json|
-        manager = CryptiKit::AccountManager.new(self, server)
-        manager.add_account(json, passphrase)
-      end
-    end
+    manager = CryptiKit::ForgingManager.new(self)
+    manager.start(server, node)
   end
 
   Rake::Task['check_nodes'].invoke
@@ -214,13 +208,8 @@ task :stop_forging do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
-    node.get_passphrase do |passphrase|
-      api = CryptiKit::Curl.new(self)
-      api.post '/forgingApi/stopForging', passphrase do |json|
-        manager = CryptiKit::AccountManager.new(self, server)
-        manager.remove_account(json)
-      end
-    end
+    manager = CryptiKit::ForgingManager.new(self)
+    manager.stop(server, node)
   end
 
   Rake::Task['check_nodes'].invoke
