@@ -14,6 +14,8 @@ module CryptiKit
       return message
     end
 
+    private
+
     def connection_failed
       '=> Connection failed.'
     end

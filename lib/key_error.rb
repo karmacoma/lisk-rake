@@ -18,13 +18,15 @@ module CryptiKit
       end
     end
 
+    def try_again?
+      @retry == true
+    end
+
+    private
+
     def try_again
       @task.info 'Trying to add public ssh key again...'
       @retry = true
-    end
-
-    def try_again?
-      @retry == true
     end
 
     def expired_password

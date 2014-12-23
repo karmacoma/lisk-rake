@@ -35,6 +35,8 @@ module CryptiKit
       @task.info '=> Done.'
     end
 
+    private
+
     def remove_deploy_path
       @task.info 'Removing crypti...'
       @task.execute 'rm', '-rf', Core.deploy_path

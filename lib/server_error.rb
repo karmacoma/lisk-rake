@@ -23,6 +23,8 @@ module CryptiKit
       return message
     end
 
+    private
+
     def authentication_failure
       '=> Authentication failed.'
     end
