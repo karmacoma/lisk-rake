@@ -23,7 +23,7 @@ module CryptiKit
         error.detect
         json = {}
       end
-      if block_given? and json['success'] then
+      if block_given? then
         block.call json
       end
       return json
@@ -38,7 +38,7 @@ module CryptiKit
         error.detect
         json = {}
       end
-      if block_given? and json['success'] then
+      if block_given? then
         block.call json
       end
       return json
