@@ -53,12 +53,7 @@ task :add_key do
 
     run_locally do
       manager = CryptiKit::KeyManager.new(self)
-      unless test 'cat', CryptiKit::Core.deploy_key then
-        manager.gen_key
-      end
-      if test 'cat', CryptiKit::Core.deploy_key then
-        manager.add_key(server)
-      end
+      manager.add(server)
     end
   end
 end
