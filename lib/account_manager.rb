@@ -9,7 +9,7 @@ module CryptiKit
 
     def add_account(json, passphrase)
       @task.info 'Adding account...'
-      if json.is_a?(Hash) and json['forging'] then
+      if json['forging'] then
         @list[key] = json
         @list.save
         @task.info "=> Added: #{account(json)}."
@@ -21,7 +21,7 @@ module CryptiKit
 
     def remove_account(json)
       @task.info 'Removing account...'
-      if json.is_a?(Hash) and !json['forgingEnabled'] then
+      if !json['forgingEnabled'] then
         @list.remove(key)
         @list.save
         @task.info "=> Removed: #{account(json)}."
