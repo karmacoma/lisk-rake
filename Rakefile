@@ -80,16 +80,8 @@ task :install_deps do
   puts 'Installing dependencies...'
 
   on_each_server do |server, node, deps|
-    insp = CryptiKit::ServerInspector.new(self)
-    insp.detect
-    case insp.base
-    when :debian then
-      deps.check_remote(node, 'apt-get')
-      CryptiKit::DebianDeps.call(self)
-    when :redhat then
-      deps.check_remote(node, 'yum')
-      CryptiKit::RedhatDeps.call(self)
-    end
+    installer = CryptiKit::ServerInstaller.new(self)
+    installer.install(node, deps)
   end
 end
 
