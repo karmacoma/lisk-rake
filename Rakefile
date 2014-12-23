@@ -92,32 +92,8 @@ task :install_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'npm', 'wget', 'unzip')
 
-    info 'Stopping all processes...'
-    execute 'forever', 'stopall', '||', ':'
-    info 'Setting up...'
-    execute 'rm', '-rf', CryptiKit::Core.deploy_path
-    execute 'mkdir', '-p', CryptiKit::Core.deploy_path
-    within CryptiKit::Core.deploy_path do
-      info 'Downloading crypti...'
-      execute 'wget', CryptiKit::Core.app_url, '-O', CryptiKit::Core.app_file
-      info 'Installing crypti...'
-      execute 'unzip', CryptiKit::Core.app_file
-      info 'Cleaning up...'
-      execute 'rm', CryptiKit::Core.app_file
-    end
-    within CryptiKit::Core.install_path do
-      info 'Installing node modules...'
-      execute 'npm', 'install'
-      info 'Downloading blockchain...'
-      execute 'wget', CryptiKit::Core.blockchain_url, '-O', CryptiKit::Core.blockchain_file
-      info 'Decompressing blockchain...'
-      execute 'unzip', CryptiKit::Core.blockchain_file
-      info 'Cleaning up...'
-      execute 'rm', CryptiKit::Core.blockchain_file
-      info 'Starting crypti node...'
-      execute 'forever', 'start', 'app.js', '||', ':'
-      info '=> Done.'
-    end
+    installer = CryptiKit::NodeInstaller.new(self)
+    installer.install
   end
 end
 
@@ -134,11 +110,8 @@ task :uninstall_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    info 'Stopping all processes...'
-    execute 'forever', 'stopall', '||', ':'
-    info 'Removing crypti...'
-    execute 'rm', '-rf', CryptiKit::Core.deploy_path
-    info '=> Done.'
+    installer = CryptiKit::NodeInstaller.new(self)
+    installer.uninstall
   end
 end
 
@@ -200,13 +173,8 @@ task :start_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit::Core.install_path do
-      info 'Stopping all processes...'
-      execute 'forever', 'stopall', '||', ':'
-      info 'Starting crypti node...'
-      execute 'forever', 'start', 'app.js', '||', ':'
-      info '=> Done.'
-    end
+    manager = CryptiKit::NodeManager.new(self)
+    manager.start
   end
 end
 
@@ -217,11 +185,8 @@ task :restart_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit::Core.install_path do
-      info 'Restarting crypti node...'
-      execute 'forever', 'restart', 'app.js', '||', ':'
-      info '=> Done.'
-    end
+    manager = CryptiKit::NodeManager.new(self)
+    manager.restart
   end
 end
 
@@ -232,21 +197,8 @@ task :rebuild_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'wget', 'crypti')
 
-    within CryptiKit::Core.install_path do
-      info 'Stopping all processes...'
-      execute 'forever', 'stopall', '||', ':'
-      info 'Removing old blockchain...'
-      execute 'rm', '-f', 'blockchain.db*'
-      info 'Downloading blockchain...'
-      execute 'wget', CryptiKit::Core.blockchain_url, '-O', CryptiKit::Core.blockchain_file
-      info 'Decompressing blockchain...'
-      execute 'unzip', CryptiKit::Core.blockchain_file
-      info 'Cleaning up...'
-      execute 'rm', CryptiKit::Core.blockchain_file
-      info 'Starting crypti node...'
-      execute 'forever', 'start', 'app.js', '||', ':'
-      info '=> Done.'
-    end
+    installer = CryptiKit::NodeInstaller.new(self)
+    installer.rebuild
   end
 end
 
@@ -257,11 +209,8 @@ task :stop_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'forever', 'crypti')
 
-    within CryptiKit::Core.install_path do
-      info 'Stopping crypti node...'
-      execute 'forever', 'stop', 'app.js', '||', ':'
-      info '=> Done.'
-    end
+    manager = CryptiKit::NodeManager.new(self)
+    manager.stop
   end
 end
 
