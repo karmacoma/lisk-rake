@@ -1,5 +1,5 @@
 ---
-deploy_path: /var/crypti
+deploy_path: "/var/crypti"
 deploy_user: root
 app_url: http://storage.googleapis.com/downloads.crypti.me/crypti-node/0.1.x/0.1.8.zip
 app_version: 0.1.8
