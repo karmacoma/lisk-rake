@@ -10,6 +10,8 @@ module CryptiKit
       case @exception.to_s
       when /Authentication failed/ then
         message = authentication_failure
+      when /Network is unreachable/i then
+        message = network_unreachable
       when /Connection closed/i then
         message = connection_closed
       when /Connection timed out/ then
@@ -27,6 +29,10 @@ module CryptiKit
 
     def authentication_failure
       '=> Authentication failed.'
+    end
+
+    def network_unreachable
+      '=> Network is unreachable.'
     end
 
     def connection_closed
