@@ -7,7 +7,7 @@ module CryptiKit
       @manager = PassphraseManager.new(task)
     end
 
-    def add_account(json, passphrase)
+    def add(json, passphrase)
       @task.info 'Adding account...'
       if json['forging'] then
         @list[key] = json
@@ -19,7 +19,7 @@ module CryptiKit
       end
     end
 
-    def remove_account(json)
+    def remove(json)
       @task.info 'Removing account...'
       if !json['forgingEnabled'] then
         @list.remove(key)

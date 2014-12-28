@@ -10,7 +10,7 @@ module CryptiKit
         api.post '/forgingApi/startForging', passphrase
         api.post '/api/unlock', passphrase do |json|
           manager = CryptiKit::AccountManager.new(@task, server)
-          manager.add_account(json, passphrase)
+          manager.add(json, passphrase)
         end
       end
     end
@@ -20,7 +20,7 @@ module CryptiKit
         api = CryptiKit::Curl.new(@task)
         api.post '/forgingApi/stopForging', passphrase do |json|
           manager = CryptiKit::AccountManager.new(@task, server)
-          manager.remove_account(json)
+          manager.remove(json)
         end
       end
     end
