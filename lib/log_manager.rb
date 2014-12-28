@@ -4,6 +4,27 @@ module CryptiKit
       @task = task
     end
 
+    def download(node)
+      @node = node
+      delete_previous
+      download_forever
+      download_crypti
+    end
+
+    def clean
+      @task.within Core.install_path do
+        @task.info 'Truncating existing crypti log...'
+        @task.execute 'truncate', 'logs.log', '--size', '0'
+        @task.info 'Removing old crypti log(s)...'
+        @task.execute 'rm', '-f', 'logs.old.*'
+      end
+      @task.info 'Removing old forever log(s)...'
+      @task.execute 'forever', 'cleanlogs'
+      @task.info '=> Done.'
+    end
+
+    private
+
     def delete_previous
       @task.info 'Deleting previous logs...'
       @task.execute 'mkdir', '-p', 'logs'
@@ -31,25 +52,6 @@ module CryptiKit
       else
         @task.warn '=> Not found.'
       end
-    end
-
-    def download(node)
-      @node = node
-      delete_previous
-      download_forever
-      download_crypti
-    end
-
-    def clean
-      @task.within Core.install_path do
-        @task.info 'Truncating existing crypti log...'
-        @task.execute 'truncate', 'logs.log', '--size', '0'
-        @task.info 'Removing old crypti log(s)...'
-        @task.execute 'rm', '-f', 'logs.old.*'
-      end
-      @task.info 'Removing old forever log(s)...'
-      @task.execute 'forever', 'cleanlogs'
-      @task.info '=> Done.'
     end
   end
 end

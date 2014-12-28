@@ -13,6 +13,8 @@ module CryptiKit
       check_dependencies(deps, node)
     end
 
+    private
+
     def location(node)
       unless @location.is_a?(Hash) then
         type      = node ? :remote : :local
@@ -22,8 +24,6 @@ module CryptiKit
         @location
       end
     end
-
-    private
 
     def check_dependencies(deps, node = nil)
       @task.info "Checking #{location(node)[:type]} dependencies..."
