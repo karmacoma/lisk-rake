@@ -7,19 +7,19 @@ module CryptiKit
     end
 
     def detect
-      case @exception.to_s
+      message = case @exception.to_s
       when /Authentication failed/ then
-        message = authentication_failure
+        authentication_failure
       when /Network is unreachable/i then
-        message = network_unreachable
+        network_unreachable
       when /Connection closed/i then
-        message = connection_closed
+        connection_closed
       when /Connection timed out/ then
-        message = connection_timeout
+        connection_timeout
       when /Connection refused/ then
-        message = connection_refused
+        connection_refused
       else
-        message = (@exception.class == Interrupt) ? connection_interrupted : unknown_error
+        (@exception.class == Interrupt) ? connection_interrupted : unknown_error
       end
       @task.error message
       return message
