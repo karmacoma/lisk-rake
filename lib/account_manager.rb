@@ -13,7 +13,7 @@ module CryptiKit
         @list[key] = json
         @list.save
         @task.info "=> Added: #{account(json)}."
-        @manager.add_passphrase(passphrase)
+        @manager.add(passphrase)
       else
         @task.error '=> Failed. Check passphrase.'
       end
@@ -25,7 +25,7 @@ module CryptiKit
         @list.remove(key)
         @list.save
         @task.info "=> Removed: #{account(json)}."
-        @manager.remove_passphrase
+        @manager.remove
       else
         @task.error '=> Failed. Check passphrase.'
       end

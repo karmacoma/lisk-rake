@@ -4,35 +4,37 @@ module CryptiKit
       @task = task
     end
 
-    def add_passphrase(passphrase)
+    def add(passphrase)
       @task.info 'Adding passphrase to remote config...'
-      @passphrase = (add_passphrase?) ? passphrase : nil
-      replace_passphrase
-      @task.info @passphrase ? '=> Done.' : '=> Skipped.'
+      @passphrase = (add?) ? passphrase : nil
+      replace.tap do
+        @task.info @passphrase ? '=> Done.' : '=> Skipped.'
+      end
     end
 
-    def remove_passphrase
+    def remove
       @task.info 'Removing passphrase from remote config...'
       @passphrase = nil
-      replace_passphrase
-      @task.info '=> Done.'
+      replace.tap do
+        @task.info '=> Done.'
+      end
     end
 
     private
 
-    def add_passphrase?
+    def add?
       print yellow("Add passphrase to remote config?\s")
       STDIN.gets.chomp.match(/y|yes/i)
     end
 
-    def escaped_passphrase
+    def escaped
       if @passphrase.is_a?(Hash) then
         Passphrase.escaped(@passphrase[:secret])
       end
     end
 
     def sed_expression
-      %Q{'s/\\("secretPhrase":\\)\\(.*\\)/\\1 "#{escaped_passphrase}"/i'}
+      %Q{'s/\\("secretPhrase":\\)\\(.*\\)/\\1 "#{escaped}"/i'}
     end
 
     def config
@@ -43,7 +45,7 @@ module CryptiKit
       @tmp_config ||= config + '.bak'
     end
 
-    def replace_passphrase
+    def replace
       @task.capture 'sed', sed_expression, config, '>', tmp_config
       @task.capture 'mv', tmp_config, config
     end
