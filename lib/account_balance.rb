@@ -15,13 +15,8 @@ module CryptiKit
       [sprintf("%-19s", 'Unconfirmed:'), @json['unconfirmedBalance'].to_xcr, change.to_s, "\n"]
     end
 
-    def effective_balance
-      change = BalanceChange.new(@json['effectiveBalance'], @cache['effectiveBalance'])
-      [sprintf("%-19s", 'Effective:'), @json['effectiveBalance'].to_xcr, change.to_s, "\n"]
-    end
-
     def to_s
-      [balance, unconfirmed_balance, effective_balance].join.to_s
+      [balance, unconfirmed_balance].join.to_s
     end
   end
 end

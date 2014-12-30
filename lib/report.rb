@@ -36,7 +36,7 @@ module CryptiKit
 
     def not_forging
       @nodes.collect { |k,v| v['forging_status'] }.find_all do |n|
-        !n['forgingEnabled']
+        !n['enabled']
       end
     end
 
@@ -59,7 +59,7 @@ module CryptiKit
     attr_writer :generated_at
 
     def total_forged
-      total_balance('totalForged', 'mining_info')
+      total_balance('sum', 'mining_info')
     end
 
     def total_balance(type = 'balance', parent = 'account_balance')
@@ -74,23 +74,19 @@ module CryptiKit
       total_balance('unconfirmedBalance')
     end
 
-    def total_effective
-      total_balance('effectiveBalance')
-    end
-
-    def lowest_effective
+    def lowest_balance
       @nodes.collect do |k,v|
-        v['account_balance'] if v['account_balance']['effectiveBalance']
+        v['account_balance'] if v['account_balance']['balance']
       end.compact.min do |a,b|
-        a['effectiveBalance'] <=> b['effectiveBalance']
+        a['balance'] <=> b['balance']
       end
     end
 
-    def highest_effective
+    def highest_balance
       @nodes.collect do |k,v|
-        v['account_balance'] if v['account_balance']['effectiveBalance']
+        v['account_balance'] if v['account_balance']['balance']
       end.compact.max do |a,b|
-        a['effectiveBalance'] <=> b['effectiveBalance']
+        a['balance'] <=> b['balance']
       end
     end
 

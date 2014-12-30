@@ -10,7 +10,7 @@ module CryptiKit
 
     def height
       unless @json['loaded'] then
-        [sprintf("%-19s", 'Height:'), @json['height'].to_i, ' / ', @json['blocksCount'].to_i, "\n"]
+        [sprintf("%-19s", 'Height:'), @json['now'].to_i, ' / ', @json['blocksCount'].to_i, "\n"]
       end
     end
 

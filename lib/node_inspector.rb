@@ -18,7 +18,7 @@ module CryptiKit
 
     def loading_status
       @task.info 'Getting loading status...'
-      @api.get '/api/getLoading' do |json|
+      @api.get '/api/loader/status' do |json|
         if (@loaded = json['loaded']) then
           @task.info '=> Done.'
         else
@@ -37,7 +37,7 @@ module CryptiKit
 
     def sync_status
       @task.info 'Getting sync status...'
-      @api.get '/api/isSync' do |json|
+      @api.get '/api/loader/status/sync' do |json|
         if (@synced = !json['sync']) then
           @task.info '=> Done.'
         else
@@ -52,7 +52,7 @@ module CryptiKit
 
     def block_status
       @task.info 'Getting blockchain status...'
-      @api.get '/api/getHeight' do |json|
+      @api.get '/api/blocks/getHeight' do |json|
         @task.info '=> Done.'
       end
     end
@@ -62,7 +62,7 @@ module CryptiKit
     def forging_status
       @task.info 'Getting forging status...'
       if loaded then
-        @api.get '/forgingApi/getForgingInfo' do |json|
+        @api.get '/api/forging' do |json|
           @task.info '=> Done.'
         end
       else
@@ -71,12 +71,27 @@ module CryptiKit
       end
     end
 
-    def mining_info(public_key)
-      @task.info 'Getting mining info...'
-      if synced and public_key and mining_info_enabled? then
-        @api.get '/api/getMiningInfo', { publicKey: public_key, descOrder: true } do |json|
-          @task.info '=> Done.'
-        end
+    def mined_coinage
+      @task.info 'Getting mined coinage...'
+      @api.get '/api/blocks/getForgedByAccount', { generatorPublicKey: @public_key } do |json|
+        @task.info '=> Done.'
+      end
+    end
+
+    def mined_blocks
+      @task.info 'Getting mined blocks...'
+      @api.get '/api/blocks', { generatorPublicKey: @public_key, orderBy: 'height:desc', limit: 1 } do |json|
+        @task.info '=> Done.'
+      end
+    end
+
+    private :mined_coinage, :mined_blocks
+
+    def mining_info
+      if synced and @public_key and mining_info_enabled? then
+        json = mined_coinage
+        json.merge!(mined_blocks) if json['success']
+        json
       else
         @task.warn '=> Mining info not available.'
         {}
@@ -89,10 +104,10 @@ module CryptiKit
       end
     end
 
-    def account_balance(account)
+    def account_balance
       @task.info 'Getting account balance...'
-      if synced and account then
-        @api.get '/api/getBalance', { address: account } do |json|
+      if synced and @account then
+        @api.get '/api/accounts/getBalance', { address: @account } do |json|
           @task.info '=> Done.'
         end
       else
@@ -101,20 +116,30 @@ module CryptiKit
       end
     end
 
+    def yield_node(node, &block)
+      @account    = node.account
+      @public_key = node.public_key
+      yield node
+    end
+
+    private :yield_node
+
     def node_status(node, &block)
-      json                    = { 'info' => node.info }
-      json['forever_status']  = forever_status
-      json['loading_status']  = loading_status
-      json['sync_status']     = loaded ? sync_status : {}
-      json['block_status']    = loaded && synced ? block_status : {}
-      json['forging_status']  = forging_status
-      json['mining_info']     = mining_info(node.public_key)
-      json['account_balance'] = account_balance(node.account)
-      json.keys.reject! { |k| k == 'info' }.each do |j|
-        json[j].merge!('key' => node.key)
+      yield_node(node) do |node|
+        json                    = { 'info' => node.info }
+        json['forever_status']  = forever_status
+        json['loading_status']  = loading_status
+        json['sync_status']     = loaded ? sync_status : {}
+        json['block_status']    = loaded && synced ? block_status : {}
+        json['forging_status']  = forging_status
+        json['mining_info']     = mining_info
+        json['account_balance'] = account_balance
+        json.keys.reject! { |k| k == 'info' }.each do |j|
+          json[j].merge!('key' => node.key)
+        end
+        block.call(json) if block_given?
+        json
       end
-      block.call(json) if block_given?
-      json
     end
   end
 end

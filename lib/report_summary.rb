@@ -38,13 +38,6 @@ module CryptiKit
       end
     end
 
-    def total_effective
-      if @report.total_effective > 0.0 then
-        change = BalanceChange.new(@report.total_effective, @cache.total_effective)
-        [sprintf("%-19s", 'Total Effective:'), @report.total_effective, change.to_s, "\n"]
-      end
-    end
-
     def not_loaded
       nodes = @report.not_loaded
       if nodes.any? then
@@ -84,15 +77,15 @@ module CryptiKit
       " -> Node[#{node['key']}]"
     end
 
-    def lowest_effective
-      if node = @report.lowest_effective then
-        [sprintf("%-19s", 'Lowest Balance:'), node['effectiveBalance'].to_xcr, node_pointer(node), "\n"]
+    def lowest_balance
+      if node = @report.lowest_balance then
+        [sprintf("%-19s", 'Lowest Balance:'), node['balance'].to_xcr, node_pointer(node), "\n"]
       end
     end
 
-    def highest_effective
-      if node = @report.highest_effective then
-        [sprintf("%-19s", 'Highest Balance:'), node['effectiveBalance'].to_xcr, node_pointer(node), "\n"]
+    def highest_balance
+      if node = @report.highest_balance then
+        [sprintf("%-19s", 'Highest Balance:'), node['balance'].to_xcr, node_pointer(node), "\n"]
       end
     end
 
@@ -115,9 +108,8 @@ module CryptiKit
         total_forged,
         total_balance,
         total_unconfirmed,
-        total_effective,
-        lowest_effective,
-        highest_effective,
+        lowest_balance,
+        highest_balance,
         divider,
         not_loaded,
         syncing,

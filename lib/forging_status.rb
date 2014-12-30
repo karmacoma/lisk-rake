@@ -5,7 +5,7 @@ module CryptiKit
     end
 
     def forging
-      [sprintf("%-19s", 'Forging:'), @json['forgingEnabled'] == true, "\n"]
+      [sprintf("%-19s", 'Forging:'), @json['enabled'] == true, "\n"]
     end
 
     def to_s
