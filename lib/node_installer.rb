@@ -64,7 +64,12 @@ module CryptiKit
       @task.execute 'rm', '-f', 'blockchain.db*'
     end
 
+    def download_blockchain?
+      Core.blockchain_url.to_s.size > 0
+    end
+
     def download_blockchain
+      return unless download_blockchain?
       @task.info 'Downloading blockchain...'
       @task.execute 'wget', Core.blockchain_url, '-O', Core.blockchain_file
       @task.info 'Decompressing blockchain...'
