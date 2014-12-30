@@ -8,10 +8,15 @@ module CryptiKit
     def start(server, node)
       return unless loaded?
       node.get_passphrase do |passphrase|
-        @api.post '/forgingApi/startForging', passphrase
-        @api.post '/api/unlock', passphrase do |json|
-          manager = AccountManager.new(@task, server)
-          manager.add(json, passphrase)
+        @task.info 'Enabling forging...'
+        @api.post '/api/forging/enable', passphrase do |json|
+          if json['success'] then
+            @task.info '=> Enabled.'
+            manager = AccountManager.new(@task, server)
+            manager.add(passphrase)
+          else
+            @task.error '=> Failed.'
+          end
         end
       end
     end
@@ -19,9 +24,15 @@ module CryptiKit
     def stop(server, node)
       return unless loaded?
       node.get_passphrase do |passphrase|
-        @api.post '/forgingApi/stopForging', passphrase do |json|
-          manager = AccountManager.new(@task, server)
-          manager.remove(json)
+        @task.info 'Disabling forging...'
+        @api.post '/api/forging/disable', passphrase do |json|
+          if json['success'] then
+            @task.info '=> Disabled.'
+            manager = AccountManager.new(@task, server)
+            manager.remove(passphrase)
+          else
+            @task.error '=> Failed.'
+          end
         end
       end
     end

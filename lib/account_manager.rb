@@ -1,33 +1,37 @@
 module CryptiKit
   class AccountManager
     def initialize(task, server)
-      @task    = task
-      @server  = server
-      @list    = AccountList.new
-      @manager = PassphraseManager.new(task)
+      @task   = task
+      @server = server
+      @api    = Curl.new(@task)
+      @list   = AccountList.new
     end
 
-    def add(json, passphrase)
+    def add(passphrase)
       @task.info 'Adding account...'
-      if json['forging'] then
-        @list[key] = json
+      json = @api.post '/api/accounts/open', passphrase
+      if json['success'] and json['account'] then
+        @list[key] = json['account']
         @list.save
-        @task.info "=> Added: #{account(json)}."
-        @manager.add(passphrase)
+        @task.info "=> Added: #{json['account']['address']}."
+        manager = PassphraseManager.new(@task)
+        manager.add(passphrase)
       else
-        @task.error '=> Failed. Check passphrase.'
+        @task.error '=> Failed.'
       end
     end
 
-    def remove(json)
+    def remove(passphrase)
       @task.info 'Removing account...'
-      if !json['forgingEnabled'] then
+      json = @api.post '/api/accounts/open', passphrase
+      if json['success'] and json['account'] then
         @list.remove(key)
         @list.save
-        @task.info "=> Removed: #{account(json)}."
-        @manager.remove
+        @task.info "=> Removed: #{json['account']['address']}."
+        manager = PassphraseManager.new(@task)
+        manager.remove
       else
-        @task.error '=> Failed. Check passphrase.'
+        @task.error '=> Failed.'
       end
     end
 
@@ -35,10 +39,6 @@ module CryptiKit
 
     def key
       Core.config['servers'].key(@server.to_s)
-    end
-
-    def account(json)
-      json['address'] || json['account'] || json['error']
     end
   end
 end
