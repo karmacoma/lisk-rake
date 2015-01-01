@@ -136,6 +136,8 @@ rake start_forging
 Once forging has been started, you will be provided with the option to add the passphrase to the remote config.
 
 ```
+INFO Enabling forging...
+INFO => Enabled.
 INFO Adding account...
 INFO => Added: 4956977736153893179C.
 INFO Adding passphrase to remote config...
@@ -170,7 +172,6 @@ Last Forged:       Block -> 12886241379965779851 Amount -> 0.5
 Forged:            2.92869137    0.5 (+)
 Balance:           1002.92869137 0.5 (+)
 Unconfirmed:       1002.92869137 0.5 (+)
-Effective:         1002.92869137 0.5 (+)
 ```
 
 When running the ```check_nodes``` task. CryptiKit produces a detailed summary containing the total nodes checked, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either currently loading, syncing or not forging. Please see the below example:
@@ -185,7 +186,6 @@ Last Generated:    2014-12-02 21:24:03 +0000
 Total Forged:      1915.88691914  0.5 (+)
 Total Balance:     26915.88691914 0.5 (+)
 Total Unconfirmed: 26915.88691914 0.5 (+)
-Total Effective:   26915.88691914 0.5 (+)
 Lowest Balance:    1000.00168904 -> Node[15]
 Highest Balance:   2421.74114445 -> Node[9]
 --------------------------------------------------------------------------------
