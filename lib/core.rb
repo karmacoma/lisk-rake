@@ -41,8 +41,20 @@ module CryptiKit
       config['app_url']
     end
 
+    def self.environment
+      config['environment']
+    end
+
+    def self.live?
+      environment == 'live'
+    end
+
+    def self.test?
+      environment == 'test'
+    end
+
     def self.app_port
-      config['environment'].to_s == 'test' ? 7040 : 6040
+      (test?) ? 7040 : 6040
     end
 
     def self.app_file
