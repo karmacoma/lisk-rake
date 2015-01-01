@@ -29,10 +29,10 @@ module CryptiKit
       return json
     end
 
-    def post(url, data = {}, &block)
+    def post(url, data = {}, method = 'POST', &block)
       begin
         data = data.to_json.gsub(/'/, '\u0027')
-        body = @task.capture *curl('-X', 'POST', '-d', "'#{data}'", encode_url(url))
+        body = @task.capture *curl('-X', method, '-d', "'#{data}'", encode_url(url))
         json = JSON.parse(body)
       rescue Exception => exception
         error = CurlError.new(@task, exception)
@@ -43,6 +43,10 @@ module CryptiKit
         block.call json
       end
       return json
+    end
+
+    def put(url, data = {}, &block)
+      post(url, data, 'PUT', &block)
     end
 
     def encode_url(url, data = nil)

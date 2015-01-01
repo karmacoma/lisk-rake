@@ -27,16 +27,11 @@ module CryptiKit
       return if surplus <= 0.0
       @node.get_passphrases(passphrases?) do |passphrases|
         @task.info "Sending #{surplus.to_xcr} crypti to: #{@account.address}..."
-        json = @api.post '/api/sendFunds', params(passphrases)
-        if json['success'] then
-          fee  = json['fee'].to_bd
-          sent = (surplus + fee)
-          @task.info green("~> Fee: #{fee.to_xcr}")
-          @task.info green("~> Transaction id: #{json['transactionId']}")
-          @task.info green("~> Total sent: #{sent.to_xcr}")
-        else
-          @task.error "=> Transaction failed."
-          @task.error "=> Error: #{json['error']}."
+        json = @api.put '/api/transactions', params(passphrases)
+        transaction(json) do |fee, id, amount|
+          @task.info green("~> Fee: #{fee}")
+          @task.info green("~> Transaction id: #{id}")
+          @task.info green("~> Total sent: #{amount}")
         end
       end
     end
@@ -61,7 +56,7 @@ module CryptiKit
     end
 
     def get_network_fee
-      json = @api.get '/api/getFee'
+      json = @api.get '/api/blocks/getFee'
       if json['success'] then
         json['fee'].to_bd
       else
@@ -79,7 +74,7 @@ module CryptiKit
       validate do
         @task.info 'Checking for surplus coinage...'
 
-        json = @api.get '/api/getBalance', { address: @node.account }
+        json = @api.get '/api/accounts/getBalance', { address: @node.account }
         @second_passphrase = json['secondPassphrase']
 
         @surplus = json['unconfirmedBalance'].to_bd - 1000
@@ -105,13 +100,17 @@ module CryptiKit
     def passphrases?
       args =  Array.new
       args << ['primary', 'secret']
-      args << ['secondary', 'secondPhrase'] if @second_passphrase
+      args << ['secondary', 'secondSecret'] if @second_passphrase
       args
     end
 
     def params(passphrases)
       if passphrases.is_a?(Hash) then
-        passphrases.merge(amount: amount.to_xcr, recipient: @account.address, accountAddress: @node.account)
+        passphrases.merge(
+          amount: (amount.to_f * 10**8),
+          recipientId: @account.address,
+          publicKey: @node.public_key
+        )
       else
         {}
       end
@@ -119,6 +118,18 @@ module CryptiKit
 
     def loaded?
       NodeInspector.loaded?(@task)
+    end
+
+    def transaction(json, &block)
+      if json['success'] then
+        fee    = network_fee.to_xcr
+        id     = json['transactionId'].to_i
+        amount = surplus.to_xcr
+        yield fee, id, amount
+      else
+        @task.error "=> Transaction failed."
+        @task.error "=> Error: #{json['error']}."
+      end
     end
   end
 end
