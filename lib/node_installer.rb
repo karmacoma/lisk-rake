@@ -2,7 +2,7 @@ module CryptiKit
   class NodeInstaller
     def initialize(task)
       @task    = task
-      @manager = NodeManager.new(task)
+      @manager = NodeManager.new(@task)
     end
 
     def install
