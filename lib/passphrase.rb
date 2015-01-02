@@ -32,7 +32,7 @@ module CryptiKit
 
     def escaped
       @escaped = @passphrase.dup
-      ESCAPED_CHARS.each_pair { |k,v| @escaped.gsub!(/#{k}/, &Proc.new { v }) }
+      ESCAPED_CHARS.each_pair { |k,v| @escaped.gsub!(k, &Proc.new { v }) }
       @escaped
     end
   end
