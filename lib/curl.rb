@@ -31,7 +31,8 @@ module CryptiKit
 
     def post(url, data = {}, &block)
       begin
-        body = @task.capture *curl('-X', 'POST', '-d', "'#{data.to_json}'", encode_url(url))
+        data = data.to_json.gsub(/'/, '\u0027')
+        body = @task.capture *curl('-X', 'POST', '-d', "'#{data}'", encode_url(url))
         json = JSON.parse(body)
       rescue Exception => exception
         error = CurlError.new(@task, exception)
