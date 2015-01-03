@@ -164,9 +164,8 @@ Node[1]: 111.11.11.111 (4956977736153893179C)
 Usage:             CPU: 27.1% | Memory: 61.7%
 Uptime:            0:1:32:35.744
 Loaded:            true
-Height:            33950
-Blocks:            33829
 Syncing:           false
+Height:            33950
 Forging:           true
 Last Forged:       Block -> 12886241379965779851 Amount -> 0.5
 Forged:            2.92869137    0.5 (+)
