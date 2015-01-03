@@ -36,6 +36,12 @@ module CryptiKit
       end
     end
 
+    def block_status
+      if has_section?('block_status') then
+        BlockStatus.new(@json['block_status']).to_s
+      end
+    end
+
     def forging_status
       if has_section?('forging_status') then
         ForgingStatus.new(@json['forging_status']).to_s
@@ -55,7 +61,7 @@ module CryptiKit
     end
 
     def to_s
-      status = [divider, info, divider, forever_status, loading_status, sync_status, forging_status, mining_info, account_balance]
+      status = [divider, info, divider, forever_status, loading_status, sync_status, block_status, forging_status, mining_info, account_balance]
       return "" if status.compact.size <= 3
       status.join.to_s
     end

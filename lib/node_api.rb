@@ -44,6 +44,15 @@ module CryptiKit
       @loaded and @synced
     end
 
+    def block_status
+      @task.info 'Getting blockchain status...'
+      @api.get '/api/getHeight' do |json|
+        @task.info '=> Done.'
+      end
+    end
+
+    private :block_status
+
     def forging_status
       @task.info 'Getting forging status...'
       if loaded then
@@ -91,6 +100,7 @@ module CryptiKit
       json['forever_status']  = forever_status
       json['loading_status']  = loading_status
       json['sync_status']     = loaded ? sync_status : {}
+      json['block_status']    = loaded && synced ? block_status : {}
       json['forging_status']  = forging_status
       json['mining_info']     = mining_info(node.public_key)
       json['account_balance'] = account_balance(node.account)
