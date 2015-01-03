@@ -8,8 +8,14 @@ module CryptiKit
       [sprintf("%-19s", 'Syncing:'), @json['sync'] == true, "\n"]
     end
 
+    def height
+      if @json['sync'] then
+        [sprintf("%-19s", 'Height:'), @json['height'].to_i, "\n"]
+      end
+    end
+
     def to_s
-      [syncing].join.to_s
+      [syncing, height].join.to_s
     end
   end
 end
