@@ -10,7 +10,7 @@ module CryptiKit
 
     def height
       if @json['sync'] then
-        [sprintf("%-19s", 'Height:'), @json['height'].to_i, "\n"]
+        [sprintf("%-19s", 'Height:'), @json['height'].to_i, ' / ', @json['blocks'].to_i, "\n"]
       end
     end
 
