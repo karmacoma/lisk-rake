@@ -22,6 +22,27 @@ module CryptiKit
       end
     end
 
+    def withdraw
+      return unless loaded?
+      return if surplus <= 0.0
+      @node.get_passphrases(passphrases?) do |passphrases|
+        @task.info "Sending #{surplus.to_xcr} crypti to: #{@account.address}..."
+        json = @api.post '/api/sendFunds', params(passphrases)
+        if json['success'] then
+          fee  = json['fee'].to_bd
+          sent = (surplus + fee)
+          @task.info green("~> Fee: #{fee.to_xcr}")
+          @task.info green("~> Transaction id: #{json['transactionId']}")
+          @task.info green("~> Total sent: #{sent.to_xcr}")
+        else
+          @task.error "=> Transaction failed."
+          @task.error "=> Error: #{json['error']}."
+        end
+      end
+    end
+
+    private
+
     def validate(&block)
       case
       when !@node then
@@ -95,27 +116,6 @@ module CryptiKit
         {}
       end
     end
-
-    def withdraw
-      return unless loaded?
-      return if surplus <= 0.0
-      @node.get_passphrases(passphrases?) do |passphrases|
-        @task.info "Sending #{surplus.to_xcr} crypti to: #{@account.address}..."
-        json = @api.post '/api/sendFunds', params(passphrases)
-        if json['success'] then
-          fee  = json['fee'].to_bd
-          sent = (surplus + fee)
-          @task.info green("~> Fee: #{fee.to_xcr}")
-          @task.info green("~> Transaction id: #{json['transactionId']}")
-          @task.info green("~> Total sent: #{sent.to_xcr}")
-        else
-          @task.error "=> Transaction failed."
-          @task.error "=> Error: #{json['error']}."
-        end
-      end
-    end
-
-    private
 
     def loaded?
       NodeInspector.loaded?(@task)
