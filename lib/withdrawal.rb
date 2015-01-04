@@ -97,6 +97,7 @@ module CryptiKit
     end
 
     def withdraw
+      return unless loaded?
       return if surplus <= 0.0
       @node.get_passphrases(passphrases?) do |passphrases|
         @task.info "Sending #{surplus.to_xcr} crypti to: #{@account.address}..."
@@ -112,6 +113,12 @@ module CryptiKit
           @task.error "=> Error: #{json['error']}."
         end
       end
+    end
+
+    private
+
+    def loaded?
+      NodeInspector.loaded?(@task)
     end
   end
 end
