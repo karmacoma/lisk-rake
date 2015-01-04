@@ -219,7 +219,7 @@ task :check_nodes do
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'forever', 'crypti')
 
-    api = CryptiKit::NodeApi.new(self)
+    api = CryptiKit::NodeInspector.new(self)
     api.node_status(node) { |json| report[node.key] = json }
   end
 

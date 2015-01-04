@@ -1,5 +1,5 @@
 module CryptiKit
-  class NodeApi
+  class NodeInspector
     def initialize(task)
       @task = task
       @api  = Curl.new(@task)
