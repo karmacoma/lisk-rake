@@ -7,7 +7,7 @@ module CryptiKit
     def initialize(task, &block)
       @task = task
       @api  = Curl.new(@task)
-      yield self
+      yield self if block_given?
     end
 
     def node=(node)
