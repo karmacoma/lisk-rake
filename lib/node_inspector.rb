@@ -29,6 +29,12 @@ module CryptiKit
 
     attr_reader :loaded
 
+    def self.loaded?(task)
+      klass = self.new(task)
+      klass.loading_status
+      klass.loaded
+    end
+
     def sync_status
       @task.info 'Getting sync status...'
       @api.get '/api/isSync' do |json|
