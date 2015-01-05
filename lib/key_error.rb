@@ -26,7 +26,7 @@ module CryptiKit
 
     def expired_password
       @task.warn 'Password change required. Please login and change password...'
-      system "ssh -t #{Core.deploy_user_at_host(server)} exit"
+      system "ssh -t #{Core.deploy_user_at_host(@server)} exit"
       try_again
     end
 
