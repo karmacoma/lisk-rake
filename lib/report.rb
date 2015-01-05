@@ -105,6 +105,14 @@ module CryptiKit
       report
     end
 
+    def self.run(&block)
+      report = self.new
+      block.call report
+      report.baddies = Core.baddies
+      puts report.to_s
+      report.save
+    end
+
     CACHE_FILE = 'cache.json'
 
     def cache

@@ -214,18 +214,14 @@ desc 'Check status of crypti nodes'
 task :check_nodes do
   puts 'Checking nodes...'
 
-  report = CryptiKit::Report.new
+  CryptiKit::Report.run do |report|
+    on_each_server do |server, node, deps|
+      deps.check_remote(node, 'curl', 'forever', 'crypti')
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'curl', 'forever', 'crypti')
-
-    api = CryptiKit::NodeInspector.new(self)
-    api.node_status(node) { |json| report[node.key] = json }
+      api = CryptiKit::NodeInspector.new(self)
+      api.node_status(node) { |json| report[node.key] = json }
+    end
   end
-
-  report.baddies = CryptiKit::Core.baddies
-  puts report.to_s
-  report.save
 end
 
 desc 'Withdraw surplus coinage from crypti nodes'
