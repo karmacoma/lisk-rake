@@ -2,53 +2,16 @@ require 'basic_error'
 
 module CryptiKit
   class ServerError < BasicError
+    @errors = {
+      /Authentication failed/i  => '=> Authentication failed.',
+      /Network is unreachable/i => '=> Network is unreachable.',
+      /Connection closed/i      => '=> Connection closed by remote host.',
+      /Connection timed out/i   => '=> Connection timed out.',
+      /Connection refused/i     => '=> Connection refused.'
+    }
+
     def collect(node, error)
       { 'key' => node.key, 'error' => error.detect }
-    end
-
-    def detect
-      message = case @exception.to_s
-      when /Authentication failed/ then
-        authentication_failure
-      when /Network is unreachable/i then
-        network_unreachable
-      when /Connection closed/i then
-        connection_closed
-      when /Connection timed out/ then
-        connection_timeout
-      when /Connection refused/ then
-        connection_refused
-      else
-        (@exception.class == Interrupt) ? connection_interrupted : unknown_error
-      end
-      @task.error message
-      return message
-    end
-
-    private
-
-    def authentication_failure
-      '=> Authentication failed.'
-    end
-
-    def network_unreachable
-      '=> Network is unreachable.'
-    end
-
-    def connection_closed
-      '=> Connection closed by remote host.'
-    end
-
-    def connection_timeout
-      '=> Connection timed out.'
-    end
-
-    def connection_refused
-      '=> Connection refused.'
-    end
-
-    def connection_interrupted
-      '=> Connection interrupted.'
     end
   end
 end
