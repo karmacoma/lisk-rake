@@ -5,7 +5,11 @@ module CryptiKit
     @errors = {
       /Your password has expired/i    => :expired_password,
       /Host key verification failed/i => :verification_failed,
-      /Permission denied/i            => '=> Failed. Check password.'
+      /Permission denied/i            => '=> Failed. Check password.',
+      /Network is unreachable/        => '=> Network is unreachable.',
+      /Connection closed/i            => '=> Connection closed by remote host.',
+      /Connection timed out/i         => '=> Connection timed out.',
+      /Connection refused/i           => '=> Connection refused.'
     }
 
     def detect(server)
