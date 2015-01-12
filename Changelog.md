@@ -12,7 +12,7 @@
 
   ```
   ================================================================================
-  Node[1]: 111.11.11.111 (9473799116182005461C)
+  Node[1]: 111.11.11.111 (4956977736153893179C)
   ================================================================================
   Usage:             CPU: 27.1% | Memory: 61.7%
   Uptime:            0:1:32:35.744
@@ -200,7 +200,7 @@ Fixed some issues I encountered when running the check_nodes task.
 - Allowing withdrawal / deposit address to be specified from the command line  
   For example:
   ```
-  rake withdraw_surplus address=18246983367770087687C
+  rake withdraw_surplus address=4956977736153893179C
   ```
 - Re-factored number handling for better accuracy
 
