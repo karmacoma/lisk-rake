@@ -137,7 +137,7 @@ Once forging has been started, you will be provided with the option to add the p
 
 ```
 INFO Adding account...
-INFO => Added: 9473799116182005461C.
+INFO => Added: 4956977736153893179C.
 INFO Adding passphrase to remote config...
 Add passphrase to remote config? yes
 INFO => Done.
@@ -157,7 +157,7 @@ This task outputs the blockchain/forging status and account balance(s) of each c
 ```
 Checking nodes...
 ================================================================================
-Node[1]: 111.11.11.111 (9473799116182005461C)
+Node[1]: 111.11.11.111 (4956977736153893179C)
 ================================================================================
 Usage:             CPU: 27.1% | Memory: 61.7%
 Uptime:            0:1:32:35.744
@@ -354,7 +354,7 @@ For example:
 
 ```
 Withdrawing surplus coinage...
-Please enter your crypti address: 18246983367770087687C
+Please enter your crypti address: 4956977736153893179C
 ```
 
 When given an invalid address. CryptiKit will prompt you to try again:
@@ -368,7 +368,7 @@ Invalid crypti address. Please try again...
 The deposit address can also be specified from the command line:
 
 ```
-rake withdraw_surplus servers=1..3 address=18246983367770087687C # Servers 1 to 3
+rake withdraw_surplus servers=1..3 address=4956977736153893179C # Servers 1 to 3
 ```
 
 ##### Surplus Balances
@@ -400,8 +400,8 @@ For example: An account with two passphrases:
 ```
 INFO Checking for surplus coinage...
 INFO => Available: 4.99396644 crypti.
-Node[2]: 111.11.11.111 (10727915785791958732C): Please enter your primary passphrase: ********
-Node[2]: 111.11.11.111 (10727915785791958732C): Please enter your secondary passphrase: ********
+Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your primary passphrase: ********
+Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your secondary passphrase: ********
 ```
 
 ##### Successful Transactions
@@ -409,7 +409,7 @@ Node[2]: 111.11.11.111 (10727915785791958732C): Please enter your secondary pass
 For each successful transaction, CryptiKit will output the fee, transaction id and total amount sent.
 
 ```
-INFO Sending 4.99396644 crypti to: 18246983367770087687C...
+INFO Sending 4.99396644 crypti to: 4956977736153893179C...
 INFO ~> Fee: 0.00210831
 INFO ~> Transaction id: 13428947504026228865
 INFO ~> Total sent: 4.99607475
@@ -420,7 +420,7 @@ INFO ~> Total sent: 4.99607475
 If any errors are encountered during a transaction. For example an invalid passphrase, CryptiKit will handle the error and move onto the next selected server.
 
 ```
-INFO Sending 4.99396644 crypti to: 18246983367770087687C...
+INFO Sending 4.99396644 crypti to: 4956977736153893179C...
 ERROR => Transaction failed.
 ERROR => Error: Provide secretPhrase.
 ```
@@ -439,4 +439,4 @@ See: https://github.com/karmacoma/cryptikit/blob/master/Changelog.md
 
 ### Donations
 
-Welcome at the following address: 18246983367770087687C.
+Welcome at the following address: 4956977736153893179C.
