@@ -3,7 +3,7 @@ module CryptiKit
     attr_reader :address
 
     def address=(address)
-      unless address.match(/[0-9]{19}C/) then
+      unless address.match(/[0-9]{18,20}C/) then
         raise ArgumentError
       else
         @address = address
