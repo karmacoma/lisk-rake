@@ -1,5 +1,26 @@
 ### CryptiKit Changelog
 
+2014-01-24 (1.8.0)
+
+This update coincides with the release of Crypti 0.1.9. In addition to the mandatory changes for compatibility with the new Crypti API, it contains numerous bug fixes and improvements to the underlying code.
+
+#### Updates
+
+- Updated crypti node to latest version: 0.1.9
+- Improved reporting of block height during loading & syncing
+- Allowing blockchain_url to be optionally defined in config.yml
+- Removing unnecessary dependency checks from check_nodes task
+
+#### Bug Fixes
+
+- Improved escaping of passphrases: slashes and single quotes no longer cause errors
+- Gracefully handling server connection errors when adding public ssh key to servers
+- Gracefully handling network is unreachable server connection errors
+- Gracefully handling fingerprint mismatch server connection errors
+- Relaxing crypti address validation in withdraw_surplus task
+- Preventing forging management until node is loaded
+- Preventing surplus withdrawals until node is loaded
+
 2014-12-18 (1.7.4)
 
 - Adding uptime, cpu & memory usage to the ```check_nodes``` task
