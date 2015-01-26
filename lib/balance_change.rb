@@ -6,7 +6,11 @@ module CryptiKit
     end
 
     def to_xcr(val)
-      val.is_a?(Integer) ? val.to_xcr : val
+      if val.is_a?(String) or val.is_a?(Integer) then
+        val.to_xcr
+      else
+        val
+      end
     end
 
     def abs
