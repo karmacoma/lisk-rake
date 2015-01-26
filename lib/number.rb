@@ -1,43 +1,29 @@
 require 'bigdecimal'
 
-class NilClass
+module ToXCR
   def to_bd
-    BigDecimal.new('0.0')
+    BigDecimal.new((self.to_f / 10**8).to_s)
   end
 
   def to_xcr
     to_bd.to_xcr
   end
+end
+
+class NilClass
+  include ToXCR
 end
 
 class String
-  def to_bd
-    BigDecimal.new((self.to_f / 10**8).to_s)
-  end
-
-  def to_xcr
-    to_bd.to_xcr
-  end
+  include ToXCR
 end
 
 class Integer
-  def to_bd
-    BigDecimal.new((self.to_f / 10**8).to_s)
-  end
-
-  def to_xcr
-    to_bd.to_xcr
-  end
+  include ToXCR
 end
 
 class Float
-  def to_bd
-    BigDecimal.new((self.to_f / 10**8).to_s)
-  end
-
-  def to_xcr
-    to_bd.to_xcr
-  end
+  include ToXCR
 end
 
 class BigDecimal
