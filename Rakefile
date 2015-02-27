@@ -170,6 +170,18 @@ task :rebuild_nodes do
   end
 end
 
+desc 'Reinstall crypti nodes (keeping blockchain intact)'
+task :reinstall_nodes do
+  puts 'Reinstalling crypti nodes...'
+
+  on_each_server do |server, node, deps|
+    deps.check_remote(node, 'forever', 'wget', 'crypti')
+
+    installer = CryptiKit::NodeInstaller.new(self)
+    installer.reinstall
+  end
+end
+
 desc 'Stop crypti nodes'
 task :stop_nodes do
   puts 'Stopping crypti nodes...'

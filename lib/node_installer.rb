@@ -29,6 +29,23 @@ module CryptiKit
       @manager.start
     end
 
+    def reinstall
+      @manager.stop
+      @task.within Core.install_path do
+        save_blockchain
+      end
+      remove_install_path
+      @task.within Core.deploy_path do
+        download_crypti
+        install_crypti
+      end
+      @task.within Core.install_path do
+        restore_blockchain
+        install_modules
+      end
+      @manager.start
+    end
+
     def uninstall
       @manager.stop
       remove_deploy_path
@@ -40,6 +57,11 @@ module CryptiKit
     def remove_deploy_path
       @task.info 'Removing crypti...'
       @task.execute 'rm', '-rf', Core.deploy_path
+    end
+
+    def remove_install_path
+      @task.info 'Removing crypti...'
+      @task.execute 'rm', '-rf', Core.install_path
     end
 
     def make_deploy_path
@@ -57,6 +79,16 @@ module CryptiKit
       @task.execute 'unzip', Core.app_file
       @task.info 'Cleaning up...'
       @task.execute 'rm', Core.app_file
+    end
+
+    def save_blockchain
+      @task.info 'Saving blockchain...'
+      @task.execute 'cp', '-f', 'blockchain.db', '../blockchain.db.bak'
+    end
+
+    def restore_blockchain
+      @task.info 'Restoring blockchain...'
+      @task.execute 'cp', '-f', '../blockchain.db.bak', 'blockchain.db'
     end
 
     def remove_blockchain
