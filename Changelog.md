@@ -1,5 +1,22 @@
 ### CryptiKit Changelog
 
+2015-02-27 (1.8.1)
+
+- Adding ```reinstall_nodes``` task
+- Updated crypti node to latest version: 0.1.9c
+- Removing application version from install path
+- Updating/freshening files upon decompression
+
+#### Reinstall Nodes
+
+The ```reinstall_nodes``` task installs a fresh copy crypti while saving and restoring the existing blockchain. This is useful when you want to update to the latest version of crypti without having to download a new copy of the blockchain.
+
+For reference:
+
+- To install from scratch: ```rake install_all``` or  ```rake install_nodes```
+- To install/update and keep the existing blockchain: ```rake reinstall_nodes```
+- To replace only the blockchain: ```rake rebuild_nodes```
+
 2015-01-24 (1.8.0)
 
 This update coincides with the release of Crypti 0.1.9. In addition to the mandatory changes for compatibility with the new Crypti API, it contains numerous bug fixes and improvements to the underlying code.
