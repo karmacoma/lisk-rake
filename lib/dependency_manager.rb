@@ -51,11 +51,14 @@ module CryptiKit
     end
 
     def versioned_install?
-      ls = @task.capture 'ls', '-1', Core.deploy_path
-      if app_version = ls.to_s.split(/\n/).last then
-        return move_versioned_install([Core.deploy_path, '/', app_version].join)
-      else
-        return false
+      @task.within Core.deploy_path do
+        ls = @task.capture 'ls', '-1d', '*/'
+
+        if app_version = ls.to_s.split(/\n/).last then
+          return move_versioned_install([Core.deploy_path, '/', app_version].join)
+        else
+          return false
+        end
       end
     end
 
