@@ -5,11 +5,12 @@ module CryptiKit
     end
 
     def start
-      stop
-      @task.within Core.install_path do
-        @task.info 'Starting crypti node...'
-        @task.execute 'forever', 'start', 'app.js', '||', ':'
-        @task.info '=> Done.'
+      stop do
+        @task.within Core.install_path do
+          @task.info 'Starting crypti node...'
+          @task.execute 'forever', 'start', 'app.js', '||', ':'
+          @task.info '=> Done.'
+        end
       end
     end
 
@@ -21,12 +22,13 @@ module CryptiKit
       end
     end
 
-    def stop
+    def stop(&block)
       @task.within Core.install_path do
         @task.info 'Stopping crypti node...'
         @task.execute 'forever', 'stop', 'app.js', '||', ':'
         @task.info '=> Done.'
       end
+      yield if block_given?
     end
   end
 end
