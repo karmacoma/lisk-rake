@@ -43,8 +43,29 @@ module CryptiKit
 
       if @task.test "[ -f #{Core.install_path + '/app.js'} ];" then
         @task.info '=> Found.'
+      elsif versioned_install? then
+        @task.info '=> Done.'
       else
         raise "Crypti node is not installed #{location(node)[:name]}."
+      end
+    end
+
+    def versioned_install?
+      ls = @task.capture 'ls', '-1', Core.deploy_path
+      if app_version = ls.to_s.split(/\n/).last then
+        return move_versioned_install([Core.deploy_path, '/', app_version].join)
+      else
+        return false
+      end
+    end
+
+    def move_versioned_install(path)
+      if @task.test "[ -f #{path + '/app.js'} ];" then
+        @task.warn 'Moving versioned installation...'
+        @task.execute 'mv', '-f', path, Core.install_path
+        return true
+      else
+        return false
       end
     end
   end
