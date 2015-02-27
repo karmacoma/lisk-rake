@@ -30,7 +30,7 @@ module CryptiKit
     end
 
     def self.install_path
-      [deploy_path, '/', app_version].join
+      [deploy_path, '/install'].join
     end
 
     def self.app_version
