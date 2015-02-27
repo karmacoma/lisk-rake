@@ -266,6 +266,7 @@ rake install_nodes    # Install crypti nodes
 rake list_servers     # List configured servers
 rake log_into         # Log into servers directly
 rake rebuild_nodes    # Rebuild crypti nodes (using new blockchain only)
+rake reinstall_nodes  # Reinstall crypti nodes (keeping blockchain intact)
 rake remove_servers   # Remove servers from config
 rake restart_nodes    # Restart crypti nodes
 rake start_forging    # Start forging on crypti nodes
