@@ -6,7 +6,7 @@ module CryptiKit
     end
 
     def install
-      @manager.stop_all
+      @manager.stop
       remove_deploy_path
       make_deploy_path
       @task.within Core.deploy_path do

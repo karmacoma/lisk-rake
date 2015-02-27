@@ -28,11 +28,5 @@ module CryptiKit
         @task.info '=> Done.'
       end
     end
-
-    def stop_all
-      @task.info 'Stopping all processes...'
-      @task.execute 'forever', 'stopall', '||', ':'
-      @task.info '=> Done.'
-    end
   end
 end
