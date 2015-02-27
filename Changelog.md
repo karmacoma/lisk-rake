@@ -1,6 +1,6 @@
 ### CryptiKit Changelog
 
-2014-01-24 (1.8.0)
+2015-01-24 (1.8.0)
 
 This update coincides with the release of Crypti 0.1.9. In addition to the mandatory changes for compatibility with the new Crypti API, it contains numerous bug fixes and improvements to the underlying code.
 
