@@ -76,7 +76,7 @@ module CryptiKit
 
     def install_crypti
       @task.info 'Installing crypti...'
-      @task.execute 'unzip', Core.app_file
+      @task.execute 'unzip', '-u', Core.app_file
       @task.execute 'mv', '-f', Core.app_version, 'install'
       @task.info 'Cleaning up...'
       @task.execute 'rm', Core.app_file
@@ -106,7 +106,7 @@ module CryptiKit
       @task.info 'Downloading blockchain...'
       @task.execute 'wget', Core.blockchain_url, '-O', Core.blockchain_file
       @task.info 'Decompressing blockchain...'
-      @task.execute 'unzip', Core.blockchain_file
+      @task.execute 'unzip', '-u', Core.blockchain_file
       @task.info 'Cleaning up...'
       @task.execute 'rm', Core.blockchain_file
     end
