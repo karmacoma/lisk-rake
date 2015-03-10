@@ -52,6 +52,11 @@ echo "--------------------------------------------------------------------------
 rvm cryptikit-ruby@cryptikit do bundle install --without development
 rvm cryptikit-ruby@cryptikit do bundle clean --force
 
+echo "Updating configuraton..."
+echo "-------------------------------------------------------------------------------"
+
+rvm cryptikit-ruby@cryptikit do ruby "bin/update_config.rb"
+
 echo "Cleaning up..."
 echo "-------------------------------------------------------------------------------"
 
