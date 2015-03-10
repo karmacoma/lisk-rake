@@ -1,5 +1,11 @@
 ### CryptiKit Changelog
 
+2015-03-10 (1.8.2)
+
+- Updated crypti node to latest version: 0.1.9d
+- Automatically keeping configured servers/accounts on update
+- Backing up config.yml using interactive copy on update
+
 2015-02-27 (1.8.1)
 
 - Adding ```reinstall_nodes``` task
