@@ -67,7 +67,7 @@ cd cryptikit
 ```
 
 > NOTE:
-> The existing configuration file will be copied to: config.bak.
+> The existing configuration file will be copied to: config.bak. CryptiKit will then copy any pre-configured servers and accounts over to the newly downloaded config.yml file.
 
 ### Managing Server List
 
