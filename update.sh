@@ -3,12 +3,7 @@
 echo "Backing up configuraton..."
 echo "-------------------------------------------------------------------------------"
 
-if [ -f "config.bak" ]; then
-  echo "-> Backup already exists. Leaving config.bak intact."
-else
-  echo "-> Copying existing config.yml to config.bak."
-  cp -v config.yml config.bak
-fi
+cp -vi config.yml config.bak
 
 echo "Downloading GPG public key..."
 echo "-------------------------------------------------------------------------------"
