@@ -51,11 +51,11 @@ class Installer
   end
 
   def self.command
-    @command ||= "complete -C 'ruby #{this_file}' -o default rake"
+    @command ||= "complete -C 'ruby #{file}' -o default rake"
   end
 
-  def self.this_file
-    @this_file ||= File.expand_path(File.dirname(__FILE__)) + '/completer.rb'
+  def self.file
+    @file ||= File.expand_path(File.dirname(__FILE__)) + '/completer.rb'
   end
 
   def self.enable
