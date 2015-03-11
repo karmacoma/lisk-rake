@@ -14,14 +14,14 @@ Supported operating systems:
 
 > Link: https://www.digitalocean.com/?refcode=c637b271d39f
 
-#### GetClouder
+#### Kyup
 
 Supported operating systems:
 - CentOS (7.0 x64)
 - Debian (7.0 x64)
 - Ubuntu (14.04 x64)
 
-> Link: https://www.getclouder.com/
+> Link: https://www.kyup.com/
 
 #### Vultr
 
@@ -45,7 +45,8 @@ Supported operating systems:
 ### Installation
 
 * Download the latest stable release:
-  - https://github.com/karmacoma/cryptikit/releases/latest
+
+  https://github.com/karmacoma/cryptikit/releases/latest
 
 * Run the automated install script. Tested on OSX 10.9.3 and Ubuntu 14.04 LTS.
 
