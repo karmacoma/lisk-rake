@@ -78,7 +78,7 @@ module CryptiKit
       @task.info 'Installing crypti...'
       @task.execute 'unzip', '-u', Core.app_file, '-d', Core.install_path
       @task.info 'Cleaning up...'
-      @task.execute 'rm', Core.app_file
+      @task.execute 'rm', '-f', Core.app_file
     end
 
     def save_blockchain
