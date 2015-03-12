@@ -33,10 +33,6 @@ module CryptiKit
       [deploy_path, '/install'].join
     end
 
-    def self.app_version
-      config['app_version']
-    end
-
     def self.app_url
       config['app_url']
     end
@@ -58,7 +54,7 @@ module CryptiKit
     end
 
     def self.app_file
-      "crypti-linux-#{app_version}.zip"
+      'crypti-linux.zip'
     end
 
     def self.log_file

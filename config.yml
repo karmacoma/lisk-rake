@@ -1,8 +1,7 @@
 ---
 deploy_path: "/var/crypti"
 deploy_user: root
-app_url: http://storage.googleapis.com/downloads.crypti.me/crypti-node/0.1.x/0.1.9f.zip
-app_version: 0.1.9f
+app_url: https://www.dropbox.com/s/frukxryz5fvsftt/crypti-linux.zip?dl=0
 blockchain_url: http://storage.googleapis.com/downloads.crypti.me/blockchains/blockchain.db.zip
 mining_info: enabled
 environment: live

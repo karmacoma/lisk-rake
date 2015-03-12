@@ -76,8 +76,7 @@ module CryptiKit
 
     def install_crypti
       @task.info 'Installing crypti...'
-      @task.execute 'unzip', '-u', Core.app_file
-      @task.execute 'mv', '-f', Core.app_version, 'install'
+      @task.execute 'unzip', '-u', Core.app_file, '-d', Core.install_path
       @task.info 'Cleaning up...'
       @task.execute 'rm', Core.app_file
     end
