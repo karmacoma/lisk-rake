@@ -24,6 +24,12 @@ module CryptiKit
       end
     end
 
+    def config_status
+      if has_section?('config_status') then
+        ConfigStatus.new(@json['config_status']).to_s
+      end
+    end
+
     def loading_status
       if has_section?('loading_status') then
         LoadingStatus.new(@json['loading_status']).to_s
@@ -61,7 +67,7 @@ module CryptiKit
     end
 
     def to_s
-      status = [divider, info, divider, forever_status, loading_status, sync_status, block_status, forging_status, mining_info, account_balance]
+      status = [divider, info, divider, forever_status, config_status, loading_status, sync_status, block_status, forging_status, mining_info, account_balance]
       return "" if status.compact.size <= 3
       status.join.to_s
     end

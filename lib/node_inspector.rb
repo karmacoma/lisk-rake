@@ -1,3 +1,5 @@
+require 'json'
+
 module CryptiKit
   class NodeInspector
     def initialize(task)
@@ -14,6 +16,20 @@ module CryptiKit
         @task.warn '=> Forever status not available.'
       end
       @forever.to_h
+    end
+
+    def config_status
+      @task.info 'Getting configuration...'
+      conf = @task.capture 'cat', "#{Core.install_path}/config.json"
+      json = JSON.parse(conf) rescue {}
+      if !json.empty? then
+        @task.info '=> Done.'
+        json['success'] = true
+      else
+        @task.warn '=> Configuration not available.'
+        json['success'] = false
+      end
+      ConfigInspector.inspect(json)
     end
 
     def loading_status
@@ -127,6 +143,7 @@ module CryptiKit
     def node_status(node, &block)
       yield_node(node) do |node|
         json                    = { 'info' => node.info }
+        json['config_status']   = config_status
         json['forever_status']  = forever_status
         json['loading_status']  = loading_status
         json['sync_status']     = loaded ? sync_status : {}
