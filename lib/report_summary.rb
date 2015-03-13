@@ -41,35 +41,37 @@ module CryptiKit
     def not_loaded
       nodes = @report.not_loaded
       if nodes.any? then
-        "* #{nodes.size} / #{@report.total_nodes} nodes are not loaded.\n" +
-        "> Affected Nodes: " + affected_nodes(nodes) + "\n" + divider
+        ["* #{nodes.size} / #{@report.total_nodes} nodes are not loaded.\n",
+         "> Affected Nodes: #{affected_nodes(nodes)}\n",
+         divider]
       end
     end
 
     def syncing
       nodes = @report.syncing
       if nodes.any? then
-        "* #{nodes.size} / #{@report.total_nodes} nodes are being synchronised.\n" +
-        "> Affected Nodes: " + affected_nodes(nodes) + "\n" + divider
+        ["* #{nodes.size} / #{@report.total_nodes} nodes are being synchronised.\n",
+         "> Affected Nodes: #{affected_nodes(nodes)}\n",
+         divider]
       end
     end
 
     def not_forging
       nodes = @report.not_forging
       if nodes.any? then
-        "* #{nodes.size} / #{@report.total_nodes} nodes are not forging.\n" +
-        "> Affected Nodes: " + affected_nodes(nodes) + "\n" + divider
+        ["* #{nodes.size} / #{@report.total_nodes} nodes are not forging.\n" +
+         "> Affected Nodes: #{affected_nodes(nodes)}\n",
+         divider]
       end
     end
 
     def baddies
       nodes = @report.baddies
       if nodes.any? then
-        baddies =  red("* #{nodes.size} nodes encountered errors and were not checked.\n\n")
-        baddies << red("Error Messages:\n")
-        nodes.each { |node| baddies << red("* Node[#{node['key']}] #{node['error']}\n") }
-        baddies << divider
-        baddies
+        [red("* #{nodes.size} nodes encountered errors and were not checked.\n\n"),
+         red("Error Messages:\n"),
+         nodes.collect { |node| red("* Node[#{node['key']}] #{node['error']}\n") },
+         divider]
       end
     end
 
