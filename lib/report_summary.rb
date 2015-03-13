@@ -65,6 +65,18 @@ module CryptiKit
       end
     end
 
+    def outdated
+      nodes = @report.outdated
+      if nodes.any? then
+        ["* #{nodes.size} / #{@report.total_nodes} nodes are outdated.\n",
+         "> Affected Nodes: #{affected_nodes(nodes)}\n\n",
+         green("Version: #{ReferenceNode.version} is now available.\n\n"),
+         "Please run the folowing command to upgrade them:\n",
+         blue("$ rake reinstall_nodes servers=#{affected_nodes(nodes)}\n"),
+         divider]
+      end
+    end
+
     def baddies
       nodes = @report.baddies
       if nodes.any? then
@@ -116,6 +128,7 @@ module CryptiKit
         not_loaded,
         syncing,
         not_forging,
+        outdated,
         baddies
       ].join.to_s
     end

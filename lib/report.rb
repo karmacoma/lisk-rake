@@ -22,6 +22,12 @@ module CryptiKit
       @baddies ||= []
     end
 
+    def outdated
+      @nodes.collect { |k,v| v['config_status'] }.find_all do |n|
+        n['outdated']
+      end
+    end
+
     def not_loaded
       @nodes.collect { |k,v| v['loading_status'] }.find_all do |n|
         !n['loaded']
