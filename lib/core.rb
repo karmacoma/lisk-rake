@@ -49,6 +49,10 @@ module CryptiKit
       environment == 'test'
     end
 
+    def self.reference_node
+      config['reference_node']
+    end
+
     def self.app_port
       (test?) ? 7040 : 6040
     end
