@@ -1,6 +1,6 @@
 ## CryptiKit
 
-Simple &amp; easy Crypti node deployment and management for Linux / OSX operating systems.
+Simple &amp; easy Crypti node deployment and management for Linux / OS-X operating systems.
 
 ### Supported Hosts
 
@@ -42,13 +42,13 @@ Supported operating systems:
 
 > Link: http://www.wable.com/
 
-### Installation
+### Installing CryptiKit
 
 * Download the latest stable release:
 
   https://github.com/karmacoma/cryptikit/releases/latest
 
-* Run the automated install script. Tested on OSX 10.9.3 and Ubuntu 14.04 LTS.
+* Run the automated install script. Tested on Ubuntu 14.04 LTS and OS-X Yosemite.
 
 ```
 cd cryptikit
@@ -56,9 +56,9 @@ cd cryptikit
 ```
 
 > NOTE:
-> This will install homebrew (on OSX), ruby (rvm) plus a few application dependencies.
+> This will install homebrew (on OS-X), ruby (rvm) plus a few application dependencies.
 
-#### Updating CryptiKit
+### Updating CryptiKit
 
 * To update an existing installation to the latest stable release:
 
@@ -70,7 +70,7 @@ cd cryptikit
 > NOTE:
 > The existing configuration file will be copied to: config.bak. CryptiKit will then copy any pre-configured servers and accounts over to the newly downloaded config.yml file.
 
-### Managing Server List
+### Managing Servers
 
 * To list configured servers:
 
@@ -102,9 +102,9 @@ rake remove_servers servers=1 # 1st server
 rake remove_servers servers=1,2,7 # 1st, 2nd and 7th server
 ```
 
-### Typical Usage
+### Authentication
 
-* Add your public ssh key to each server:
+Connections to each server require public key ssh authentication. To add your public key to each server, simply run the following command:
 
 ```
 rake add_key
@@ -116,25 +116,49 @@ rake add_key
 > 2. If you do not have a key, then CryptiKit will prompt you to generate one. At which point CryptiKit will proceed with adding the key to each server.
 > 3. On Digital Ocean, when logging in for the first time you may be prompted to change your password.
 
-* Install dependencies and crypti node on each server:
+### Installing Nodes
+
+To install the required dependencies plus the latest version of crypti on all server(s), simply run the following commands:
+
+```
+rake install_deps
+rake install_nodes
+```
+
+You can also install both of the above using the following command:
 
 ```
 rake install_all
 ```
 
-> NOTE:
-> Crypti node will be automatically started after installation.
+### Reinstalling Nodes
 
-* Start forging:
+To reinstall the latest version of crypti on all servers whilst keeping the existing blockchain, simply run the following command:
+
+```
+rake reinstall_nodes
+```
+
+### Forging
+
+Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, CryptiKit will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the crypti node using curl.
+
+> NOTE:
+> You will need >= 1000 XCR in the specified account to start forging.
+
+To start forging, simply run the following command:
 
 ```
 rake start_forging
 ```
 
-> NOTE:
-> You will be prompted to enter an individual secret passphrase for each crypti node.
+When prompted, enter your primary passphrase:
 
-Once forging has been started, you will be provided with the option to add the passphrase to the remote config.
+```
+Please enter your primary passphrase: ******** [Press Enter]
+```
+
+Once forging has been successfully started, you will be provided with the option to add the passphrase to the remote config.
 
 ```
 INFO Enabling forging...
@@ -149,13 +173,15 @@ INFO => Done.
 > NOTE:
 > Adding your passphrases to the config file is less secure. Only do so if you wish to avoid having to start forging again after a node has been restarted.
 
-* Check status of each crypti node:
+### Checking Nodes
+
+To check the status of your nodes, simply run the following command:
 
 ```
 rake check_nodes
 ```
 
-This task outputs the blockchain/forging status and account balance(s) of each crypti node.
+The ```check_nodes``` task performs a full inspection of each node. Including: CPU/Memory usage, node uptime, crypti version, blockchain & forging status, the last forged block and the associated account balance.
 
 ```
 Checking nodes...
@@ -164,6 +190,7 @@ Node[1]: 111.11.11.111 (4956977736153893179C)
 ================================================================================
 Usage:             CPU: 27.1% | Memory: 61.7%
 Uptime:            0:1:32:35.744
+Version:           0.1.9f
 Loaded:            true
 Syncing:           false
 Height:            33950
@@ -174,7 +201,9 @@ Balance:           1002.92869137 0.5 (+)
 Unconfirmed:       1002.92869137 0.5 (+)
 ```
 
-When running the ```check_nodes``` task. CryptiKit produces a detailed summary containing the total nodes checked, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either currently loading, syncing or not forging. Please see the below example:
+After running the ```check_nodes``` task. CryptiKit produces a detailed summary containing: the total nodes checked, report times, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either currently loading, syncing, not forging or using an outdated version of crypti.
+
+Please see the below example:
 
 ```
 ================================================================================
@@ -197,6 +226,14 @@ Highest Balance:   2421.74114445 -> Node[9]
 --------------------------------------------------------------------------------
 * 2 / 24 nodes are not forging.
 > Affected Nodes: 1,4
+------------------------------------------------------------------------------------------------
+* 2 / 24 nodes are outdated.
+> Affected Nodes: 1,4
+
+Version: 0.1.9f is now available.
+
+Please run the folowing command to upgrade them:
+$ rake reinstall_nodes servers=1,4
 --------------------------------------------------------------------------------
 ```
 
@@ -295,7 +332,7 @@ rake lis<tab> -> will expand to rake list_nodes
 rake reb<tab> -> will expand to rake rebuild_nodes
 ```
 
-#### Targeting Servers
+### Targeting Servers
 
 * When no servers are specified, CryptiKit will prompt you to run the task on all servers.
 Answering y(es) will run the command on all servers. Answering n(o) will exit the current task.
@@ -328,14 +365,7 @@ rake check_nodes servers=1..7 # All servers from 1st to 7th
 rake check_nodes servers=all
 ```
 
-#### Forging
-
-Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, CryptiKit will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the crypti node using curl.
-
-> NOTE:
-> You will need >= 1000 XCR in the specified account to start forging.
-
-#### Surplus Withdrawals
+### Surplus Withdrawals
 
 The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated crypti account.
 
@@ -347,7 +377,7 @@ rake withdraw_surplus servers=1..3 # Servers 1 to 3
 
 Will check nodes 1, 2 and 3 for surplus balances and withdraw them to a designated deposit address.
 
-##### Deposit Address
+#### Deposit Address
 
 Upon executing the ```withdraw_surplus``` task. CryptiKit will first prompt you to enter the deposit address where you want to the funds to be sent to. If an invalid address is provided you will be prompted by CryptiKit to try again.
 
@@ -372,7 +402,7 @@ The deposit address can also be specified from the command line:
 rake withdraw_surplus servers=1..3 address=4956977736153893179C # Servers 1 to 3
 ```
 
-##### Surplus Balances
+#### Surplus Balances
 
 The ```withdraw_surplus``` task will only process nodes with a surplus balance above the minimum 1000 XCR required to start forging.
 
@@ -392,7 +422,7 @@ INFO Checking for surplus coinage...
 WARN => None available.
 ```
 
-##### Passphrases
+#### Passphrases
 
 Before sending any funds, CryptiKit will prompt you to enter your primary passphrase. If a secondary passphrase is also assigned to an account, CryptiKit will prompt you for that as well.
 
@@ -405,7 +435,7 @@ Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your primary passphr
 Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your secondary passphrase: ********
 ```
 
-##### Successful Transactions
+#### Successful Transactions
 
 For each successful transaction, CryptiKit will output the fee, transaction id and total amount sent.
 
@@ -416,7 +446,7 @@ INFO ~> Transaction id: 13428947504026228865
 INFO ~> Total sent: 4.99607475
 ```
 
-##### Error Handling
+#### Error Handling
 
 If any errors are encountered during a transaction. For example an invalid passphrase, CryptiKit will handle the error and move onto the next selected server.
 
