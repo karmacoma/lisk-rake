@@ -1,5 +1,9 @@
 ### CryptiKit Changelog
 
+2015-03-11 (1.8.3)
+
+- Updated crypti node to latest version: 0.1.9f
+
 2015-03-10 (1.8.2)
 
 - Updated crypti node to latest version: 0.1.9d
