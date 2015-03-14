@@ -1,5 +1,31 @@
 ### CryptiKit Changelog
 
+2015-03-14 (1.9.0)
+
+- Improved ```check_nodes``` task
+
+Now automatically reports outdated nodes with helpful instructions on how to upgrade.
+
+> NOTE: The latest version is determined by sampling the first 100 peers found on the network. This sample data is taken by a designated reference node, as defined within the CryptiKit configuration file.
+
+For more information, please read:
+
+https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md#checking-nodes
+
+- Replacing crypti download url
+
+Now automatically points to latest API compatible crypti version. Removing the need for CryptiKit to track every crypti release.
+
+- Replacing blockchain download url
+
+Now points to a more regularly updated blockchain snapshot.
+
+- Improved and refined documentation
+
+Documentation should now be more straight forward for any newcomers.
+
+Please read: https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md
+
 2015-03-11 (1.8.3)
 
 - Updated crypti node to latest version: 0.1.9f
