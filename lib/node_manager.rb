@@ -23,12 +23,19 @@ module CryptiKit
     end
 
     def stop(&block)
+      return unless install_path?
       @task.within Core.install_path do
         @task.info 'Stopping crypti node...'
         @task.execute 'forever', 'stop', 'app.js', '||', ':'
         @task.info '=> Done.'
       end
       yield if block_given?
+    end
+
+    private
+
+    def install_path?
+      @task.test "[ -d #{Core.install_path} ];"
     end
   end
 end
