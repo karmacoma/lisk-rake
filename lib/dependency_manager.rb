@@ -50,7 +50,14 @@ module CryptiKit
       end
     end
 
+    def deploy_path?
+      @task.test "[ -d #{Core.deploy_path} ];"
+    end
+
     def versioned_install?
+      unless deploy_path? then
+        return false
+      end
       @task.within Core.deploy_path do
         ls = @task.capture 'ls', '-1d', '*/'
 
