@@ -9,7 +9,7 @@ module CryptiKit
       return unless loaded?
       node.get_passphrase do |passphrase|
         @task.info 'Enabling forging...'
-        @api.post '/api/forging/enable', passphrase do |json|
+        @api.post '/api/delegates/forging/enable', passphrase do |json|
           if json['success'] then
             @task.info '=> Enabled.'
             manager = AccountManager.new(@task, server)
@@ -25,7 +25,7 @@ module CryptiKit
       return unless loaded?
       node.get_passphrase do |passphrase|
         @task.info 'Disabling forging...'
-        @api.post '/api/forging/disable', passphrase do |json|
+        @api.post '/api/delegates/forging/disable', passphrase do |json|
           if json['success'] then
             @task.info '=> Disabled.'
             manager = AccountManager.new(@task, server)

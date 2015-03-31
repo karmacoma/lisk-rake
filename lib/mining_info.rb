@@ -16,8 +16,8 @@ module CryptiKit
     end
 
     def forged
-      change = BalanceChange.new(@json['sum'], @cache['sum'])
-      [sprintf("%-19s", 'Forged:'), @json['sum'].to_xcr, change.to_s, "\n"]
+      change = BalanceChange.new(@json['fees'], @cache['fees'])
+      [sprintf("%-19s", 'Forged:'), @json['fees'].to_xcr, change.to_s, "\n"]
     end
 
     def to_s

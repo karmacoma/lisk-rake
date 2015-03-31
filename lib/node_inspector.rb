@@ -78,7 +78,7 @@ module CryptiKit
     def forging_status
       @task.info 'Getting forging status...'
       if loaded then
-        @api.get '/api/forging' do |json|
+        @api.get '/api/delegates/forging/status', { publicKey: @public_key } do |json|
           @task.info '=> Done.'
         end
       else
@@ -89,7 +89,7 @@ module CryptiKit
 
     def mined_coinage
       @task.info 'Getting mined coinage...'
-      @api.get '/api/blocks/getForgedByAccount', { generatorPublicKey: @public_key } do |json|
+      @api.get '/api/delegates/forging/getForgedByAccount', { generatorPublicKey: @public_key } do |json|
         @task.info '=> Done.'
       end
     end
