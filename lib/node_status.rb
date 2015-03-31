@@ -54,9 +54,9 @@ module CryptiKit
       end
     end
 
-    def mining_info
-      if has_section?('mining_info') then
-        MiningInfo.new(@json['mining_info'], @cache['mining_info']).to_s
+    def forging_info
+      if has_section?('forging_info') then
+        ForgingInfo.new(@json['forging_info'], @cache['forging_info']).to_s
       end
     end
 
@@ -67,7 +67,7 @@ module CryptiKit
     end
 
     def to_s
-      status = [divider, info, divider, forever_status, config_status, loading_status, sync_status, block_status, forging_status, mining_info, account_balance]
+      status = [divider, info, divider, forever_status, config_status, loading_status, sync_status, block_status, forging_status, forging_info, account_balance]
       return "" if status.compact.size <= 3
       status.join.to_s
     end

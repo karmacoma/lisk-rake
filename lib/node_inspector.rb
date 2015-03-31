@@ -87,35 +87,35 @@ module CryptiKit
       end
     end
 
-    def mined_coinage
-      @task.info 'Getting mined coinage...'
+    def forged_coinage
+      @task.info 'Getting forged coinage...'
       @api.get '/api/delegates/forging/getForgedByAccount', { generatorPublicKey: @public_key } do |json|
         @task.info '=> Done.'
       end
     end
 
-    def mined_blocks
-      @task.info 'Getting mined blocks...'
+    def forged_blocks
+      @task.info 'Getting forged blocks...'
       @api.get '/api/blocks', { generatorPublicKey: @public_key, orderBy: 'height:desc', limit: 1 } do |json|
         @task.info '=> Done.'
       end
     end
 
-    private :mined_coinage, :mined_blocks
+    private :forged_coinage, :forged_blocks
 
-    def mining_info
-      if synced and @public_key and mining_info_enabled? then
-        json = mined_coinage
-        json.merge!(mined_blocks) if json['success']
+    def forging_info
+      if synced and @public_key and forging_info_enabled? then
+        json = forged_coinage
+        json.merge!(forged_blocks) if json['success']
         json
       else
-        @task.warn '=> Mining info not available.'
+        @task.warn '=> Forging info not available.'
         {}
       end
     end
 
-    def mining_info_enabled?
-      [Core.mining_info, ENV['mining_info']].any? do |v|
+    def forging_info_enabled?
+      [Core.forging_info, ENV['forging_info']].any? do |v|
         v == 'true' or v == 'enabled'
       end
     end
@@ -149,7 +149,7 @@ module CryptiKit
         json['sync_status']     = loaded ? sync_status : {}
         json['block_status']    = loaded && synced ? block_status : {}
         json['forging_status']  = forging_status
-        json['mining_info']     = mining_info
+        json['forging_info']    = forging_info
         json['account_balance'] = account_balance
         json.keys.reject! { |k| k == 'info' }.each do |j|
           json[j].merge!('key' => node.key)

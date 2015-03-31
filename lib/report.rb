@@ -65,7 +65,7 @@ module CryptiKit
     attr_writer :generated_at
 
     def total_forged
-      total_balance('sum', 'mining_info')
+      total_balance('sum', 'forging_info')
     end
 
     def total_balance(type = 'balance', parent = 'account_balance')

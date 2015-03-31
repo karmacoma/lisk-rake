@@ -278,15 +278,15 @@ When a balance has decreased by 100 you will see the following output highlighte
 Balance:           1244.4791879 100.0 (-)
 ```
 
-#### Mining Info
+#### Forging Info
 
-Mining information can be optionally disabled either permanently through CryptiKit's configuration file or at runtime from the command line. When disabled CryptiKit will only check whether a node has forging enabled.
+Forging information can be optionally disabled either permanently through CryptiKit's configuration file or at runtime from the command line. When disabled CryptiKit will only check whether a node has forging enabled.
 
-* To disable mining info permanently via the configuration file. Open config.yml and change ```mining_info: enabled``` to: ```mining_info: disabled```.
-* To disable mining info optionally at runtime use: ```rake check_nodes mining_info=disabled```.
+* To disable forging info permanently via the configuration file. Open config.yml and change ```forging_info: enabled``` to: ```forging_info: disabled```.
+* To disable forging info optionally at runtime use: ```rake check_nodes forging_info=disabled```.
 
 > NOTE:
-> Mining information will be automatically disabled unless specfically enabled through CryptiKit's configuration file or at runtime from the command line.
+> Forging information will be automatically disabled unless specfically enabled through CryptiKit's configuration file or at runtime from the command line.
 
 ### Commands
 

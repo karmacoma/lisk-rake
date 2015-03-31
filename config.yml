@@ -4,7 +4,7 @@ deploy_user: root
 app_url: https://www.dropbox.com/s/frukxryz5fvsftt/crypti-linux.zip?dl=0
 blockchain_url: https://www.dropbox.com/s/jttsjppuverr2dx/blockchain.db.zip?dl=0
 reference_node: 108.61.196.43
-mining_info: enabled
+forging_info: enabled
 environment: live
 servers: {}
 accounts: {}

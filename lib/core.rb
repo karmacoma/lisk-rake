@@ -81,8 +81,8 @@ module CryptiKit
       config['accounts'] ||= {}
     end
 
-    def self.mining_info
-      config['mining_info']
+    def self.forging_info
+      config['forging_info']
     end
 
     def self.baddies

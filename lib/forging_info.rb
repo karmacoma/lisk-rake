@@ -1,5 +1,5 @@
 module CryptiKit
-  class MiningInfo
+  class ForgingInfo
     def initialize(json, cache)
       @json  = json
       @cache = cache || {}
