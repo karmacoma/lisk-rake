@@ -34,7 +34,7 @@ module CryptiKit
     end
 
     def sed_expression
-      %Q{'s/\\("secret":\\)\\(.*\\)/\\1 "#{escaped}"/i'}
+      %Q{'s/\\("secret":\\)\\(.*\\)/\\1 "#{escaped}",/i'}
     end
 
     def config
