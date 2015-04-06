@@ -144,7 +144,7 @@ rake reinstall_nodes
 Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, CryptiKit will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the crypti node using curl.
 
 > NOTE:
-> You will need >= 1000 XCR in the specified account to start forging.
+> You will need to register as a delegate before you can start forging.
 
 To start forging, simply run the following command:
 
