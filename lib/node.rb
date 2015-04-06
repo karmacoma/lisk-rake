@@ -7,11 +7,11 @@ module CryptiKit
     end
 
     def key
-      Core.config['servers'].key(@server.to_s)
+      Core.configured_servers.key(@server.to_s)
     end
 
     def value(k)
-      val = Core.config['accounts'][key]
+      val = Core.configured_accounts[key]
       val = val.is_a?(Hash) ? val[k.to_s] : nil
       val
     end
