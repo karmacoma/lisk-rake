@@ -293,26 +293,26 @@ Forging information can be optionally disabled either permanently through Crypti
 Type ```rake -T``` to get a complete list of commands.
 
 ```
-rake add_key          # Add your public ssh key
-rake add_servers      # Add servers to config
-rake check_nodes      # Check status of crypti nodes
-rake clean_logs       # Clean logs on each server
-rake download_logs    # Download logs from each server
-rake install_all      # Install dependencies and crypti nodes
-rake install_deps     # Install dependencies
-rake install_nodes    # Install crypti nodes
-rake list_servers     # List configured servers
-rake log_into         # Log into servers directly
-rake rebuild_nodes    # Rebuild crypti nodes (using new blockchain only)
-rake reinstall_nodes  # Reinstall crypti nodes (keeping blockchain intact)
-rake remove_servers   # Remove servers from config
-rake restart_nodes    # Restart crypti nodes
-rake start_forging    # Start forging on crypti nodes
-rake start_nodes      # Start crypti nodes
-rake stop_forging     # Stop forging on crypti nodes
-rake stop_nodes       # Stop crypti nodes
-rake uninstall_nodes  # Uninstall crypti nodes
-rake withdraw_surplus # Withdraw surplus coinage from crypti nodes
+rake add_key         # Add your public ssh key
+rake add_servers     # Add servers to config
+rake check_nodes     # Check status of crypti nodes
+rake clean_logs      # Clean logs on each server
+rake download_logs   # Download logs from each server
+rake install_all     # Install dependencies and crypti nodes
+rake install_deps    # Install dependencies
+rake install_nodes   # Install crypti nodes
+rake list_servers    # List configured servers
+rake log_into        # Log into servers directly
+rake rebuild_nodes   # Rebuild crypti nodes (using new blockchain only)
+rake reinstall_nodes # Reinstall crypti nodes (keeping blockchain intact)
+rake remove_servers  # Remove servers from config
+rake restart_nodes   # Restart crypti nodes
+rake start_forging   # Start forging on crypti nodes
+rake start_nodes     # Start crypti nodes
+rake stop_forging    # Stop forging on crypti nodes
+rake stop_nodes      # Stop crypti nodes
+rake uninstall_nodes # Uninstall crypti nodes
+rake withdraw_funds  # Withdraw funds from crypti nodes
 ```
 
 #### Bash Auto-completion
@@ -365,33 +365,31 @@ rake check_nodes servers=1..7 # All servers from 1st to 7th
 rake check_nodes servers=all
 ```
 
-### Surplus Withdrawals
+### Withdrawals
 
-The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated crypti account.
+The ```withdraw_funds``` task allows you to withdraw a specific amount from the crypti account associated with each node to another crypti address.
 
-For example the command:
+For example, to initiate a withdrawal from nodes 1 to 3:
 
 ```
-rake withdraw_surplus servers=1..3 # Servers 1 to 3
+rake withdraw_funds servers=1..3 # Servers 1 to 3
 ```
-
-Will check nodes 1, 2 and 3 for surplus balances and withdraw them to a designated deposit address.
 
 #### Deposit Address
 
-Upon executing the ```withdraw_surplus``` task. CryptiKit will first prompt you to enter the deposit address where you want to the funds to be sent to. If an invalid address is provided you will be prompted by CryptiKit to try again.
+Upon executing the ```withdraw_funds``` task. CryptiKit will prompt you to enter the deposit address where you would like the funds to go to.
 
 For example:
 
 ```
-Withdrawing surplus coinage...
+Withdrawing funds...
 Please enter your crypti address: 4956977736153893179C
 ```
 
 When given an invalid address. CryptiKit will prompt you to try again:
 
 ```
-Withdrawing surplus coinage...
+Withdrawing funds...
 Please enter your crypti address: --------------*
 Invalid crypti address. Please try again...
 ```
@@ -399,28 +397,21 @@ Invalid crypti address. Please try again...
 The deposit address can also be specified from the command line:
 
 ```
-rake withdraw_surplus servers=1..3 address=4956977736153893179C # Servers 1 to 3
+rake withdraw_funds servers=1..3 address=4956977736153893179C # Servers 1 to 3
 ```
 
-#### Surplus Balances
+#### Withdrawal Amount
 
-The ```withdraw_surplus``` task will only process nodes with a surplus balance above the minimum 1000 XCR required to start forging.
-
-> NOTE: Minimum withdrawal is 0.01 XCR. Anything less than that will be ignored.
-
-For example: When a node has a balance greater than 1000 XCR:
+Once a valid deposit address has been specified. CryptiKit will present the current balance and maximum possible withdrawal, then prompt you to enter a desired amount to withdraw from the current node/account.
 
 ```
-INFO Checking for surplus coinage...
-INFO => Available: 4.99396644 crypti.
+INFO Checking account balance...
+INFO => Current balance: 184704.90731913 XCR.
+INFO => Maximum withdrawal: 183785.97743197 XCR.
+Enter withdrawal amount: 183785.97743197
 ```
 
-For example: When a node has a balance less than or equal to 1000 XCR:
-
-```
-INFO Checking for surplus coinage...
-WARN => None available.
-```
+> NOTE: Maximum withdrawals are the total balance less the current network transaction fee.
 
 #### Passphrases
 
@@ -429,8 +420,6 @@ Before sending any funds, CryptiKit will prompt you to enter your primary passph
 For example: An account with two passphrases:
 
 ```
-INFO Checking for surplus coinage...
-INFO => Available: 4.99396644 crypti.
 Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your primary passphrase: ********
 Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your secondary passphrase: ********
 ```
@@ -440,10 +429,10 @@ Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your secondary passp
 For each successful transaction, CryptiKit will output the fee, transaction id and total amount sent.
 
 ```
-INFO Sending 4.99396644 crypti to: 4956977736153893179C...
-INFO ~> Fee: 0.00210831
-INFO ~> Transaction id: 13428947504026228865
-INFO ~> Total sent: 4.99607475
+INFO Withdrawing 1.0 XCR to: 4956977736153893179C...
+INFO ~> Fee: 0.005
+INFO ~> Transaction id: 2052732297350569719
+INFO ~> Total sent: 1.0
 ```
 
 #### Error Handling
@@ -451,9 +440,9 @@ INFO ~> Total sent: 4.99607475
 If any errors are encountered during a transaction. For example an invalid passphrase, CryptiKit will handle the error and move onto the next selected server.
 
 ```
-INFO Sending 4.99396644 crypti to: 4956977736153893179C...
+INFO Withdrawing 1.0 XCR to: 4956977736153893179C...
 ERROR => Transaction failed.
-ERROR => Error: Provide secretPhrase.
+ERROR => Error: Provide secret key.
 ```
 
 ### Bugs
