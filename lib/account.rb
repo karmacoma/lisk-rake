@@ -25,7 +25,8 @@ module CryptiKit
         self.address = STDIN.gets.chomp
       end
     rescue Interrupt
-      puts and exit
+      puts ''
+      exit
     rescue ArgumentError
       @specified = ENV['address'] = nil
       print red("Invalid crypti address. Please try again...\n")
