@@ -90,9 +90,22 @@ module CryptiKit
         @task.info "=> Current balance: #{balance.to_xcr} XCR."
         @task.info "=> Maximum withdrawal: #{maximum.to_xcr} XCR."
 
-        print yellow("Enter withdrawal amount:\s")
-        match = STDIN.gets.chomp.match(/[0-9.]+/i)
-        match.is_a?(MatchData) ? match[0].to_f : 0.0
+        begin
+          print yellow("Enter withdrawal amount:\s")
+          match = STDIN.gets.chomp.match(/[0-9.]+/i)
+
+          if match.is_a?(MatchData)
+            match[0].to_f
+          else
+            raise ArgumentError
+          end
+        rescue Interrupt
+          puts ''
+          return 0.0
+        rescue ArgumentError
+          print red("Invalid withdrawal amount. Please try again...\n")
+          retry
+        end
       end
     end
 
