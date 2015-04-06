@@ -131,7 +131,7 @@ module CryptiKit
         yield fee, id, amount
       else
         @task.error "=> Transaction failed."
-        @task.error "=> Error: #{json['error']}."
+        @task.error "=> Error: #{json['error'] || 'Unknown'}."
       end
     end
   end
