@@ -236,9 +236,9 @@ task :check_nodes do
   end
 end
 
-desc 'Withdraw surplus coinage from crypti nodes'
-task :withdraw_surplus do
-  puts 'Withdrawing surplus coinage...'
+desc 'Withdraw funds from crypti nodes'
+task :withdraw_funds do
+  puts 'Withdrawing funds...'
 
   account = CryptiKit::Account.new
   exit unless account.get_address

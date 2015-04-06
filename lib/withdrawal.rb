@@ -24,14 +24,14 @@ module CryptiKit
 
     def withdraw
       return unless loaded?
-      return if surplus <= 0.0
+      return if withdrawal <= 0.0
       @node.get_passphrases(passphrases?) do |passphrases|
-        @task.info "Sending #{surplus.to_xcr} crypti to: #{@account.address}..."
+        @task.info "Withdrawing #{withdrawal} XCR to: #{@account.address}..."
         json = @api.put '/api/transactions', params(passphrases)
         transaction(json) do |fee, id, amount|
           @task.info green("~> Fee: #{fee}")
           @task.info green("~> Transaction id: #{id}")
-          @task.info green("~> Total sent: #{amount}")
+          @task.info green("~> Total withdrawn: #{amount}")
         end
       end
     end
@@ -64,37 +64,40 @@ module CryptiKit
       end
     end
 
-    def network_fee
-      @network_fee ||= (
-        (surplus * get_network_fee) / 100 * 10**8
-      ).round(8)
-    end
+    def network_fee(amount = nil)
+      @network_fee ||= get_network_fee
 
-    def get_surplus
-      validate do
-        @task.info 'Checking for surplus coinage...'
-
-        json = @api.get '/api/accounts/getBalance', { address: @node.account }
-        @second_passphrase = json['secondPassphrase']
-
-        @surplus = json['unconfirmedBalance'].to_bd - 1000
-        @surplus = (@surplus - network_fee) > 0.01 ? @surplus : 0.0
-
-        if @surplus > 0 then
-          @task.info "=> Available: #{@surplus.to_xcr} crypti."
-        else
-          @task.warn '=> None available.'
-        end
-        @surplus
+      unless amount.nil? then
+        (amount * (@network_fee / 100 * 10**8))
+      else
+        @network_fee
       end
     end
 
-    def surplus
-      @surplus ||= get_surplus
+    def get_balance
+      @task.info 'Checking account balance...'
+
+      json = @api.get '/api/accounts/getBalance', { address: @node.account }
+      @second_passphrase = json['secondPassphrase']
+      json['balance'].to_bd
     end
 
-    def amount
-      @amount ||= (surplus - network_fee)
+    def get_withdrawal
+      validate do
+        balance = get_balance
+        maximum = balance / (1 + (network_fee * 10**8 / 100))
+
+        @task.info "=> Current balance: #{balance.to_xcr} XCR."
+        @task.info "=> Maximum withdrawal: #{maximum.to_xcr} XCR."
+
+        print yellow("Enter withdrawal amount:\s")
+        match = STDIN.gets.chomp.match(/[0-9.]+/i)
+        match.is_a?(MatchData) ? match[0].to_f : 0.0
+      end
+    end
+
+    def withdrawal
+      @withdrawal ||= get_withdrawal
     end
 
     def passphrases?
@@ -107,7 +110,7 @@ module CryptiKit
     def params(passphrases)
       if passphrases.is_a?(Hash) then
         passphrases.merge(
-          amount: (amount.to_f * 10**8),
+          amount: (withdrawal.to_f * 10**8),
           recipientId: @account.address,
           publicKey: @node.public_key
         )
@@ -122,9 +125,9 @@ module CryptiKit
 
     def transaction(json, &block)
       if json['success'] then
-        fee    = network_fee.to_xcr
+        fee    = network_fee(withdrawal).to_xcr
         id     = json['transactionId'].to_i
-        amount = surplus.to_xcr
+        amount = withdrawal.to_f
         yield fee, id, amount
       else
         @task.error "=> Transaction failed."
