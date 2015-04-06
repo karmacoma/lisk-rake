@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-gem "sshkit", "1.5.1"
+gem "sshkit", "1.7.1"
 
 group :development do
-  gem "byebug", "3.5.1"
-  gem "rspec", "3.1.0"
+  gem "byebug", "4.0.5"
+  gem "rspec", "3.2.0"
 end
