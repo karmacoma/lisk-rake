@@ -1,5 +1,43 @@
 ### CryptiKit Changelog
 
+2015-04-07 (2.0.0)
+
+- Updating API for compatibility with crypti node version: 0.2.0
+- Updating Gemfile with the latest versions for all dependencies
+- Fixing error when servers or accounts are not defined within config
+- Making forging info mandatory rather than optional (as no need to disable it now)
+- Adding support for running multiple delegates on individual nodes
+- Adding delegate status information to check_nodes task
+- Changing 'live' app_port from 7040 to 8040
+- Reworking withdraw_surplus task
+  - Renamed task to withdraw_balances
+  - Now allows users to withdraw specific balance
+  - Improved accuracy of network fee deduction
+  - User now presented with a list of accounts to withdraw from
+  - Recipient address is now specified using ENV[‘recipient’]
+  - Improved error and log messages
+
+#### Multiple Delegates
+
+CryptiKit now supports running multiple delegates on one node.
+
+For more information, please read:
+https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#multiple-delegates
+
+#### Delegate Status
+
+Delegate names, productivity and ranking are now shown when running the ```check_nodes``` task.
+
+For more information, please read:
+https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#checking-nodes
+
+#### Withdrawals
+
+The ```withdraw_surplus``` task has now been reimplemented as ```withdraw_funds```.
+
+For more information, please read:
+https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#withdrawals
+
 2015-04-01 (1.9.1)
 
 - Fixing errors encountered when running ```install_nodes``` task
