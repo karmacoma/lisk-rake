@@ -75,6 +75,18 @@ module CryptiKit
 
     private :block_status
 
+    def delegate_status
+      @task.info 'Getting delegate status...'
+      if loaded then
+        @api.get '/api/delegates/get', { publicKey: @public_key } do |json|
+          @task.info '=> Done.'
+        end
+      else
+        @task.warn '=> Delegate status not available.'
+        {}
+      end
+    end
+
     def forging_status
       @task.info 'Getting forging status...'
       if loaded then
@@ -142,6 +154,7 @@ module CryptiKit
         json['loading_status']  = loading_status
         json['sync_status']     = loaded ? sync_status : {}
         json['block_status']    = loaded && synced ? block_status : {}
+        json['delegate_status'] = delegate_status
         json['forging_status']  = forging_status
         json['forging_info']    = forging_info
         json['account_balance'] = account_balance
