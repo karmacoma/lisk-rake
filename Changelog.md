@@ -1,5 +1,9 @@
 ### CryptiKit Changelog
 
+2015-04-01 (1.9.1)
+
+- Fixing errors encountered when running ```install_nodes``` task
+
 2015-03-14 (1.9.0)
 
 - Improved ```check_nodes``` task
