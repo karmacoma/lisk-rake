@@ -104,19 +104,13 @@ module CryptiKit
     private :forged_coinage, :forged_blocks
 
     def forging_info
-      if synced and @public_key and forging_info_enabled? then
+      if synced and @public_key then
         json = forged_coinage
         json.merge!(forged_blocks) if json['success']
         json
       else
         @task.warn '=> Forging info not available.'
         {}
-      end
-    end
-
-    def forging_info_enabled?
-      [Core.forging_info, ENV['forging_info']].any? do |v|
-        v == 'true' or v == 'enabled'
       end
     end
 

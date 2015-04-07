@@ -81,10 +81,6 @@ module CryptiKit
       config['accounts'] ||= {}
     end
 
-    def self.forging_info
-      config['forging_info']
-    end
-
     def self.baddies
       @baddies ||= []
     end
