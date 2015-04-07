@@ -144,7 +144,7 @@ rake reinstall_nodes
 Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, CryptiKit will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the crypti node using curl.
 
 > NOTE:
-> You will need to register as a delegate before you can start forging.
+> You will need to register as a delegate before you can start forging. To earn fees, your delegate will need to receive enough votes to be ranked within the top 101 delegates.
 
 To start forging, simply run the following command:
 
@@ -155,7 +155,7 @@ rake start_forging
 When prompted, enter your primary passphrase:
 
 ```
-Please enter your primary passphrase: ******** [Press Enter]
+Please enter your primary passphrase: _____
 ```
 
 Once forging has been successfully started, you will be provided with the option to add the passphrase to the remote config.
@@ -166,12 +166,16 @@ INFO => Enabled.
 INFO Adding account...
 INFO => Added: 4956977736153893179C.
 INFO Adding passphrase to remote config...
-Add passphrase to remote config? yes
-INFO => Done.
+
+Add passphrase to remote config? _____
 ```
 
 > NOTE:
 > Adding your passphrases to the config file is less secure. Only do so if you wish to avoid having to start forging again after a node has been restarted.
+
+#### Multiple Delegates
+
+To assign multiple delegates to a node, simply repeat the ```start_forging``` command for each account you would like to assign to a node.
 
 ### Checking Nodes
 
@@ -181,27 +185,38 @@ To check the status of your nodes, simply run the following command:
 rake check_nodes
 ```
 
-The ```check_nodes``` task performs a full inspection of each node. Including: CPU/Memory usage, node uptime, crypti version, blockchain & forging status, the last forged block and the associated account balance.
+The ```check_nodes``` task performs a full inspection of each node. Including: CPU/Memory usage, node uptime, node version, blockchain loading/syncing status, plus each delegate's forging activity and associated account balance(s).
 
 ```
 Checking nodes...
 ================================================================================
-Node[1]: 111.11.11.111 (4956977736153893179C)
+Node[1]: 111.11.11.111 With 2 Delegate(s)
 ================================================================================
-Usage:             CPU: 27.1% | Memory: 61.7%
-Uptime:            0:1:32:35.744
-Version:           0.1.9f
+Usage:             CPU: 1.1% | Memory: 18.8%
+Uptime:            0:10:57:0.586
+Version:           0.2.0
 Loaded:            true
 Syncing:           false
-Height:            33950
+Height:            162573
+--------------------------------------------------------------------------------
+Delegate:          (1) Olivier [Active] 14636030356238523094C
+Productivity:      71.59%
+Rank:              15
 Forging:           true
-Last Forged:       Block -> 12886241379965779851 Amount -> 0.5
-Forged:            2.92869137    0.5 (+)
-Balance:           1002.92869137 0.5 (+)
-Unconfirmed:       1002.92869137 0.5 (+)
+Last Forged:       Block -> 17237195879835124361 Amount -> 0.0
+Forged:            320.67081153 0.0 (*)
+Balance:           174644.91081588 0.0 (*)
+Unconfirmed:       174644.91081588 0.0 (*)
+--------------------------------------------------------------------------------
+Delegate:          (2) Karmacoma [Standby] 4956977736153893179C
+Productivity:      0.0%
+Rank:              120
+Forging:           true
+Balance:           13.00000001 0.0 (*)
+Unconfirmed:       13.00000001 0.0 (*)
 ```
 
-After running the ```check_nodes``` task. CryptiKit produces a detailed summary containing: the total nodes checked, report times, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes which are either currently loading, syncing, not forging or using an outdated version of crypti.
+After running the ```check_nodes``` task. CryptiKit produces a detailed summary containing: the total nodes checked, report times, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes/delegates which are either currently loading, syncing, on standby, not forging or using an outdated version of crypti.
 
 Please see the below example:
 
@@ -209,33 +224,79 @@ Please see the below example:
 ================================================================================
 Report Summary
 ================================================================================
-Nodes Checked:     24 / 24 Configured
-Generated:         2014-12-02 22:28:33 +0000
-Last Generated:    2014-12-02 21:24:03 +0000
-Total Forged:      1915.88691914  0.5 (+)
-Total Balance:     26915.88691914 0.5 (+)
-Total Unconfirmed: 26915.88691914 0.5 (+)
-Lowest Balance:    1000.00168904 -> Node[15]
-Highest Balance:   2421.74114445 -> Node[9]
+Nodes Checked:     1 / 1 Configured
+Generated:         2015-04-09 01:17:06 +0100
+Last Generated:    2015-04-09 01:17:06 +0100
+Total Forged:      320.67081153 320.67081153 (+)
+Total Balance:     174657.91081589 174657.91081589 (+)
+Total Unconfirmed: 174657.91081589 174657.91081589 (+)
+Lowest Balance:    13.00000001 -> Node[1](Karmacoma)
+Highest Balance:   174644.91081588 -> Node[1](Olivier)
 --------------------------------------------------------------------------------
-* 1 / 24 nodes are not loaded.
-> Affected Nodes: 1
+* 1 / 2 delegates are on standby.
+> Affected Delegates: Node[1](Karmacoma)
 --------------------------------------------------------------------------------
-* 1 / 24 nodes are being synchronised.
-> Affected Nodes: 4
---------------------------------------------------------------------------------
-* 2 / 24 nodes are not forging.
+```
+
+The report summary warns you when there are potential issues with one your nodes or delegates. Below are some further examples of what might expect to see.
+
+#### Loading
+
+When one or nodes are loading.
+
+```
+* 2 / 4 nodes are not loaded.
 > Affected Nodes: 1,4
-------------------------------------------------------------------------------------------------
-* 2 / 24 nodes are outdated.
+--------------------------------------------------------------------------------
+```
+
+#### Syncing
+
+When one or nodes are being synchronised.
+
+```
+* 2 / 4 nodes are being synchronised.
+> Affected Nodes: 1,4
+--------------------------------------------------------------------------------
+```
+
+#### On Standby
+
+When one or delegates are on standby awaiting further votes.
+
+```
+--------------------------------------------------------------------------------
+* 1 / 2 delegates are on standby.
+> Affected Delegates: Node[1](Karmacoma)
+--------------------------------------------------------------------------------
+```
+
+#### Not Forging
+
+When one or nodes are being synchronised.
+
+```
+* 2 / 4 delegates are not forging.
+> Affected Delegates: Node[1](Olivier),Node[1](Karmacoma)
+--------------------------------------------------------------------------------
+```
+
+#### Outdated
+
+When one or nodes are using an outdated version of crypti.
+
+```
+* 2 / 4 nodes are outdated.
 > Affected Nodes: 1,4
 
-Version: 0.1.9f is now available.
+Version: 0.2.0 is now available.
 
 Please run the folowing command to upgrade them:
 $ rake reinstall_nodes servers=1,4
 --------------------------------------------------------------------------------
 ```
+
+#### Errors
 
 Any connection / authentication / dependency errors encountered while running the ```check_nodes``` task, are automatically recorded by CryptiKit and subsequently reported back to you at the end of the Report Summary.
 
@@ -357,72 +418,87 @@ rake check_nodes servers=all
 
 ### Withdrawals
 
-The ```withdraw_funds``` task allows you to withdraw a specific amount from the crypti account associated with each node to another crypti address.
+The ```withdraw_funds``` task allows you to withdraw a specific amount from one of the crypti accounts associated with a given node, to a designated recipient crypti account.
 
-For example, to initiate a withdrawal from nodes 1 to 3:
+The required steps are as follows:
 
-```
-rake withdraw_funds servers=1..3 # Servers 1 to 3
-```
+1. Specify a recipient addres
+2. Choose an account to withdraw from
+3. Enter a withdrawal amount
+4. Enter your passphrase(s)
 
-#### Deposit Address
+#### Recipient Address
 
-Upon executing the ```withdraw_funds``` task. CryptiKit will prompt you to enter the deposit address where you would like the funds to go to.
+Upon executing the ```withdraw_funds``` task. CryptiKit will prompt you to enter the recipient address where you would like the funds to go to.
 
 For example:
 
 ```
+rake withdraw_funds servers=1..3 # Servers 1 to 3
+
 Withdrawing funds...
-Please enter your crypti address: 4956977736153893179C
+Please enter your recipient crypti address: _____
 ```
 
 When given an invalid address. CryptiKit will prompt you to try again:
 
 ```
+rake withdraw_funds servers=1..3 # Servers 1 to 3
+
 Withdrawing funds...
-Please enter your crypti address: --------------*
+Please enter your recipient crypti address: _____
 Invalid crypti address. Please try again...
 ```
 
-The deposit address can also be specified from the command line:
+The recipient address can also be specified from the command line:
 
 ```
-rake withdraw_funds servers=1..3 address=4956977736153893179C # Servers 1 to 3
+rake withdraw_funds servers=1..3 recipient=4956977736153893179C # Servers 1 to 3
+```
+
+#### Withdrawal Account
+
+As one or more accounts can be associated with any given node. When making a withdrawal, CryptiKit will present you with a list of accounts to choose from for the current node, like so:
+
+```
+--------------------------------------------------------------------------------
+Available accounts on: Node[1]
+--------------------------------------------------------------------------------
+1: 14636030356238523094C
+2: 707434884386221427C
+
+Please choose an account [1-2]: _____
+--------------------------------------------------------------------------------
 ```
 
 #### Withdrawal Amount
 
-Once a valid deposit address has been specified. CryptiKit will present the current balance and maximum possible withdrawal, then prompt you to enter a desired amount to withdraw from the current node/account.
+Once a valid recipient address has been specified. CryptiKit will present the current balance and maximum possible withdrawal, then prompt you to enter the desired amount to withdraw from the chosen account.
 
 ```
 INFO Checking account balance...
 INFO => Current balance: 184704.90731913 XCR.
 INFO => Maximum withdrawal: 183785.97743197 XCR.
-Enter withdrawal amount: 183785.97743197
+
+Enter withdrawal amount: _____
 ```
 
 > NOTE: Maximum withdrawals are the total balance less the current network transaction fee.
 
 #### Passphrases
 
-Before sending any funds, CryptiKit will prompt you to enter your primary passphrase. If a secondary passphrase is also assigned to an account, CryptiKit will prompt you for that as well.
-
-For example: An account with two passphrases:
-
-```
-Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your primary passphrase: ********
-Node[2]: 111.11.11.111 (4956977736153893179C): Please enter your secondary passphrase: ********
-```
+Before sending any funds, CryptiKit will prompt you to enter your primary passphrase. CryptiKit supports secondary passphrases, so if your account has one, CryptiKit will prompt you for that as well.
 
 #### Successful Transactions
 
 For each successful transaction, CryptiKit will output the fee, transaction id and total amount sent.
 
 ```
-INFO Withdrawing 1.0 XCR to: 4956977736153893179C...
+INFO Withdrawing 1.0 XCR...
+INFO From: 14636030356238523094C to: 4956977736153893179C...
 INFO ~> Fee: 0.005
 INFO ~> Transaction id: 2052732297350569719
-INFO ~> Total sent: 1.0
+INFO ~> Total withdrawn: 1.0
 ```
 
 #### Error Handling
@@ -430,7 +506,8 @@ INFO ~> Total sent: 1.0
 If any errors are encountered during a transaction. For example an invalid passphrase, CryptiKit will handle the error and move onto the next selected server.
 
 ```
-INFO Withdrawing 1.0 XCR to: 4956977736153893179C...
+INFO Withdrawing 1.0 XCR...
+INFO From: 14636030356238523094C to: 4956977736153893179C...
 ERROR => Transaction failed.
 ERROR => Error: Provide secret key.
 ```
