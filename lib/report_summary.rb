@@ -56,6 +56,15 @@ module CryptiKit
       end
     end
 
+    def on_standby
+      accounts = @report.on_standby
+      if accounts.any? then
+        ["* #{accounts.size} / #{@report.total_accounts} delegates are on standby.\n" +
+         "> Affected Delegates: #{affected_accounts(accounts)}\n",
+         divider]
+      end
+    end
+
     def not_forging
       accounts = @report.not_forging
       if accounts.any? then
@@ -129,6 +138,7 @@ module CryptiKit
         divider,
         not_loaded,
         syncing,
+        on_standby,
         not_forging,
         outdated,
         baddies
