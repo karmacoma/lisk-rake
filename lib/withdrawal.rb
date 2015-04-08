@@ -2,23 +2,23 @@ require 'bigdecimal'
 
 module CryptiKit
   class Withdrawal
-    attr_reader :node, :account
+    attr_reader :account, :recipient
 
-    def initialize(task, &block)
+    def initialize(task, node)
       @task = task
+      @node = node
       @api  = Curl.new(@task)
-      yield self if block_given?
-    end
-
-    def node=(node)
-      if node.is_a?(Node) then
-        @node = node
-      end
     end
 
     def account=(account)
-      if account.is_a?(Account) then
+      if account.is_a?(Hash) then
         @account = account
+      end
+    end
+
+    def recipient=(recipient)
+      if recipient.is_a?(Recipient) then
+        @recipient = recipient
       end
     end
 
@@ -26,7 +26,9 @@ module CryptiKit
       return unless loaded?
       return if withdrawal <= 0.0
       PassphraseCollector.collect(passphrases?) do |passphrases|
-        @task.info "Withdrawing #{withdrawal} XCR to: #{@account.address}..."
+        @task.info "Withdrawing #{withdrawal} XCR..."
+        @task.info "From: #{@account['address']} to: #{@recipient.address}..."
+
         json = @api.put '/api/transactions', params(passphrases)
         transaction(json) do |fee, id, amount|
           @task.info green("~> Fee: #{fee}")
@@ -36,19 +38,26 @@ module CryptiKit
       end
     end
 
+    def self.withdraw(task, node, recipient)
+      withdrawal = self.new(task, node)
+      withdrawal.recipient = recipient
+      withdrawal.account   = AccountChooser.choose(task, node)
+      withdrawal.withdraw
+    end
+
     private
 
     def validate(&block)
       case
-      when !@node then
-        raise 'Missing crypti node.'
-      when !@node.account then
-        raise 'Crypti node does not have an account.'
       when !@account then
-        raise 'Missing withdrawal account.'
-      when !@account.address then
-        raise 'Missing withdrawal address.'
-      when @node.account == @account.address then
+        raise 'Missing or invalid withdrawal account.'
+      when !@account['address'] then
+        raise 'Missing or invalid withdrawal address.'
+      when !@recipient then
+        raise 'Missing or invalid recipient account.'
+      when !@recipient.address then
+        raise 'Missing or invalid recipient address.'
+      when @account['address'] == @recipient.address then
         raise 'Can not withdraw from/to the same account.'
       else
         yield
@@ -77,7 +86,7 @@ module CryptiKit
     def get_balance
       @task.info 'Checking account balance...'
 
-      json = @api.get '/api/accounts/getBalance', { address: @node.account }
+      json = @api.get '/api/accounts/getBalance', { address: @account['address'] }
       @second_passphrase = json['secondPassphrase']
       json['balance'].to_bd
     end
@@ -124,8 +133,8 @@ module CryptiKit
       if passphrases.is_a?(Hash) then
         passphrases.merge(
           amount: (withdrawal.to_f * 10**8),
-          recipientId: @account.address,
-          publicKey: @node.public_key
+          recipientId: @recipient.address,
+          publicKey: @account['public_key']
         )
       else
         {}

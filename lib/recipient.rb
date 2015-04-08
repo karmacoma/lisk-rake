@@ -1,5 +1,5 @@
 module CryptiKit
-  class Account
+  class Recipient
     attr_reader :address
 
     def address=(address)
@@ -12,7 +12,7 @@ module CryptiKit
 
     def specified
       @specified ||= (
-        specified = ENV['address'].to_s.chomp
+        specified = ENV['recipient'].to_s.chomp
         specified if specified.size > 0
       )
     end
@@ -21,14 +21,14 @@ module CryptiKit
       if specified then
         self.address = specified
       else
-        print yellow("Please enter your crypti address:\s")
+        print yellow("Please enter your recipient crypti address:\s")
         self.address = STDIN.gets.chomp
       end
     rescue Interrupt
       puts ''
       exit
     rescue ArgumentError
-      @specified = ENV['address'] = nil
+      @specified = ENV['recipient'] = nil
       print red("Invalid crypti address. Please try again...\n")
       retry
     end

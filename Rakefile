@@ -240,16 +240,12 @@ desc 'Withdraw funds from crypti nodes'
 task :withdraw_funds do
   puts 'Withdrawing funds...'
 
-  account = CryptiKit::Account.new
-  exit unless account.get_address
+  recipient = CryptiKit::Recipient.new
+  exit unless recipient.get_address
 
   on_each_server do |server, node, deps|
     deps.check_remote(node, 'curl', 'crypti')
 
-    CryptiKit::Withdrawal.new(self) do |withdrawal|
-      withdrawal.node    = node
-      withdrawal.account = account
-      withdrawal.withdraw
-    end
+    CryptiKit::Withdrawal.withdraw(self, node, recipient)
   end
 end
