@@ -9,7 +9,7 @@ module CryptiKit
     end
 
     def blue(string)
-      string.colorize(:blue)
+      string.colorize(:light_blue)
     end
 
     def yellow(string)
