@@ -38,7 +38,7 @@ module CryptiKit
     private
 
     def key
-      Core.config['servers'].key(@server.to_s)
+      Core.configured_servers.key(@server.to_s)
     end
   end
 end
