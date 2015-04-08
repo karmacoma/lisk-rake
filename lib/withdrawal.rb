@@ -25,7 +25,7 @@ module CryptiKit
     def withdraw
       return unless loaded?
       return if withdrawal <= 0.0
-      @node.get_passphrases(passphrases?) do |passphrases|
+      PassphraseCollector.collect(passphrases?) do |passphrases|
         @task.info "Withdrawing #{withdrawal} XCR to: #{@account.address}..."
         json = @api.put '/api/transactions', params(passphrases)
         transaction(json) do |fee, id, amount|

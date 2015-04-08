@@ -7,7 +7,7 @@ module CryptiKit
 
     def start(server, node)
       return unless loaded?
-      node.get_passphrase do |passphrase|
+      PassphraseCollector.get do |passphrase|
         @task.info 'Enabling forging...'
         @api.post '/api/delegates/forging/enable', passphrase do |json|
           if json['success'] then
@@ -23,7 +23,7 @@ module CryptiKit
 
     def stop(server, node)
       return unless loaded?
-      node.get_passphrase do |passphrase|
+      PassphraseCollector.get do |passphrase|
         @task.info 'Disabling forging...'
         @api.post '/api/delegates/forging/disable', passphrase do |json|
           if json['success'] then
