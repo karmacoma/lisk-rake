@@ -29,7 +29,7 @@ module CryptiKit
         @list.save
         @task.info "=> Removed: #{json['account']['address']}."
         manager = PassphraseManager.new(@task)
-        manager.remove
+        manager.remove(passphrase)
       else
         @task.error '=> Failed.'
       end
