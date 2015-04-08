@@ -19,17 +19,7 @@ module CryptiKit
     end
 
     def config_status
-      @task.info 'Getting configuration...'
-      conf = @task.capture 'cat', "#{Core.install_path}/config.json"
-      json = JSON.parse(conf) rescue {}
-      if !json.empty? then
-        @task.info '=> Done.'
-        json['success'] = true
-      else
-        @task.warn '=> Configuration not available.'
-        json['success'] = false
-      end
-      ConfigInspector.inspect(json)
+      ConfigInspector.inspect(@task)
     end
 
     def loading_status
