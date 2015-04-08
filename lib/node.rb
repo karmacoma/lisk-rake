@@ -23,7 +23,7 @@ module CryptiKit
     end
 
     def info
-      green("Node[#{key}]: #{@server} (#{account || 'No Account'})")
+      green("Node[#{key}]: #{@server}")
     end
 
     def passphrases
