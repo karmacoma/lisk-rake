@@ -6,16 +6,8 @@ module CryptiKit
       @rate  = json['delegate']['rate'].to_i
     end
 
-    def index
-      blue(@index.to_s)
-    end
-
     def delegate
-      [sprintf("%-19s", "Delegate:"), "(#{index})\s#{@json['username']}\s", status, "\n"]
-    end
-
-    def status
-      (@rate > 0 and @rate <= 101) ? green('[Active]') : yellow('[Standby]')
+      [sprintf("%-19s", "Delegate:"), "(#{index})\s#{username}\s", status, "\n"]
     end
 
     def productivity
@@ -28,6 +20,20 @@ module CryptiKit
 
     def to_s
       [delegate, productivity, rank].join.to_s
+    end
+
+    private
+
+    def index
+      blue(@index.to_s)
+    end
+
+    def username
+      @json['username']
+    end
+
+    def status
+      (@rate > 0 and @rate <= 101) ? green('[Active]') : yellow('[Standby]')
     end
   end
 end
