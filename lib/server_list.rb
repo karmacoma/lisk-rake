@@ -8,8 +8,8 @@ module CryptiKit
     @reindex      = true
 
     def before_save
-      Core.config['accounts'].keys.each do |key|
-        Core.config['accounts'].delete(key) if !@items[key]
+      Core.configured_accounts.keys.each do |key|
+        Core.configured_accounts.delete(key) if !@items[key]
       end
     end
 
