@@ -10,18 +10,16 @@ module CryptiKit
       Core.configured_servers.key(@server.to_s)
     end
 
-    def value(k)
-      val = Core.configured_accounts[key]
-      val = val.is_a?(Hash) ? val[k.to_s] : nil
-      val
+    def accounts
+      Core.configured_accounts[key]
     end
 
     def account
-      value('address')
+      accounts[0]['address'] rescue nil
     end
 
     def public_key
-      value('public_key')
+      accounts[0]['public_key'] rescue nil
     end
 
     def info

@@ -25,7 +25,7 @@ module CryptiKit
       @task.info 'Removing account...'
       json = @api.post '/api/accounts/open', passphrase
       if json['success'] and json['account'] then
-        @list.remove(key)
+        @list.remove(key, json['account'])
         @list.save
         @task.info "=> Removed: #{json['account']['address']}."
         manager = PassphraseManager.new(@task)
