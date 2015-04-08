@@ -1,12 +1,17 @@
 module CryptiKit
   class DelegateStatus
     def initialize(json)
-      @json = json['delegate']
-      @rate = @json['rate'].to_i
+      @index = json['index']
+      @json  = json['delegate']
+      @rate  = json['delegate']['rate'].to_i
+    end
+
+    def index
+      blue(@index.to_s)
     end
 
     def delegate
-      [sprintf("%-19s", 'Delegate:'), @json['username'], "\s", status, "\n"]
+      [sprintf("%-19s", "Delegate:"), "(#{index})\s#{@json['username']}\s", status, "\n"]
     end
 
     def status

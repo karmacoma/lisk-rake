@@ -14,14 +14,6 @@ module CryptiKit
       Core.configured_accounts[key] || []
     end
 
-    def account
-      accounts[0]['address'] rescue nil
-    end
-
-    def public_key
-      accounts[0]['public_key'] rescue nil
-    end
-
     def info
       green("Node[#{key}]: #{@server}")
     end

@@ -14,6 +14,18 @@ module CryptiKit
       end
     end
 
+    def accounts
+      if @accounts.nil? then
+        @accounts = []
+        @nodes.each_value do |n|
+          n['accounts_status']['accounts'].each do |a|
+            @accounts.push(a)
+          end
+        end
+      end
+      @accounts
+    end
+
     def baddies=(baddies)
       @baddies = baddies
     end
@@ -41,13 +53,15 @@ module CryptiKit
     end
 
     def not_forging
-      @nodes.collect { |k,v| v['forging_status'] }.find_all do |n|
-        !n['enabled']
-      end
+      accounts.find_all { |a| !a['forging_status']['enabled'] }
     end
 
     def total_nodes
       @nodes.size
+    end
+
+    def total_accounts
+      @accounts.size
     end
 
     def total_configured
@@ -65,13 +79,13 @@ module CryptiKit
     attr_writer :generated_at
 
     def total_forged
-      total_balance('sum', 'forging_info')
+      total_balance('fees', 'forging_info')
     end
 
     def total_balance(type = 'balance', parent = 'account_balance')
       balance = 0.0
-      @nodes.collect { |k,v| v[parent.to_s] }.collect do |n|
-        balance += n[type.to_s].to_f
+      accounts.each do |a|
+        balance += a[parent.to_s][type.to_s].to_f
       end
       balance.to_xcr
     end
@@ -81,7 +95,7 @@ module CryptiKit
     end
 
     def lowest_balance
-      @nodes.collect do |k,v|
+      accounts.collect do |v|
         v['account_balance'] if v['account_balance']['balance']
       end.compact.min do |a,b|
         a['balance'] <=> b['balance']
@@ -89,7 +103,7 @@ module CryptiKit
     end
 
     def highest_balance
-      @nodes.collect do |k,v|
+      accounts.collect do |v|
         v['account_balance'] if v['account_balance']['balance']
       end.compact.max do |a,b|
         a['balance'] <=> b['balance']

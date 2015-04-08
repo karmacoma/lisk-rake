@@ -57,10 +57,10 @@ module CryptiKit
     end
 
     def not_forging
-      nodes = @report.not_forging
-      if nodes.any? then
-        ["* #{nodes.size} / #{@report.total_nodes} nodes are not forging.\n" +
-         "> Affected Nodes: #{affected_nodes(nodes)}\n",
+      accounts = @report.not_forging
+      if accounts.any? then
+        ["* #{accounts.size} / #{@report.total_accounts} delegates are not forging.\n" +
+         "> Affected Delegates: #{affected_accounts(accounts)}\n",
          divider]
       end
     end
@@ -87,19 +87,21 @@ module CryptiKit
       end
     end
 
-    def node_pointer(node)
-      " -> Node[#{node['key']}]"
+    def node_username(json)
+      key      = green(json['key'].to_s)
+      username = blue(json['username'])
+      " -> Node[#{key}](#{username})"
     end
 
     def lowest_balance
-      if node = @report.lowest_balance then
-        [sprintf("%-19s", 'Lowest Balance:'), node['balance'].to_xcr, node_pointer(node), "\n"]
+      if lowest = @report.lowest_balance then
+        [sprintf("%-19s", 'Lowest Balance:'), lowest['balance'].to_xcr, node_username(lowest), "\n"]
       end
     end
 
     def highest_balance
-      if node = @report.highest_balance then
-        [sprintf("%-19s", 'Highest Balance:'), node['balance'].to_xcr, node_pointer(node), "\n"]
+      if highest = @report.highest_balance then
+        [sprintf("%-19s", 'Highest Balance:'), highest['balance'].to_xcr, node_username(highest), "\n"]
       end
     end
 
@@ -137,6 +139,15 @@ module CryptiKit
 
     def affected_nodes(nodes)
       nodes.collect { |n| n['key'] }.join(',')
+    end
+
+    def affected_accounts(accounts)
+      accounts.collect do |a|
+        delegate_status = a['delegate_status']
+        key      = green(delegate_status['key'].to_s)
+        username = blue(delegate_status['username'])
+        "Node[#{key}](#{username})"
+      end.join(',')
     end
   end
 end

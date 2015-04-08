@@ -2,6 +2,8 @@ require 'json'
 
 module CryptiKit
   class NodeInspector
+    attr_reader :task, :api
+
     def initialize(task)
       @task = task
       @api  = Curl.new(@task)
@@ -65,95 +67,21 @@ module CryptiKit
 
     private :block_status
 
-    def delegate_status
-      @task.info 'Getting delegate status...'
-      if loaded then
-        @api.get '/api/delegates/get', { publicKey: @public_key } do |json|
-          @task.info '=> Done.'
-        end
-      else
-        @task.warn '=> Delegate status not available.'
-        {}
-      end
-    end
-
-    def forging_status
-      @task.info 'Getting forging status...'
-      if loaded then
-        @api.get '/api/delegates/forging/status', { publicKey: @public_key } do |json|
-          @task.info '=> Done.'
-        end
-      else
-        @task.warn '=> Forging status not available.'
-        {}
-      end
-    end
-
-    def forged_coinage
-      @task.info 'Getting forged coinage...'
-      @api.get '/api/delegates/forging/getForgedByAccount', { generatorPublicKey: @public_key } do |json|
-        @task.info '=> Done.'
-      end
-    end
-
-    def forged_blocks
-      @task.info 'Getting forged blocks...'
-      @api.get '/api/blocks', { generatorPublicKey: @public_key, orderBy: 'height:desc', limit: 1 } do |json|
-        @task.info '=> Done.'
-      end
-    end
-
-    private :forged_coinage, :forged_blocks
-
-    def forging_info
-      if synced and @public_key then
-        json = forged_coinage
-        json.merge!(forged_blocks) if json['success']
-        json
-      else
-        @task.warn '=> Forging info not available.'
-        {}
-      end
-    end
-
-    def account_balance
-      @task.info 'Getting account balance...'
-      if synced and @account then
-        @api.get '/api/accounts/getBalance', { address: @account } do |json|
-          @task.info '=> Done.'
-        end
-      else
-        @task.warn '=> Account balance not available.'
-        {}
-      end
-    end
-
-    def yield_node(node, &block)
-      @account    = node.account
-      @public_key = node.public_key
-      yield node
-    end
-
-    private :yield_node
-
     def node_status(node, &block)
-      yield_node(node) do |node|
-        json                    = { 'info' => node.info }
-        json['config_status']   = config_status
-        json['forever_status']  = forever_status
-        json['loading_status']  = loading_status
-        json['sync_status']     = loaded ? sync_status : {}
-        json['block_status']    = loaded && synced ? block_status : {}
-        json['delegate_status'] = delegate_status
-        json['forging_status']  = forging_status
-        json['forging_info']    = forging_info
-        json['account_balance'] = account_balance
-        json.keys.reject! { |k| k == 'info' }.each do |j|
-          json[j].merge!('key' => node.key)
-        end
-        block.call(json) if block_given?
-        json
+      json = {
+        'info'            => node.info,
+        'config_status'   => config_status,
+        'forever_status'  => forever_status,
+        'loading_status'  => loading_status,
+        'sync_status'     => (loaded ? sync_status : {}),
+        'block_status'    => (loaded && synced ? block_status : {}),
+        'accounts_status' => AccountInspector.inspect(self, node)
+      }
+      json.keys.reject! { |k| k == 'info' }.each do |j|
+        json[j].merge!('key' => node.key)
       end
+      block.call(json) if block_given?
+      json
     end
   end
 end
