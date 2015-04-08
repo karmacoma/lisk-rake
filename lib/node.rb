@@ -11,7 +11,7 @@ module CryptiKit
     end
 
     def accounts
-      Core.configured_accounts[key]
+      Core.configured_accounts[key] || []
     end
 
     def account
