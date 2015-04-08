@@ -15,7 +15,8 @@ module CryptiKit
     end
 
     def info
-      green("Node[#{key}]: #{@server}")
+      green("Node[#{key}]: #{@server}\s") +\
+       blue("With #{accounts.size} Delegates")
     end
 
     def passphrases
