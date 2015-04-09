@@ -16,7 +16,7 @@ module CryptiKit
 
     def info
       green("Node[#{key}]: #{@server}\s") +\
-       blue("With #{accounts.size} Delegates")
+       blue("With #{accounts.size} Delegate(s)")
     end
   end
 end
