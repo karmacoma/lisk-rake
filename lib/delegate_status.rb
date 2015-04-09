@@ -29,7 +29,7 @@ module CryptiKit
     end
 
     def username
-      @json['username']
+      blue(@json['username'])
     end
 
     def status
