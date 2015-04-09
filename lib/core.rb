@@ -54,7 +54,7 @@ module CryptiKit
     end
 
     def self.app_port
-      (test?) ? 7040 : 6040
+      (test?) ? 7040 : 8040
     end
 
     def self.app_file
