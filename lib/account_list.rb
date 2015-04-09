@@ -27,8 +27,10 @@ module CryptiKit
     end
 
     def find_index(key, address)
-      @items[key.to_i].find_index do |a|
-        a['address'].to_s == address.to_s
+      if key and address then
+        @items[key.to_i].find_index do |a|
+          a['address'].to_s == address.to_s
+        end
       end
     end
 
