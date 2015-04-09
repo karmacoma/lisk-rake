@@ -7,7 +7,7 @@ module CryptiKit
     end
 
     def delegate
-      [sprintf("%-19s", "Delegate:"), "(#{index})\s#{username}\s", status, "\n"]
+      [sprintf("%-19s", "Delegate:"), "(#{index})\s#{username}\s", status, "\s#{@json['address']}", "\n"]
     end
 
     def productivity
