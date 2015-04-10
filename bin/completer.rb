@@ -46,8 +46,18 @@ class Installer
 
   @@command_line = /^.*\/completer.rb' -o default rake\n$/
 
-  def self.config
-    @config ||= ENV['HOME'] + '/.bash_profile'
+  def self.profile
+    @profile ||= profile?
+  end
+
+  def self.profile?
+    profiles = [
+      ENV['HOME'] + '/.bash_profile',
+      ENV['HOME'] + '/.profile'
+    ]
+    profiles.each do |p|
+      return p if File.exists?(p)
+    end
   end
 
   def self.command
@@ -59,17 +69,17 @@ class Installer
   end
 
   def self.enable
-    tmp = File.read(config)
+    tmp = File.read(profile)
     return if tmp.match(command)
-    File.open(config, 'a') { |f| f.puts command }
+    File.open(profile, 'a') { |f| f.puts command }
   end
 
   def self.disable
-    tmp = File.read(config)
+    tmp = File.read(profile)
     while tmp.match(@@command_line) do
       tmp.gsub!(@@command_line, '')
     end
-    File.open(config, 'w') { |f| f.puts tmp }
+    File.open(profile, 'w') { |f| f.puts tmp }
   end
 end
 

@@ -58,7 +58,15 @@ promptyn() {
 
 if promptyn "Do you wish to enable bash auto-completion?"; then
   rvm cryptikit-ruby@cryptikit do ruby "bin/completer.rb" --enable
-  source "$HOME/.bash_profile"
+
+  profiles=("$HOME/.bash_profile" "$HOME/.profile")
+
+  for i in ${profiles[@]}; do
+    if [ -f $i ]; then
+      source $i
+      break
+    fi
+  done
 
   echo ""
   echo "* Bash auto-completion was enabled."
