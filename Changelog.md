@@ -1,5 +1,12 @@
 ### CryptiKit Changelog
 
+2015-04-10 (2.0.1)
+
+This release fixes some issues affecting certain systems.
+
+- Fixing uninitialized constant CryptiKit::BasicError after initial installation
+- Fixing bash auto-completion where .profile exists instead of .bash_profile
+
 2015-04-07 (2.0.0)
 
 - Updating API for compatibility with crypti node version: 0.2.0
