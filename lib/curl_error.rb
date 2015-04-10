@@ -1,3 +1,5 @@
+require 'basic_error'
+
 module CryptiKit
   class CurlError < BasicError
     @errors = {
