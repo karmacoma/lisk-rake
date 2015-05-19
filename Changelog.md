@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2015-05-19 (2.0.2)
+
+- Fixing broken URLs
+
 ### 2015-04-10 (2.0.1)
 
 This release fixes some issues affecting certain systems.
