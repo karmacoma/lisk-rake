@@ -81,6 +81,10 @@ module CryptiKit
       config['accounts'] ||= {}
     end
 
+    def self.top_accounts
+      (config['top_accounts'].to_s == 'true')
+    end
+
     def self.baddies
       @baddies ||= []
     end
