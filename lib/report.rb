@@ -53,7 +53,7 @@ module CryptiKit
     end
 
     def on_standby
-      accounts.find_all { |a| a['delegate_status']['delegate']['rate'].to_i > 101 }
+      accounts.find_all { |a| a['delegate_status']['delegate']['rate'].to_i > 101 rescue false }
     end
 
     def not_forging
