@@ -6,10 +6,10 @@ module CryptiKit
 
     def add(passphrase)
       @task.info 'Adding passphrase to remote config...'
-      add?(passphrase) do |escaped|
+      add?(passphrase) do |passphrase|
         update_config do |config|
-          unless config['forging']['secret'].include?(escaped) then
-            config['forging']['secret'].push(escaped)
+          unless config['forging']['secret'].include?(passphrase) then
+            config['forging']['secret'].push(passphrase)
           end
         end
       end
@@ -17,9 +17,9 @@ module CryptiKit
 
     def remove(passphrase)
       @task.info 'Removing passphrase from remote config...'
-      remove?(passphrase) do |escaped|
+      remove?(passphrase) do |passphrase|
         update_config do |config|
-          if index = config['forging']['secret'].index(escaped) then
+          if index = config['forging']['secret'].index(passphrase) then
             config['forging']['secret'].delete_at(index)
           end
         end
@@ -32,7 +32,7 @@ module CryptiKit
       if passphrase.is_a?(Hash) then
         print yellow("Add passphrase to remote config?\s")
         STDIN.gets.chomp.match(/y|yes/i)
-        yield Passphrase.escaped(passphrase[:secret])
+        yield Passphrase.to_s(passphrase[:secret])
       else
         @task.warn '=> Skipped.'
       end
@@ -40,7 +40,7 @@ module CryptiKit
 
     def remove?(passphrase, &block)
       if passphrase.is_a?(Hash) then
-        yield Passphrase.escaped(passphrase[:secret])
+        yield Passphrase.to_s(passphrase[:secret])
       else
         @task.warn '=> Skipped.'
       end

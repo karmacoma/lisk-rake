@@ -5,35 +5,15 @@ module CryptiKit
     end
 
     def self.gets
-      self.new(STDIN.noecho(&:gets).chomp).raw
+      self.new(STDIN.noecho(&:gets).chomp).to_s
     end
 
-    def self.escaped(passphrase)
-      self.new(passphrase).escaped
+    def self.to_s(passphrase)
+      self.new(passphrase).to_s
     end
 
-    def raw
+    def to_s
       @passphrase
-    end
-
-    ESCAPED_CHARS = {
-      /\\/   => %q{\\\\},
-      /\//   => %q{\/},
-      /\x22/ => %q{\\\"},
-      /\x27/ => %q{\x27},
-      /\^/   => %q{\^},
-      /\$/   => %q{\$},
-      /\./   => %q{\.},
-      /\*/   => %q{\*},
-      /\[/   => %q{\[},
-      /\]/   => %q{\]},
-      /\&/   => %q{\&}
-    }
-
-    def escaped
-      @escaped = @passphrase.dup
-      ESCAPED_CHARS.each_pair { |k,v| @escaped.gsub!(k, &Proc.new { v }) }
-      @escaped
     end
   end
 end
