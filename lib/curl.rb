@@ -29,9 +29,15 @@ module CryptiKit
       return json
     end
 
+    ESCAPED_CHARS = {
+      /'/ => '\u0027',
+      /`/ => '\u0060'
+    }
+
     def post(url, data = {}, method = 'POST', &block)
       begin
-        data = data.to_json.gsub(/'/, '\u0027')
+        data = data.to_json
+        ESCAPED_CHARS.each_pair { |k,v| data.gsub!(k, &Proc.new { v }) }
         body = @task.capture *curl('-X', method, '-d', "'#{data}'", encode_url(url))
         json = JSON.parse(body)
       rescue Exception => exception
