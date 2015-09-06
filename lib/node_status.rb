@@ -21,6 +21,10 @@ module CryptiKit
       val.is_a?(Hash) and val['success']
     end
 
+    def loaded?
+      @json['loading_status'] and @json['loading_status']['loaded'] == true
+    end
+
     def forever_status
       if has_section?('forever_status') then
         ForeverStatus.new(@json['forever_status']).to_s
@@ -57,6 +61,7 @@ module CryptiKit
         @json['accounts_status']['accounts'].each_with_index do |json,i|
           cache = @cache['accounts_status']['accounts'][i] rescue nil
           cache = {} if cache.nil?
+          next unless loaded?
           accounts.push([
             divider('-'),
             delegate_status(json),
