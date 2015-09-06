@@ -13,16 +13,16 @@ module CryptiKit
       @json['info'] + "\n"
     end
 
+    def loaded?
+      @json['loading_status'] and @json['loading_status']['loaded'] == true
+    end
+
     def has_section?(key, json = nil)
       if json.nil? then
         json = @json
       end
       val = json[key.to_s]
       val.is_a?(Hash) and val['success']
-    end
-
-    def loaded?
-      @json['loading_status'] and @json['loading_status']['loaded'] == true
     end
 
     def forever_status
