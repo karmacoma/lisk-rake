@@ -112,7 +112,7 @@ module CryptiKit
 
     def install_modules
       @task.info 'Installing node modules...'
-      @task.execute 'npm', 'install'
+      @task.execute 'npm', 'install', '--production'
     end
   end
 end
