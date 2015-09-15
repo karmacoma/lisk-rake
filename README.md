@@ -73,9 +73,9 @@ cd cryptikit
 . update.sh
 ```
 
-> NOTE:
-> The existing configuration file will be copied to: config.bak. CryptiKit will then copy any pre-configured servers and accounts over to the newly downloaded config.yml file.
-
+> NOTES:
+> 1. The existing configuration file will be copied to: config.bak. CryptiKit will then copy any pre-configured servers and accounts over to the newly downloaded config.yml file.
+> 2. If you encounter any issues when updating from an older version of CryptiKit. Please try running ```rvm implode``` followed by entering ```yes```. Then execute ```. install.sh``` to perform a fresh installation (your CryptiKit configuration will be preserved).
 
 ***
 
