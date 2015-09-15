@@ -38,7 +38,7 @@ if ! command -v rvm >/dev/null 2>&1 ; then
 fi
 
 rvm get stable
-rvm alias create cryptikit-ruby ruby-2.1.2
+rvm alias create cryptikit-ruby ruby-2.2.3
 rvm cryptikit-ruby do rvm gemset create cryptikit
 
 echo "Updating gems..."
