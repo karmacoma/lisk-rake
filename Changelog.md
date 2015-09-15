@@ -1,8 +1,45 @@
 ## Changelog
 
+### 2015-09-15 (2.1.0)
+
+#### Checking Nodes
+
+- Adding timestamp to Last Forged block
+- Reformatting Last Forged block to: Amount @ Height -> Timestamp
+- Disregarding sync status when inspecting nodes/accounts
+- Disabling delegate status when node is loading
+- Formatting balance changes to 8 decimal places
+
+#### Start/Stop Forging
+
+- Recursively prompting user for "another" delegate until done
+- Escaping grave accents when submitting passphrases
+
+#### Node Installation
+
+- Adding --production switch to node installer
+- Scheduling automatic start on server reboot
+  - Adding cron job on install, reinstall and rebuild
+  - Removing crob job on uninstall
+
+#### Configuration
+
+- Adding configurable genesis block timestamp
+- Allowing top accounts to be optionally enabled
+
+#### Updates
+
+- Updating ruby to version: 2.2.3
+- Updating byebug and rspec gems
+- Updating reference node
+
+***
+
 ### 2015-05-19 (2.0.2)
 
 - Fixing broken URLs
+
+***
 
 ### 2015-04-10 (2.0.1)
 
