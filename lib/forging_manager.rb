@@ -7,6 +7,29 @@ module CryptiKit
 
     def start(server, node)
       return unless loaded?
+      another = true
+      while another do
+        enable_one(server, node)
+        another = enable_another?
+      end
+    end
+
+    def stop(server, node)
+      return unless loaded?
+      another = true
+      while another do
+        disable_one(server, node)
+        another = disable_another?
+      end
+    end
+
+    private
+
+    def loaded?
+      NodeInspector.loaded?(@task)
+    end
+
+    def enable_one(server, node)
       PassphraseCollector.get do |passphrase|
         @task.info 'Enabling forging...'
         @api.post '/api/delegates/forging/enable', passphrase do |json|
@@ -21,8 +44,12 @@ module CryptiKit
       end
     end
 
-    def stop(server, node)
-      return unless loaded?
+    def enable_another?
+      print yellow("Enable forging for another delegate?\s")
+      STDIN.gets.chomp.match(/y|yes/i)
+    end
+
+    def disable_one(server, node)
       PassphraseCollector.get do |passphrase|
         @task.info 'Disabling forging...'
         @api.post '/api/delegates/forging/disable', passphrase do |json|
@@ -37,10 +64,9 @@ module CryptiKit
       end
     end
 
-    private
-
-    def loaded?
-      NodeInspector.loaded?(@task)
+    def disable_another?
+      print yellow("Disable forging for another delegate?\s")
+      STDIN.gets.chomp.match(/y|yes/i)
     end
   end
 end
