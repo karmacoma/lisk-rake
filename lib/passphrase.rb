@@ -8,7 +8,7 @@ module CryptiKit
       self.new(STDIN.noecho(&:gets).chomp).to_s
     end
 
-    def self.to_s(passphrase)
+    def self.to_s(passphrase = nil)
       self.new(passphrase).to_s
     end
 
