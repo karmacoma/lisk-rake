@@ -192,7 +192,10 @@ Add passphrase to remote config? _____
 
 #### Multiple Delegates
 
-To assign multiple delegates to a node, simply repeat the ```start_forging``` command for each account you would like to assign to a node.
+After each attempt, CryptiKit will ask if you want to enable another delegate until you specify otherwise. Thus allowing you to start forging for multiple delegates using one instance of the  ```rake start_forging``` command.
+
+> NOTE:
+> Forging can be stopped for multiple delegates in the same manner using the ```rake stop_forging``` command.
 
 ***
 
