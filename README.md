@@ -225,7 +225,7 @@ Delegate:          (1) Olivier [Active] 14636030356238523094C
 Productivity:      71.59%
 Rank:              15
 Forging:           true
-Last Forged:       Block -> 17237195879835124361 Amount -> 0.0
+Last Forged:       0.0 @ 1027287 -> 2015-08-15 19:03:40 +0100
 Forged:            320.67081153 0.0 (*)
 Balance:           174644.91081588 0.0 (*)
 Unconfirmed:       174644.91081588 0.0 (*)
