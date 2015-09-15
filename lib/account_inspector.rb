@@ -33,10 +33,6 @@ module CryptiKit
       @inspector.loaded
     end
 
-    def synced
-      @inspector.synced
-    end
-
     def self.inspect(task, node)
       self.new(task, node).inspect
     end
@@ -82,7 +78,7 @@ module CryptiKit
     end
 
     def forging_info
-      if synced and @public_key then
+      if @public_key then
         json = forged_coinage
         json.merge!(forged_blocks) if json['success']
         json
@@ -94,7 +90,7 @@ module CryptiKit
 
     def account_balance
       task.info 'Getting account balance...'
-      if synced and @account then
+      if @account then
         api.get '/api/accounts/getBalance', { address: @account } do |json|
           task.info '=> Done.'
         end
