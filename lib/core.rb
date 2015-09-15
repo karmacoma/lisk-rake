@@ -53,6 +53,14 @@ module CryptiKit
       config['reference_node']
     end
 
+    def self.timestamp(offset)
+      genesis = config['genesis'].to_i
+      offset  = offset.to_i
+      if (genesis > 0 and offset > 0) then
+        genesis + offset
+      end
+    end
+
     def self.app_port
       (test?) ? 7040 : 8040
     end
