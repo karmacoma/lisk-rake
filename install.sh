@@ -39,6 +39,7 @@ rvm alias create cryptikit-ruby ruby-2.2.3
 echo "Installing gems..."
 echo "-------------------------------------------------------------------------------"
 
+rvm cryptikit-ruby@global do gem install bundler
 rvm cryptikit-ruby do rvm gemset create cryptikit
 rvm cryptikit-ruby@cryptikit do bundle install --without development
 

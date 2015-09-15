@@ -44,6 +44,7 @@ rvm cryptikit-ruby do rvm gemset create cryptikit
 echo "Updating gems..."
 echo "-------------------------------------------------------------------------------"
 
+rvm cryptikit-ruby@global do gem install bundler
 rvm cryptikit-ruby@cryptikit do bundle install --without development
 rvm cryptikit-ruby@cryptikit do bundle clean --force
 
