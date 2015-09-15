@@ -14,7 +14,7 @@ module CryptiKit
     end
 
     def abs
-      (@cur - @pre).abs
+      "%.8f" % (@cur - @pre).abs
     end
 
     def to_s
