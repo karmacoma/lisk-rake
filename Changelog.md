@@ -1,5 +1,13 @@
 ## Changelog
 
+### 2015-09-16 (2.1.1)
+
+- Ensuring passphrases are never saved in cache.json
+- Fixing undefined method error encountered when no accounts are configured
+- Fixing error encountered when running automated update script with no ruby installed
+
+***
+
 ### 2015-09-15 (2.1.0)
 
 #### Checking Nodes
