@@ -30,18 +30,10 @@ else
   [[ -s "/etc/profile.d/rvm.sh" ]] && source "/etc/profile.d/rvm.sh"
 fi
 
-echo "Installing ruby..."
-echo "-------------------------------------------------------------------------------"
+#### "Installing ruby / gems..."
+#### "-------------------------------------------------------------------------------"
 
-rvm install ruby-2.2.3
-rvm alias create cryptikit-ruby ruby-2.2.3
-
-echo "Installing gems..."
-echo "-------------------------------------------------------------------------------"
-
-rvm cryptikit-ruby@global do gem install bundler
-rvm cryptikit-ruby do rvm gemset create cryptikit
-rvm cryptikit-ruby@cryptikit do bundle install --without development
+. "$(pwd)/bin/install_ruby.sh"
 
 echo "Enabling bash auto-completion..."
 echo "-------------------------------------------------------------------------------"
@@ -80,5 +72,3 @@ fi
 
 echo "Done."
 echo "-------------------------------------------------------------------------------"
-
-cd .
