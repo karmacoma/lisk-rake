@@ -21,7 +21,9 @@ module CryptiKit
     end
 
     def config_status
-      ConfigInspector.inspect(@task)
+      config = ConfigInspector.inspect(@task)
+      config['forging']['secret'] = [] if config['forging']
+      config
     end
 
     def loading_status
