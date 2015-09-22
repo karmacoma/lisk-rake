@@ -3,7 +3,7 @@ deploy_path: "/var/crypti"
 deploy_user: root
 app_url: https://www.dropbox.com/s/xz13pnjcz2btsx8/crypti-linux.zip?dl=0
 blockchain_url: https://www.dropbox.com/s/bo6ddgz3goj77bg/blockchain.db.zip?dl=0
-reference_node: 104.238.171.58
+reference_node: 83.136.253.66
 genesis: 1425859200
 environment: live
 top_accounts: false
