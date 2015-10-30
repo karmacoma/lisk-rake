@@ -1,5 +1,16 @@
 ## Changelog
 
+### 2015-11-06 (2.2.0)
+
+- Installing customised build of sqlite3
+- Updating installed nodejs version to: 0.12
+- Controlling nodes using forever-service (replaces cron)
+- Installing crypti-node (used as vm for running dapps)
+- Restricting installation to Ubuntu Linux only
+- Updating app_url and blockchain_url links
+
+***
+
 ### 2015-09-16 (2.1.1)
 
 - Ensuring passphrases are never saved in cache.json
