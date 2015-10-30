@@ -10,7 +10,7 @@ module CryptiKit
       @task.info 'Installing packages...'
       @task.execute 'yum', 'install', '-y', 'gcc-c++', 'make', 'curl', 'python', 'sqlite', 'wget', 'unzip'
       @task.info 'Adding nodejs repository...'
-      @task.execute 'curl', '-sL', 'https://rpm.nodesource.com/setup', '|', 'bash', '-'
+      @task.execute 'curl', '-sL', 'https://rpm.nodesource.com/setup_0.12', '|', 'bash', '-'
       @task.info 'Installing nodejs...'
       @task.execute 'yum', 'install', '-y', 'nodejs'
       @task.info 'Installing forever...'
