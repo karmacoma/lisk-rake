@@ -8,7 +8,7 @@ module CryptiKit
       stop do
         @task.within Core.install_path do
           @task.info 'Starting crypti node...'
-          @task.execute top_accounts?, 'forever', 'start', 'app.js', '||', ':'
+          @task.execute 'start', 'crypti', '||', ':'
           @task.info '=> Done.'
         end
       end
@@ -17,7 +17,8 @@ module CryptiKit
     def restart
       @task.within Core.install_path do
         @task.info 'Restarting crypti node...'
-        @task.execute top_accounts?, 'forever', 'restart', 'app.js', '||', ':'
+        @task.execute 'stop', 'crypti', '||', ':'
+        @task.execute 'start', 'crypti', '||', ':'
         @task.info '=> Done.'
       end
     end
@@ -26,17 +27,13 @@ module CryptiKit
       return unless install_path?
       @task.within Core.install_path do
         @task.info 'Stopping crypti node...'
-        @task.execute 'forever', 'stop', 'app.js', '||', ':'
+        @task.execute 'stop', 'crypti', '||', ':'
         @task.info '=> Done.'
       end
       yield if block_given?
     end
 
     private
-
-    def top_accounts?
-      "TOP=#{Core.top_accounts}"
-    end
 
     def install_path?
       @task.test "[ -d #{Core.install_path} ];"

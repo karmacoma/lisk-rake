@@ -85,7 +85,7 @@ task :install_nodes do
   puts 'Installing crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'crontab', 'forever', 'npm', 'wget', 'unzip')
+    deps.check_remote(node, 'forever-service', 'forever', 'npm', 'wget', 'unzip')
 
     installer = CryptiKit::NodeInstaller.new(self)
     installer.install
@@ -103,7 +103,7 @@ task :uninstall_nodes do
   puts 'Uninstalling crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'crontab', 'forever', 'crypti')
+    deps.check_remote(node, 'forever-service', 'forever', 'crypti')
 
     installer = CryptiKit::NodeInstaller.new(self)
     installer.uninstall

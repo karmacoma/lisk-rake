@@ -8,7 +8,7 @@ module CryptiKit
       @task.info 'Updating package lists...'
       @task.execute 'apt-get', 'update'
       @task.info 'Installing packages...'
-      @task.execute 'apt-get', 'install', '-f', '--yes', 'build-essential', 'curl', 'python', 'wget', 'unzip', 'cron'
+      @task.execute 'apt-get', 'install', '-f', '--yes', 'build-essential', 'curl', 'python', 'wget', 'unzip'
       @task.info 'Adding sqlite3 repository...'
       @task.execute 'curl', '-sL', 'http://downloads.cryptichain.me/setup_sqlite3', '|', 'bash', '-'
       @task.info 'Adding nodejs repository...'
@@ -21,6 +21,8 @@ module CryptiKit
       @task.execute 'apt-get', 'install', '-f', '--yes', 'nodejs', 'sqlite3'
       @task.info 'Installing forever...'
       @task.execute 'npm', 'install', '-g', 'forever'
+      @task.info 'Installing forever-service...'
+      @task.execute 'npm', 'install', '-g', 'forever-service'
       @task.info '=> Done.'
     end
   end

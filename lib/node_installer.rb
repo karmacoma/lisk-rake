@@ -16,7 +16,7 @@ module CryptiKit
       @task.within Core.install_path do
         download_blockchain
         install_modules
-        add_cronjob
+        install_service
       end
       @manager.start
     end
@@ -26,7 +26,7 @@ module CryptiKit
       @task.within Core.install_path do
         remove_blockchain
         download_blockchain
-        add_cronjob
+        install_service
       end
       @manager.start
     end
@@ -44,7 +44,7 @@ module CryptiKit
       @task.within Core.install_path do
         restore_blockchain
         install_modules
-        add_cronjob
+        install_service
       end
       @manager.start
     end
@@ -52,7 +52,7 @@ module CryptiKit
     def uninstall
       @manager.stop
       remove_deploy_path
-      remove_cronjob
+      uninstall_service
       @task.info '=> Done.'
     end
 
@@ -119,14 +119,14 @@ module CryptiKit
       @task.execute 'npm', 'install', '--production'
     end
 
-    def add_cronjob
-      cronjob = CronJob.new(@task)
-      cronjob.add
+    def install_service
+      service = ForeverService.new(@task)
+      service.install
     end
 
-    def remove_cronjob
-      cronjob = CronJob.new(@task)
-      cronjob.remove
+    def uninstall_service
+      service = ForeverService.new(@task)
+      service.uninstall
     end
   end
 end
