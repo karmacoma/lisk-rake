@@ -1,7 +1,7 @@
 module CryptiKit
   class ServerInspector
     SUPPORTED_ARCHS  = /x86_64/i
-    SUPPORTED_DISTS  = /debian|ubuntu/i
+    SUPPORTED_DISTS  = /ubuntu/i
 
     def initialize(task)
       @task = task
@@ -23,7 +23,7 @@ module CryptiKit
     def base
       case dist
       when SUPPORTED_DISTS then
-        :debian
+        :ubuntu
       end
     end
 

@@ -1,5 +1,5 @@
 module CryptiKit
-  class DebianInstaller
+  class UbuntuInstaller
     def initialize(task)
       @task = task
     end
