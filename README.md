@@ -2,47 +2,14 @@
 
 ### Supported Hosts
 
-#### DigitalOcean
+* [Atlantic](https://www.atlantic.net/)
+* [Digital Ocean](https://www.digitalocean.com/?refcode=c637b271d39f)
+* [Vultr](http://www.vultr.com/?ref=6814545)
+* [UpCloud](http://www.upcloud.com/)
 
-Supported operating systems:
+### Supported Operating Systems
 
-- CentOS (7.0 x64)
-- Debian (7.0 x64)
-- Fedora (20 x64)
-- Ubuntu (14.04 x64)
-
-> Link: [https://www.digitalocean.com/?refcode=c637b271d39f](https://www.digitalocean.com/?refcode=c637b271d39f)
-
-#### Kyup
-
-Supported operating systems:
-
-- CentOS (7.0 x64)
-- Debian (7.0 x64)
-- Ubuntu (14.04 x64)
-
-> Link: [https://www.kyup.com/](https://www.kyup.com/)
-
-#### Vultr
-
-Supported operating systems:
-
-- CentOS (7.0 x64)
-- Debian (7.0 x64)
-- Ubuntu (14.04 x64)
-
-> Link: [http://www.vultr.com/?ref=6814545](http://www.vultr.com/?ref=6814545)
-
-#### Wable
-
-Supported operating systems:
-
-- debian-7.0-x86_64
-- fedora-20-x86_64
-- ubuntu-13.10-x86_64
-- ubuntu-14.04-x86_64-minimal
-
-> Link: [http://www.wable.com/](http://www.wable.com/)
+* Ubuntu 14.04 (LTS) - 64 bit
 
 ***
 
