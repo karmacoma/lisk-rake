@@ -12,10 +12,6 @@ module CryptiKit
         deps.check_remote(node, 'apt-get')
         installer = DebianInstaller.new(@task)
         installer.install
-      when :redhat then
-        deps.check_remote(node, 'yum')
-        installer = RedhatInstaller.new(@task)
-        installer.install
       end
     end
   end

@@ -1,9 +1,7 @@
 module CryptiKit
   class ServerInspector
     SUPPORTED_ARCHS  = /x86_64/i
-    SUPPORTED_DISTS  = /centos|fedora|debian|ubuntu/i
-    SUPPORTED_REDHAT = /centos|fedora/i
-    SUPPORTED_DEBIAN = /debian|ubuntu/i
+    SUPPORTED_DISTS  = /debian|ubuntu/i
 
     def initialize(task)
       @task = task
@@ -18,15 +16,13 @@ module CryptiKit
     end
 
     def dist
-      m = release.to_s.match(/centos|fedora|debian|ubuntu/i)
+      m = release.to_s.match(SUPPORTED_DISTS)
       m[0] if m
     end
 
     def base
       case dist
-      when SUPPORTED_REDHAT then
-        :redhat
-      when SUPPORTED_DEBIAN then
+      when SUPPORTED_DISTS then
         :debian
       end
     end
