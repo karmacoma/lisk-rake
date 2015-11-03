@@ -12,6 +12,8 @@ module CryptiKit
       @task.within Core.deploy_path do
         download_crypti
         install_crypti
+        download_crypti_node
+        install_crypti_node
       end
       @task.within Core.install_path do
         download_blockchain
@@ -40,6 +42,8 @@ module CryptiKit
       @task.within Core.deploy_path do
         download_crypti
         install_crypti
+        download_crypti_node
+        install_crypti_node
       end
       @task.within Core.install_path do
         restore_blockchain
@@ -83,6 +87,18 @@ module CryptiKit
       @task.execute 'unzip', '-u', Core.app_file, '-d', Core.install_path
       @task.info 'Cleaning up...'
       @task.execute 'rm', '-f', Core.app_file
+    end
+
+    def download_crypti_node
+      @task.info 'Dowloading crypti-node...'
+      @task.execute 'wget', 'http://downloads.cryptichain.me/crypti-node.zip'
+    end
+
+    def install_crypti_node
+      @task.info 'Installing crypti-node...'
+      @task.execute 'unzip', '-u', 'crypti-node.zip', '-d', Core.install_path
+      @task.info 'Cleaning up...'
+      @task.execute 'rm', '-f', 'crypti-node.zip'
     end
 
     def save_blockchain
