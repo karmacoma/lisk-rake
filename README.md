@@ -19,7 +19,7 @@
 
   [https://github.com/karmacoma/cryptikit/releases/latest](https://github.com/karmacoma/cryptikit/releases/latest)
 
-* Run the automated install script. Tested on Ubuntu 14.04 LTS and OS-X Yosemite.
+* Run the automated install script. Tested on Ubuntu 14.04 (LTS) and OS X El Capitan.
 
 ```
 cd cryptikit
@@ -27,7 +27,7 @@ cd cryptikit
 ```
 
 > NOTE:
-> This will install homebrew (on OS-X), ruby (rvm) plus a few application dependencies.
+> This will install homebrew (on OS X), ruby (rvm) plus a few application dependencies.
 
 ***
 
