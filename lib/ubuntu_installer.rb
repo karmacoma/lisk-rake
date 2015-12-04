@@ -4,7 +4,9 @@ module CryptiKit
       @task = task
     end
 
-    def install
+    def install(node, deps)
+      deps.check_remote(node, 'apt-get')
+
       @task.info 'Updating package lists...'
       @task.execute 'apt-get', 'update'
       @task.info 'Installing packages...'

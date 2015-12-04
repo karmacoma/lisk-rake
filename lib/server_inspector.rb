@@ -1,29 +1,18 @@
 module CryptiKit
   class ServerInspector
-    SUPPORTED_ARCHS  = /x86_64/i
-    SUPPORTED_DISTS  = /ubuntu/i
+    SUPPORTED_PLATS = {
+      'Linux' => /x86_64/i
+    }
 
     def initialize(task)
       @task = task
     end
 
-    def release
-      if !@release and @task.test 'which', 'cat' then
-        @release ||= @task.capture 'cat', '/etc/*-release'
+    def os
+      if !@os and @task.test 'which', 'uname' then
+        @os ||= @task.capture 'uname', '-s'
       else
-        @release
-      end
-    end
-
-    def dist
-      m = release.to_s.match(SUPPORTED_DISTS)
-      m[0] if m
-    end
-
-    def base
-      case dist
-      when SUPPORTED_DISTS then
-        :ubuntu
+        @os
       end
     end
 
@@ -35,10 +24,19 @@ module CryptiKit
       end
     end
 
+    def detect_os
+      @task.info 'Detecting os...'
+      if SUPPORTED_PLATS.has_key?(os) then
+        @task.info "=> Found: #{os}"
+        return os.downcase.to_sym
+      else
+        raise 'Unsupported os detected.'
+      end
+    end
+
     def detect_arch
       @task.info 'Detecting architecture...'
-      case arch
-      when SUPPORTED_ARCHS then
+      if os and arch =~ SUPPORTED_PLATS[os] then
         @task.info "=> Found: #{arch}"
         return arch.downcase.to_sym
       else
@@ -46,19 +44,8 @@ module CryptiKit
       end
     end
 
-    def detect_dist
-      @task.info 'Detecting distribution...'
-      case dist
-      when SUPPORTED_DISTS then
-        @task.info "=> Found: #{dist}"
-        return dist.downcase.to_sym
-      else
-        raise 'Unsupported distribution detected.'
-      end
-    end
-
     def detect
-      [detect_arch, detect_dist]
+      [detect_os, detect_arch]
     end
   end
 end
