@@ -6,32 +6,31 @@ module CryptiKit
     end
 
     def install
+      @insp = ServerInspector.new(@task)
+      @insp.detect
+
       @manager.stop
       remove_deploy_path
       make_deploy_path
       @task.within Core.deploy_path do
         download_crypti
         install_crypti
-        download_crypti_node
-        install_crypti_node
       end
-      @task.within Core.install_path do
-        download_blockchain
-        install_modules
-      end
-      @manager.start
+      @manager.start(true)
     end
 
     def rebuild
       @manager.stop
       @task.within Core.install_path do
         remove_blockchain
-        download_blockchain
       end
       @manager.start
     end
 
     def reinstall
+      @insp = ServerInspector.new(@task)
+      @insp.detect
+
       @manager.stop
       @task.within Core.install_path do
         save_blockchain
@@ -40,14 +39,8 @@ module CryptiKit
       @task.within Core.deploy_path do
         download_crypti
         install_crypti
-        download_crypti_node
-        install_crypti_node
       end
-      @task.within Core.install_path do
-        restore_blockchain
-        install_modules
-      end
-      @manager.start
+      @manager.start(true)
     end
 
     def uninstall
@@ -73,62 +66,48 @@ module CryptiKit
       @task.execute 'mkdir', '-p', Core.deploy_path
     end
 
+    def app_url
+      @app_url ||= "#{Core.download_url}#{zip_file}"
+    end
+
+    def app_path
+      @app_path ||= "crypti-#{@insp.os}-#{@insp.arch}"
+    end
+
+    def zip_file
+      @zip_file ||= "#{app_path}.zip"
+    end
+
     def download_crypti
       @task.info 'Downloading crypti...'
-      @task.execute 'wget', Core.app_url, '-O', Core.app_file
+      @task.execute 'wget', app_url, '-O', zip_file
     end
 
     def install_crypti
       @task.info 'Installing crypti...'
-      @task.execute 'unzip', '-u', Core.app_file, '-d', Core.install_path
+      @task.execute 'unzip', '-u', zip_file
+      @task.execute 'mv', '-f', '$(ls -d * | head -1)', Core.install_path
       @task.info 'Cleaning up...'
-      @task.execute 'rm', '-f', Core.app_file
-    end
-
-    def download_crypti_node
-      @task.info 'Dowloading crypti-node...'
-      @task.execute 'wget', 'http://downloads.cryptichain.me/crypti-node.zip'
-    end
-
-    def install_crypti_node
-      @task.info 'Installing crypti-node...'
-      @task.execute 'unzip', '-u', 'crypti-node.zip', '-d', Core.install_path
-      @task.info 'Cleaning up...'
-      @task.execute 'rm', '-f', 'crypti-node.zip'
+      @task.execute 'rm', '-f', zip_file
     end
 
     def save_blockchain
-      @task.info 'Saving blockchain...'
-      @task.execute 'cp', '-f', 'blockchain.db', '../blockchain.db.bak'
+      if @task.test '-f', 'blockchain.db' then
+        @task.info 'Saving blockchain...'
+        @task.execute 'cp', '-f', 'blockchain.db', '../blockchain.db.bak'
+      end
     end
 
     def restore_blockchain
-      @task.info 'Restoring blockchain...'
-      @task.execute 'cp', '-f', '../blockchain.db.bak', 'blockchain.db'
+      if @task.test '-f', 'blockchain.db.bak' then
+        @task.info 'Restoring blockchain...'
+        @task.execute 'cp', '-f', '../blockchain.db.bak', 'blockchain.db'
+      end
     end
 
     def remove_blockchain
       @task.info 'Removing blockchain...'
       @task.execute 'rm', '-f', 'blockchain.db*'
-    end
-
-    def download_blockchain?
-      Core.blockchain_url.to_s.size > 0
-    end
-
-    def download_blockchain
-      return unless download_blockchain?
-      @task.info 'Downloading blockchain...'
-      @task.execute 'wget', Core.blockchain_url, '-O', Core.blockchain_file
-      @task.info 'Decompressing blockchain...'
-      @task.execute 'unzip', '-u', Core.blockchain_file
-      @task.info 'Cleaning up...'
-      @task.execute 'rm', Core.blockchain_file
-    end
-
-    def install_modules
-      @task.info 'Installing node modules...'
-      @task.execute 'npm', 'install', '--production'
     end
   end
 end

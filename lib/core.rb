@@ -33,8 +33,8 @@ module CryptiKit
       [deploy_path, '/install'].join
     end
 
-    def self.app_url
-      config['app_url']
+    def self.download_url
+      config['download_url']
     end
 
     def self.environment
@@ -65,20 +65,8 @@ module CryptiKit
       (test?) ? 7040 : 8040
     end
 
-    def self.app_file
-      'crypti-linux.zip'
-    end
-
     def self.log_file
       install_path + '/logs.log'
-    end
-
-    def self.blockchain_url
-      config['blockchain_url']
-    end
-
-    def self.blockchain_file
-      'blockchain.db.zip'
     end
 
     def self.configured_servers

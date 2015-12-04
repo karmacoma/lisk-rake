@@ -1,9 +1,8 @@
 ---
 deploy_path: "/var/crypti"
 deploy_user: root
-app_url: http://downloads.cryptichain.me/crypti-linux.zip
-blockchain_url: http://downloads.cryptichain.me/blockchain.db.zip
 reference_node: 83.136.253.66
+download_url: http://downloads.cryptichain.me/
 genesis: 1425859200
 environment: live
 top_accounts: false
