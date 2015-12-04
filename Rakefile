@@ -85,7 +85,7 @@ task :install_nodes do
   puts 'Installing crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever-service', 'forever', 'npm', 'wget', 'unzip')
+    deps.check_remote(node, 'wget', 'unzip')
 
     installer = CryptiKit::NodeInstaller.new(self)
     installer.install
@@ -103,7 +103,7 @@ task :uninstall_nodes do
   puts 'Uninstalling crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever-service', 'forever', 'crypti')
+    deps.check_remote(node, 'crypti')
 
     installer = CryptiKit::NodeInstaller.new(self)
     installer.uninstall
@@ -115,7 +115,7 @@ task :clean_logs do
   puts 'Cleaning logs...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'crypti')
 
     manager = CryptiKit::LogManager.new(self)
     manager.clean
@@ -127,7 +127,7 @@ task :download_logs do
   puts 'Downloading logs...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'crypti')
 
     manager = CryptiKit::LogManager.new(self)
     manager.download(node)
@@ -139,7 +139,7 @@ task :start_nodes do
   puts 'Starting crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'crypti')
 
     manager = CryptiKit::NodeManager.new(self)
     manager.start
@@ -151,7 +151,7 @@ task :restart_nodes do
   puts 'Restarting crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'crypti')
 
     manager = CryptiKit::NodeManager.new(self)
     manager.restart
@@ -163,7 +163,7 @@ task :rebuild_nodes do
   puts 'Rebuilding crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever', 'wget', 'crypti')
+    deps.check_remote(node, 'wget', 'crypti')
 
     installer = CryptiKit::NodeInstaller.new(self)
     installer.rebuild
@@ -175,7 +175,7 @@ task :reinstall_nodes do
   puts 'Reinstalling crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever', 'wget', 'crypti')
+    deps.check_remote(node, 'wget', 'crypti')
 
     installer = CryptiKit::NodeInstaller.new(self)
     installer.reinstall
@@ -187,7 +187,7 @@ task :stop_nodes do
   puts 'Stopping crypti nodes...'
 
   on_each_server do |server, node, deps|
-    deps.check_remote(node, 'forever', 'crypti')
+    deps.check_remote(node, 'crypti')
 
     manager = CryptiKit::NodeManager.new(self)
     manager.stop
@@ -228,7 +228,7 @@ task :check_nodes do
 
   CryptiKit::Report.run do |report|
     on_each_server do |server, node, deps|
-      deps.check_remote(node, 'curl', 'forever', 'crypti')
+      deps.check_remote(node, 'curl', 'crypti')
 
       api = CryptiKit::NodeInspector.new(self)
       api.node_status(node) { |json| report[node.key] = json }
