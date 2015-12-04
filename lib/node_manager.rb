@@ -4,33 +4,29 @@ module CryptiKit
       @task = task
     end
 
-    def start
-      stop do
-        @task.within Core.install_path do
-          @task.info 'Starting crypti node...'
-          @task.execute 'start', 'crypti', '||', ':'
-          @task.info '=> Done.'
-        end
+    def start(auto = false)
+      @task.within Core.install_path do
+        @task.info 'Starting crypti...'
+        @task.execute 'bash', 'crypti.sh', (auto ? 'autostart' : 'start'), '||', ':'
+        @task.info '=> Done.'
       end
     end
 
     def restart
       @task.within Core.install_path do
-        @task.info 'Restarting crypti node...'
-        @task.execute 'stop', 'crypti', '||', ':'
-        @task.execute 'start', 'crypti', '||', ':'
+        @task.info 'Restarting crypti...'
+        @task.execute 'bash', 'crypti.sh', 'restart', '||', ':'
         @task.info '=> Done.'
       end
     end
 
-    def stop(&block)
+    def stop
       return unless install_path?
       @task.within Core.install_path do
-        @task.info 'Stopping crypti node...'
-        @task.execute 'stop', 'crypti', '||', ':'
+        @task.info 'Stopping crypti...'
+        @task.execute 'bash', 'crypti.sh', 'stop', '||', ':'
         @task.info '=> Done.'
       end
-      yield if block_given?
     end
 
     private
