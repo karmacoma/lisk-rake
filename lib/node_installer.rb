@@ -18,7 +18,6 @@ module CryptiKit
       @task.within Core.install_path do
         download_blockchain
         install_modules
-        install_service
       end
       @manager.start
     end
@@ -28,7 +27,6 @@ module CryptiKit
       @task.within Core.install_path do
         remove_blockchain
         download_blockchain
-        install_service
       end
       @manager.start
     end
@@ -48,7 +46,6 @@ module CryptiKit
       @task.within Core.install_path do
         restore_blockchain
         install_modules
-        install_service
       end
       @manager.start
     end
@@ -56,7 +53,6 @@ module CryptiKit
     def uninstall
       @manager.stop
       remove_deploy_path
-      uninstall_service
       @task.info '=> Done.'
     end
 
@@ -133,16 +129,6 @@ module CryptiKit
     def install_modules
       @task.info 'Installing node modules...'
       @task.execute 'npm', 'install', '--production'
-    end
-
-    def install_service
-      service = ForeverService.new(@task)
-      service.install
-    end
-
-    def uninstall_service
-      service = ForeverService.new(@task)
-      service.uninstall
     end
   end
 end
