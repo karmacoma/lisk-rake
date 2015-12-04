@@ -9,15 +9,15 @@ module CryptiKit
       @api  = Curl.new(@task)
     end
 
-    def forever_status
-      @task.info 'Getting forever status...'
-      @forever = ForeverInspector.new(@task)
-      if @forever.success? then
+    def process_status
+      @task.info 'Getting process status...'
+      @process = ProcessInspector.new(@task)
+      if @process.success? then
         @task.info '=> Done.'
       else
-        @task.warn '=> Forever status not available.'
+        @task.warn '=> Process status not available.'
       end
-      @forever.to_h
+      @process.to_h
     end
 
     def config_status
@@ -69,7 +69,7 @@ module CryptiKit
       json = {
         'info'            => node.info,
         'config_status'   => config_status,
-        'forever_status'  => forever_status,
+        'process_status'  => process_status,
         'loading_status'  => loading_status,
         'sync_status'     => (loaded ? sync_status : {}),
         'block_status'    => (loaded ? block_status : {}),

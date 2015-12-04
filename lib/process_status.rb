@@ -1,11 +1,11 @@
 module CryptiKit
-  class ForeverStatus
+  class ProcessStatus
     def initialize(json)
       @json = json
     end
 
     def uptime
-      [sprintf("%-19s", 'Uptime:'), @json['uptime'] || 'N/A', "\n"]
+      [sprintf("%-19s", 'Uptime:'), @json['etime'] || 'N/A', "\n"]
     end
 
     def usage

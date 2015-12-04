@@ -25,9 +25,9 @@ module CryptiKit
       val.is_a?(Hash) and val['success']
     end
 
-    def forever_status
-      if has_section?('forever_status') then
-        ForeverStatus.new(@json['forever_status']).to_s
+    def process_status
+      if has_section?('process_status') then
+        ProcessStatus.new(@json['process_status']).to_s
       end
     end
 
@@ -79,7 +79,7 @@ module CryptiKit
         divider,
         info,
         divider,
-        forever_status,
+        process_status,
         config_status,
         loading_status,
         sync_status,
