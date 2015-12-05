@@ -65,10 +65,6 @@ module CryptiKit
       (test?) ? 7040 : 8040
     end
 
-    def self.log_file
-      install_path + '/logs.log'
-    end
-
     def self.configured_servers
       config['servers'] ||= {}
     end

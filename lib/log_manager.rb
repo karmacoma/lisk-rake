@@ -7,47 +7,56 @@ module CryptiKit
     def download(node)
       @node = node
       delete_previous
-      download_forever
-      download_crypti
+      @task.within Core.install_path do
+        download_app_log
+        download_logs_log
+      end
     end
 
     def clean
       @task.within Core.install_path do
-        @task.info 'Truncating existing crypti log...'
-        @task.execute 'truncate', 'logs.log', '--size', '0'
-        @task.info 'Removing old crypti log(s)...'
+        @task.info 'Truncating existing logs...'
+        @task.execute 'truncate', 'app.log', 'logs.log', '--size', '0'
+        @task.info 'Removing rotated logs...'
         @task.execute 'rm', '-f', 'logs.old.*'
+        @task.info '=> Done.'
       end
-      @task.info 'Removing old forever log(s)...'
-      @task.execute 'forever', 'cleanlogs'
-      @task.info '=> Done.'
     end
 
     private
 
     def delete_previous
-      @task.info 'Deleting previous logs...'
-      @task.execute 'mkdir', '-p', 'logs'
-      @task.within 'logs' do
-        @task.execute 'rm', '-f', '*.log'
+      run_locally do
+        info 'Deleting previous logs...'
+        execute 'mkdir', '-p', 'logs'
+        within 'logs' do
+          execute 'rm', '-f', '*.log'
+        end
       end
     end
 
-    def download_forever
-      @task.info 'Downloading forever log...'
-      forever = ForeverInspector.new(@task)
-      if @task.test 'ls', forever.log_file then
-        @task.download! forever.log_file, "logs/#{@node.key}.forever.log"
+    def app_log
+      @app_log ||= "#{Core.install_path}/app.log"
+    end
+
+    def download_app_log
+      @task.info 'Downloading app.log...'
+      if @task.test 'ls', app_log then
+        @task.download! app_log, "logs/#{@node.key}.app.log"
         @task.info '=> Done.'
       else
         @task.warn '=> Not found.'
       end
     end
 
-    def download_crypti
-      @task.info 'Downloading crypti log...'
-      if @task.test 'ls', Core.log_file then
-        @task.download! Core.log_file, "logs/#{@node.key}.crypti.log"
+    def logs_log
+      @logs_log ||= "#{Core.install_path}/logs.log"
+    end
+
+    def download_logs_log
+      @task.info 'Downloading logs.log...'
+      if @task.test 'ls', logs_log then
+        @task.download! logs_log, "logs/#{@node.key}.logs.log"
         @task.info '=> Done.'
       else
         @task.warn '=> Not found.'
