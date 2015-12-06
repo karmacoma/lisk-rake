@@ -7,7 +7,7 @@ module CryptiKit
     def start(auto = false)
       @task.within Core.install_path do
         @task.info 'Starting crypti...'
-        @task.execute 'bash', 'crypti.sh', (auto ? 'autostart' : 'start'), '||', ':'
+        @task.execute top_accounts, 'bash', 'crypti.sh', (auto ? 'autostart' : 'start'), '||', ':'
         @task.info '=> Done.'
       end
     end
@@ -15,7 +15,7 @@ module CryptiKit
     def restart
       @task.within Core.install_path do
         @task.info 'Restarting crypti...'
-        @task.execute 'bash', 'crypti.sh', 'restart', '||', ':'
+        @task.execute top_accounts, 'bash', 'crypti.sh', 'restart', '||', ':'
         @task.info '=> Done.'
       end
     end
@@ -30,6 +30,10 @@ module CryptiKit
     end
 
     private
+
+    def top_accounts
+      "TOP=#{Core.top_accounts}"
+    end
 
     def install_path?
       @task.test "[ -d #{Core.install_path} ];"
