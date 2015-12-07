@@ -26,10 +26,18 @@ module CryptiKit
       @items[key] = item
     end
 
+    def include?(item)
+      @items.values.include?(item)
+    end
+
+    def next_key
+      (@items.size > 0) ? @items.keys.last + 1 : 1
+    end
+
     def add(item)
-      return if @items.values.include?(item.to_s)
-      key = (@items.size > 0) ? @items.keys.last + 1 : 1
-      @items[key] = item.to_s
+      unless include?(item) then
+        @items[next_key] = item
+      end
     end
 
     def add_all(items)
