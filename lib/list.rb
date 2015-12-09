@@ -80,7 +80,7 @@ module CryptiKit
     end
 
     @key          = 'items'
-    @key_regexp   = /^0-9,/
+    @key_regexp   = /[^0-9,]+/
     @value_regexp = /[^,]+/
     @reindex      = true
 
