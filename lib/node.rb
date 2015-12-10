@@ -31,7 +31,7 @@ module CryptiKit
     end
 
     def accounts
-      Core.configured_accounts[@server.hostname] || []
+      Core.configured_servers[key]['accounts'] || []
     end
 
     def info

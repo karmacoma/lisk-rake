@@ -73,10 +73,6 @@ module CryptiKit
       config['servers'] ||= {}
     end
 
-    def self.configured_accounts
-      config['accounts'] ||= {}
-    end
-
     def self.top_accounts
       (config['top_accounts'].to_s == 'true')
     end

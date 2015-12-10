@@ -9,4 +9,3 @@ genesis: 1425859200
 environment: live
 top_accounts: false
 servers: {}
-accounts: {}

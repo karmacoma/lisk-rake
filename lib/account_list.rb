@@ -1,42 +1,38 @@
-require 'list'
-
 module CryptiKit
-  class AccountList < List
-    def []=(key, item)
-      key = key.to_i
+  class AccountList
+    def initialize(node)
+      @node  = node
+      @list  = ServerList.new
+      @items = @list[@node.key]['accounts'] rescue []
+    end
+
+    def add(item)
       if item.is_a?(Hash) then
         account = {
           'address'    => item['address'],
           'public_key' => item['publicKey']
         }
-        @items[key] ||= []
-        if find_index(key, item['address']).nil? then
-          @items[key].push(account)
+        unless find_index(item['address']) then
+          @items.push(account)
         end
       end
     end
 
-    def remove(key, item)
-      key = key.to_i
+    def remove(item)
       if item.is_a?(Hash) then
-        index = find_index(key, item['address'])
-        @items[key].delete_at(index) unless index.nil?
-      else
-        @items.delete(key)
+        index = find_index(item['address'])
+        @items.delete_at(index) unless index.nil?
       end
     end
 
-    def find_index(key, address)
-      if items = @items[key.to_i] and address then
-        items.find_index do |a|
-          a['address'].to_s == address.to_s
-        end
+    def find_index(address)
+      @items.find_index do |a|
+        a['address'] == address
       end
     end
 
-    @key          = 'accounts'
-    @key_regexp   = List.key_regexp
-    @value_regexp = /[^0-9A-Z,\.]+/
-    @reindex      = false
+    def save
+      @list.save
+    end
   end
 end

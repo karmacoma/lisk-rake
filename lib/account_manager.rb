@@ -4,14 +4,14 @@ module CryptiKit
       @task = task
       @node = node
       @api  = Curl.new(@task)
-      @list = AccountList.new
+      @list = AccountList.new(node)
     end
 
     def add(passphrase)
       @task.info 'Adding account...'
       json = @api.post '/api/accounts/open', passphrase
       if json['success'] and json['account'] then
-        @list[@node.hostname] = json['account']
+        @list.add(json['account'])
         @list.save
         @task.info "=> Added: #{json['account']['address']}."
         manager = PassphraseManager.new(@task, @node)
@@ -25,7 +25,7 @@ module CryptiKit
       @task.info 'Removing account...'
       json = @api.post '/api/accounts/open', passphrase
       if json['success'] and json['account'] then
-        @list.remove(@node.hostname, json['account'])
+        @list.remove(json['account'])
         @list.save
         @task.info "=> Removed: #{json['account']['address']}."
         manager = PassphraseManager.new(@task, @node)
