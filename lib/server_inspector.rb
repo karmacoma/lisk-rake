@@ -1,7 +1,7 @@
 module CryptiKit
   class ServerInspector
     SUPPORTED_PLATS = {
-      'Linux' => /x86_64/i
+      'Linux' => /x86_64|i686|armv6l|armv7l/i
     }
 
     def initialize(task)
