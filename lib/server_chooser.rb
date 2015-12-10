@@ -5,7 +5,7 @@ module CryptiKit
     end
 
     def choices
-      Core.configured_servers
+      Core.servers
     end
 
     def args

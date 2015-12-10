@@ -69,7 +69,7 @@ module CryptiKit
       (test?) ? 7040 : 8040
     end
 
-    def self.configured_servers
+    def self.servers
       config['servers'] ||= {}
     end
 

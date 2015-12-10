@@ -11,7 +11,7 @@ module CryptiKit
     end
 
     def key
-      @key ||= Core.configured_servers.find_index do |s|
+      @key ||= Core.servers.find_index do |s|
         s[1]['hostname'] == hostname
       end.tap do |k|
         return (k.nil?) ? '~' : k + 1
@@ -31,7 +31,7 @@ module CryptiKit
     end
 
     def accounts
-      Core.configured_servers[key]['accounts'] || []
+      Core.servers[key]['accounts'] || []
     end
 
     def info
