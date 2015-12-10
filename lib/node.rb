@@ -19,7 +19,7 @@ module CryptiKit
     end
 
     def hostname
-      @server.hostname
+      @server.hostname || '0.0.0.0'
     end
 
     def deploy_path
