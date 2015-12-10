@@ -4,6 +4,7 @@ module CryptiKit
   class List
     def initialize
       @items = Core.config[self.class.key] || {}
+      @items.reject! { |k,v| v.nil? }
     end
 
     def all
