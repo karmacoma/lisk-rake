@@ -31,7 +31,11 @@ module CryptiKit
     end
 
     def accounts
-      Core.servers[key]['accounts'] || []
+      if Core.servers[key].is_a?(Hash) then
+        Core.servers[key]['accounts'] || []
+      else
+        []
+      end
     end
 
     def info
