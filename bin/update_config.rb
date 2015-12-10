@@ -26,8 +26,12 @@ class ConfigUpdater
 
   def self.migrate_server(s)
     {
-      'hostname' => s[1].to_s,
-      'accounts' => @config_bak['accounts'][s[0].to_i].to_a
+      'hostname'    => s[1].to_s,
+      'user'        => 'root',
+      'port'        => 22,
+      'deploy_path' => '/var/crypti',
+      'crypti_path' => '/install',
+      'accounts'    => @config_bak['accounts'][s[0].to_i].to_a
     }
   end
 
