@@ -7,6 +7,14 @@ module CryptiKit
     @value_regexp = /[^0-9,\.]+/
     @reindex      = true
 
+    def include?(item)
+      if item.is_a?(Hash) then
+        @items.any? { |k,v| v['hostname'] == item['hostname'] }
+      else
+        false
+      end
+    end
+
     def forget_all(items)
       known_hosts = KnownHosts.new(self)
       known_hosts.forget(items)
