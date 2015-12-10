@@ -47,7 +47,7 @@ module CryptiKit
     end
 
     def remove(key)
-      @items.delete(key.to_i)
+      @items.delete(key)
     end
 
     def remove_all(keys)
