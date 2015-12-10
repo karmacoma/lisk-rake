@@ -1,11 +1,12 @@
 module CryptiKit
   class ProcessInspector
-    def initialize(task)
+    def initialize(task, node)
       @task = task
+      @node = node
     end
 
     def app_pid
-      @task.within Core.install_path do
+      @task.within @node.crypti_path do
         @task.capture 'cat', 'app.pid', '||', ':'
       end
     end

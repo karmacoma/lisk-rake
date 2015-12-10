@@ -1,24 +1,25 @@
 module CryptiKit
   class ForgingManager
-    def initialize(task)
+    def initialize(task, node)
       @task = task
+      @node = node
       @api  = Curl.new(@task)
     end
 
-    def start(server, node)
+    def start
       return unless loaded?
       another = true
       while another do
-        enable_one(server, node)
+        enable_one
         another = enable_another?
       end
     end
 
-    def stop(server, node)
+    def stop
       return unless loaded?
       another = true
       while another do
-        disable_one(server, node)
+        disable_one
         another = disable_another?
       end
     end
@@ -26,16 +27,16 @@ module CryptiKit
     private
 
     def loaded?
-      NodeInspector.loaded?(@task)
+      NodeInspector.loaded?(@task, @node)
     end
 
-    def enable_one(server, node)
+    def enable_one
       PassphraseCollector.get do |passphrase|
         @task.info 'Enabling forging...'
         @api.post '/api/delegates/forging/enable', passphrase do |json|
           if json['success'] then
             @task.info '=> Enabled.'
-            manager = AccountManager.new(@task, server)
+            manager = AccountManager.new(@task, @node)
             manager.add(passphrase)
           else
             @task.error '=> Failed.'
@@ -49,13 +50,13 @@ module CryptiKit
       STDIN.gets.chomp.match(/y|yes/i)
     end
 
-    def disable_one(server, node)
+    def disable_one
       PassphraseCollector.get do |passphrase|
         @task.info 'Disabling forging...'
         @api.post '/api/delegates/forging/disable', passphrase do |json|
           if json['success'] then
             @task.info '=> Disabled.'
-            manager = AccountManager.new(@task, server)
+            manager = AccountManager.new(@task, @node)
             manager.remove(passphrase)
           else
             @task.error '=> Failed.'

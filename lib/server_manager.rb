@@ -35,8 +35,8 @@ module CryptiKit
     end
 
     def log_into(server)
-      @task.info "Logging into #{server}..."
-      system "ssh #{Core.deploy_user_at_host(server)}"
+      @task.info "Logging into #{server.hostname}..."
+      system "ssh #{Core.ssh_options(server)}"
       @task.info '=> Done.'
     end
   end

@@ -17,8 +17,12 @@ module CryptiKit
       config['deploy_user']
     end
 
-    def self.deploy_user_at_host(host)
-      "#{deploy_user}@#{host}"
+    def self.deploy_port
+      config['deploy_port']
+    end
+
+    def self.ssh_options(server)
+      "#{server.user}@#{server.hostname} -p #{server.port}"
     end
 
     def self.deploy_key
@@ -29,8 +33,8 @@ module CryptiKit
       config['deploy_path']
     end
 
-    def self.install_path
-      [deploy_path, '/install'].join
+    def self.crypti_path
+      config['crypti_path']
     end
 
     def self.download_url

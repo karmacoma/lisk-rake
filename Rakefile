@@ -48,24 +48,24 @@ end
 
 desc 'Add your public ssh key'
 task :add_key do
-  each_server do |server, node, deps|
+  each_server do |node, deps|
     deps.check_local('ssh', 'ssh-copy-id', 'ssh-keygen')
 
     run_locally do
       manager = CryptiKit::KeyManager.new(self)
-      manager.add(server)
+      manager.add(node.server)
     end
   end
 end
 
 desc 'Log into servers directly'
 task :log_into do
-  each_server do |server, node, deps|
+  each_server do |node, deps|
     deps.check_local('ssh')
 
     run_locally do
       manager = CryptiKit::ServerManager.new(self)
-      manager.log_into(server)
+      manager.log_into(node.server)
     end
   end
 end
@@ -74,9 +74,9 @@ desc 'Install dependencies'
 task :install_deps do
   puts 'Installing dependencies...'
 
-  on_each_server do |server, node, deps|
-    installer = CryptiKit::ServerInstaller.new(self)
-    installer.install(node, deps)
+  on_each_server do |node, deps|
+    installer = CryptiKit::ServerInstaller.new(self, node, deps)
+    installer.install
   end
 end
 
@@ -84,10 +84,10 @@ desc 'Install crypti nodes'
 task :install_nodes do
   puts 'Installing crypti nodes...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'wget', 'unzip')
+  on_each_server do |node, deps|
+    deps.check_remote('wget', 'unzip')
 
-    installer = CryptiKit::NodeInstaller.new(self)
+    installer = CryptiKit::NodeInstaller.new(self, node)
     installer.install
   end
 end
@@ -102,10 +102,10 @@ desc 'Uninstall crypti nodes'
 task :uninstall_nodes do
   puts 'Uninstalling crypti nodes...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('crypti')
 
-    installer = CryptiKit::NodeInstaller.new(self)
+    installer = CryptiKit::NodeInstaller.new(self, node)
     installer.uninstall
   end
 end
@@ -114,10 +114,10 @@ desc 'Clean logs on each server'
 task :clean_logs do
   puts 'Cleaning logs...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('crypti')
 
-    manager = CryptiKit::LogManager.new(self)
+    manager = CryptiKit::LogManager.new(self, node)
     manager.clean
   end
 end
@@ -126,11 +126,11 @@ desc 'Download logs from each server'
 task :download_logs do
   puts 'Downloading logs...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('crypti')
 
-    manager = CryptiKit::LogManager.new(self)
-    manager.download(node)
+    manager = CryptiKit::LogManager.new(self, node)
+    manager.download
   end
 end
 
@@ -138,10 +138,10 @@ desc 'Start crypti nodes'
 task :start_nodes do
   puts 'Starting crypti nodes...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('crypti')
 
-    manager = CryptiKit::NodeManager.new(self)
+    manager = CryptiKit::NodeManager.new(self, node)
     manager.start
   end
 end
@@ -150,10 +150,10 @@ desc 'Restart crypti nodes'
 task :restart_nodes do
   puts 'Restarting crypti nodes...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('crypti')
 
-    manager = CryptiKit::NodeManager.new(self)
+    manager = CryptiKit::NodeManager.new(self, node)
     manager.restart
   end
 end
@@ -162,10 +162,10 @@ desc 'Rebuild crypti nodes (using new blockchain only)'
 task :rebuild_nodes do
   puts 'Rebuilding crypti nodes...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'wget', 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('wget', 'crypti')
 
-    installer = CryptiKit::NodeInstaller.new(self)
+    installer = CryptiKit::NodeInstaller.new(self, node)
     installer.rebuild
   end
 end
@@ -174,10 +174,10 @@ desc 'Reinstall crypti nodes (keeping blockchain intact)'
 task :reinstall_nodes do
   puts 'Reinstalling crypti nodes...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'wget', 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('wget', 'crypti')
 
-    installer = CryptiKit::NodeInstaller.new(self)
+    installer = CryptiKit::NodeInstaller.new(self, node)
     installer.reinstall
   end
 end
@@ -186,10 +186,10 @@ desc 'Stop crypti nodes'
 task :stop_nodes do
   puts 'Stopping crypti nodes...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('crypti')
 
-    manager = CryptiKit::NodeManager.new(self)
+    manager = CryptiKit::NodeManager.new(self, node)
     manager.stop
   end
 end
@@ -198,11 +198,11 @@ desc 'Start forging on crypti nodes'
 task :start_forging do
   puts 'Starting forging...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'curl', 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('curl', 'crypti')
 
-    manager = CryptiKit::ForgingManager.new(self)
-    manager.start(server, node)
+    manager = CryptiKit::ForgingManager.new(self, node)
+    manager.start
   end
 
   Rake::Task['check_nodes'].invoke
@@ -212,11 +212,11 @@ desc 'Stop forging on crypti nodes'
 task :stop_forging do
   puts 'Stopping forging...'
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'curl', 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('curl', 'crypti')
 
-    manager = CryptiKit::ForgingManager.new(self)
-    manager.stop(server, node)
+    manager = CryptiKit::ForgingManager.new(self, node)
+    manager.stop
   end
 
   Rake::Task['check_nodes'].invoke
@@ -227,11 +227,11 @@ task :check_nodes do
   puts 'Checking nodes...'
 
   CryptiKit::Report.run do |report|
-    on_each_server do |server, node, deps|
-      deps.check_remote(node, 'curl', 'crypti')
+    on_each_server do |node, deps|
+      deps.check_remote('curl', 'crypti')
 
-      api = CryptiKit::NodeInspector.new(self)
-      api.node_status(node) { |json| report[node.key] = json }
+      api = CryptiKit::NodeInspector.new(self, node)
+      api.node_status { |json| report[node.key] = json }
     end
   end
 end
@@ -243,8 +243,8 @@ task :withdraw_funds do
   recipient = CryptiKit::Recipient.new
   exit unless recipient.get_address
 
-  on_each_server do |server, node, deps|
-    deps.check_remote(node, 'curl', 'crypti')
+  on_each_server do |node, deps|
+    deps.check_remote('curl', 'crypti')
 
     CryptiKit::Withdrawal.withdraw(self, node, recipient)
   end

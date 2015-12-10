@@ -17,5 +17,15 @@ module CryptiKit
       known_hosts = KnownHosts.new(self)
       known_hosts.forget(items)
     end
+
+    def self.parse_values(values)
+      super(values).collect do |value|
+        { 'hostname'    => value,
+          'user'        => Core.deploy_user,
+          'port'        => Core.deploy_port,
+          'deploy_path' => Core.deploy_path,
+          'crypti_path' => Core.crypti_path }
+      end
+    end
   end
 end

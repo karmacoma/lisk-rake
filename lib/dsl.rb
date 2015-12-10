@@ -3,9 +3,9 @@ module CryptiKit
     def on_node(server, &block)
       begin
         node = Node.new(server)
-        deps = DependencyManager.new(self)
+        deps = DependencyManager.new(self, node)
         info node.info
-        instance_exec(server, node, deps, &block)
+        instance_exec(node, deps, &block)
         return true
       rescue Exception => exception
         error = ServerError.new(self, exception)

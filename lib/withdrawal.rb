@@ -142,7 +142,7 @@ module CryptiKit
     end
 
     def loaded?
-      NodeInspector.loaded?(@task)
+      NodeInspector.loaded?(@task, @node)
     end
 
     def transaction(json, &block)

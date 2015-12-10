@@ -3,19 +3,39 @@ module CryptiKit
     attr_reader :server
 
     def initialize(server)
-      @server = server
+      if server.kind_of?(SSHKit::Host) then
+        @server = server
+      else
+        @server = SSHKit::Host.new(server)
+      end
     end
 
     def key
-      Core.configured_servers.key(@server.to_s)
+      @key ||= Core.configured_servers.find_index do |s|
+        s[1]['hostname'] == hostname
+      end.tap do |k|
+        return (k.nil?) ? '~' : k + 1
+      end
+    end
+
+    def hostname
+      @server.hostname
+    end
+
+    def deploy_path
+      @server.deploy_path
+    end
+
+    def crypti_path
+      [@server.deploy_path, @server.crypti_path].join
     end
 
     def accounts
-      Core.configured_accounts[key] || []
+      Core.configured_accounts[@server.hostname] || []
     end
 
     def info
-      green("Node[#{key}]: #{@server}\s") +\
+      green("Node[#{key}]: #{hostname}\s") +\
        blue("With #{accounts.size} Delegate(s)")
     end
   end

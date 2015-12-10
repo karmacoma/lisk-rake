@@ -1,20 +1,20 @@
 module CryptiKit
   class LogManager
-    def initialize(task)
+    def initialize(task, node)
       @task = task
+      @node = node
     end
 
-    def download(node)
-      @node = node
+    def download
       delete_previous
-      @task.within Core.install_path do
+      @task.within @node.crypti_path do
         download_app_log
         download_logs_log
       end
     end
 
     def clean
-      @task.within Core.install_path do
+      @task.within @node.crypti_path do
         @task.info 'Truncating existing logs...'
         @task.execute 'truncate', 'app.log', 'logs.log', '--size', '0'
         @task.info 'Removing rotated logs...'
@@ -36,7 +36,7 @@ module CryptiKit
     end
 
     def app_log
-      @app_log ||= "#{Core.install_path}/app.log"
+      @app_log ||= "#{@node.crypti_path}/app.log"
     end
 
     def download_app_log
@@ -50,7 +50,7 @@ module CryptiKit
     end
 
     def logs_log
-      @logs_log ||= "#{Core.install_path}/logs.log"
+      @logs_log ||= "#{@node.crypti_path}/logs.log"
     end
 
     def download_logs_log

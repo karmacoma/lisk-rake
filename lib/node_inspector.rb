@@ -2,16 +2,17 @@ require 'json'
 
 module CryptiKit
   class NodeInspector
-    attr_reader :task, :api
+    attr_reader :task, :node, :api
 
-    def initialize(task)
+    def initialize(task, node)
       @task = task
+      @node = node
       @api  = Curl.new(@task)
     end
 
     def process_status
       @task.info 'Getting process status...'
-      @process = ProcessInspector.new(@task)
+      @process = ProcessInspector.new(@task, @node)
       if @process.success? then
         @task.info '=> Done.'
       else
@@ -21,7 +22,7 @@ module CryptiKit
     end
 
     def config_status
-      config = ConfigInspector.inspect(@task)
+      config = ConfigInspector.inspect(@task, @node)
       config['forging']['secret'] = [] if config['forging']
       config
     end
@@ -39,8 +40,8 @@ module CryptiKit
 
     attr_reader :loaded
 
-    def self.loaded?(task)
-      klass = self.new(task)
+    def self.loaded?(task, node)
+      klass = self.new(task, node)
       klass.loading_status
       klass.loaded
     end
@@ -65,7 +66,7 @@ module CryptiKit
 
     private :block_status
 
-    def node_status(node, &block)
+    def node_status(&block)
       json = {
         'info'            => node.info,
         'config_status'   => config_status,
@@ -73,7 +74,7 @@ module CryptiKit
         'loading_status'  => loading_status,
         'sync_status'     => (loaded ? sync_status : {}),
         'block_status'    => (loaded ? block_status : {}),
-        'accounts_status' => AccountInspector.inspect(self, node)
+        'accounts_status' => AccountInspector.inspect(self, @node)
       }
       json.keys.reject! { |k| k == 'info' }.each do |j|
         json[j].merge!('key' => node.key)

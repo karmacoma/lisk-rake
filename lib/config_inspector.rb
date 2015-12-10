@@ -1,12 +1,13 @@
 module CryptiKit
   class ConfigInspector
-    def initialize(task)
+    def initialize(task, node)
       @task = task
+      @node = node
     end
 
     def capture
       @task.info 'Getting configuration...'
-      conf = @task.capture 'cat', "#{Core.install_path}/config.json"
+      conf = @task.capture 'cat', "#{@node.crypti_path}/config.json"
       json = JSON.parse(conf) rescue {}
       if !json.empty? then
         @task.info '=> Done.'
@@ -27,8 +28,8 @@ module CryptiKit
       data
     end
 
-    def self.inspect(task)
-      self.new(task).inspect
+    def self.inspect(task, node)
+      self.new(task, node).inspect
     end
 
     private

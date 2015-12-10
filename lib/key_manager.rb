@@ -16,8 +16,8 @@ module CryptiKit
 
     def add(server)
       find.tap do
-        @task.info "Adding public ssh key to: #{server}..."
-        @task.execute 'ssh-copy-id', '-i', Core.deploy_key, "#{Core.deploy_user_at_host(server)}"
+        @task.info "Adding public ssh key to: #{server.hostname}..."
+        @task.execute 'ssh-copy-id', '-i', Core.deploy_key, "#{Core.ssh_options(server)}"
         @task.info '=> Done.'
       end
     rescue Exception => exception

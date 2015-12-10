@@ -1,8 +1,9 @@
 module CryptiKit
   class NodeInstaller
-    def initialize(task)
+    def initialize(task, node)
       @task    = task
-      @manager = NodeManager.new(@task)
+      @node    = node
+      @manager = NodeManager.new(@task, node)
     end
 
     def install
@@ -12,7 +13,7 @@ module CryptiKit
       @manager.stop
       remove_deploy_path
       make_deploy_path
-      @task.within Core.deploy_path do
+      @task.within @node.deploy_path do
         download_crypti
         install_crypti
       end
@@ -21,7 +22,7 @@ module CryptiKit
 
     def rebuild
       @manager.stop
-      @task.within Core.install_path do
+      @task.within @node.crypti_path do
         remove_blockchain
       end
       @manager.start
@@ -32,11 +33,11 @@ module CryptiKit
       @insp.detect
 
       @manager.stop
-      @task.within Core.install_path do
+      @task.within @node.crypti_path do
         save_blockchain
       end
-      remove_install_path
-      @task.within Core.deploy_path do
+      remove_crypti_path
+      @task.within @node.deploy_path do
         download_crypti
         install_crypti
       end
@@ -53,17 +54,17 @@ module CryptiKit
 
     def remove_deploy_path
       @task.info 'Removing crypti...'
-      @task.execute 'rm', '-rf', Core.deploy_path
+      @task.execute 'rm', '-rf', @node.deploy_path
     end
 
-    def remove_install_path
+    def remove_crypti_path
       @task.info 'Removing crypti...'
-      @task.execute 'rm', '-rf', Core.install_path
+      @task.execute 'rm', '-rf', @node.crypti_path
     end
 
     def make_deploy_path
       @task.info 'Making deploy path...'
-      @task.execute 'mkdir', '-p', Core.deploy_path
+      @task.execute 'mkdir', '-p', @node.deploy_path
     end
 
     def app_url
@@ -86,7 +87,7 @@ module CryptiKit
     def install_crypti
       @task.info 'Installing crypti...'
       @task.execute 'unzip', '-u', zip_file
-      @task.execute 'mv', '-f', '$(ls -d * | head -1)', Core.install_path
+      @task.execute 'mv', '-f', '$(ls -d * | head -1)', @node.crypti_path
       @task.info 'Cleaning up...'
       @task.execute 'rm', '-f', zip_file
     end

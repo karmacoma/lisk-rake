@@ -2,15 +2,16 @@ require 'stringio'
 
 module CryptiKit
   class ConfigUpdater
-    def initialize(task, config)
+    def initialize(task, node, config)
       @task   = task
+      @node   = node
       @config = config
     end
 
     def paths
       @paths ||= {
-        config: Core.install_path + '/config.json',
-        backup: Core.install_path + '/config.bak'
+        config: @node.crypti_path + '/config.json',
+        backup: @node.crypti_path + '/config.bak'
       }
     end
 
@@ -26,8 +27,8 @@ module CryptiKit
       @task.capture 'rm', '-f', paths[:backup]
     end
 
-    def self.update(task, config)
-      self.new(task, config).update
+    def self.update(task, node, config)
+      self.new(task, node, config).update
     end
 
     private

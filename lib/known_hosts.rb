@@ -19,8 +19,8 @@ module CryptiKit
     def forget(servers)
       return unless file
       File.open(path, 'w') do |f|
-        @list.class.parse_values(servers).each do |key|
-          file.gsub!(/^#{@list[key.to_i]}.+\n$/, '')
+        @list.class.parse_values(servers).each do |server|
+          file.gsub!(/^#{server['hostname']}.+\n$/, '')
         end
         f.puts file
       end

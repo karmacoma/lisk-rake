@@ -1,11 +1,12 @@
 module CryptiKit
   class NodeManager
-    def initialize(task)
+    def initialize(task, node)
       @task = task
+      @node = node
     end
 
     def start(auto = false)
-      @task.within Core.install_path do
+      @task.within @node.crypti_path do
         @task.info 'Starting crypti...'
         @task.execute top_accounts, 'bash', 'crypti.sh', (auto ? 'autostart' : 'start'), '||', ':'
         @task.info '=> Done.'
@@ -13,7 +14,7 @@ module CryptiKit
     end
 
     def restart
-      @task.within Core.install_path do
+      @task.within @node.crypti_path do
         @task.info 'Restarting crypti...'
         @task.execute top_accounts, 'bash', 'crypti.sh', 'restart', '||', ':'
         @task.info '=> Done.'
@@ -21,8 +22,8 @@ module CryptiKit
     end
 
     def stop
-      return unless install_path?
-      @task.within Core.install_path do
+      return unless crypti_path?
+      @task.within @node.crypti_path do
         @task.info 'Stopping crypti...'
         @task.execute 'bash', 'crypti.sh', 'stop', '||', ':'
         @task.info '=> Done.'
@@ -35,8 +36,8 @@ module CryptiKit
       "TOP=#{Core.top_accounts}"
     end
 
-    def install_path?
-      @task.test "[ -d #{Core.install_path} ];"
+    def crypti_path?
+      @task.test "[ -d #{@node.crypti_path} ];"
     end
   end
 end

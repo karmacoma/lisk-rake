@@ -1,55 +1,56 @@
 module CryptiKit
   class DependencyManager
-    def initialize(task)
+    def initialize(task, node)
       @task = task
+      @node = node
     end
 
     def check_local(*deps)
       check_dependencies(deps)
     end
 
-    def check_remote(node, *deps)
-      check_crypti_node(deps, node)
-      check_dependencies(deps, node)
+    def check_remote(*deps)
+      check_crypti_node(deps)
+      check_dependencies(deps)
     end
 
     private
 
-    def location(node)
+    def location
       unless @location.is_a?(Hash) then
-        type      = node ? :remote : :local
-        name      = type == :remote ? "on server: #{node.server}" : 'on local machine'
+        type      = @node ? :remote : :local
+        name      = type == :remote ? "on server: #{@node.hostname}" : 'on local machine'
         @location = { type: type, name: name }
       else
         @location
       end
     end
 
-    def check_dependencies(deps, node = nil)
-      @task.info "Checking #{location(node)[:type]} dependencies..."
+    def check_dependencies(deps)
+      @task.info "Checking #{location[:type]} dependencies..."
 
       deps.delete_if { |d| d == 'crypti' }.each do |dep|
         if @task.test('which', dep) then
           @task.info "=> Found: #{dep}."
         else
-          raise "Missing dependency: '#{dep}' #{location(node)[:name]}."
+          raise "Missing dependency: '#{dep}' #{location[:name]}."
         end
       end
     end
 
-    def check_crypti_node(deps, node)
+    def check_crypti_node(deps)
       return unless deps.include?('crypti')
       @task.info 'Looking for crypti node...'
 
-      if @task.test "[ -f #{Core.install_path + '/crypti.sh'} ];" then
+      if @task.test "[ -f #{@node.crypti_path + '/crypti.sh'} ];" then
         @task.info '=> Found.'
       else
-        raise "Crypti node is not installed #{location(node)[:name]}."
+        raise "Crypti node is not installed #{location[:name]}."
       end
     end
 
     def deploy_path?
-      @task.test "[ -d #{Core.deploy_path} ];"
+      @task.test "[ -d #{@node.deploy_path} ];"
     end
   end
 end

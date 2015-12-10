@@ -1,11 +1,13 @@
 module CryptiKit
   class UbuntuInstaller
-    def initialize(task)
+    def initialize(task, node, deps)
       @task = task
+      @node = node
+      @deps = deps
     end
 
-    def install(node, deps)
-      deps.check_remote(node, 'sudo', 'apt-get')
+    def install
+      @deps.check_remote('sudo', 'apt-get')
 
       @task.info 'Updating package lists...'
       @task.execute 'sudo', 'apt-get', 'update'

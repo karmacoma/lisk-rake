@@ -1,7 +1,8 @@
 module CryptiKit
   class PassphraseManager
-    def initialize(task)
+    def initialize(task, node)
       @task = task
+      @node = node
     end
 
     def add(passphrase)
@@ -47,7 +48,7 @@ module CryptiKit
     end
 
     def inspect_config
-      config = ConfigInspector.inspect(@task)
+      config = ConfigInspector.inspect(@task, @node)
       config['forging'] ||= {}
 
       secret = config['forging']['secret']
@@ -64,7 +65,7 @@ module CryptiKit
 
     def update_config(&block)
       yield config = inspect_config
-      ConfigUpdater.update(@task, config)
+      ConfigUpdater.update(@task, @node, config)
     end
   end
 end
