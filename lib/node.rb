@@ -14,7 +14,7 @@ module CryptiKit
       @key ||= Core.servers.find_index do |s|
         s[1]['hostname'] == hostname
       end.tap do |k|
-        return (k.nil?) ? '~' : k + 1
+        return (k.nil?) ? 0 : k + 1
       end
     end
 
