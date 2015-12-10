@@ -35,7 +35,7 @@ module CryptiKit
 
     def accept_all
       puts '=> Accepting all servers.'
-      @mode == :keys ? choices.keys : choices.values
+      @mode == :keys ? choices.keys : rescue_values(choices.values)
     end
 
     def accept_all?
@@ -43,13 +43,24 @@ module CryptiKit
       STDIN.gets.chomp.match(/y|yes/i)
     end
 
+    def rescue_values(servers)
+      servers.each do |s|
+        s['user']        = s['user']        || Core.deploy_user
+        s['port']        = s['port']        || Core.deploy_port
+        s['deploy_path'] = s['deploy_path'] || Core.deploy_path
+        s['crypti_path'] = s['crypti_path'] || Core.crypti_path
+      end
+    end
+
     def select_servers(servers)
       if @mode == :keys then
         servers.collect! { |s| s.to_i if choices.has_key?(s.to_i) }
       else
         servers.collect! { |s| choices[s.to_i] }
+        rescue_values(servers)
       end
-      servers.compact
+      servers.compact!
+      servers
     end
 
     def accept_range
