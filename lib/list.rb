@@ -50,9 +50,9 @@ module CryptiKit
       @items.delete(key.to_i)
     end
 
-    def remove_all(items)
-      _items = items.is_a?(Array) ? items : self.class.parse_keys(items)
-      _items.each { |item| remove(item) }
+    def remove_all(keys)
+      _keys = keys.is_a?(Array) ? keys : self.class.parse_keys(keys)
+      _keys.each { |key| remove(key) }
     end
 
     def before_save; end
