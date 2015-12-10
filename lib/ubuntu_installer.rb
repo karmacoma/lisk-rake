@@ -10,9 +10,9 @@ module CryptiKit
       @deps.check_remote('sudo', 'apt-get')
 
       @task.info 'Updating package lists...'
-      @task.execute 'sudo', 'apt-get', 'update'
+      @task.execute 'sudo', '-S', 'apt-get', 'update', interaction_handler: SudoHandler.new
       @task.info 'Installing packages...'
-      @task.execute 'sudo', 'apt-get', 'install', '-f', '--yes', 'bash', 'curl', 'wget', 'unzip'
+      @task.execute 'sudo', '-S', 'apt-get', 'install', '-f', '--yes', 'bash', 'curl', 'wget', 'unzip', interaction_handler: SudoHandler.new
       @task.info '=> Done.'
     end
   end
