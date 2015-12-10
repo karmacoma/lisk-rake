@@ -25,15 +25,15 @@ module CryptiKit
     private
 
     def index
-      blue(@index.to_s)
+      Color.light_blue(@index.to_s)
     end
 
     def username
-      blue(@json['username'])
+      Color.light_blue(@json['username'])
     end
 
     def status
-      (@rate > 0 and @rate <= 101) ? green('[Active]') : yellow('[Standby]')
+      (@rate > 0 and @rate <= 101) ? Color.green('[Active]') : Color.yellow('[Standby]')
     end
   end
 end

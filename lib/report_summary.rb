@@ -10,7 +10,7 @@ module CryptiKit
     end
 
     def title
-      blue("Report Summary\n")
+      Color.light_blue("Report Summary\n")
     end
 
     def total_forged
@@ -79,9 +79,9 @@ module CryptiKit
       if nodes.any? then
         ["* #{nodes.size} / #{@report.total_nodes} nodes are outdated.\n",
          "> Affected Nodes: #{affected_nodes(nodes)}\n\n",
-         green("Version: #{ReferenceNode.version} is now available.\n\n"),
+         Color.green("Version: #{ReferenceNode.version} is now available.\n\n"),
          "Please run the folowing command to upgrade them:\n",
-         blue("$ rake reinstall_nodes servers=#{affected_nodes(nodes)}\n"),
+         Color.light_blue("$ rake reinstall_nodes servers=#{affected_nodes(nodes)}\n"),
          divider]
       end
     end
@@ -89,16 +89,16 @@ module CryptiKit
     def baddies
       nodes = @report.baddies
       if nodes.any? then
-        [red("* #{nodes.size} nodes encountered errors and were not checked.\n\n"),
-         red("Error Messages:\n"),
-         nodes.collect { |node| red("* Node[#{node['key']}] #{node['error']}\n") },
+        [Color.red("* #{nodes.size} nodes encountered errors and were not checked.\n\n"),
+         Color.red("Error Messages:\n"),
+         nodes.collect { |node| Color.red("* Node[#{node['key']}] #{node['error']}\n") },
          divider]
       end
     end
 
     def node_username(json)
-      key      = green(json['key'].to_s)
-      username = blue(json['username'])
+      key      = Color.green(json['key'].to_s)
+      username = Color.light_blue(json['username'])
       " -> Node[#{key}](#{username})"
     end
 
@@ -154,8 +154,8 @@ module CryptiKit
     def affected_accounts(accounts)
       accounts.collect do |a|
         delegate_status = a['delegate_status']
-        key      = green(delegate_status['key'].to_s)
-        username = blue(delegate_status['username'])
+        key      = Color.green(delegate_status['key'].to_s)
+        username = Color.light_blue(delegate_status['username'])
         "Node[#{key}](#{username})"
       end.join(',')
     end

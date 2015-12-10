@@ -20,13 +20,13 @@ module CryptiKit
     def to_s
       case
       when @pre.nil? then
-        blue("\s0.0 (*)")
+        Color.light_blue("\s0.0 (*)")
       when @cur < @pre then
-        red("\s#{abs} (-)")
+        Color.red("\s#{abs} (-)")
       when @cur > @pre then
-        green("\s#{abs} (+)")
+        Color.green("\s#{abs} (+)")
       else
-        yellow("\s#{abs} (=)")
+        Color.yellow("\s#{abs} (=)")
       end
     end
   end

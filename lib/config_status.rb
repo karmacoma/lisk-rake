@@ -9,7 +9,7 @@ module CryptiKit
     end
 
     def outdated?
-      @json['outdated'] ? red(@json['version']) : green(@json['version'])
+      @json['outdated'] ? Color.red(@json['version']) : Color.green(@json['version'])
     end
 
     def to_s

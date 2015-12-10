@@ -31,9 +31,9 @@ module CryptiKit
 
         json = @api.put '/api/transactions', params(passphrases)
         transaction(json) do |fee, id, amount|
-          @task.info green("~> Fee: #{fee}")
-          @task.info green("~> Transaction id: #{id}")
-          @task.info green("~> Total withdrawn: #{amount}")
+          @task.info Color.green("~> Fee: #{fee}")
+          @task.info Color.green("~> Transaction id: #{id}")
+          @task.info Color.green("~> Total withdrawn: #{amount}")
         end
       end
     end
@@ -100,7 +100,7 @@ module CryptiKit
         @task.info "=> Maximum withdrawal: #{maximum.to_xcr} XCR."
 
         begin
-          print yellow("Enter withdrawal amount:\s")
+          print Color.yellow("Enter withdrawal amount:\s")
           match = STDIN.gets.chomp.match(/[0-9.]+/i)
 
           if match.is_a?(MatchData)
@@ -112,7 +112,7 @@ module CryptiKit
           puts ''
           return 0.0
         rescue ArgumentError
-          print red("Invalid withdrawal amount. Please try again...\n")
+          print Color.red("Invalid withdrawal amount. Please try again...\n")
           retry
         end
       end

@@ -35,8 +35,8 @@ module CryptiKit
     end
 
     def info
-      green("Node[#{key}]: #{hostname}\s") +\
-       blue("With #{accounts.size} Delegate(s)")
+      Color.green("Node[#{key}]: #{hostname}\s") +\
+       Color.light_blue("With #{accounts.size} Delegate(s)")
     end
   end
 end

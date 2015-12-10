@@ -9,7 +9,7 @@ module CryptiKit
       array = [sprintf("%-19s", 'Last Forged:')]
       if @json['blocks'] and last = @json['blocks'].first then
         timestamp = Core.timestamp(last['timestamp'])
-        array.concat([last['totalFee'].to_xcr, blue(' @ '), last['height'], blue(' -> '), Time.at(timestamp), "\n"])
+        array.concat([last['totalFee'].to_xcr, Color.light_blue(' @ '), last['height'], Color.light_blue(' -> '), Time.at(timestamp), "\n"])
       else
         array.concat(['None', "\n"])
       end

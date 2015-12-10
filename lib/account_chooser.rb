@@ -7,7 +7,7 @@ module CryptiKit
 
     def choose
       puts divider
-      puts blue("Available accounts on:\s") + green("Node[#{@node.key}]")
+      puts Color.light_blue("Available accounts on:\s") + Color.green("Node[#{@node.key}]")
       puts divider
 
       if @node.accounts.empty? then

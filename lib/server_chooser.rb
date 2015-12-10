@@ -39,7 +39,7 @@ module CryptiKit
     end
 
     def accept_all?
-      print yellow("No servers selected. Run task on all servers?\s")
+      print Color.yellow("No servers selected. Run task on all servers?\s")
       STDIN.gets.chomp.match(/y|yes/i)
     end
 
