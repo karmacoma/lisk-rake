@@ -2,11 +2,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     byebug (6.0.2)
-    colorize (0.7.5)
     diff-lcs (1.2.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.2)
+    net-ssh (3.0.1)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -20,8 +19,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
-    sshkit (1.7.1)
-      colorize (>= 0.7.0)
+    sshkit (1.8.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
 
@@ -31,7 +29,7 @@ PLATFORMS
 DEPENDENCIES
   byebug (= 6.0.2)
   rspec (= 3.3.0)
-  sshkit (= 1.7.1)
+  sshkit (= 1.8.0)
 
 BUNDLED WITH
    1.10.6

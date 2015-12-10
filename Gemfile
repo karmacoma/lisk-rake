@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "sshkit", "1.7.1"
+gem "sshkit", "1.8.0"
 
 group :development do
   gem "byebug", "6.0.2"
