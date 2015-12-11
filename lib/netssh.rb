@@ -13,5 +13,11 @@ module CryptiKit
         }
       end
     end
+
+    def self.pty(&block)
+      SSHKit::Backend::Netssh.config.pty = true
+      yield
+      SSHKit::Backend::Netssh.config.pty = false
+    end
   end
 end
