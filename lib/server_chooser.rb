@@ -44,7 +44,7 @@ module CryptiKit
     end
 
     def rescue_values(servers)
-      servers.each do |s|
+      servers.compact.each do |s|
         s['user']        = s['user']        || Core.deploy_user
         s['port']        = s['port']        || Core.deploy_port
         s['deploy_path'] = s['deploy_path'] || Core.deploy_path
