@@ -55,10 +55,7 @@ module CryptiKit
       _keys.each { |key| remove(key) }
     end
 
-    def before_save; end
-
     def save
-      before_save
       File.open('config.yml', 'w') do |f|
         Core.config[self.class.key] = self.class.reindex ? reindexed : sorted
         f.write Core.config.to_yaml
