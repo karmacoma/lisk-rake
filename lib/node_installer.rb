@@ -47,6 +47,7 @@ module CryptiKit
     def uninstall
       @manager.stop
       remove_deploy_path
+      remove_accounts
       @task.info '=> Done.'
     end
 
@@ -55,6 +56,15 @@ module CryptiKit
     def remove_deploy_path
       @task.info 'Removing crypti...'
       @task.execute 'rm', '-rf', @node.deploy_path
+    end
+
+    def remove_accounts
+      @task.info 'Removing accounts...'
+      list = ServerList.new
+      if list[@node.key] then
+        list[@node.key]['accounts'] = []
+      end
+      list.save
     end
 
     def remove_crypti_path
