@@ -15,9 +15,14 @@ module CryptiKit
       end
     end
 
-    def forget_all(items)
-      known_hosts = KnownHosts.new(self)
-      known_hosts.forget(items)
+    def forget_all(keys)
+      return unless keys.is_a?(Array)
+      known_hosts = [ENV['HOME'], '/.ssh/known_hosts'].join
+      return unless File.exists?(known_hosts)
+      keys.each do |key|
+        hostname = Core.servers[key]['hostname'] rescue nil
+        system "ssh-keygen -R #{hostname} -f #{known_hosts} > /dev/null 2>&1" if hostname
+      end
     end
 
     def self.parse_values(values)
