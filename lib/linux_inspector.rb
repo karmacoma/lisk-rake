@@ -1,6 +1,6 @@
 module CryptiKit
   class LinuxInspector
-    SUPPORTED_DISTS = /Ubuntu/i
+    SUPPORTED_DISTS = /Debian|Ubuntu/i
 
     def initialize(task)
       @task = task
