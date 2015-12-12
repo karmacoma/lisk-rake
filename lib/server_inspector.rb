@@ -1,6 +1,7 @@
 module CryptiKit
   class ServerInspector
     SUPPORTED_PLATS = {
+      'FreeBSD' => /amd64/i,
       'Linux' => /x86_64|i686|armv6l|armv7l/i
     }
 
