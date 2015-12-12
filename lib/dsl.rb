@@ -5,6 +5,7 @@ module CryptiKit
         node = Node.new(server)
         deps = DependencyManager.new(self, node)
         info node.info
+        test 'echo', interaction_handler: NodeHandler.new
         instance_exec(node, deps, &block)
         return true
       rescue Exception => exception
