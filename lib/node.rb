@@ -18,6 +18,10 @@ module CryptiKit
       end
     end
 
+    def user
+      @server.user
+    end
+
     def hostname
       @server.hostname || '0.0.0.0'
     end
