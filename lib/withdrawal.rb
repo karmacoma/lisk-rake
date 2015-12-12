@@ -100,7 +100,7 @@ module CryptiKit
         @task.info "=> Maximum withdrawal: #{maximum.to_xcr} XCR."
 
         begin
-          print Color.yellow("Enter withdrawal amount:\s")
+          puts Color.yellow("Enter withdrawal amount:")
           match = STDIN.gets.chomp.match(/[0-9.]+/i)
 
           if match.is_a?(MatchData)
@@ -112,7 +112,7 @@ module CryptiKit
           puts ''
           return 0.0
         rescue ArgumentError
-          print Color.red("Invalid withdrawal amount. Please try again...\n")
+          puts Color.red("Invalid withdrawal amount. Please try again...")
           retry
         end
       end

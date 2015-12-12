@@ -6,7 +6,7 @@ module CryptiKit
 
     def get(args = nil, &block)
       args ||= ['primary', 'secret']
-      print Color.yellow("Please enter your #{args.first} passphrase:\s")
+      puts Color.yellow("Please enter your #{args.first} passphrase:")
       passphrases.merge!(args.last.to_sym => Passphrase.gets) and puts
       block_given? ? block.call(passphrases) : passphrases
     end

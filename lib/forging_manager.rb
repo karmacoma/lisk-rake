@@ -46,7 +46,7 @@ module CryptiKit
     end
 
     def enable_another?
-      print Color.yellow("Enable forging for another delegate?\s")
+      puts Color.yellow("Enable forging for another delegate?")
       STDIN.gets.chomp.match(/y|yes/i)
     end
 
@@ -66,7 +66,7 @@ module CryptiKit
     end
 
     def disable_another?
-      print Color.yellow("Disable forging for another delegate?\s")
+      puts Color.yellow("Disable forging for another delegate?")
       STDIN.gets.chomp.match(/y|yes/i)
     end
   end

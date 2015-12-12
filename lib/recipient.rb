@@ -21,7 +21,7 @@ module CryptiKit
       if specified then
         self.address = specified
       else
-        print Color.yellow("Please enter your recipient crypti address:\s")
+        puts Color.yellow("Please enter your recipient crypti address:")
         self.address = STDIN.gets.chomp
       end
     rescue Interrupt
@@ -29,7 +29,7 @@ module CryptiKit
       exit
     rescue ArgumentError
       @specified = ENV['recipient'] = nil
-      print Color.red("Invalid crypti address. Please try again...\n")
+      puts Color.red("Invalid crypti address. Please try again...")
       retry
     end
   end

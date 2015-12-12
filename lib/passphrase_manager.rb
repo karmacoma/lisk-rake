@@ -31,7 +31,7 @@ module CryptiKit
 
     def add?(passphrase, &block)
       if passphrase.is_a?(Hash) then
-        print Color.yellow("Add passphrase to remote config?\s")
+        puts Color.yellow("Add passphrase to remote config?")
         STDIN.gets.chomp.match(/y|yes/i)
         yield Passphrase.to_s(passphrase[:secret])
       else
