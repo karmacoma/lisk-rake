@@ -109,7 +109,7 @@ module CryptiKit
             raise ArgumentError
           end
         rescue Interrupt
-          puts ''
+          puts
           return 0.0
         rescue ArgumentError
           puts Color.red("Invalid withdrawal amount. Please try again...")

@@ -25,7 +25,7 @@ module CryptiKit
         self.address = STDIN.gets.chomp
       end
     rescue Interrupt
-      puts ''
+      puts
       exit
     rescue ArgumentError
       @specified = ENV['recipient'] = nil
