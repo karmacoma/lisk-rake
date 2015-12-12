@@ -80,5 +80,12 @@ module CryptiKit
     def self.baddies
       @baddies ||= []
     end
+
+    def self.task(&block)
+      yield
+    rescue Exception => exception
+      puts Color.red(exception)
+      raise 'Task failed.'
+    end
   end
 end

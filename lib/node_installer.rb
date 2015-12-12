@@ -10,45 +10,53 @@ module CryptiKit
       @insp = ServerInspector.new(@task)
       @insp.detect
 
-      @manager.stop
-      remove_deploy_path
-      make_deploy_path
-      @task.within @node.deploy_path do
-        download_crypti
-        install_crypti
+      Core.task do
+        @manager.stop
+        remove_deploy_path
+        make_deploy_path
+        @task.within @node.deploy_path do
+          download_crypti
+          install_crypti
+        end
+        @manager.start(true)
       end
-      @manager.start(true)
     end
 
     def rebuild
-      @manager.stop
-      @task.within @node.crypti_path do
-        remove_blockchain
+      Core.task do
+        @manager.stop
+        @task.within @node.crypti_path do
+          remove_blockchain
+        end
+        @manager.start
       end
-      @manager.start
     end
 
     def reinstall
       @insp = ServerInspector.new(@task)
       @insp.detect
 
-      @manager.stop
-      @task.within @node.crypti_path do
-        save_blockchain
+      Core.task do
+        @manager.stop
+        @task.within @node.crypti_path do
+          save_blockchain
+        end
+        remove_crypti_path
+        @task.within @node.deploy_path do
+          download_crypti
+          install_crypti
+        end
+        @manager.start(true)
       end
-      remove_crypti_path
-      @task.within @node.deploy_path do
-        download_crypti
-        install_crypti
-      end
-      @manager.start(true)
     end
 
     def uninstall
-      @manager.stop
-      remove_deploy_path
-      remove_accounts
-      @task.info '=> Done.'
+      Core.task do
+        @manager.stop
+        remove_deploy_path
+        remove_accounts
+        @task.info '=> Done.'
+      end
     end
 
     private

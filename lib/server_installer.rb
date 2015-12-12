@@ -12,10 +12,11 @@ module CryptiKit
 
       begin
         installer = Kernel.const_get("CryptiKit::#{insp.os}Installer").new(@task, @node, @deps)
-        installer.install
       rescue NameError
         raise 'Unimplemented installation method.'
       end
+
+      installer.install
     end
   end
 end
