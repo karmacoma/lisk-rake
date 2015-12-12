@@ -68,11 +68,7 @@ module CryptiKit
 
     def remove_accounts
       @task.info 'Removing accounts...'
-      list = ServerList.new
-      if list[@node.key] then
-        list[@node.key]['accounts'] = []
-      end
-      list.save
+      AccountList.remove_all(@node)
     end
 
     def remove_crypti_path

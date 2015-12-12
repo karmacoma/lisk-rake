@@ -25,10 +25,20 @@ module CryptiKit
       end
     end
 
+    def self.remove_all(node)
+      list = self.new(node)
+      list.clear
+      list.save
+    end
+
     def find_index(address)
       @items.find_index do |a|
         a['address'] == address
       end
+    end
+
+    def clear
+      @items.clear
     end
 
     def save
