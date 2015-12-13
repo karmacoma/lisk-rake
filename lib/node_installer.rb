@@ -41,10 +41,12 @@ module CryptiKit
         @task.within @node.crypti_path do
           save_blockchain
         end
-        remove_crypti_path
-        @task.within @node.deploy_path do
-          download_crypti
-          install_crypti
+        ConfigMigrator.migrate(@task, @node) do
+          remove_crypti_path
+          @task.within @node.deploy_path do
+            download_crypti
+            install_crypti
+          end
         end
         @manager.start(true)
       end
