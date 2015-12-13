@@ -1,7 +1,7 @@
 ---
 deploy_user: root
 deploy_port: 22
-deploy_path: "/var/crypti"
+deploy_path: "$HOME/crypti"
 crypti_path: "/install"
 reference_node: 83.136.253.66
 download_url: http://downloads.cryptichain.me/
