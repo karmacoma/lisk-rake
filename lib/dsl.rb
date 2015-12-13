@@ -3,6 +3,7 @@ module CryptiKit
     def on_node(server, &block)
       begin
         node = Node.new(server)
+        node.deploy_path(self)
         deps = DependencyManager.new(self, node)
         info node.info
         test 'echo', interaction_handler: NodeHandler.new

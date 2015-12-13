@@ -26,12 +26,18 @@ module CryptiKit
       @server.hostname || '0.0.0.0'
     end
 
-    def deploy_path
-      @server.deploy_path
+    def deploy_path(task = nil)
+      if @deploy_path then
+        @deploy_path
+      elsif task and @server.deploy_path =~ /[$]+/ then
+        @deploy_path ||= task.capture %(echo "#{@server.deploy_path}")
+      else
+        @deploy_path ||= @server.deploy_path
+      end
     end
 
     def crypti_path
-      [@server.deploy_path, @server.crypti_path].join
+      [deploy_path, @server.crypti_path].join
     end
 
     def accounts
