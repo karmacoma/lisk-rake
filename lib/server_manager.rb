@@ -25,10 +25,12 @@ module CryptiKit
 
     def remove
       @chooser = ServerChooser.new(:keys)
-      @task.info 'Forgetting server(s)...'
-      @list.forget_all(@chooser.choose)
-      @task.info 'Removing server(s)...'
-      @list.remove_all(@chooser.choose)
+      @chooser.choose.tap do |keys|
+        @task.info 'Forgetting server(s)...'
+        @list.forget_all(keys)
+        @task.info 'Removing server(s)...'
+        @list.remove_all(keys)
+      end
       @task.info 'Updating configuration...'
       @list.save
       @task.info '=> Done.'
