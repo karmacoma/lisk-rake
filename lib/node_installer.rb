@@ -13,6 +13,7 @@ module CryptiKit
       Core.task do
         @manager.stop
         remove_deploy_path
+        remove_accounts
         make_deploy_path
         @task.within @node.deploy_path do
           download_crypti
