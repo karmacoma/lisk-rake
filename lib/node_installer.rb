@@ -100,7 +100,7 @@ module CryptiKit
 
     def download_crypti
       @task.info 'Downloading crypti...'
-      @task.execute 'wget', app_url, '-O', zip_file
+      @task.execute 'curl', '-o', zip_file, app_url
     end
 
     def install_crypti

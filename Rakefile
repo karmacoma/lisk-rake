@@ -85,7 +85,7 @@ task :install_nodes do
   puts 'Installing crypti nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'wget', 'unzip')
+    deps.check_remote('bash', 'curl', 'unzip')
 
     installer = CryptiKit::NodeInstaller.new(self, node)
     installer.install
@@ -163,7 +163,7 @@ task :rebuild_nodes do
   puts 'Rebuilding crypti nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'wget', 'crypti')
+    deps.check_remote('bash', 'curl', 'crypti')
 
     installer = CryptiKit::NodeInstaller.new(self, node)
     installer.rebuild
@@ -175,7 +175,7 @@ task :reinstall_nodes do
   puts 'Reinstalling crypti nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'wget', 'crypti')
+    deps.check_remote('bash', 'curl', 'crypti')
 
     installer = CryptiKit::NodeInstaller.new(self, node)
     installer.reinstall

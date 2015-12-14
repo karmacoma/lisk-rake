@@ -1,6 +1,6 @@
 module CryptiKit
   class RedhatInstaller
-    PACKAGES = ['bash', 'curl', 'psmisc.x86_64', 'wget', 'unzip']
+    PACKAGES = ['bash', 'curl', 'psmisc.x86_64', 'unzip']
 
     def initialize(task, node, deps)
       @task = task

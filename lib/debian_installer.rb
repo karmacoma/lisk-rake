@@ -1,6 +1,6 @@
 module CryptiKit
   class DebianInstaller
-    PACKAGES = ['bash', 'curl', 'wget', 'unzip']
+    PACKAGES = ['bash', 'curl', 'unzip']
 
     def initialize(task, node, deps)
       @task = task
