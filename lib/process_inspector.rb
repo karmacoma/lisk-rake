@@ -18,10 +18,12 @@ module CryptiKit
       begin
         pstree = @task.capture 'pstree', '-p', pid
         if pstree then
-          psids = pstree.scan(/(\([0-9]+\))/)
+          psids = pstree.scan(/(\(?[0-9]+\)?)/)
           psids.collect! { |m| m[0].gsub(/[\(\)]/, '') }
 
-          pstat = @task.capture 'ps', '--no-headers', '-p', psids.join(','), '-o', '%cpu,%mem,etime'
+          pstat = @task.capture 'ps', '-p', psids.join(','), '-o', '%cpu,%mem,etime'
+          pstat.gsub!(/%CPU[\s]+%MEM[\s]+ELAPSED\n/i, '')
+
           if pstat then
             stats = pstat.split("\n")
             stats.collect! { |l| l.split("\s") }

@@ -12,13 +12,15 @@ module CryptiKit
 
     def process_status
       @task.info 'Getting process status...'
-      @process = ProcessInspector.new(@task, @node)
-      if @process.success? then
-        @task.info '=> Done.'
-      else
-        @task.warn '=> Process status not available.'
+      @task.with path: '/usr/local/bin:$PATH' do
+        @process = ProcessInspector.new(@task, @node)
+        if @process.success? then
+          @task.info '=> Done.'
+        else
+          @task.warn '=> Process status not available.'
+        end
+        @process.to_h
       end
-      @process.to_h
     end
 
     def config_status
