@@ -17,7 +17,10 @@ module CryptiKit
     def add
       @task.info 'Adding server(s)...'
       @chooser = ServerChooser.new(:values)
-      @list.add_all(@chooser.args)
+      @task.info 'Validating server(s)...'
+      validator = ServerValidator.new(chooser.args)
+      validator.validate
+      @list.add_all(validator.valid)
       @task.info 'Updating configuration...'
       @list.save
       @task.info '=> Done.'
