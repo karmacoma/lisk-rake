@@ -14,7 +14,7 @@ module CryptiKit
       when /^\(current\) UNIX password/,
            /^Enter new UNIX password/,
            /^Retype new UNIX password/ then
-        print data
+        puts data
         get_password(data, channel)
       end
     end
