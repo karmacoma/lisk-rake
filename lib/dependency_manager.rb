@@ -18,7 +18,7 @@ module CryptiKit
 
     def location
       unless @location.is_a?(Hash) then
-        type      = @node ? :remote : :local
+        type      = @task.kind_of?(SSHKit::Backend::Local) ? :local : :remote
         name      = type == :remote ? "on server: #{@node.hostname}" : 'on local machine'
         @location = { type: type, name: name }
       else
