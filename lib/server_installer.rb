@@ -16,7 +16,9 @@ module CryptiKit
         raise 'Unimplemented installation method.'
       end
 
-      installer.install
+      @task.with path: '/usr/local/bin:$PATH' do
+        installer.install
+      end
     end
   end
 end
