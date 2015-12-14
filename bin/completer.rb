@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'singleton'
 require 'fileutils'
+require 'singleton'
 
 class Completer
   include Singleton
