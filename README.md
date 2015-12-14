@@ -1,18 +1,5 @@
 ## Documentation
 
-### Supported Hosts
-
-* [Atlantic](https://www.atlantic.net/)
-* [Digital Ocean](https://www.digitalocean.com/?refcode=c637b271d39f)
-* [Vultr](http://www.vultr.com/?ref=6814545)
-* [UpCloud](http://www.upcloud.com/)
-
-### Supported Operating Systems
-
-* Ubuntu 14.04 (LTS) - 64 bit
-
-***
-
 ### Installing CryptiKit
 
 * Download the latest stable release:
