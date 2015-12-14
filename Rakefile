@@ -170,7 +170,7 @@ task :rebuild_nodes do
   end
 end
 
-desc 'Reinstall crypti nodes (keeping blockchain intact)'
+desc 'Reinstall crypti nodes (keeping blockchain and config intact)'
 task :reinstall_nodes do
   puts 'Reinstalling crypti nodes...'
 
