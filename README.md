@@ -182,7 +182,7 @@ Checking nodes...
 Node[1]: 111.11.11.111 With 2 Delegate(s)
 ================================================================================
 Usage:             CPU: 1.1% | Memory: 18.8%
-Uptime:            0:10:57:0.586
+Uptime:            0-10:57:0.586
 Version:           0.2.0
 Loaded:            true
 Syncing:           false
@@ -278,7 +278,7 @@ When one or nodes are using an outdated version of crypti.
 * 2 / 4 nodes are outdated.
 > Affected Nodes: 1,4
 
-Version: 0.2.0 is now available.
+Version: 0.5.4 is now available.
 
 Please run the folowing command to upgrade them:
 $ rake reinstall_nodes servers=1,4
@@ -338,7 +338,7 @@ rake install_nodes   # Install crypti nodes
 rake list_servers    # List configured servers
 rake log_into        # Log into servers directly
 rake rebuild_nodes   # Rebuild crypti nodes (using new blockchain only)
-rake reinstall_nodes # Reinstall crypti nodes (keeping blockchain intact)
+rake reinstall_nodes # Reinstall crypti nodes (keeping blockchain and config intact)
 rake remove_servers  # Remove servers from config
 rake restart_nodes   # Restart crypti nodes
 rake start_forging   # Start forging on crypti nodes
