@@ -70,8 +70,10 @@ module CryptiKit
     end
 
     def remove_accounts
-      @task.info 'Removing accounts...'
-      AccountList.remove_all(@node)
+      if @node.accounts.any? then
+        @task.info 'Removing accounts...'
+        AccountList.remove_all(@node)
+      end
     end
 
     def remove_crypti_path
