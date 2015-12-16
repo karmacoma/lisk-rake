@@ -16,7 +16,7 @@ module CryptiKit
 
     def add
       @task.info 'Adding server(s)...'
-      @chooser = ServerChooser.new(:values)
+      chooser = ServerChooser.new(:values)
       @task.info 'Validating server(s)...'
       validator = ServerValidator.new(chooser.args)
       validator.validate
@@ -27,8 +27,8 @@ module CryptiKit
     end
 
     def remove
-      @chooser = ServerChooser.new(:keys)
-      @chooser.choose.tap do |keys|
+      chooser = ServerChooser.new(:keys)
+      chooser.choose.tap do |keys|
         @task.info 'Forgetting server(s)...'
         @list.forget_all(keys)
         @task.info 'Removing server(s)...'
