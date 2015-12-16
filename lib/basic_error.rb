@@ -12,7 +12,7 @@ module CryptiKit
     @errors = {}
 
     def detect
-      message ||= interrupt?
+      interrupt?
       message ||= known_error
       message ||= unknown_error
       @task.error message if message.is_a?(String)
@@ -23,7 +23,8 @@ module CryptiKit
 
     def interrupt?
       if @exception.is_a?(Interrupt) then
-        '=> Connection interrupted.'
+        @task.error '=> Connection interrupted.'
+        exit!
       end
     end
 
