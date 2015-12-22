@@ -26,7 +26,7 @@ module CryptiKit
     end
 
     def self.deploy_key
-      '~/.ssh/id_rsa.pub'
+      config['deploy_key']
     end
 
     def self.deploy_path
