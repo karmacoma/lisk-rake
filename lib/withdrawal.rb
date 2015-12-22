@@ -101,7 +101,7 @@ module CryptiKit
 
         begin
           puts Color.yellow("Enter withdrawal amount:")
-          match = STDIN.gets.chomp.match(/[0-9.]+/i)
+          match = Core.gets.match(/[0-9.]+/i)
 
           if match.is_a?(MatchData)
             match[0].to_f

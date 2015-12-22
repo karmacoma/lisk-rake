@@ -47,7 +47,7 @@ module CryptiKit
 
     def enable_another?
       puts Color.yellow("Enable forging for another delegate?")
-      STDIN.gets.chomp.match(/y|yes/i)
+      Core.gets.match(/y|yes/i)
     end
 
     def disable_one
@@ -67,7 +67,7 @@ module CryptiKit
 
     def disable_another?
       puts Color.yellow("Disable forging for another delegate?")
-      STDIN.gets.chomp.match(/y|yes/i)
+      Core.gets.match(/y|yes/i)
     end
   end
 end

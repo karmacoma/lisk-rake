@@ -32,7 +32,7 @@ module CryptiKit
     def add?(passphrase, &block)
       if passphrase.is_a?(Hash) then
         puts Color.yellow("Add passphrase to remote config?")
-        STDIN.gets.chomp.match(/y|yes/i)
+        Core.gets.match(/y|yes/i)
         yield Passphrase.to_s(passphrase[:secret])
       else
         @task.warn '=> Skipped.'

@@ -40,7 +40,7 @@ module CryptiKit
 
     def accept_all?
       puts Color.yellow("No servers selected. Run task on all servers?")
-      STDIN.gets.chomp.match(/y|yes/i)
+      Core.gets.match(/y|yes/i)
     end
 
     def rescue_values(servers)

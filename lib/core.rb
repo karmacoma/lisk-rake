@@ -87,5 +87,19 @@ module CryptiKit
       puts Color.red(exception)
       raise 'Task failed.'
     end
+
+    def self.gets
+      STDIN.gets.chomp
+    rescue Interrupt => exception
+      puts
+      exit!
+    end
+
+    def self.gets_password
+      STDIN.noecho(&:gets).chomp
+    rescue Interrupt => exception
+      puts
+      exit!
+    end
   end
 end

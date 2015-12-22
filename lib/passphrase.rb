@@ -5,7 +5,7 @@ module CryptiKit
     end
 
     def self.gets
-      self.new(STDIN.noecho(&:gets).chomp).to_s
+      self.new(Core.gets_password).to_s
     end
 
     def self.to_s(passphrase = nil)

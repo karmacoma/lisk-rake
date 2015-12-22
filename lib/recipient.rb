@@ -22,7 +22,7 @@ module CryptiKit
         self.address = specified
       else
         puts Color.yellow("Please enter your recipient crypti address:")
-        self.address = STDIN.gets.chomp
+        self.address = Core.gets
       end
     rescue Interrupt
       puts

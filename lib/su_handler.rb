@@ -22,7 +22,7 @@ module CryptiKit
     private
 
     def get_password(data, channel)
-      channel.send_data("#{STDIN.noecho(&:gets).chomp}\n")
+      channel.send_data("#{Core.gets_password}\n")
       puts
     end
   end

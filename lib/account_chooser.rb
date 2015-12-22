@@ -16,7 +16,7 @@ module CryptiKit
         puts choices
         puts
         puts Color.yellow("Please choose an account [#{range}]:")
-        choice = STDIN.gets.chomp.match(/[0-9]+/i)[0].to_i rescue nil
+        choice = Core.gets.match(/[0-9]+/i)[0].to_i rescue nil
         puts divider
 
         if choice then
