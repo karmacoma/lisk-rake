@@ -37,6 +37,15 @@ task :add_servers do
   Rake::Task['list_servers'].invoke
 end
 
+desc 'Edit servers within config'
+task :edit_servers do
+  run_locally do
+    manager = CryptiKit::ServerManager.new(self)
+    manager.edit
+  end
+  Rake::Task['list_servers'].invoke
+end
+
 desc 'Remove servers from config'
 task :remove_servers do
   run_locally do

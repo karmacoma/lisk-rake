@@ -26,6 +26,18 @@ module CryptiKit
       @task.info '=> Done.'
     end
 
+    def edit
+      @task.info 'Editing server(s)...'
+      chooser = ServerChooser.new(:keys)
+      chooser.choose.tap do |keys|
+        editor = ServerEditor.new(@task, @list)
+        editor.edit_all(keys)
+      end
+      @task.info 'Updating configuration...'
+      @list.save
+      @task.info '=> Done.'
+    end
+
     def remove
       chooser = ServerChooser.new(:keys)
       chooser.choose.tap do |keys|
