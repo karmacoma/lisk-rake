@@ -59,6 +59,8 @@ module CryptiKit
       end
     end
 
+    attr_reader :synced
+
     def block_status
       @task.info 'Getting blockchain status...'
       @api.get '/api/blocks/getHeight' do |json|
@@ -75,7 +77,7 @@ module CryptiKit
         'process_status'  => process_status,
         'loading_status'  => loading_status,
         'sync_status'     => (loaded ? sync_status : {}),
-        'block_status'    => (loaded ? block_status : {}),
+        'block_status'    => (loaded && synced ? block_status : {}),
         'accounts_status' => AccountInspector.inspect(self, @node)
       }
       json.keys.reject! { |k| k == 'info' }.each do |j|
