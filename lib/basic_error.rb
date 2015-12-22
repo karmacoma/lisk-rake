@@ -23,6 +23,7 @@ module CryptiKit
 
     def interrupt?
       if @exception.is_a?(Interrupt) then
+        puts
         @task.error '=> Connection interrupted.'
         exit!
       end
