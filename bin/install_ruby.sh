@@ -8,8 +8,8 @@ fi
 echo "Installing ruby..."
 echo "-------------------------------------------------------------------------------"
 
-rvm install ruby-2.2.3
-rvm alias create cryptikit-ruby ruby-2.2.3
+rvm install ruby-2.3.0
+rvm alias create cryptikit-ruby ruby-2.3.0
 
 echo "Installing gems..."
 echo "-------------------------------------------------------------------------------"
