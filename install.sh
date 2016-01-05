@@ -17,7 +17,12 @@ echo "--------------------------------------------------------------------------
 echo "Installing rvm..."
 echo "-------------------------------------------------------------------------------"
 
-curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+if ! command -v curl >/dev/null 2>&1 ; then
+  echo "Could not find curl. Please install 'curl' and try again."
+  exit
+else
+  curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+fi
 
 echo "Configuring environment..."
 echo "-------------------------------------------------------------------------------"
