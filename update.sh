@@ -13,20 +13,30 @@ echo "--------------------------------------------------------------------------
 echo "Updating cryptikit..."
 echo "-------------------------------------------------------------------------------"
 
-if ! command -v git >/dev/null 2>&1 ; then
-  echo "Update requires installation of 'git'. Please install 'git' and try again."
-  echo ""
-  echo "You can always download the latest release of CryptiKit from:"
-  echo "-> https://github.com/karmacoma/cryptikit/releases/latest"
+mkdir -p tmp
+cp -f config.bak tmp/
+cd tmp
+
+if ! command -v curl >/dev/null 2>&1 ; then
+  echo "Could not find curl. Please install 'curl' and try again."
   exit
+else
+  curl -L -o cryptikit.tar.gz https://github.com/karmacoma/cryptikit/tarball/master
 fi
 
-git fetch origin master
-git checkout master
-git reset --hard origin/master
+if ! command -v tar >/dev/null 2>&1 ; then
+  echo "Could not find tar. Please install 'tar' and try again."
+  exit
+else
+  tar -zxvf cryptikit.tar.gz --strip 1
+fi
 
-git fetch --tags
-git checkout `git describe --abbrev=0 --tags` -B release
+if [ -f ./config.bak ] && [ -f ../config.bak ]; then
+  rm -rf ../*.*
+  cp -f *.* ../
+fi
+
+cd ..
 
 #### "Installing ruby / gems..."
 #### "-------------------------------------------------------------------------------"
@@ -41,7 +51,7 @@ rvm cryptikit-ruby@cryptikit do ruby "bin/update_config.rb"
 echo "Cleaning up..."
 echo "-------------------------------------------------------------------------------"
 
-rm -f .tasks
+rm -rf cryptikit.tar.gz tmp
 
 echo "Done."
 echo "-------------------------------------------------------------------------------"
