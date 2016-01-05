@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
 echo "Backing up configuraton..."
 echo "-------------------------------------------------------------------------------"
 
@@ -8,7 +10,7 @@ cp -vi config.yml config.bak
 echo "Downloading GPG public key..."
 echo "-------------------------------------------------------------------------------"
 
-. "$(pwd)/bin/recv-keys.sh"
+. "bin/recv-keys.sh"
 
 echo "Updating cryptikit..."
 echo "-------------------------------------------------------------------------------"
@@ -41,7 +43,7 @@ cd ..
 #### "Installing ruby / gems..."
 #### "-------------------------------------------------------------------------------"
 
-. "$(pwd)/bin/install_ruby.sh"
+. "bin/install_ruby.sh"
 
 echo "Updating configuraton..."
 echo "-------------------------------------------------------------------------------"
