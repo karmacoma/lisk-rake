@@ -10,7 +10,7 @@
 
 ```
 cd cryptikit
-. install.sh
+bash install.sh
 ```
 
 > NOTE:
@@ -24,7 +24,7 @@ cd cryptikit
 
 ```
 cd cryptikit
-. update.sh
+bash update.sh
 ```
 
 > NOTES:
