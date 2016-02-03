@@ -7,12 +7,12 @@ module LiskRake
 
     def balance
       change = BalanceChange.new(@json['balance'], @cache['balance'])
-      [sprintf("%-19s", 'Balance:'), @json['balance'].to_xcr, change.to_s, "\n"]
+      [sprintf("%-19s", 'Balance:'), @json['balance'].to_lisk, change.to_s, "\n"]
     end
 
     def unconfirmed_balance
       change = BalanceChange.new(@json['unconfirmedBalance'], @cache['unconfirmedBalance'])
-      [sprintf("%-19s", 'Unconfirmed:'), @json['unconfirmedBalance'].to_xcr, change.to_s, "\n"]
+      [sprintf("%-19s", 'Unconfirmed:'), @json['unconfirmedBalance'].to_lisk, change.to_s, "\n"]
     end
 
     def to_s

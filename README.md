@@ -447,8 +447,8 @@ Once a valid recipient address has been specified. LiskRake will present the cur
 
 ```
 INFO Checking account balance...
-INFO => Current balance: 184704.90731913 XCR.
-INFO => Maximum withdrawal: 183785.97743197 XCR.
+INFO => Current balance: 184704.90731913 LISK.
+INFO => Maximum withdrawal: 183785.97743197 LISK.
 
 Enter withdrawal amount: _____
 ```
@@ -464,7 +464,7 @@ Before sending any funds, LiskRake will prompt you to enter your primary passphr
 For each successful transaction, LiskRake will output the fee, transaction id and total amount sent.
 
 ```
-INFO Withdrawing 1.0 XCR...
+INFO Withdrawing 1.0 LISK...
 INFO From: 14636030356238523094C to: 4956977736153893179C...
 INFO ~> Fee: 0.005
 INFO ~> Transaction id: 2052732297350569719
@@ -476,7 +476,7 @@ INFO ~> Total withdrawn: 1.0
 If any errors are encountered during a transaction. For example an invalid passphrase, LiskRake will handle the error and move onto the next selected server.
 
 ```
-INFO Withdrawing 1.0 XCR...
+INFO Withdrawing 1.0 LISK...
 INFO From: 14636030356238523094C to: 4956977736153893179C...
 ERROR => Transaction failed.
 ERROR => Error: Provide secret key.

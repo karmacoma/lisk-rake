@@ -1,33 +1,33 @@
 require 'bigdecimal'
 
-module ToXCR
+module ToLISK
   def to_bd
     BigDecimal.new((self.to_f / 10**8).to_s)
   end
 
-  def to_xcr
-    to_bd.to_xcr
+  def to_lisk
+    to_bd.to_lisk
   end
 end
 
 class NilClass
-  include ToXCR
+  include ToLISK
 end
 
 class String
-  include ToXCR
+  include ToLISK
 end
 
 class Integer
-  include ToXCR
+  include ToLISK
 end
 
 class Float
-  include ToXCR
+  include ToLISK
 end
 
 class BigDecimal
-  def to_xcr
+  def to_lisk
     self.floor(8).to_f
   end
 end

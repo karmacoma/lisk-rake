@@ -26,7 +26,7 @@ module LiskRake
       return unless loaded?
       return if withdrawal <= 0.0
       PassphraseCollector.collect(passphrases?) do |passphrases|
-        @task.info "Withdrawing #{withdrawal} XCR..."
+        @task.info "Withdrawing #{withdrawal} LISK..."
         @task.info "From: #{@account['address']} to: #{@recipient.address}..."
 
         json = @api.put '/api/transactions', params(passphrases)
@@ -96,8 +96,8 @@ module LiskRake
         balance = get_balance
         maximum = balance / (1 + (network_fee * 10**8 / 100))
 
-        @task.info "=> Current balance: #{balance.to_xcr} XCR."
-        @task.info "=> Maximum withdrawal: #{maximum.to_xcr} XCR."
+        @task.info "=> Current balance: #{balance.to_lisk} LISK."
+        @task.info "=> Maximum withdrawal: #{maximum.to_lisk} LISK."
 
         begin
           puts Color.yellow("Enter withdrawal amount:")
@@ -147,7 +147,7 @@ module LiskRake
 
     def transaction(json, &block)
       if json['success'] then
-        fee    = network_fee(withdrawal).to_xcr
+        fee    = network_fee(withdrawal).to_lisk
         id     = json['transactionId'].to_i
         amount = withdrawal.to_f
         yield fee, id, amount

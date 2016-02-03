@@ -91,7 +91,7 @@ module LiskRake
       accounts.each do |a|
         balance += a[parent.to_s][type.to_s].to_f
       end
-      balance.to_xcr
+      balance.to_lisk
     end
 
     def total_unconfirmed

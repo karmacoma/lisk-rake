@@ -405,7 +405,7 @@ Fixed some issues I encountered when running the ```check_nodes``` task.
 ### 2014-10-20 (1.6.1)
 
 - Fixed network fee calculation:  
-  Surplus withdrawals should now consistently leave a minimum of 1000 XCR plus some dust
+  Surplus withdrawals should now consistently leave a minimum of 1000 LISK plus some dust
 - Allowing withdrawal / deposit address to be specified from the command line. For example:  
   ```rake withdraw_surplus address=4956977736153893179C```
 - Re-factored number handling for better accuracy
@@ -416,7 +416,7 @@ Fixed some issues I encountered when running the ```check_nodes``` task.
 
 - Added ```withdraw_surplus``` task
 
-The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated lisk account.
+The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 LISK required to start forging, to a designated lisk account.
 
 Instructions for this new task are available here:
 [https://github.com/LiskHQ/lisk-rake/blob/v1.6.0/README.md#surplus-withdrawals](https://github.com/LiskHQ/lisk-rake/blob/v1.6.0/README.md#surplus-withdrawals)

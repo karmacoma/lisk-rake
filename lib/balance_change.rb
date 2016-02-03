@@ -1,13 +1,13 @@
 module LiskRake
   class BalanceChange
     def initialize(cur, pre)
-      @cur = to_xcr(cur)
-      @pre = to_xcr(pre)
+      @cur = to_lisk(cur)
+      @pre = to_lisk(pre)
     end
 
-    def to_xcr(val)
+    def to_lisk(val)
       if val.is_a?(String) or val.is_a?(Integer) then
-        val.to_xcr
+        val.to_lisk
       else
         val
       end

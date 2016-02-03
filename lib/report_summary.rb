@@ -104,13 +104,13 @@ module LiskRake
 
     def lowest_balance
       if lowest = @report.lowest_balance then
-        [sprintf("%-19s", 'Lowest Balance:'), lowest['balance'].to_xcr, node_username(lowest), "\n"]
+        [sprintf("%-19s", 'Lowest Balance:'), lowest['balance'].to_lisk, node_username(lowest), "\n"]
       end
     end
 
     def highest_balance
       if highest = @report.highest_balance then
-        [sprintf("%-19s", 'Highest Balance:'), highest['balance'].to_xcr, node_username(highest), "\n"]
+        [sprintf("%-19s", 'Highest Balance:'), highest['balance'].to_lisk, node_username(highest), "\n"]
       end
     end
 
