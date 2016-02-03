@@ -66,7 +66,7 @@ module LiskRake
     end
 
     def self.app_port
-      (test?) ? 7040 : 8040
+      (test?) ? 7000 : 8000
     end
 
     def self.servers
