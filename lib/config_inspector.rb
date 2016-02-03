@@ -7,7 +7,7 @@ module CryptiKit
 
     def capture
       @task.info 'Getting configuration...'
-      conf = @task.capture 'cat', "#{@node.crypti_path}/config.json"
+      conf = @task.capture 'cat', "#{@node.lisk_path}/config.json"
       json = JSON.parse(conf) rescue {}
       if !json.empty? then
         @task.info '=> Done.'

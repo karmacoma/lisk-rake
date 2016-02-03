@@ -36,8 +36,8 @@ module CryptiKit
       end
     end
 
-    def crypti_path
-      [deploy_path, @server.crypti_path].join
+    def lisk_path
+      [deploy_path, @server.lisk_path].join
     end
 
     def accounts

@@ -85,7 +85,7 @@ rake add_key
 
 ### Installing Nodes
 
-To install the required dependencies plus the latest version of crypti on all server(s), simply run the following commands:
+To install the required dependencies plus the latest version of lisk on all server(s), simply run the following commands:
 
 ```
 rake install_deps
@@ -102,7 +102,7 @@ rake install_all
 
 ### Reinstalling Nodes
 
-To reinstall the latest version of crypti on all servers whilst keeping the existing blockchain, simply run the following command:
+To reinstall the latest version of lisk on all servers whilst keeping the existing blockchain, simply run the following command:
 
 ```
 rake reinstall_nodes
@@ -112,7 +112,7 @@ rake reinstall_nodes
 
 ### Forging
 
-Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, CryptiKit will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the crypti node using curl.
+Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, CryptiKit will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the lisk node using curl.
 
 > NOTE:
 > You will need to register as a delegate before you can start forging. To earn fees, your delegate will need to receive enough votes to be ranked within the top 101 delegates.
@@ -192,7 +192,7 @@ Balance:           13.00000001 0.0 (*)
 Unconfirmed:       13.00000001 0.0 (*)
 ```
 
-After running the ```check_nodes``` task. CryptiKit produces a detailed summary containing: the total nodes checked, report times, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes/delegates which are either currently loading, syncing, on standby, not forging or using an outdated version of crypti.
+After running the ```check_nodes``` task. CryptiKit produces a detailed summary containing: the total nodes checked, report times, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes/delegates which are either currently loading, syncing, on standby, not forging or using an outdated version of lisk.
 
 Please see the below example:
 
@@ -259,7 +259,7 @@ When one or nodes are being synchronised.
 
 #### Outdated
 
-When one or nodes are using an outdated version of crypti.
+When one or nodes are using an outdated version of lisk.
 
 ```
 * 2 / 4 nodes are outdated.
@@ -316,24 +316,24 @@ Type ```rake -T``` to get a complete list of commands.
 ```
 rake add_key         # Add your public ssh key
 rake add_servers     # Add servers to config
-rake check_nodes     # Check status of crypti nodes
+rake check_nodes     # Check status of lisk nodes
 rake clean_logs      # Clean logs on each server
 rake download_logs   # Download logs from each server
-rake install_all     # Install dependencies and crypti nodes
+rake install_all     # Install dependencies and lisk nodes
 rake install_deps    # Install dependencies
-rake install_nodes   # Install crypti nodes
+rake install_nodes   # Install lisk nodes
 rake list_servers    # List configured servers
 rake log_into        # Log into servers directly
-rake rebuild_nodes   # Rebuild crypti nodes (using new blockchain only)
-rake reinstall_nodes # Reinstall crypti nodes (keeping blockchain and config intact)
+rake rebuild_nodes   # Rebuild lisk nodes (using new blockchain only)
+rake reinstall_nodes # Reinstall lisk nodes (keeping blockchain and config intact)
 rake remove_servers  # Remove servers from config
-rake restart_nodes   # Restart crypti nodes
-rake start_forging   # Start forging on crypti nodes
-rake start_nodes     # Start crypti nodes
-rake stop_forging    # Stop forging on crypti nodes
-rake stop_nodes      # Stop crypti nodes
-rake uninstall_nodes # Uninstall crypti nodes
-rake withdraw_funds  # Withdraw funds from crypti nodes
+rake restart_nodes   # Restart lisk nodes
+rake start_forging   # Start forging on lisk nodes
+rake start_nodes     # Start lisk nodes
+rake stop_forging    # Stop forging on lisk nodes
+rake stop_nodes      # Stop lisk nodes
+rake uninstall_nodes # Uninstall lisk nodes
+rake withdraw_funds  # Withdraw funds from lisk nodes
 ```
 
 #### Bash Auto-completion
@@ -392,7 +392,7 @@ rake check_nodes servers=all
 
 ### Withdrawals
 
-The ```withdraw_funds``` task allows you to withdraw a specific amount from one of the crypti accounts associated with a given node, to a designated recipient crypti account.
+The ```withdraw_funds``` task allows you to withdraw a specific amount from one of the lisk accounts associated with a given node, to a designated recipient lisk account.
 
 The required steps are as follows:
 
@@ -411,7 +411,7 @@ For example:
 rake withdraw_funds servers=1..3 # Servers 1 to 3
 
 Withdrawing funds...
-Please enter your recipient crypti address: _____
+Please enter your recipient lisk address: _____
 ```
 
 When given an invalid address. CryptiKit will prompt you to try again:
@@ -420,8 +420,8 @@ When given an invalid address. CryptiKit will prompt you to try again:
 rake withdraw_funds servers=1..3 # Servers 1 to 3
 
 Withdrawing funds...
-Please enter your recipient crypti address: _____
-Invalid crypti address. Please try again...
+Please enter your recipient lisk address: _____
+Invalid lisk address. Please try again...
 ```
 
 The recipient address can also be specified from the command line:

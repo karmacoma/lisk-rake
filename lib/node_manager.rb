@@ -6,26 +6,26 @@ module CryptiKit
     end
 
     def start(auto = false)
-      @task.within @node.crypti_path do
-        @task.info 'Starting crypti...'
-        @task.execute top_accounts, 'bash', 'crypti.sh', (auto ? 'autostart' : 'start'), '||', ':'
+      @task.within @node.lisk_path do
+        @task.info 'Starting lisk...'
+        @task.execute top_accounts, 'bash', 'lisk.sh', (auto ? 'autostart' : 'start'), '||', ':'
         @task.info '=> Done.'
       end
     end
 
     def restart
-      @task.within @node.crypti_path do
-        @task.info 'Restarting crypti...'
-        @task.execute top_accounts, 'bash', 'crypti.sh', 'restart', '||', ':'
+      @task.within @node.lisk_path do
+        @task.info 'Restarting lisk...'
+        @task.execute top_accounts, 'bash', 'lisk.sh', 'restart', '||', ':'
         @task.info '=> Done.'
       end
     end
 
     def stop
-      return unless crypti_path?
-      @task.within @node.crypti_path do
-        @task.info 'Stopping crypti...'
-        @task.execute 'bash', 'crypti.sh', 'stop', '||', ':'
+      return unless lisk_path?
+      @task.within @node.lisk_path do
+        @task.info 'Stopping lisk...'
+        @task.execute 'bash', 'lisk.sh', 'stop', '||', ':'
         @task.info '=> Done.'
       end
     end
@@ -36,8 +36,8 @@ module CryptiKit
       "TOP=#{Core.top_accounts}"
     end
 
-    def crypti_path?
-      @task.test "[ -d #{@node.crypti_path} ];"
+    def lisk_path?
+      @task.test "[ -d #{@node.lisk_path} ];"
     end
   end
 end

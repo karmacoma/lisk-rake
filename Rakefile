@@ -89,9 +89,9 @@ task :install_deps do
   end
 end
 
-desc 'Install crypti nodes'
+desc 'Install lisk nodes'
 task :install_nodes do
-  puts 'Installing crypti nodes...'
+  puts 'Installing lisk nodes...'
 
   on_each_server do |node, deps|
     deps.check_remote('bash', 'curl', 'unzip')
@@ -101,18 +101,18 @@ task :install_nodes do
   end
 end
 
-desc 'Install dependencies and crypti nodes'
+desc 'Install dependencies and lisk nodes'
 task :install_all do
   Rake::Task['install_deps'].invoke
   Rake::Task['install_nodes'].invoke
 end
 
-desc 'Uninstall crypti nodes'
+desc 'Uninstall lisk nodes'
 task :uninstall_nodes do
-  puts 'Uninstalling crypti nodes...'
+  puts 'Uninstalling lisk nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'crypti')
+    deps.check_remote('bash', 'lisk')
 
     installer = CryptiKit::NodeInstaller.new(self, node)
     installer.uninstall
@@ -124,7 +124,7 @@ task :clean_logs do
   puts 'Cleaning logs...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'crypti')
+    deps.check_remote('bash', 'lisk')
 
     manager = CryptiKit::LogManager.new(self, node)
     manager.clean
@@ -136,79 +136,79 @@ task :download_logs do
   puts 'Downloading logs...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'crypti')
+    deps.check_remote('bash', 'lisk')
 
     manager = CryptiKit::LogManager.new(self, node)
     manager.download
   end
 end
 
-desc 'Start crypti nodes'
+desc 'Start lisk nodes'
 task :start_nodes do
-  puts 'Starting crypti nodes...'
+  puts 'Starting lisk nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'crypti')
+    deps.check_remote('bash', 'lisk')
 
     manager = CryptiKit::NodeManager.new(self, node)
     manager.start
   end
 end
 
-desc 'Restart crypti nodes'
+desc 'Restart lisk nodes'
 task :restart_nodes do
-  puts 'Restarting crypti nodes...'
+  puts 'Restarting lisk nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'crypti')
+    deps.check_remote('bash', 'lisk')
 
     manager = CryptiKit::NodeManager.new(self, node)
     manager.restart
   end
 end
 
-desc 'Rebuild crypti nodes (using new blockchain only)'
+desc 'Rebuild lisk nodes (using new blockchain only)'
 task :rebuild_nodes do
-  puts 'Rebuilding crypti nodes...'
+  puts 'Rebuilding lisk nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'curl', 'crypti')
+    deps.check_remote('bash', 'curl', 'lisk')
 
     installer = CryptiKit::NodeInstaller.new(self, node)
     installer.rebuild
   end
 end
 
-desc 'Reinstall crypti nodes (keeping blockchain and config intact)'
+desc 'Reinstall lisk nodes (keeping blockchain and config intact)'
 task :reinstall_nodes do
-  puts 'Reinstalling crypti nodes...'
+  puts 'Reinstalling lisk nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'curl', 'crypti')
+    deps.check_remote('bash', 'curl', 'lisk')
 
     installer = CryptiKit::NodeInstaller.new(self, node)
     installer.reinstall
   end
 end
 
-desc 'Stop crypti nodes'
+desc 'Stop lisk nodes'
 task :stop_nodes do
-  puts 'Stopping crypti nodes...'
+  puts 'Stopping lisk nodes...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'crypti')
+    deps.check_remote('bash', 'lisk')
 
     manager = CryptiKit::NodeManager.new(self, node)
     manager.stop
   end
 end
 
-desc 'Start forging on crypti nodes'
+desc 'Start forging on lisk nodes'
 task :start_forging do
   puts 'Starting forging...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'curl', 'crypti')
+    deps.check_remote('bash', 'curl', 'lisk')
 
     manager = CryptiKit::ForgingManager.new(self, node)
     manager.start
@@ -217,12 +217,12 @@ task :start_forging do
   Rake::Task['check_nodes'].invoke
 end
 
-desc 'Stop forging on crypti nodes'
+desc 'Stop forging on lisk nodes'
 task :stop_forging do
   puts 'Stopping forging...'
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'curl', 'crypti')
+    deps.check_remote('bash', 'curl', 'lisk')
 
     manager = CryptiKit::ForgingManager.new(self, node)
     manager.stop
@@ -231,13 +231,13 @@ task :stop_forging do
   Rake::Task['check_nodes'].invoke
 end
 
-desc 'Check status of crypti nodes'
+desc 'Check status of lisk nodes'
 task :check_nodes do
   puts 'Checking nodes...'
 
   CryptiKit::Report.run do |report|
     on_each_server do |node, deps|
-      deps.check_remote('bash', 'curl', 'crypti')
+      deps.check_remote('bash', 'curl', 'lisk')
 
       api = CryptiKit::NodeInspector.new(self, node)
       api.node_status { |json| report[node.key] = json }
@@ -245,7 +245,7 @@ task :check_nodes do
   end
 end
 
-desc 'Withdraw funds from crypti nodes'
+desc 'Withdraw funds from lisk nodes'
 task :withdraw_funds do
   puts 'Withdrawing funds...'
 
@@ -253,7 +253,7 @@ task :withdraw_funds do
   exit unless recipient.get_address
 
   on_each_server do |node, deps|
-    deps.check_remote('bash', 'curl', 'crypti')
+    deps.check_remote('bash', 'curl', 'lisk')
 
     CryptiKit::Withdrawal.withdraw(self, node, recipient)
   end

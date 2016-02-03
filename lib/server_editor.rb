@@ -17,7 +17,7 @@ module CryptiKit
         edit_user(server)
         edit_port(server)
         edit_deploy_path(server)
-        edit_crypti_path(server)
+        edit_lisk_path(server)
       end
     end
 
@@ -69,18 +69,18 @@ module CryptiKit
       end
     end
 
-    def edit_crypti_path(server)
+    def edit_lisk_path(server)
       begin
-        puts Color.yellow("Enter crypti path (current = #{server['crypti_path']}):")
+        puts Color.yellow("Enter lisk path (current = #{server['lisk_path']}):")
         if ServerValidator.valid_path?(path = Core.gets) then
-          server['crypti_path'] = sanitize_path(path)
+          server['lisk_path'] = sanitize_path(path)
         elsif !path.empty? then
           raise ArgumentError
         else
-          puts Color.light_blue(%(Crypti path remains unchanged))
+          puts Color.light_blue(%(Lisk path remains unchanged))
         end
       rescue ArgumentError
-        puts Color.red("Invalid crypti path. Please try again...")
+        puts Color.red("Invalid lisk path. Please try again...")
         retry
       end
     end

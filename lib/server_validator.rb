@@ -22,7 +22,7 @@ module CryptiKit
     end
 
     CRYPTI_PATH_VALIDATOR = Proc.new do |server|
-      ServerValidator.valid_path?(server['crypti_path'])
+      ServerValidator.valid_path?(server['lisk_path'])
     end
 
     VALIDATORS = {
@@ -30,7 +30,7 @@ module CryptiKit
       'user'        => USER_VALIDATOR,
       'port'        => PORT_VALIDATOR,
       'deploy_path' => DEPLOY_PATH_VALIDATOR,
-      'crypti_path' => CRYPTI_PATH_VALIDATOR
+      'lisk_path' => CRYPTI_PATH_VALIDATOR
     }
 
     def initialize(args)

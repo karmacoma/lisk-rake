@@ -29,8 +29,8 @@ class ConfigUpdater
       'hostname'    => s[1].to_s,
       'user'        => 'root',
       'port'        => 22,
-      'deploy_path' => '/var/crypti',
-      'crypti_path' => '/install',
+      'deploy_path' => '/var/lisk',
+      'lisk_path' => '/install',
       'accounts'    => @config_bak['accounts'][s[0].to_i].to_a
     }
   end

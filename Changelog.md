@@ -5,7 +5,7 @@
 - Installing customised build of sqlite3
 - Updating installed nodejs version to: 0.12
 - Controlling nodes using forever-service (replaces cron)
-- Installing crypti-node (used as vm for running dapps)
+- Installing lisk-node (used as vm for running dapps)
 - Restricting installation to Ubuntu Linux only
 - Updating app_url and blockchain_url links
 
@@ -71,7 +71,7 @@ This release fixes some issues affecting certain systems.
 
 ### 2015-04-07 (2.0.0)
 
-- Updating API for compatibility with crypti node version: 0.2.0
+- Updating API for compatibility with lisk node version: 0.2.0
 - Updating Gemfile with the latest versions for all dependencies
 - Fixing error when servers or accounts are not defined within config
 - Making forging info mandatory rather than optional (as no need to disable it now)
@@ -127,9 +127,9 @@ For more information, please read:
 
 [https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md#checking-nodes](https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md#checking-nodes)
 
-- Replacing crypti download url
+- Replacing lisk download url
 
-Now automatically points to latest API compatible crypti version. Removing the need for CryptiKit to track every crypti release.
+Now automatically points to latest API compatible lisk version. Removing the need for CryptiKit to track every lisk release.
 
 - Replacing blockchain download url
 
@@ -145,13 +145,13 @@ Please read: [https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md](http
 
 ### 2015-03-11 (1.8.3)
 
-- Updated crypti node to latest version: 0.1.9f
+- Updated lisk node to latest version: 0.1.9f
 
 ***
 
 ### 2015-03-10 (1.8.2)
 
-- Updated crypti node to latest version: 0.1.9d
+- Updated lisk node to latest version: 0.1.9d
 - Automatically keeping configured servers/accounts on update
 - Backing up config.yml using interactive copy on update
 
@@ -160,13 +160,13 @@ Please read: [https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md](http
 ### 2015-02-27 (1.8.1)
 
 - Adding ```reinstall_nodes``` task
-- Updated crypti node to latest version: 0.1.9c
+- Updated lisk node to latest version: 0.1.9c
 - Removing application version from install path
 - Updating/freshening files upon decompression
 
 #### Reinstall Nodes
 
-The ```reinstall_nodes``` task installs a fresh copy crypti while saving and restoring the existing blockchain. This is useful when you want to update to the latest version of crypti without having to download a new copy of the blockchain.
+The ```reinstall_nodes``` task installs a fresh copy lisk while saving and restoring the existing blockchain. This is useful when you want to update to the latest version of lisk without having to download a new copy of the blockchain.
 
 For reference:
 
@@ -178,11 +178,11 @@ For reference:
 
 ### 2015-01-24 (1.8.0)
 
-This update coincides with the release of Crypti 0.1.9. In addition to the mandatory changes for compatibility with the new Crypti API, it contains numerous bug fixes and improvements to the underlying code.
+This update coincides with the release of Lisk 0.1.9. In addition to the mandatory changes for compatibility with the new Lisk API, it contains numerous bug fixes and improvements to the underlying code.
 
 #### Updates
 
-- Updated crypti node to latest version: 0.1.9
+- Updated lisk node to latest version: 0.1.9
 - Improved reporting of block height during loading & syncing
 - Allowing blockchain_url to be optionally defined in config.yml
 - Removing unnecessary dependency checks from ```check_nodes``` task
@@ -193,7 +193,7 @@ This update coincides with the release of Crypti 0.1.9. In addition to the manda
 - Gracefully handling server connection errors when adding public ssh key to servers
 - Gracefully handling network is unreachable server connection errors
 - Gracefully handling fingerprint mismatch server connection errors
-- Relaxing crypti address validation in withdraw_surplus task
+- Relaxing lisk address validation in withdraw_surplus task
 - Preventing forging management until node is loaded
 - Preventing surplus withdrawals until node is loaded
 
@@ -223,12 +223,12 @@ This update coincides with the release of Crypti 0.1.9. In addition to the manda
 
   ```rake download_logs servers=1```
 
-  Downloads the current forever and crypti log from each server to the local machine.
+  Downloads the current forever and lisk log from each server to the local machine.
   Log files are saved into the relative ```logs/``` directory for further analysis, like so:
 
   ```
   1.forever.log
-  1.crypti.log
+  1.lisk.log
   ```
 
   > NOTE: Previous downloads are deleted before each subsequent download.
@@ -241,19 +241,19 @@ This update coincides with the release of Crypti 0.1.9. In addition to the manda
 
   Which does the following on each server:
 
-  - Existing crypti log file is truncated to zero
-  - Old crypti log file(s) are removed
+  - Existing lisk log file is truncated to zero
+  - Old lisk log file(s) are removed
   - Old forever log file(s) are removed
 
 ***
 
 ### 2014-12-15 (1.7.3)
 
-This update coincides with the release of Crypti 0.1.8. The latest version of Crypti adds some welcome stability, quicker load times and more responsive node queries; which all contribute to making node deployment using CryptiKit a more pleasant experience.
+This update coincides with the release of Lisk 0.1.8. The latest version of Lisk adds some welcome stability, quicker load times and more responsive node queries; which all contribute to making node deployment using CryptiKit a more pleasant experience.
 
 #### Updates
 
-- Updated crypti node to latest version: 0.1.8
+- Updated lisk node to latest version: 0.1.8
 - Adding environment option to config.yml
   - 'live' will deploy nodes onto the live blockchain using port 6040
   - 'test' will deploy nodes onto the test blockchain using port 7040
@@ -354,7 +354,7 @@ For more information please see:
 Example config.yml with customised URLs hosted on Dropbox:
 
 ```
-app_url: https://www.dropbox.com/s/ygjs6wwukj3h3ho/crypti-linux-0.1.7.zip?dl=0
+app_url: https://www.dropbox.com/s/ygjs6wwukj3h3ho/lisk-linux-0.1.7.zip?dl=0
 blockchain_url: https://www.dropbox.com/s/rbkx0rtvhp4xxbe/blockchain.db.zip?dl=0
 ```
 
@@ -376,8 +376,8 @@ For more information regarding supported hosts see:
 - Copying rather than moving config.yml when updating CryptiKit
 - Escaping forward slash character when saving passphrase to config.json
 - Adding connection and operation timeouts to curl requests
-  - 30 seconds until connection to crypti node times out
-  - 60 seconds until crypti API query times out
+  - 30 seconds until connection to lisk node times out
+  - 60 seconds until lisk API query times out
 - Gracefully handling (CTRL+C) user interrupts
 
 ***
@@ -416,7 +416,7 @@ Fixed some issues I encountered when running the ```check_nodes``` task.
 
 - Added ```withdraw_surplus``` task
 
-The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated crypti account.
+The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated lisk account.
 
 Instructions for this new task are available here:
 [https://github.com/karmacoma/cryptikit/blob/v1.6.0/README.md#surplus-withdrawals](https://github.com/karmacoma/cryptikit/blob/v1.6.0/README.md#surplus-withdrawals)
@@ -425,17 +425,17 @@ Instructions for this new task are available here:
 
 ### 2014-10-12 (1.5.1)
 
-This update coincides with the release of Crypti 0.1.7. It contains some important bug fixes, improvements to the installation process and a general refactoring of the code base.
+This update coincides with the release of Lisk 0.1.7. It contains some important bug fixes, improvements to the installation process and a general refactoring of the code base.
 
 #### Updates
 
-- Updated crypti node to latest version: 0.1.7
+- Updated lisk node to latest version: 0.1.7
 - Updated blockchain download url
 
 #### Bug Fixes
 
 - Fixed targeting of servers when a range is provided
-- Fixed checking of remote dependencies when crypti node has not been installed yet
+- Fixed checking of remote dependencies when lisk node has not been installed yet
 - When running the automated update script:
   - Latest stable release of rvm is installed
   - Gems are updated and old versions removed
@@ -461,7 +461,7 @@ ruby bin/completer.rb --re-enable
   - Range of servers via: ```rake command servers=5..10```
   - Selection of servers via: ```rake command servers=1,3,7``` (as before)
   - When no servers are provided. Prompting user for y/n answer to run task on all servers
-- Added ```install_all``` task to install both dependencies & crypti nodes using one command
+- Added ```install_all``` task to install both dependencies & lisk nodes using one command
 - Dependency errors are now handled like connection errors and are included in the report summary
 - Dependencies are now stated as they are found on local/remote system
 - Stopped install.sh script forking a new shell on installation
@@ -476,7 +476,7 @@ ruby bin/completer.rb --re-enable
 
 - Resolved issue when installing on servers where nodejs already installed
 - Ensuring all existing processes are stopped before starting a node
-- Checking crypti node is installed before executing certain tasks
+- Checking lisk node is installed before executing certain tasks
 - Removing blockchain.db.zip after decompressing it during tasks
 
 #### Features / Improvements

@@ -10,7 +10,7 @@ module CryptiKit
     end
 
     def check_remote(*deps)
-      check_crypti_node(deps)
+      check_lisk_node(deps)
       check_dependencies(deps)
     end
 
@@ -29,7 +29,7 @@ module CryptiKit
     def check_dependencies(deps)
       @task.info "Checking #{location[:type]} dependencies..."
 
-      deps.delete_if { |d| d == 'crypti' }.each do |dep|
+      deps.delete_if { |d| d == 'lisk' }.each do |dep|
         if @task.test('which', dep) then
           @task.info "=> Found: #{dep}."
         else
@@ -38,14 +38,14 @@ module CryptiKit
       end
     end
 
-    def check_crypti_node(deps)
-      return unless deps.include?('crypti')
-      @task.info 'Looking for crypti node...'
+    def check_lisk_node(deps)
+      return unless deps.include?('lisk')
+      @task.info 'Looking for lisk node...'
 
-      if @task.test "[ -f #{@node.crypti_path + '/crypti.sh'} ];" then
+      if @task.test "[ -f #{@node.lisk_path + '/lisk.sh'} ];" then
         @task.info '=> Found.'
       else
-        raise "Crypti node is not installed #{location[:name]}."
+        raise "Lisk node is not installed #{location[:name]}."
       end
     end
 

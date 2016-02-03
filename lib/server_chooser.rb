@@ -48,7 +48,7 @@ module CryptiKit
         s['user']        = s['user']        || Core.deploy_user
         s['port']        = s['port']        || Core.deploy_port
         s['deploy_path'] = s['deploy_path'] || Core.deploy_path
-        s['crypti_path'] = s['crypti_path'] || Core.crypti_path
+        s['lisk_path'] = s['lisk_path'] || Core.lisk_path
       end
     end
 

@@ -6,7 +6,7 @@ module CryptiKit
     end
 
     def app_pid
-      @task.within @node.crypti_path do
+      @task.within @node.lisk_path do
         @task.capture 'cat', 'app.pid', '||', ':'
       end
     end

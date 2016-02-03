@@ -33,8 +33,8 @@ module CryptiKit
       config['deploy_path']
     end
 
-    def self.crypti_path
-      config['crypti_path']
+    def self.lisk_path
+      config['lisk_path']
     end
 
     def self.download_url

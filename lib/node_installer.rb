@@ -26,7 +26,7 @@ module CryptiKit
     def rebuild
       Core.task do
         @manager.stop
-        @task.within @node.crypti_path do
+        @task.within @node.lisk_path do
           remove_blockchain
         end
         @manager.start
@@ -39,11 +39,11 @@ module CryptiKit
 
       Core.task do
         @manager.stop
-        @task.within @node.crypti_path do
+        @task.within @node.lisk_path do
           save_blockchain
         end
         ConfigMigrator.migrate(@task, @node) do
-          remove_crypti_path
+          remove_lisk_path
           @task.within @node.deploy_path do
             download_crypti
             install_crypti
@@ -65,7 +65,7 @@ module CryptiKit
     private
 
     def remove_deploy_path
-      @task.info 'Removing crypti...'
+      @task.info 'Removing lisk...'
       @task.execute 'rm', '-rf', @node.deploy_path
     end
 
@@ -76,9 +76,9 @@ module CryptiKit
       end
     end
 
-    def remove_crypti_path
-      @task.info 'Removing crypti...'
-      @task.execute 'rm', '-rf', @node.crypti_path
+    def remove_lisk_path
+      @task.info 'Removing lisk...'
+      @task.execute 'rm', '-rf', @node.lisk_path
     end
 
     def make_deploy_path
@@ -91,7 +91,7 @@ module CryptiKit
     end
 
     def app_path
-      @app_path ||= "crypti-#{@insp.os}-#{@insp.arch}"
+      @app_path ||= "lisk-#{@insp.os}-#{@insp.arch}"
     end
 
     def zip_file
@@ -99,14 +99,14 @@ module CryptiKit
     end
 
     def download_crypti
-      @task.info 'Downloading crypti...'
+      @task.info 'Downloading lisk...'
       @task.execute 'curl', '-o', zip_file, app_url
     end
 
     def install_crypti
-      @task.info 'Installing crypti...'
+      @task.info 'Installing lisk...'
       @task.execute 'unzip', '-u', zip_file
-      @task.execute 'mv', '-f', '$(ls -d * | head -1)', @node.crypti_path
+      @task.execute 'mv', '-f', '$(ls -d * | head -1)', @node.lisk_path
       @task.info 'Cleaning up...'
       @task.execute 'rm', '-f', zip_file
     end

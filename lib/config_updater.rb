@@ -10,8 +10,8 @@ module CryptiKit
 
     def paths
       @paths ||= {
-        config: @node.crypti_path + '/config.json',
-        backup: @node.crypti_path + '/config.bak'
+        config: @node.lisk_path + '/config.json',
+        backup: @node.lisk_path + '/config.bak'
       }
     end
 

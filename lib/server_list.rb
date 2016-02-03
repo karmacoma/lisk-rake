@@ -31,7 +31,7 @@ module CryptiKit
           'user'        => Core.deploy_user,
           'port'        => Core.deploy_port,
           'deploy_path' => Core.deploy_path,
-          'crypti_path' => Core.crypti_path,
+          'lisk_path' => Core.lisk_path,
           'accounts'    => [] }
       end
     end

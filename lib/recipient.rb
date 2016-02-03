@@ -21,7 +21,7 @@ module CryptiKit
       if specified then
         self.address = specified
       else
-        puts Color.yellow("Please enter your recipient crypti address:")
+        puts Color.yellow("Please enter your recipient lisk address:")
         self.address = Core.gets
       end
     rescue Interrupt
@@ -29,7 +29,7 @@ module CryptiKit
       exit
     rescue ArgumentError
       @specified = ENV['recipient'] = nil
-      puts Color.red("Invalid crypti address. Please try again...")
+      puts Color.red("Invalid lisk address. Please try again...")
       retry
     end
   end
