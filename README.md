@@ -2,6 +2,20 @@
 
 Lisk Rake is a node deployment and management tool for [Lisk](https://lisk.io/). It provides a command-line interface from which delegates can manage nodes remotely from a local machine, allowing delegates to seamlessly install, upgrade and monitor them using just a few simple commands.
 
+***
+
+## Supported Platforms
+
+### Local Installation
+
+Lisk Rake can be installed locally on [Mac OS X](https://www.apple.com/osx/) or [Debian-based Linux operating systems](http://debian.org/). It can also be installed "in-situ" using the loopback IP address `127.0.0.1` on a remote machine.
+
+### Remote Deployment
+
+Providing you have SSH access to the machine, Lisk Rake supports deployment to all platforms as detailed in the official [Lisk Documentation](https://lisk.io/documentation?i=lisk-docs/BinaryInstall). Managing a cluster of [Raspberry Pis](http://www.raspberrypi.org/) or [cloud hosted servers](http://www.vultr.com/?ref=6814545) are two very good example use-cases.
+
+***
+
 ## Installation
 
   [https://github.com/LiskHQ/lisk-rake/releases/latest](https://github.com/LiskHQ/lisk-rake/releases/latest)
