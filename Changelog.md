@@ -77,7 +77,7 @@ This release fixes some issues affecting certain systems.
 - Making forging info mandatory rather than optional (as no need to disable it now)
 - Adding support for running multiple delegates on individual nodes
 - Adding delegate status information to ```check_nodes``` task
-- Changing 'live' app_port from 7040 to 8040
+- Changing 'main' app_port from 7040 to 8040
 - Reworking ```withdraw_surplus``` task
   - Renamed task to ```withdraw_balances```
   - Now allows users to withdraw specific balance
@@ -255,7 +255,7 @@ This update coincides with the release of Lisk 0.1.8. The latest version of Lisk
 
 - Updated lisk node to latest version: 0.1.8
 - Adding environment option to config.yml
-  - 'live' will deploy nodes onto the live blockchain using port 6040
+  - 'main' will deploy nodes onto the main blockchain using port 6040
   - 'test' will deploy nodes onto the test blockchain using port 7040
 
 #### Bug Fixes

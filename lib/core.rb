@@ -45,8 +45,8 @@ module LiskRake
       config['environment']
     end
 
-    def self.live?
-      environment == 'live'
+    def self.main?
+      environment == 'main'
     end
 
     def self.test?
