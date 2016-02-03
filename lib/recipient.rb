@@ -3,7 +3,7 @@ module LiskRake
     attr_reader :address
 
     def address=(address)
-      unless address.match(/[0-9]{18,20}C/) then
+      unless address.match(/[0-9]{18,20}L/) then
         raise ArgumentError
       else
         @address = address
