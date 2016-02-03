@@ -481,3 +481,15 @@ INFO From: 14636030356238523094C to: 4956977736153893179C...
 ERROR => Transaction failed.
 ERROR => Error: Provide secret key.
 ```
+
+***
+
+## Author
+
+- Olivier Beddows <olivier@lisk.io>
+
+***
+
+## License
+
+[GNU GENERAL PUBLIC LICENSE (Version 3)](LICENSE)
