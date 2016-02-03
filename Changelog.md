@@ -211,7 +211,7 @@ This update coincides with the release of Lisk 0.1.9. In addition to the mandato
 
   ```
   ================================================================================
-  Node[1]: 111.11.11.111 (4956977736153893179C)
+  Node[1]: 111.11.11.111 (4956977736153893179L)
   ================================================================================
   Usage:             CPU: 27.1% | Memory: 61.7%
   Uptime:            0:1:32:35.744
@@ -407,7 +407,7 @@ Fixed some issues I encountered when running the ```check_nodes``` task.
 - Fixed network fee calculation:  
   Surplus withdrawals should now consistently leave a minimum of 1000 LISK plus some dust
 - Allowing withdrawal / deposit address to be specified from the command line. For example:  
-  ```rake withdraw_surplus address=4956977736153893179C```
+  ```rake withdraw_surplus address=4956977736153893179L```
 - Re-factored number handling for better accuracy
 
 ***

@@ -131,7 +131,7 @@ Once forging has been successfully started, you will be provided with the option
 INFO Enabling forging...
 INFO => Enabled.
 INFO Adding account...
-INFO => Added: 4956977736153893179C.
+INFO => Added: 4956977736153893179L.
 INFO Adding passphrase to remote config...
 
 Add passphrase to remote config? _____
@@ -171,7 +171,7 @@ Loaded:            true
 Syncing:           false
 Height:            162573
 --------------------------------------------------------------------------------
-Delegate:          (1) Olivier [Active] 14636030356238523094C
+Delegate:          (1) Olivier [Active] 14636030356238523094L
 Productivity:      71.59%
 Rank:              15
 Forging:           true
@@ -180,7 +180,7 @@ Forged:            320.67081153 0.0 (*)
 Balance:           174644.91081588 0.0 (*)
 Unconfirmed:       174644.91081588 0.0 (*)
 --------------------------------------------------------------------------------
-Delegate:          (2) Karmacoma [Standby] 4956977736153893179C
+Delegate:          (2) Karmacoma [Standby] 4956977736153893179L
 Productivity:      0.0%
 Rank:              120
 Forging:           true
@@ -423,7 +423,7 @@ Invalid lisk address. Please try again...
 The recipient address can also be specified from the command line:
 
 ```
-rake withdraw_funds servers=1..3 recipient=4956977736153893179C # Servers 1 to 3
+rake withdraw_funds servers=1..3 recipient=4956977736153893179L # Servers 1 to 3
 ```
 
 ### Withdrawal Account
@@ -434,8 +434,8 @@ As one or more accounts can be associated with any given node. When making a wit
 --------------------------------------------------------------------------------
 Available accounts on: Node[1]
 --------------------------------------------------------------------------------
-1: 14636030356238523094C
-2: 707434884386221427C
+1: 14636030356238523094L
+2: 707434884386221427L
 
 Please choose an account [1-2]: _____
 --------------------------------------------------------------------------------
@@ -465,7 +465,7 @@ For each successful transaction, LiskRake will output the fee, transaction id an
 
 ```
 INFO Withdrawing 1.0 LISK...
-INFO From: 14636030356238523094C to: 4956977736153893179C...
+INFO From: 14636030356238523094L to: 4956977736153893179L...
 INFO ~> Fee: 0.005
 INFO ~> Transaction id: 2052732297350569719
 INFO ~> Total withdrawn: 1.0
@@ -477,7 +477,7 @@ If any errors are encountered during a transaction. For example an invalid passp
 
 ```
 INFO Withdrawing 1.0 LISK...
-INFO From: 14636030356238523094C to: 4956977736153893179C...
+INFO From: 14636030356238523094L to: 4956977736153893179L...
 ERROR => Transaction failed.
 ERROR => Error: Provide secret key.
 ```
