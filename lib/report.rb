@@ -83,7 +83,7 @@ module LiskRake
     attr_writer :generated_at
 
     def total_forged
-      total_balance('fees', 'forging_info')
+      total_balance('forged', 'forging_info')
     end
 
     def total_balance(type = 'balance', parent = 'account_balance')
