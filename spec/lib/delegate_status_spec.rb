@@ -1,4 +1,4 @@
 require 'delegate_status'
 
-RSpec.describe CryptiKit::DelegateStatus do
+RSpec.describe LiskRake::DelegateStatus do
 end

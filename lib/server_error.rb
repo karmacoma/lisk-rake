@@ -1,6 +1,6 @@
 require 'basic_error'
 
-module CryptiKit
+module LiskRake
   class ServerError < BasicError
     @errors = {
       /Authentication failed/i  => '=> Authentication failed.',

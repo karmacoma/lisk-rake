@@ -1,4 +1,4 @@
 require 'passphrase'
 
-RSpec.describe CryptiKit::Passphrase do
+RSpec.describe LiskRake::Passphrase do
 end

@@ -1,4 +1,4 @@
 require 'server_installer'
 
-RSpec.describe CryptiKit::ServerInstaller do
+RSpec.describe LiskRake::ServerInstaller do
 end

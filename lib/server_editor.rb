@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ServerEditor
     def initialize(task, list)
       @task = task

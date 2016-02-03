@@ -1,4 +1,4 @@
 require 'freebsd_installer'
 
-RSpec.describe CryptiKit::FreeBSDInstaller do
+RSpec.describe LiskRake::FreeBSDInstaller do
 end

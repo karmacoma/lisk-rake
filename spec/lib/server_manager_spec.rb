@@ -1,4 +1,4 @@
 require 'server_manager'
 
-RSpec.describe CryptiKit::ServerManager do
+RSpec.describe LiskRake::ServerManager do
 end

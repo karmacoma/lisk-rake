@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ServerValidator
     IPV4_REGEXP = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
     HOST_REGEXP = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i
@@ -21,7 +21,7 @@ module CryptiKit
       ServerValidator.valid_path?(server['deploy_path'])
     end
 
-    CRYPTI_PATH_VALIDATOR = Proc.new do |server|
+    LISK_PATH_VALIDATOR = Proc.new do |server|
       ServerValidator.valid_path?(server['lisk_path'])
     end
 
@@ -30,7 +30,7 @@ module CryptiKit
       'user'        => USER_VALIDATOR,
       'port'        => PORT_VALIDATOR,
       'deploy_path' => DEPLOY_PATH_VALIDATOR,
-      'lisk_path' => CRYPTI_PATH_VALIDATOR
+      'lisk_path'   => LISK_PATH_VALIDATOR
     }
 
     def initialize(args)

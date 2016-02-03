@@ -1,4 +1,4 @@
 require 'account_balance'
 
-RSpec.describe CryptiKit::AccountBalance do
+RSpec.describe LiskRake::AccountBalance do
 end

@@ -1,7 +1,7 @@
 require 'sshkit'
 require 'sshkit/dsl'
 
-module CryptiKit
+module LiskRake
   class Netssh
     attr_accessor :config
 

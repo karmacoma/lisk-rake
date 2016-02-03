@@ -1,4 +1,4 @@
 require 'block_status'
 
-RSpec.describe CryptiKit::BlockStatus do
+RSpec.describe LiskRake::BlockStatus do
 end

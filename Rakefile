@@ -23,7 +23,7 @@ end
 desc 'List configured servers'
 task :list_servers do
   run_locally do
-    manager = CryptiKit::ServerManager.new(self)
+    manager = LiskRake::ServerManager.new(self)
     manager.list
   end
 end
@@ -31,7 +31,7 @@ end
 desc 'Add servers to config'
 task :add_servers do
   run_locally do
-    manager = CryptiKit::ServerManager.new(self)
+    manager = LiskRake::ServerManager.new(self)
     manager.add
   end
   Rake::Task['list_servers'].invoke
@@ -40,7 +40,7 @@ end
 desc 'Edit servers within config'
 task :edit_servers do
   run_locally do
-    manager = CryptiKit::ServerManager.new(self)
+    manager = LiskRake::ServerManager.new(self)
     manager.edit
   end
   Rake::Task['list_servers'].invoke
@@ -49,7 +49,7 @@ end
 desc 'Remove servers from config'
 task :remove_servers do
   run_locally do
-    manager = CryptiKit::ServerManager.new(self)
+    manager = LiskRake::ServerManager.new(self)
     manager.remove
   end
   Rake::Task['list_servers'].invoke
@@ -61,7 +61,7 @@ task :add_key do
     deps.check_local('ssh', 'ssh-copy-id', 'ssh-keygen')
 
     run_locally do
-      manager = CryptiKit::KeyManager.new(self)
+      manager = LiskRake::KeyManager.new(self)
       manager.add(node.server)
     end
   end
@@ -73,7 +73,7 @@ task :log_into do
     deps.check_local('ssh')
 
     run_locally do
-      manager = CryptiKit::ServerManager.new(self)
+      manager = LiskRake::ServerManager.new(self)
       manager.log_into(node.server)
     end
   end
@@ -84,7 +84,7 @@ task :install_deps do
   puts 'Installing dependencies...'
 
   on_each_server do |node, deps|
-    installer = CryptiKit::ServerInstaller.new(self, node, deps)
+    installer = LiskRake::ServerInstaller.new(self, node, deps)
     installer.install
   end
 end
@@ -96,7 +96,7 @@ task :install_nodes do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'curl', 'unzip')
 
-    installer = CryptiKit::NodeInstaller.new(self, node)
+    installer = LiskRake::NodeInstaller.new(self, node)
     installer.install
   end
 end
@@ -114,7 +114,7 @@ task :uninstall_nodes do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'lisk')
 
-    installer = CryptiKit::NodeInstaller.new(self, node)
+    installer = LiskRake::NodeInstaller.new(self, node)
     installer.uninstall
   end
 end
@@ -126,7 +126,7 @@ task :clean_logs do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'lisk')
 
-    manager = CryptiKit::LogManager.new(self, node)
+    manager = LiskRake::LogManager.new(self, node)
     manager.clean
   end
 end
@@ -138,7 +138,7 @@ task :download_logs do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'lisk')
 
-    manager = CryptiKit::LogManager.new(self, node)
+    manager = LiskRake::LogManager.new(self, node)
     manager.download
   end
 end
@@ -150,7 +150,7 @@ task :start_nodes do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'lisk')
 
-    manager = CryptiKit::NodeManager.new(self, node)
+    manager = LiskRake::NodeManager.new(self, node)
     manager.start
   end
 end
@@ -162,7 +162,7 @@ task :restart_nodes do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'lisk')
 
-    manager = CryptiKit::NodeManager.new(self, node)
+    manager = LiskRake::NodeManager.new(self, node)
     manager.restart
   end
 end
@@ -174,7 +174,7 @@ task :rebuild_nodes do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'curl', 'lisk')
 
-    installer = CryptiKit::NodeInstaller.new(self, node)
+    installer = LiskRake::NodeInstaller.new(self, node)
     installer.rebuild
   end
 end
@@ -186,7 +186,7 @@ task :reinstall_nodes do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'curl', 'lisk')
 
-    installer = CryptiKit::NodeInstaller.new(self, node)
+    installer = LiskRake::NodeInstaller.new(self, node)
     installer.reinstall
   end
 end
@@ -198,7 +198,7 @@ task :stop_nodes do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'lisk')
 
-    manager = CryptiKit::NodeManager.new(self, node)
+    manager = LiskRake::NodeManager.new(self, node)
     manager.stop
   end
 end
@@ -210,7 +210,7 @@ task :start_forging do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'curl', 'lisk')
 
-    manager = CryptiKit::ForgingManager.new(self, node)
+    manager = LiskRake::ForgingManager.new(self, node)
     manager.start
   end
 
@@ -224,7 +224,7 @@ task :stop_forging do
   on_each_server do |node, deps|
     deps.check_remote('bash', 'curl', 'lisk')
 
-    manager = CryptiKit::ForgingManager.new(self, node)
+    manager = LiskRake::ForgingManager.new(self, node)
     manager.stop
   end
 
@@ -235,11 +235,11 @@ desc 'Check status of lisk nodes'
 task :check_nodes do
   puts 'Checking nodes...'
 
-  CryptiKit::Report.run do |report|
+  LiskRake::Report.run do |report|
     on_each_server do |node, deps|
       deps.check_remote('bash', 'curl', 'lisk')
 
-      api = CryptiKit::NodeInspector.new(self, node)
+      api = LiskRake::NodeInspector.new(self, node)
       api.node_status { |json| report[node.key] = json }
     end
   end
@@ -249,12 +249,12 @@ desc 'Withdraw funds from lisk nodes'
 task :withdraw_funds do
   puts 'Withdrawing funds...'
 
-  recipient = CryptiKit::Recipient.new
+  recipient = LiskRake::Recipient.new
   exit unless recipient.get_address
 
   on_each_server do |node, deps|
     deps.check_remote('bash', 'curl', 'lisk')
 
-    CryptiKit::Withdrawal.withdraw(self, node, recipient)
+    LiskRake::Withdrawal.withdraw(self, node, recipient)
   end
 end

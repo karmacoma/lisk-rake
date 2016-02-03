@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class Passphrase
     def initialize(passphrase)
       @passphrase = passphrase.to_s.strip

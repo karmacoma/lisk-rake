@@ -1,4 +1,4 @@
 require 'sudo_handler'
 
-RSpec.describe CryptiKit::SudoHandler do
+RSpec.describe LiskRake::SudoHandler do
 end

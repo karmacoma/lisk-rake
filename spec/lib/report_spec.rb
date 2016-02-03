@@ -1,4 +1,4 @@
 require 'report'
 
-RSpec.describe CryptiKit::Report do
+RSpec.describe LiskRake::Report do
 end

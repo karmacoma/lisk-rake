@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class LinuxInspector
     SUPPORTED_DISTS = /Debian|Ubuntu|Centos|Fedora|Redhat/i
 

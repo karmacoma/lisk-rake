@@ -1,4 +1,4 @@
 require 'forging_info'
 
-RSpec.describe CryptiKit::ForgingInfo do
+RSpec.describe LiskRake::ForgingInfo do
 end

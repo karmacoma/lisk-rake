@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class LoadingStatus
     def initialize(json)
       @json = json

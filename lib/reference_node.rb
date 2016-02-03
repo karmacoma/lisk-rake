@@ -2,7 +2,7 @@ require 'singleton'
 require 'net/http'
 require 'json'
 
-module CryptiKit
+module LiskRake
   class ReferenceNode
     include Singleton
 

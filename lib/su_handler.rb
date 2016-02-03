@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class SuHandler
     def on_data(command, stream_name, data, channel)
       case data

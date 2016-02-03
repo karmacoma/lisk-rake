@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ForgingManager
     def initialize(task, node)
       @task = task

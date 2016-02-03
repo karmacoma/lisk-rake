@@ -1,15 +1,15 @@
 ## Documentation
 
-### Installing CryptiKit
+### Installing LiskRake
 
 * Download the latest stable release:
 
-  [https://github.com/karmacoma/cryptikit/releases/latest](https://github.com/karmacoma/cryptikit/releases/latest)
+  [https://github.com/LiskHQ/lisk-rake/releases/latest](https://github.com/LiskHQ/lisk-rake/releases/latest)
 
 * Run the automated install script. Tested on Ubuntu 14.04 (LTS) and OS X El Capitan.
 
 ```
-cd cryptikit
+cd lisk-rake
 bash install.sh
 ```
 
@@ -18,18 +18,18 @@ bash install.sh
 
 ***
 
-### Updating CryptiKit
+### Updating LiskRake
 
 * To update an existing installation to the latest stable release:
 
 ```
-cd cryptikit
+cd lisk-rake
 bash update.sh
 ```
 
 > NOTES:
-> 1. The existing configuration file will be copied to: config.bak. CryptiKit will then copy any pre-configured servers and accounts over to the newly downloaded config.yml file.
-> 2. If you encounter any issues when updating from an older version of CryptiKit. Please try running ```rvm implode``` followed by entering ```yes```. Then execute ```. install.sh``` to perform a fresh installation (your CryptiKit configuration will be preserved).
+> 1. The existing configuration file will be copied to: config.bak. LiskRake will then copy any pre-configured servers and accounts over to the newly downloaded config.yml file.
+> 2. If you encounter any issues when updating from an older version of LiskRake. Please try running ```rvm implode``` followed by entering ```yes```. Then execute ```. install.sh``` to perform a fresh installation (your LiskRake configuration will be preserved).
 
 ***
 
@@ -78,7 +78,7 @@ rake add_key
 > NOTES:
 >
 > 1. You can skip this step, if you have already added your public ssh key when deploying your server.
-> 2. If you do not have a key yet, CryptiKit will prompt you to generate one.
+> 2. If you do not have a key yet, LiskRake will prompt you to generate one.
 > 3. On Digital Ocean, when logging in for the first time you may be prompted to change your password.
 
 ***
@@ -112,7 +112,7 @@ rake reinstall_nodes
 
 ### Forging
 
-Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, CryptiKit will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the lisk node using curl.
+Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, LiskRake will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the lisk node using curl.
 
 > NOTE:
 > You will need to register as a delegate before you can start forging. To earn fees, your delegate will need to receive enough votes to be ranked within the top 101 delegates.
@@ -146,7 +146,7 @@ Add passphrase to remote config? _____
 
 #### Multiple Delegates
 
-After each attempt, CryptiKit will ask if you want to enable another delegate until you specify otherwise. Thus allowing you to start forging for multiple delegates using one instance of the  ```rake start_forging``` command.
+After each attempt, LiskRake will ask if you want to enable another delegate until you specify otherwise. Thus allowing you to start forging for multiple delegates using one instance of the  ```rake start_forging``` command.
 
 > NOTE:
 > Forging can be stopped for multiple delegates in the same manner using the ```rake stop_forging``` command.
@@ -192,7 +192,7 @@ Balance:           13.00000001 0.0 (*)
 Unconfirmed:       13.00000001 0.0 (*)
 ```
 
-After running the ```check_nodes``` task. CryptiKit produces a detailed summary containing: the total nodes checked, report times, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes/delegates which are either currently loading, syncing, on standby, not forging or using an outdated version of lisk.
+After running the ```check_nodes``` task. LiskRake produces a detailed summary containing: the total nodes checked, report times, total forged, total balances, lowest / highest balances, followed by a breakdown of any nodes/delegates which are either currently loading, syncing, on standby, not forging or using an outdated version of lisk.
 
 Please see the below example:
 
@@ -274,7 +274,7 @@ $ rake reinstall_nodes servers=1,4
 
 #### Errors
 
-Any connection / authentication / dependency errors encountered while running the ```check_nodes``` task, are automatically recorded by CryptiKit and subsequently reported back to you at the end of the Report Summary.
+Any connection / authentication / dependency errors encountered while running the ```check_nodes``` task, are automatically recorded by LiskRake and subsequently reported back to you at the end of the Report Summary.
 
 ```
 --------------------------------------------------------------------------------
@@ -357,7 +357,7 @@ rake reb<tab> -> will expand to rake rebuild_nodes
 
 ### Targeting Servers
 
-* When no servers are specified, CryptiKit will prompt you to run the task on all servers.
+* When no servers are specified, LiskRake will prompt you to run the task on all servers.
 Answering y(es) will run the command on all servers. Answering n(o) will exit the current task.
 
 ```
@@ -403,7 +403,7 @@ The required steps are as follows:
 
 #### Recipient Address
 
-Upon executing the ```withdraw_funds``` task. CryptiKit will prompt you to enter the recipient address where you would like the funds to go to.
+Upon executing the ```withdraw_funds``` task. LiskRake will prompt you to enter the recipient address where you would like the funds to go to.
 
 For example:
 
@@ -414,7 +414,7 @@ Withdrawing funds...
 Please enter your recipient lisk address: _____
 ```
 
-When given an invalid address. CryptiKit will prompt you to try again:
+When given an invalid address. LiskRake will prompt you to try again:
 
 ```
 rake withdraw_funds servers=1..3 # Servers 1 to 3
@@ -432,7 +432,7 @@ rake withdraw_funds servers=1..3 recipient=4956977736153893179C # Servers 1 to 3
 
 #### Withdrawal Account
 
-As one or more accounts can be associated with any given node. When making a withdrawal, CryptiKit will present you with a list of accounts to choose from for the current node, like so:
+As one or more accounts can be associated with any given node. When making a withdrawal, LiskRake will present you with a list of accounts to choose from for the current node, like so:
 
 ```
 --------------------------------------------------------------------------------
@@ -447,7 +447,7 @@ Please choose an account [1-2]: _____
 
 #### Withdrawal Amount
 
-Once a valid recipient address has been specified. CryptiKit will present the current balance and maximum possible withdrawal, then prompt you to enter the desired amount to withdraw from the chosen account.
+Once a valid recipient address has been specified. LiskRake will present the current balance and maximum possible withdrawal, then prompt you to enter the desired amount to withdraw from the chosen account.
 
 ```
 INFO Checking account balance...
@@ -461,11 +461,11 @@ Enter withdrawal amount: _____
 
 #### Passphrases
 
-Before sending any funds, CryptiKit will prompt you to enter your primary passphrase. CryptiKit supports secondary passphrases, so if your account has one, CryptiKit will prompt you for that as well.
+Before sending any funds, LiskRake will prompt you to enter your primary passphrase. LiskRake supports secondary passphrases, so if your account has one, LiskRake will prompt you for that as well.
 
 #### Successful Transactions
 
-For each successful transaction, CryptiKit will output the fee, transaction id and total amount sent.
+For each successful transaction, LiskRake will output the fee, transaction id and total amount sent.
 
 ```
 INFO Withdrawing 1.0 XCR...
@@ -477,7 +477,7 @@ INFO ~> Total withdrawn: 1.0
 
 #### Error Handling
 
-If any errors are encountered during a transaction. For example an invalid passphrase, CryptiKit will handle the error and move onto the next selected server.
+If any errors are encountered during a transaction. For example an invalid passphrase, LiskRake will handle the error and move onto the next selected server.
 
 ```
 INFO Withdrawing 1.0 XCR...

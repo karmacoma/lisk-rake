@@ -1,4 +1,4 @@
 require 'server_chooser'
 
-RSpec.describe CryptiKit::ServerChooser do
+RSpec.describe LiskRake::ServerChooser do
 end

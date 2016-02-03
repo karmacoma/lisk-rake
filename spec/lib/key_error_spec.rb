@@ -1,4 +1,4 @@
 require 'key_error'
 
-RSpec.describe CryptiKit::KeyError do
+RSpec.describe LiskRake::KeyError do
 end

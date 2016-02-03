@@ -1,4 +1,4 @@
 require 'linux_installer'
 
-RSpec.describe CryptiKit::LinuxInstaller do
+RSpec.describe LiskRake::LinuxInstaller do
 end

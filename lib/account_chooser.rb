@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class AccountChooser
     def initialize(task, node)
       @task = task

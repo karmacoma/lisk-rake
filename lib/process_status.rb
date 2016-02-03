@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ProcessStatus
     def initialize(json)
       @json = json

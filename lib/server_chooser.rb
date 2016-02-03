@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ServerChooser
     def initialize(mode)
       @mode = mode

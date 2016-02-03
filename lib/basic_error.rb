@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class BasicError
     def initialize(task, exception)
       @task      = task

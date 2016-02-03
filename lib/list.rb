@@ -1,6 +1,6 @@
 require 'yaml'
 
-module CryptiKit
+module LiskRake
   class List
     def initialize
       @items = Core.config[self.class.key] || {}

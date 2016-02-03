@@ -1,4 +1,4 @@
 require 'log_manager'
 
-RSpec.describe CryptiKit::LogManager do
+RSpec.describe LiskRake::LogManager do
 end

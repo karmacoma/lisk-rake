@@ -1,6 +1,6 @@
 require 'stringio'
 
-module CryptiKit
+module LiskRake
   class ConfigUpdater
     def initialize(task, node, config)
       @task   = task

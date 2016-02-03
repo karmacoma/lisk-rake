@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class PassphraseCollector
     def passphrases
       @passphrases ||= {}

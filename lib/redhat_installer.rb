@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class RedhatInstaller
     PACKAGES = ['bash', 'curl', 'psmisc.x86_64', 'unzip']
 

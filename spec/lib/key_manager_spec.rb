@@ -1,4 +1,4 @@
 require 'key_manager'
 
-RSpec.describe CryptiKit::KeyManager do
+RSpec.describe LiskRake::KeyManager do
 end

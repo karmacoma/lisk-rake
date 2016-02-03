@@ -1,6 +1,6 @@
 require 'json'
 
-module CryptiKit
+module LiskRake
   class NodeInspector
     attr_reader :task, :node, :api
 

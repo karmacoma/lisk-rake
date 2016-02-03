@@ -1,6 +1,6 @@
 require 'basic_error'
 
-module CryptiKit
+module LiskRake
   class KeyError < BasicError
     @errors = {
       /Your password has expired/i    => :expired_password,

@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class Node
     attr_reader :server
 

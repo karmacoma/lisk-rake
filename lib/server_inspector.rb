@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ServerInspector
     SUPPORTED_PLATS = {
       'Darwin' => /x86_64/i,

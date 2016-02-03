@@ -2,7 +2,7 @@ require 'netssh'
 require 'singleton'
 require 'yaml'
 
-module CryptiKit
+module LiskRake
   class Core
     include Singleton
 

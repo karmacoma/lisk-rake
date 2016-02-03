@@ -1,4 +1,4 @@
 require 'dependency_manager'
 
-RSpec.describe CryptiKit::DependencyManager do
+RSpec.describe LiskRake::DependencyManager do
 end

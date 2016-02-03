@@ -1,4 +1,4 @@
 require 'recipient'
 
-RSpec.describe CryptiKit::Recipient do
+RSpec.describe LiskRake::Recipient do
 end

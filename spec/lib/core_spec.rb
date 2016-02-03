@@ -1,4 +1,4 @@
 require 'core'
 
-RSpec.describe CryptiKit::Core do
+RSpec.describe LiskRake::Core do
 end

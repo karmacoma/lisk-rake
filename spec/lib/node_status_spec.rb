@@ -1,4 +1,4 @@
 require 'node_status'
 
-RSpec.describe CryptiKit::NodeStatus do
+RSpec.describe LiskRake::NodeStatus do
 end

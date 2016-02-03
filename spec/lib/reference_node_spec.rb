@@ -1,4 +1,4 @@
 require 'reference_node'
 
-RSpec.describe CryptiKit::ReferenceNode do
+RSpec.describe LiskRake::ReferenceNode do
 end

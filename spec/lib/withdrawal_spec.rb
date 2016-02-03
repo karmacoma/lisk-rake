@@ -1,4 +1,4 @@
 require 'withdrawal'
 
-RSpec.describe CryptiKit::Withdrawal do
+RSpec.describe LiskRake::Withdrawal do
 end

@@ -64,7 +64,7 @@
 
 This release fixes some issues affecting certain systems.
 
-- Fixing uninitialized constant CryptiKit::BasicError after initial installation
+- Fixing uninitialized constant LiskRake::BasicError after initial installation
 - Fixing bash auto-completion where .profile exists instead of .bash_profile
 
 ***
@@ -88,24 +88,24 @@ This release fixes some issues affecting certain systems.
 
 #### Multiple Delegates
 
-CryptiKit now supports running multiple delegates on one node.
+LiskRake now supports running multiple delegates on one node.
 
 For more information, please read:
-[https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#multiple-delegates](https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#multiple-delegates)
+[https://github.com/LiskHQ/lisk-rake/blob/v2.0.0/README.md#multiple-delegates](https://github.com/LiskHQ/lisk-rake/blob/v2.0.0/README.md#multiple-delegates)
 
 #### Delegate Status
 
 Delegate names, productivity and ranking are now shown when running the ```check_nodes``` task.
 
 For more information, please read:
-[https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#checking-nodes](https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#checking-nodes)
+[https://github.com/LiskHQ/lisk-rake/blob/v2.0.0/README.md#checking-nodes](https://github.com/LiskHQ/lisk-rake/blob/v2.0.0/README.md#checking-nodes)
 
 #### Withdrawals
 
 The ```withdraw_surplus``` task has now been reimplemented as ```withdraw_funds```.
 
 For more information, please read:
-[https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#withdrawals](https://github.com/karmacoma/cryptikit/blob/v2.0.0/README.md#withdrawals)
+[https://github.com/LiskHQ/lisk-rake/blob/v2.0.0/README.md#withdrawals](https://github.com/LiskHQ/lisk-rake/blob/v2.0.0/README.md#withdrawals)
 
 ***
 
@@ -121,15 +121,15 @@ For more information, please read:
 
 Now automatically reports outdated nodes with helpful instructions on how to upgrade.
 
-> NOTE: The latest version is determined by sampling the first 100 peers found on the network. This sample data is taken by a designated reference node, as defined within the CryptiKit configuration file.
+> NOTE: The latest version is determined by sampling the first 100 peers found on the network. This sample data is taken by a designated reference node, as defined within the LiskRake configuration file.
 
 For more information, please read:
 
-[https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md#checking-nodes](https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md#checking-nodes)
+[https://github.com/LiskHQ/lisk-rake/blob/v1.9.0/README.md#checking-nodes](https://github.com/LiskHQ/lisk-rake/blob/v1.9.0/README.md#checking-nodes)
 
 - Replacing lisk download url
 
-Now automatically points to latest API compatible lisk version. Removing the need for CryptiKit to track every lisk release.
+Now automatically points to latest API compatible lisk version. Removing the need for LiskRake to track every lisk release.
 
 - Replacing blockchain download url
 
@@ -139,7 +139,7 @@ Now points to a more regularly updated blockchain snapshot.
 
 Documentation should now be more straight forward for any newcomers.
 
-Please read: [https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md](https://github.com/karmacoma/cryptikit/blob/v1.9.0/README.md)
+Please read: [https://github.com/LiskHQ/lisk-rake/blob/v1.9.0/README.md](https://github.com/LiskHQ/lisk-rake/blob/v1.9.0/README.md)
 
 ***
 
@@ -249,7 +249,7 @@ This update coincides with the release of Lisk 0.1.9. In addition to the mandato
 
 ### 2014-12-15 (1.7.3)
 
-This update coincides with the release of Lisk 0.1.8. The latest version of Lisk adds some welcome stability, quicker load times and more responsive node queries; which all contribute to making node deployment using CryptiKit a more pleasant experience.
+This update coincides with the release of Lisk 0.1.8. The latest version of Lisk adds some welcome stability, quicker load times and more responsive node queries; which all contribute to making node deployment using LiskRake a more pleasant experience.
 
 #### Updates
 
@@ -320,13 +320,13 @@ This update coincides with the release of Lisk 0.1.8. The latest version of Lisk
 
 - Adding automatic detection of remote server architecture and operating system to the ```install_deps``` task
 
-Instead of specifying your target operating system globally like so:  ```rake install_deps os=ubuntu```. You can now simply execute: ```rake install_deps```. After automatically detecting whether a server has a supported architecture and operating system, CryptiKit will then proceed to install the relevant dependencies for the given operating system.
+Instead of specifying your target operating system globally like so:  ```rake install_deps os=ubuntu```. You can now simply execute: ```rake install_deps```. After automatically detecting whether a server has a supported architecture and operating system, LiskRake will then proceed to install the relevant dependencies for the given operating system.
 
 > NOTE: The above changes also apply to the ```rake install_all``` command, which merely executes the ```install_deps``` and ```install_nodes``` commands sequentially using one convenient command.
 
 Unsupported architectures and operating systems will raise an error. For a list of supported hosts and operating systems please see:
 
-[https://github.com/karmacoma/cryptikit/blob/v1.7.1/README.md#supported-hosts](https://github.com/karmacoma/cryptikit/blob/v1.7.1/README.md#supported-hosts)
+[https://github.com/LiskHQ/lisk-rake/blob/v1.7.1/README.md#supported-hosts](https://github.com/LiskHQ/lisk-rake/blob/v1.7.1/README.md#supported-hosts)
 
 - Adding automatic removal of ssh fingerprints from the ~/.ssh/known_hosts file after deleting a server using the ```remove_servers``` task
 
@@ -337,19 +337,19 @@ Unsupported architectures and operating systems will raise an error. For a list 
 - Adding support for deployment to CentOS and Fedora operating systems
 
 For usage instructions please see:
-[https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#typical-usage](https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#typical-usage)
+[https://github.com/LiskHQ/lisk-rake/blob/v1.7.0/README.md#typical-usage](https://github.com/LiskHQ/lisk-rake/blob/v1.7.0/README.md#typical-usage)
 
 For available operating systems for each supported host please see:
-[https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#supported-hosts](https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#supported-hosts)
+[https://github.com/LiskHQ/lisk-rake/blob/v1.7.0/README.md#supported-hosts](https://github.com/LiskHQ/lisk-rake/blob/v1.7.0/README.md#supported-hosts)
 
 - Implementing workaround for slow ```check_nodes``` task
 
 Forging status is now checked separately from mining info; Allowing slow /api/getMiningInfo requests to be optionally avoided. Mining info can therefore be disabled permanently through config.yml or optionally at runtime from the command line.
 
 For more information please see:
-[https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#mining-info](https://github.com/karmacoma/cryptikit/blob/v1.7.0/README.md#mining-info)
+[https://github.com/LiskHQ/lisk-rake/blob/v1.7.0/README.md#mining-info](https://github.com/LiskHQ/lisk-rake/blob/v1.7.0/README.md#mining-info)
 
-- Downloading zip files to static file names; Allowing app and blockchain urls to be more easily customised without breaking CryptiKit
+- Downloading zip files to static file names; Allowing app and blockchain urls to be more easily customised without breaking LiskRake
 
 Example config.yml with customised URLs hosted on Dropbox:
 
@@ -367,13 +367,13 @@ blockchain_url: https://www.dropbox.com/s/rbkx0rtvhp4xxbe/blockchain.db.zip?dl=0
 - Downloading GPG public key before installing or updating rvm
 
 For more information regarding supported hosts see:
-[https://github.com/karmacoma/cryptikit/blob/v1.6.5/README.md#supported-hosts](https://github.com/karmacoma/cryptikit/blob/v1.6.5/README.md#supported-hosts)
+[https://github.com/LiskHQ/lisk-rake/blob/v1.6.5/README.md#supported-hosts](https://github.com/LiskHQ/lisk-rake/blob/v1.6.5/README.md#supported-hosts)
 
 ***
 
 ### 2014-11-25 (1.6.4)
 
-- Copying rather than moving config.yml when updating CryptiKit
+- Copying rather than moving config.yml when updating LiskRake
 - Escaping forward slash character when saving passphrase to config.json
 - Adding connection and operation timeouts to curl requests
   - 30 seconds until connection to lisk node times out
@@ -389,7 +389,7 @@ For more information regarding supported hosts see:
 - Stating more clearly when forging has been successfully enabled or disabled
 
 For more information see:
-[https://github.com/karmacoma/cryptikit/blob/v1.6.3/README.md#typical-usage](https://github.com/karmacoma/cryptikit/blob/v1.6.3/README.md#typical-usage)
+[https://github.com/LiskHQ/lisk-rake/blob/v1.6.3/README.md#typical-usage](https://github.com/LiskHQ/lisk-rake/blob/v1.6.3/README.md#typical-usage)
 
 ***
 
@@ -419,7 +419,7 @@ Fixed some issues I encountered when running the ```check_nodes``` task.
 The ```withdraw_surplus``` task withdraws any surplus balance above the minimum 1000 XCR required to start forging, to a designated lisk account.
 
 Instructions for this new task are available here:
-[https://github.com/karmacoma/cryptikit/blob/v1.6.0/README.md#surplus-withdrawals](https://github.com/karmacoma/cryptikit/blob/v1.6.0/README.md#surplus-withdrawals)
+[https://github.com/LiskHQ/lisk-rake/blob/v1.6.0/README.md#surplus-withdrawals](https://github.com/LiskHQ/lisk-rake/blob/v1.6.0/README.md#surplus-withdrawals)
 
 ***
 
@@ -543,7 +543,7 @@ ruby bin/completer.rb --re-enable
 
 - Added ```list_servers``` task
 - Added ```add_servers``` / ```remove_servers``` tasks
-- Added automated update script to get the latest CryptiKit release
+- Added automated update script to get the latest LiskRake release
 
 ***
 
@@ -557,7 +557,7 @@ ruby bin/completer.rb --re-enable
 
 ### 2014-09-13
 
-- Added automated install script to ease installation of CryptiKit
+- Added automated install script to ease installation of LiskRake
 - Added ability to target individual servers with each command
 - Added ```add_key``` task to upload public ssh key to each server
 - Added ```restart_nodes``` task

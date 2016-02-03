@@ -1,4 +1,4 @@
 require 'curl_error'
 
-RSpec.describe CryptiKit::CurlError do
+RSpec.describe LiskRake::CurlError do
 end

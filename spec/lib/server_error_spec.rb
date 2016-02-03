@@ -1,4 +1,4 @@
 require 'server_error'
 
-RSpec.describe CryptiKit::ServerError do
+RSpec.describe LiskRake::ServerError do
 end

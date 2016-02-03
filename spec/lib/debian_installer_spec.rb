@@ -1,4 +1,4 @@
 require 'debian_installer'
 
-RSpec.describe CryptiKit::DebianInstaller do
+RSpec.describe LiskRake::DebianInstaller do
 end

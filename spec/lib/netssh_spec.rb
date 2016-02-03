@@ -1,4 +1,4 @@
 require 'netssh'
 
-RSpec.describe CryptiKit::Netssh do
+RSpec.describe LiskRake::Netssh do
 end

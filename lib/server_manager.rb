@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ServerManager
     def initialize(task)
       @task = task

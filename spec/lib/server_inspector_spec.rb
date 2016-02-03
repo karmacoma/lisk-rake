@@ -1,4 +1,4 @@
 require 'server_inspector'
 
-RSpec.describe CryptiKit::ServerInspector do
+RSpec.describe LiskRake::ServerInspector do
 end

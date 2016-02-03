@@ -1,4 +1,4 @@
 require 'list'
 
-RSpec.describe CryptiKit::List do
+RSpec.describe LiskRake::List do
 end

@@ -1,7 +1,7 @@
 require 'json'
 require 'uri'
 
-module CryptiKit
+module LiskRake
   class Curl
     def initialize(task)
       @task = task

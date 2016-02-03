@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class AccountList
     def initialize(node)
       @node  = node

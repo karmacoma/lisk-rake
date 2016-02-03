@@ -1,4 +1,4 @@
 require 'basic_error'
 
-RSpec.describe CryptiKit::BasicError do
+RSpec.describe LiskRake::BasicError do
 end

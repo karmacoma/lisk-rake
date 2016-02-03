@@ -1,4 +1,4 @@
 require 'su_handler'
 
-RSpec.describe CryptiKit::SuHandler do
+RSpec.describe LiskRake::SuHandler do
 end

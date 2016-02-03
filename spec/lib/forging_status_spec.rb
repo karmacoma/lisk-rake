@@ -1,4 +1,4 @@
 require 'forging_status'
 
-RSpec.describe CryptiKit::ForgingStatus do
+RSpec.describe LiskRake::ForgingStatus do
 end

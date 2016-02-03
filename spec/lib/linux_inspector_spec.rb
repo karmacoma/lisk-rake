@@ -1,4 +1,4 @@
 require 'linux_inspector'
 
-RSpec.describe CryptiKit::LinuxInspector do
+RSpec.describe LiskRake::LinuxInspector do
 end

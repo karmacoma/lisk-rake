@@ -1,4 +1,4 @@
 require 'config_inspector'
 
-RSpec.describe CryptiKit::ConfigInspector do
+RSpec.describe LiskRake::ConfigInspector do
 end

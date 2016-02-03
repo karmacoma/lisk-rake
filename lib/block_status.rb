@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class BlockStatus
     def initialize(json)
       @json = json

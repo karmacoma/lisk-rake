@@ -1,4 +1,4 @@
 require 'config_updater'
 
-RSpec.describe CryptiKit::ConfigUpdater do
+RSpec.describe LiskRake::ConfigUpdater do
 end

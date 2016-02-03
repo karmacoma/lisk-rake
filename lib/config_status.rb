@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ConfigStatus
     def initialize(json)
       @json = json

@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class NodeInstaller
     def initialize(task, node)
       @task    = task
@@ -16,8 +16,8 @@ module CryptiKit
         remove_accounts
         make_deploy_path
         @task.within @node.deploy_path do
-          download_crypti
-          install_crypti
+          download_lisk
+          install_lisk
         end
         @manager.start(true)
       end
@@ -45,8 +45,8 @@ module CryptiKit
         ConfigMigrator.migrate(@task, @node) do
           remove_lisk_path
           @task.within @node.deploy_path do
-            download_crypti
-            install_crypti
+            download_lisk
+            install_lisk
           end
         end
         @manager.start(true)
@@ -98,12 +98,12 @@ module CryptiKit
       @zip_file ||= "#{app_path}.zip"
     end
 
-    def download_crypti
+    def download_lisk
       @task.info 'Downloading lisk...'
       @task.execute 'curl', '-o', zip_file, app_url
     end
 
-    def install_crypti
+    def install_lisk
       @task.info 'Installing lisk...'
       @task.execute 'unzip', '-u', zip_file
       @task.execute 'mv', '-f', '$(ls -d * | head -1)', @node.lisk_path

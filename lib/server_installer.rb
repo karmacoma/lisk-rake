@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ServerInstaller
     def initialize(task, node, deps)
       @task = task
@@ -11,7 +11,7 @@ module CryptiKit
       insp.detect
 
       begin
-        installer = Kernel.const_get("CryptiKit::#{insp.os}Installer").new(@task, @node, @deps)
+        installer = Kernel.const_get("LiskRake::#{insp.os}Installer").new(@task, @node, @deps)
       rescue NameError
         raise 'Unimplemented installation method.'
       end

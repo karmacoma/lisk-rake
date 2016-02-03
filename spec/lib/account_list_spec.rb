@@ -1,4 +1,4 @@
 require 'account_list'
 
-RSpec.describe CryptiKit::AccountList do
+RSpec.describe LiskRake::AccountList do
 end

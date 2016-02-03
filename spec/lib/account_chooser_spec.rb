@@ -1,4 +1,4 @@
 require 'account_chooser'
 
-RSpec.describe CryptiKit::AccountChooser do
+RSpec.describe LiskRake::AccountChooser do
 end

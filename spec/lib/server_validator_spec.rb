@@ -1,4 +1,4 @@
 require 'server_validator'
 
-RSpec.describe CryptiKit::ServerValidator do
+RSpec.describe LiskRake::ServerValidator do
 end

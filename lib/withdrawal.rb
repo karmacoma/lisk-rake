@@ -1,6 +1,6 @@
 require 'bigdecimal'
 
-module CryptiKit
+module LiskRake
   class Withdrawal
     attr_reader :account, :recipient
 

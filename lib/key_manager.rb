@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class KeyManager
     def initialize(task)
       @task = task

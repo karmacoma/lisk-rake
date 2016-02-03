@@ -12,7 +12,7 @@ echo "--------------------------------------------------------------------------
 
 . "bin/recv-keys.sh"
 
-echo "Updating cryptikit..."
+echo "Updating lisk-rake..."
 echo "-------------------------------------------------------------------------------"
 
 mkdir -p tmp
@@ -23,14 +23,14 @@ if ! command -v curl >/dev/null 2>&1 ; then
   echo "Could not find curl. Please install 'curl' and try again."
   exit
 else
-  curl -L -o cryptikit.tar.gz https://github.com/karmacoma/cryptikit/tarball/master
+  curl -L -o lisk-rake.tar.gz https://github.com/LiskHQ/lisk-rake/tarball/master
 fi
 
 if ! command -v tar >/dev/null 2>&1 ; then
   echo "Could not find tar. Please install 'tar' and try again."
   exit
 else
-  tar -zxvf cryptikit.tar.gz --strip 1
+  tar -zxvf lisk-rake.tar.gz --strip 1
 fi
 
 if [ -f ./config.bak ] && [ -f ../config.bak ]; then
@@ -48,12 +48,12 @@ cd ..
 echo "Updating configuraton..."
 echo "-------------------------------------------------------------------------------"
 
-rvm cryptikit-ruby@cryptikit do ruby "bin/update_config.rb"
+rvm lisk-rake-ruby@lisk-rake do ruby "bin/update_config.rb"
 
 echo "Cleaning up..."
 echo "-------------------------------------------------------------------------------"
 
-rm -rf cryptikit.tar.gz tmp
+rm -rf lisk-rake.tar.gz tmp
 
 echo "Done."
 echo "-------------------------------------------------------------------------------"

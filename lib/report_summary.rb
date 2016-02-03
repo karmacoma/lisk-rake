@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ReportSummary
     def initialize(report, cache)
       @report = report

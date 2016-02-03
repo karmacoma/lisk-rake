@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class DebianInstaller
     PACKAGES = ['bash', 'curl', 'unzip']
 

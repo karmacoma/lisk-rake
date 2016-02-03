@@ -1,4 +1,4 @@
 require 'curl'
 
-RSpec.describe CryptiKit::Curl do
+RSpec.describe LiskRake::Curl do
 end

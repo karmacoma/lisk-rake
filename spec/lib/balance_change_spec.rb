@@ -1,4 +1,4 @@
 require 'balance_change'
 
-RSpec.describe CryptiKit::BalanceChange do
+RSpec.describe LiskRake::BalanceChange do
 end

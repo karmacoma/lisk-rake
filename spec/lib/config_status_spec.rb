@@ -1,4 +1,4 @@
 require 'config_status'
 
-RSpec.describe CryptiKit::ConfigStatus do
+RSpec.describe LiskRake::ConfigStatus do
 end

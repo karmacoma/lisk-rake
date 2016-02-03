@@ -1,4 +1,4 @@
 require 'dsl'
 
-RSpec.describe CryptiKit::DSL do
+RSpec.describe LiskRake::DSL do
 end

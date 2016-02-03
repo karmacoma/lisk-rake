@@ -1,4 +1,4 @@
 require 'loading_status'
 
-RSpec.describe CryptiKit::LoadingStatus do
+RSpec.describe LiskRake::LoadingStatus do
 end

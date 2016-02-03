@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class DarwinInstaller
     def initialize(task, node, deps)
       @task = task

@@ -1,4 +1,4 @@
 require 'sync_status'
 
-RSpec.describe CryptiKit::SyncStatus do
+RSpec.describe LiskRake::SyncStatus do
 end

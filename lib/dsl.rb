@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   module DSL
     def on_node(server, &block)
       begin
@@ -34,4 +34,4 @@ module CryptiKit
   end
 end
 
-include CryptiKit::DSL
+include LiskRake::DSL

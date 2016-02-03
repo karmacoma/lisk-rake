@@ -1,6 +1,6 @@
 require 'basic_error'
 
-module CryptiKit
+module LiskRake
   class CurlError < BasicError
     @errors = {
       /curl exit status: 7/i  => '=> Connection failed.',

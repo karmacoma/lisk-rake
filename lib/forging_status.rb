@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class ForgingStatus
     def initialize(json)
       @json = json

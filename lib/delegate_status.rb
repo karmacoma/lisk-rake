@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class DelegateStatus
     def initialize(json)
       @index = json['index']

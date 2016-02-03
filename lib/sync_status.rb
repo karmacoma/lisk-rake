@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class SyncStatus
     def initialize(json)
       @json = json

@@ -1,4 +1,4 @@
 require 'node'
 
-RSpec.describe CryptiKit::Node do
+RSpec.describe LiskRake::Node do
 end

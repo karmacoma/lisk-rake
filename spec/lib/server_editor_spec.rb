@@ -1,4 +1,4 @@
 require 'server_editor'
 
-RSpec.describe CryptiKit::ServerEditor do
+RSpec.describe LiskRake::ServerEditor do
 end

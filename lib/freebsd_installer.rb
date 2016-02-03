@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class FreeBSDInstaller
     PACKAGES = ['bash', 'curl', 'unzip']
 

@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class Report
     def initialize
       @nodes = {}

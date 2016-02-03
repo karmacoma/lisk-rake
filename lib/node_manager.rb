@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class NodeManager
     def initialize(task, node)
       @task = task

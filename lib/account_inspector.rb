@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class AccountInspector
     def initialize(inspector, node)
       @inspector = inspector

@@ -1,4 +1,4 @@
 require 'node_manager'
 
-RSpec.describe CryptiKit::NodeManager do
+RSpec.describe LiskRake::NodeManager do
 end

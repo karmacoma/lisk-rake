@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class AccountBalance
     def initialize(json, cache)
       @json  = json

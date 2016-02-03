@@ -1,7 +1,7 @@
 require 'singleton'
 require 'sshkit'
 
-module CryptiKit
+module LiskRake
   class Color
     include Singleton
 

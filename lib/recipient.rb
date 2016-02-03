@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class Recipient
     attr_reader :address
 

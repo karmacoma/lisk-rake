@@ -1,6 +1,6 @@
 require 'list'
 
-module CryptiKit
+module LiskRake
   class ServerList < List
     @key          = 'servers'
     @key_regexp   = List.key_regexp
@@ -31,7 +31,7 @@ module CryptiKit
           'user'        => Core.deploy_user,
           'port'        => Core.deploy_port,
           'deploy_path' => Core.deploy_path,
-          'lisk_path' => Core.lisk_path,
+          'lisk_path'   => Core.lisk_path,
           'accounts'    => [] }
       end
     end

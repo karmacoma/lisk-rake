@@ -1,4 +1,4 @@
 require 'node_inspector'
 
-RSpec.describe CryptiKit::NodeInspector do
+RSpec.describe LiskRake::NodeInspector do
 end

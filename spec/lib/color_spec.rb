@@ -1,4 +1,4 @@
 require 'color'
 
-RSpec.describe CryptiKit::Color do
+RSpec.describe LiskRake::Color do
 end

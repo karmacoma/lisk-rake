@@ -1,4 +1,4 @@
-module CryptiKit
+module LiskRake
   class BalanceChange
     def initialize(cur, pre)
       @cur = to_xcr(cur)

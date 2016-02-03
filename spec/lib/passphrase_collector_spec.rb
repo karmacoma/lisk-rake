@@ -1,4 +1,4 @@
 require 'passphrase_collector'
 
-RSpec.describe CryptiKit::PassphraseCollector do
+RSpec.describe LiskRake::PassphraseCollector do
 end

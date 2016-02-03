@@ -1,4 +1,4 @@
 require 'redhat_installer'
 
-RSpec.describe CryptiKit::RedhatInstaller do
+RSpec.describe LiskRake::RedhatInstaller do
 end
