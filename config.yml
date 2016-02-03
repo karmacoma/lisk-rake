@@ -4,7 +4,7 @@ deploy_port: 22
 deploy_key: "$HOME/.ssh/id_rsa.pub"
 deploy_path: "$HOME/lisk"
 lisk_path: "/install"
-reference_node: 83.136.253.66
+reference_node: 83.136.249.126
 download_url: https://downloads.lisk.io/
 genesis: 1425859200
 environment: live
