@@ -1,5 +1,7 @@
 # Lisk Rake
 
+Lisk Rake is a node deployment and management tool for [Lisk](https://lisk.io/). It provides a command-line interface from which delegates can manage nodes remotely from a local machine, allowing delegates to seamlessly install, upgrade and monitor their nodes, securely and efficiently, using just a few simple commands.
+
 ## Installation
 
   [https://github.com/LiskHQ/lisk-rake/releases/latest](https://github.com/LiskHQ/lisk-rake/releases/latest)
@@ -484,7 +486,7 @@ ERROR => Error: Provide secret key.
 
 ***
 
-## Author
+## Authors
 
 - Olivier Beddows <olivier@lisk.io>
 
