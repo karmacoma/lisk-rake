@@ -111,7 +111,7 @@ rake reinstall_nodes
 Forging is controlled using the commands: ```rake start_forging``` and ```rake stop_forging```. When executing these commands, LiskRake will prompt you for the secret passphrase of each node. Each passphrase is sent over the existing SSH tunnel and then submitted locally to the lisk node using curl.
 
 > NOTE:
-> You will need to register as a delegate before you can start forging. To earn fees, your delegate will need to receive enough votes to be ranked within the top 101 delegates.
+> You will need to register as a delegate before you can start forging. To earn LISK, your delegate will need to receive enough votes to be ranked within the top 101 delegates.
 
 To start forging, simply run the following command:
 
