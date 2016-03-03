@@ -502,7 +502,7 @@ ERROR => Error: Provide secret key.
 
 ## Authors
 
-- Olivier Beddows <olivier@lisk.io>
+- Oliver Beddows <oliver@lisk.io>
 
 ***
 
