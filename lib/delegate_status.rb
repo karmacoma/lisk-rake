@@ -14,12 +14,24 @@ module LiskRake
       [sprintf("%-19s", 'Productivity:'), @json['productivity'].to_f, '%', "\n"]
     end
 
+    def producedBlocks
+      [sprintf("%-19s", 'Produced blocks:'), @json['producedblocks'].to_i, "\n"]
+    end
+
+    def missedBlocks
+      [sprintf("%-19s", 'Missed blocks:'), @json['missedblocks'].to_i, "\n"]
+    end
+
     def rank
       [sprintf("%-19s", 'Rank:'), @rate, "\n"]
     end
 
+    def approval
+      [sprintf("%-19s", 'Approval:'), @json['approval'].to_f, '%', "\n"]
+    end
+
     def to_s
-      [delegate, productivity, rank].join.to_s
+      [delegate, productivity, producedBlocks, missedBlocks, rank, approval].join.to_s
     end
 
     private
